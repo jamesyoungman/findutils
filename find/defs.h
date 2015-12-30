@@ -256,8 +256,7 @@ struct predicate
   /* Pointer to the function that implements this predicate.  */
   PRED_FUNC pred_func;
 
-  /* Only used for debugging, but defined unconditionally so individual
-     modules can be compiled with -DDEBUG.  */
+  /* Used for debugging */
   const char *p_name;
 
   /* The type of this node.  There are two kinds.  The first is real
@@ -532,7 +531,8 @@ enum DebugOption
     DebugTreeOpt          = 1 << 3,
     DebugHelp             = 1 << 4,
     DebugExec             = 1 << 5,
-    DebugSuccessRates     = 1 << 6
+    DebugSuccessRates     = 1 << 6,
+    DebugTime             = 1 << 7
   };
 
 struct options

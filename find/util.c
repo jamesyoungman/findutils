@@ -73,7 +73,8 @@ static struct debug_option_assoc debugassoc[] =
     { "stat", DebugStat, "Trace calls to stat(2) and lstat(2)" },
     { "rates", DebugSuccessRates, "Indicate how often each predicate succeeded" },
     { "opt",  DebugExpressionTree|DebugTreeOpt, "Show diagnostic information relating to optimisation" },
-    { "exec", DebugExec,  "Show diagnostic information relating to -exec, -execdir, -ok and -okdir" }
+    { "exec", DebugExec,  "Show diagnostic information relating to -exec, -execdir, -ok and -okdir" },
+    { "time", DebugTime,  "Show diagnostic information relating to time-of-day and timestamp comparisons" }
   };
 #define N_DEBUGASSOC (sizeof(debugassoc)/sizeof(debugassoc[0]))
 

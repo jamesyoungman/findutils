@@ -701,9 +701,9 @@ main (int argc, char **argv)
   if (options.debug_options & DebugStat)
     options.xstat = debug_stat;
 
-#ifdef DEBUG
-  fprintf (stderr, "cur_day_start = %s", ctime (&options.cur_day_start));
-#endif /* DEBUG */
+
+  if (options.debug_options & DebugTime)
+    fprintf (stderr, "cur_day_start = %s", ctime (&options.cur_day_start));
 
 
   /* We are now processing the part of the "find" command line

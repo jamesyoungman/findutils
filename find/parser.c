@@ -2590,10 +2590,6 @@ parse_version (const struct parser_table* entry, char **argv, int *arg_ptr)
   printf ("CACHE_IDS(ignored) ");
   has_features = true;
 #endif
-#if DEBUG
-  printf ("DEBUG ");
-  has_features = true;
-#endif
 #if defined HAVE_STRUCT_DIRENT_D_TYPE
   printf ("D_TYPE ");
   has_features = true;

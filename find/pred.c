@@ -76,7 +76,6 @@
 
 static bool match_lname (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr, bool ignore_case);
 
-#ifdef	DEBUG
 struct pred_assoc
 {
   PRED_FUNC pred_func;
@@ -145,7 +144,6 @@ struct pred_assoc pred_table[] =
   {pred_context, "context"},
   {0, "none    "}
 };
-#endif
 
 /* Returns ts1 - ts2 */
 static double ts_difference (struct timespec ts1,

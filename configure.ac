@@ -15,10 +15,6 @@ AC_SUBST(AUXDIR,$ac_aux_dir)
 dnl check for --with-fts
 FIND_WITH_FTS
 
-AC_ARG_ENABLE(debug,
-	AS_HELP_STRING(--enable-debug,Enable debugging output which is likely to be interesting to people debugging findutils),
-	[ac_cv_debug=$enableval],[ac_cv_debug=no])
-
 AC_ARG_ENABLE(leaf-optimisation,
 	AS_HELP_STRING(--enable-leaf-optimisation,Enable an optimisation which saves lstat calls to identify subdirectories on filesystems having traditional Unix semantics),
 	[ac_cv_leaf_optimisation=$enableval],[ac_cv_leaf_optimisation=yes])
@@ -34,14 +30,6 @@ AC_ARG_ENABLE(d_type-optimisation,
 	AS_HELP_STRING(--enable-d_type-optimisation,Synonym for --enable-d_type-optimization),
 	[ac_cv_d_type=$enableval],[])
 
-
-AC_MSG_CHECKING([whether debug output should be produced])
-if test x$ac_cv_debug = xno; then
-   AC_MSG_RESULT([no])
-else
-   AC_MSG_RESULT([yes])
-   AC_DEFINE([DEBUG], 1, [Define if you want to see find's innards])
-fi
 
 AC_MSG_CHECKING([for leaf optimisation])
 if test x$ac_cv_leaf_optimisation = xno; then

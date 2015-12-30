@@ -226,9 +226,8 @@ main (int argc, char **argv)
   if (options.debug_options & DebugStat)
     options.xstat = debug_stat;
 
-#ifdef DEBUG
-  fprintf (stderr, "cur_day_start = %s", ctime (&options.cur_day_start));
-#endif /* DEBUG */
+  if (options.debug_options & DebugTime)
+    fprintf (stderr, "cur_day_start = %s", ctime (&options.cur_day_start));
 
   /* state.cwd_dir_fd has to be initialized before we call build_expression_tree ()
    * because command-line parsing may lead us to stat some files.
