@@ -344,10 +344,11 @@ fallback_getfilecon (int fd, const char *name, security_context_t *p,
     {
       case ENOENT:
       case ENOTDIR:
-#ifdef DEBUG_STAT
-	fprintf (stderr, "fallback_getfilecon(): getfilecon(%s) failed; falling "
-			"back on lgetfilecon()\n", name);
-#endif
+	if (options.debug_options & DebugStat)
+	  {
+	    fprintf (stderr, "fallback_getfilecon(): getfilecon(%s) failed; falling "
+		     "back on lgetfilecon()\n", name);
+	  }
 	return lgetfileconat (fd, name, p);
 
       case EACCES:
@@ -2591,10 +2592,6 @@ parse_version (const struct parser_table* entry, char **argv, int *arg_ptr)
 #endif
 #if DEBUG
   printf ("DEBUG ");
-  has_features = true;
-#endif
-#if DEBUG_STAT
-  printf ("DEBUG_STAT ");
   has_features = true;
 #endif
 #if defined HAVE_STRUCT_DIRENT_D_TYPE

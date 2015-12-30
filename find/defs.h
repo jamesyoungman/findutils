@@ -526,13 +526,13 @@ bool looks_like_expression (const char *arg, bool leading);
 enum DebugOption
   {
     DebugNone             = 0,
-    DebugExpressionTree   = 1,
-    DebugStat             = 2,
-    DebugSearch           = 4,
-    DebugTreeOpt          = 8,
-    DebugHelp             = 16,
-    DebugExec             = 32,
-    DebugSuccessRates     = 64
+    DebugExpressionTree   = 1 << 0,
+    DebugStat             = 1 << 1,
+    DebugSearch           = 1 << 2,
+    DebugTreeOpt          = 1 << 3,
+    DebugHelp             = 1 << 4,
+    DebugExec             = 1 << 5,
+    DebugSuccessRates     = 1 << 6
   };
 
 struct options

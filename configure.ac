@@ -41,7 +41,6 @@ if test x$ac_cv_debug = xno; then
 else
    AC_MSG_RESULT([yes])
    AC_DEFINE([DEBUG], 1, [Define if you want to see find's innards])
-   AC_DEFINE([DEBUG_STAT], 1, [Define if you want to see a message every time find calls the stat() system call])
 fi
 
 AC_MSG_CHECKING([for leaf optimisation])
