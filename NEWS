@@ -6,6 +6,11 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 Updated the Hungarian and Slovak translations.
 
+** Changes to find
+
+The configure option --enable-id-cache has been removed.  It has been
+a no-op since findnutils-4.5.15.
+
 * Major changes in release 4.6.0, 2015-12-28
 
 ** Stable Release

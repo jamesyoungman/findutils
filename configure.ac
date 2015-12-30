@@ -15,9 +15,6 @@ AC_SUBST(AUXDIR,$ac_aux_dir)
 dnl check for --with-fts
 FIND_WITH_FTS
 
-AC_ARG_ENABLE(id-cache,
-[  --enable-id-cache       This currently has no effect.],)
-
 AC_ARG_ENABLE(debug,
 	AS_HELP_STRING(--enable-debug,Enable debugging output which is likely to be interesting to people debugging findutils),
 	[ac_cv_debug=$enableval],[ac_cv_debug=no])
