@@ -127,6 +127,14 @@ these if they're not individually interesting.  For example you could
 just say "Update all callers to remove this function argument".  If
 that change spans several files, mention the other files modified.
 
+Note for maintainers:
+Prior to pushing a commit in the name of someone else to the public Git
+repository, please check if that person has undergone the "Copyright
+assignment" process for GNU findutils described below, or - in case of a
+trivial (<10 lines) change - document that such paperwork is not required
+by adding this line to the commit message:
+
+  Copyright-paperwork-exempt: Yes
 
 
 Making commits locally
