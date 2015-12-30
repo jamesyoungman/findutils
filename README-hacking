@@ -202,6 +202,7 @@ Here is a complete session
   emacs NEWS
 
   # make sure you didn't break anything
+  make syntax-check
   make distcheck
 
   # commit the change and send the patches.
