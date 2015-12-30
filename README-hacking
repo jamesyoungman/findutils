@@ -122,10 +122,10 @@ modifying the Texinfo source, use the section name.
 
 After the colon, describe the change you made to that function.  If
 you made a related change mention the places you made that change,
-too.  If you maded many individually small changes, you can summarise
+too.  If you made many individually small changes, you can summarise
 these if they're not individually interesting.  For example you could
 just say "Update all callers to remove this function argument".  If
-that change spans several files, mention the other files modifies.
+that change spans several files, mention the other files modified.
 
 
 
