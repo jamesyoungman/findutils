@@ -81,9 +81,5 @@ Locale-dependent coverage:
                         --//--
 This is used by Emacs' spell checker ispell.el:
 
-LocalWords: strftime xargs updatedb sh strcpy
-LocalWords: lib frcode bigram texi depcomp automake
-LocalWords: LIBOBJS FUNC findutils
-LocalWords: LIBC TOLOWER TOUPPER tolower isupper
-LocalWords: Debian cron
-LocalWords: Haible BeOS
+LocalWords: xargs updatedb sh lib frcode bigram texi
+LocalWords: findutils Debian cron
