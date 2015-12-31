@@ -911,10 +911,14 @@ handle sparse files
 differently.  The `b' suffix always denotes 512-byte blocks and never
 1 Kilobyte blocks, which is different to the behaviour of
 .BR \-ls .
-The + and - prefixes signify greater than and less than, as usual,
-but bear in mind that the size is rounded up to the next unit (so a
-1-byte file is not matched by
-.BR "-size -1M" ).
+.IP
+The + and - prefixes signify greater than and less than, as usual.
+Bear in mind that the size is rounded up to the next unit. Therefore
+.BR "\-size \-1M"
+is not equivalent to
+.BR "\-size \-1048576c".
+The former only matches empty files, the latter matches files from 1 to
+1,048,575 bytes.
 .IP \-true
 Always true.
 
