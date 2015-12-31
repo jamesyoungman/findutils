@@ -2063,9 +2063,10 @@ components.
 @item r
 time, 12-hour (hh:mm:ss [AP]M)
 @item T
-time, 24-hour (hh:mm:ss)
+time, 24-hour (hh:mm:ss.xxxxxxxxxx)
 @item X
-locale's time representation (H:M:S)
+locale's time representation (H:M:S).  The seconds field includes a
+fractional part.
 @item c
 locale's date and time in ctime format (Sat Nov 04 12:02:33 EST
 1989).  This format does not include any fractional part in the

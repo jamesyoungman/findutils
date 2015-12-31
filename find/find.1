@@ -1301,14 +1301,15 @@ time, 12-hour (hh:mm:ss [AP]M)
 .IP S
 Second (00.00 .. 61.00).  There is a fractional part.
 .IP T
-time, 24-hour (hh:mm:ss)
+time, 24-hour (hh:mm:ss.xxxxxxxxxx)
 .IP +
 Date and time, separated by `+', for example
 `2004\-04\-28+22:22:05.0'.  This is a GNU extension.  The time is
 given in the current timezone (which may be affected by setting the TZ
 environment variable).  The seconds field includes a fractional part.
 .IP X
-locale's time representation (H:M:S)
+locale's time representation (H:M:S).  The seconds field includes a
+fractional part.
 .IP Z
 time zone (e.g., EDT), or nothing if no time zone is determinable
 .PP
