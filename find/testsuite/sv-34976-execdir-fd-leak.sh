@@ -54,9 +54,9 @@ make_test_data() {
     cd "$1" || exit 1
     mkdir one two || exit 1
     for i in ${three_to_hundred} ; do
-      printf "./%03d one/%03d two/%03d " $i $i $i
-    done \
-      | xargs touch || exit 1
+      # We don't quote the RHS here because we actually want to create 3 files.
+      touch $(printf './%03d one/%03d two/%03d ' $i $i $i) || exit 1
+    done
   ) \
   || die "failed to set up the test in ${outdir}"
 }
