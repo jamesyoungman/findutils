@@ -1686,7 +1686,7 @@ print_tree (FILE *fp, struct predicate *node, int indent)
   print_predicate (fp, node);
   fprintf (fp, "] type=%s prec=%s",
 	  type_name (node->p_type), prec_name (node->p_prec));
-  fprintf (fp, " cost=%s rate=%#03.2g %sside effects ",
+  fprintf (fp, " cost=%s est_success_rate=%#.4g %sside effects ",
 	   cost_name (node->p_cost),
 	   node->est_success_rate,
 	   (node->side_effects ? "" : "no "));

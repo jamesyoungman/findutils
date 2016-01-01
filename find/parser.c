@@ -2709,7 +2709,7 @@ insert_type (char **argv, int *arg_ptr,
 {
   mode_t type_cell;
   struct predicate *our_pred;
-  float rate = 0.5;
+  float rate = 0.01;
   const char *typeletter;
 
   if (collect_arg (argv, arg_ptr, &typeletter))
@@ -2722,28 +2722,38 @@ insert_type (char **argv, int *arg_ptr,
 	  return false;
 	}
 
+      /* From a real system here are the counts of files by type:
+         Type   Count  Fraction
+         f    4410884  0.875
+         d     464722  0.0922
+         l     156662  0.0311
+         b       4476  0.000888
+         c       2233  0.000443
+         s         80  1.59e-05
+         p         38  7.54e-06
+       */
       switch (typeletter[0])
 	{
 	case 'b':			/* block special */
 	  type_cell = S_IFBLK;
-	  rate = 0.01f;
+	  rate = 0.000888f;
 	  break;
 	case 'c':			/* character special */
 	  type_cell = S_IFCHR;
-	  rate = 0.01f;
+	  rate = 0.000443f;
 	  break;
 	case 'd':			/* directory */
 	  type_cell = S_IFDIR;
-	  rate = 0.4f;
+	  rate = 0.0922f;
 	  break;
 	case 'f':			/* regular file */
 	  type_cell = S_IFREG;
-	  rate = 0.95f;
+	  rate = 0.875f;
 	  break;
 	case 'l':			/* symbolic link */
 #ifdef S_IFLNK
 	  type_cell = S_IFLNK;
-	  rate = 0.1f;
+	  rate = 0.0311f;
 #else
 	  error (EXIT_FAILURE, 0,
 		 _("-type %c is not supported because symbolic links "
@@ -2754,7 +2764,7 @@ insert_type (char **argv, int *arg_ptr,
 	case 'p':			/* pipe */
 #ifdef S_IFIFO
 	  type_cell = S_IFIFO;
-	  rate = 0.01f;
+	  rate = 7.554e-6f;
 #else
 	  error (EXIT_FAILURE, 0,
 		 _("-type %c is not supported because FIFOs "
@@ -2765,7 +2775,7 @@ insert_type (char **argv, int *arg_ptr,
 	case 's':			/* socket */
 #ifdef S_IFSOCK
 	  type_cell = S_IFSOCK;
-	  rate = 0.01f;
+	  rate = 1.59e-5f;
 #else
 	  error (EXIT_FAILURE, 0,
 		 _("-type %c is not supported because named sockets "
@@ -2776,7 +2786,11 @@ insert_type (char **argv, int *arg_ptr,
 	case 'D':			/* Solaris door */
 #ifdef S_IFDOOR
 	  type_cell = S_IFDOOR;
-	  rate = 0.01f;
+	  /* There are no Solaris doors on the example system surveyed
+	   * above, but if someone uses -type D, they are presumably
+	   * expecting to find a non-zero number.  We guess at a
+	   * rate. */
+	  rate = 1.0e-5f;
 #else
 	  error (EXIT_FAILURE, 0,
 		 _("-type %c is not supported because Solaris doors "

@@ -1268,25 +1268,25 @@ print_optlist (FILE *fp, const struct predicate *p)
     {
       print_parenthesised (fp, p->pred_left);
       fprintf (fp,
-	       "%s%s%s",
-	       p->need_stat ? "[call stat] " : "",
-	       p->need_type ? "[need type] " : "",
-	       p->need_inum ? "[need inum] " : "");
+               "%s%s%s",
+               p->need_stat ? "[call stat] " : "",
+               p->need_type ? "[need type] " : "",
+               p->need_inum ? "[need inum] " : "");
       print_predicate (fp, p);
-      fprintf (fp, " [%g] ", p->est_success_rate);
+      fprintf (fp, " [est success rate %.4g] ", p->est_success_rate);
       if (options.debug_options & DebugSuccessRates)
-	{
-	  fprintf (fp, "[%ld/%ld", p->perf.successes, p->perf.visits);
-	  if (p->perf.visits)
-	    {
-	      double real_rate = (double)p->perf.successes / (double)p->perf.visits;
-	      fprintf (fp, "=%g] ", real_rate);
-	    }
-	  else
-	    {
-	      fprintf (fp, "=_] ");
-	    }
-	}
+        {
+          fprintf (fp, "[real success rate %ld/%ld", p->perf.successes, p->perf.visits);
+          if (p->perf.visits)
+            {
+              double real_rate = (double)p->perf.successes / (double)p->perf.visits;
+              fprintf (fp, "=%.4g] ", real_rate);
+            }
+          else
+            {
+              fprintf (fp, "=_] ");
+            }
+        }
       print_parenthesised (fp, p->pred_right);
     }
 }
