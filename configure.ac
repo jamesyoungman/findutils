@@ -65,38 +65,86 @@ AC_SYS_LARGEFILE
 
 gl_INIT
 
-dnl Enable various GCC warnings.
-gl_MANYWARN_ALL_GCC([warnings])
-# Set up the list of the pointless, undesired warnings.
-nw=
-nw="$nw -Wsystem-headers"       # Don't let system headers trigger warnings
-nw="$nw -Wundef"                # All compiler preprocessors support #if UNDEF
-nw="$nw -Wtraditional"          # All compilers nowadays support ANSI C
-nw="$nw -Wconversion"           # These warnings usually don't point to mistakes.
-nw="$nw -Wsign-conversion"      # Likewise.
-nw="$nw -Wc++-compat"           # malloc returns void* and a cast would be ugly.
-# Warnings we might enable in the future, but not yet (because they generate a
-# lot of noise).
-marginal=""
-marginal="$marginal -Wtraditional-conversion"
-marginal="$marginal -Wpadded"
-marginal="$marginal -Wformat-nonliteral"
-marginal="$marginal -Wunreachable-code"
-marginal="$marginal -Wunused-parameter"
-excluded_warnings="$nw $marginal"
-
-# Enable all GCC warnings not in this list.
-gl_MANYWARN_COMPLEMENT([warnings], [$warnings], [$excluded_warnings])
-
 AC_ARG_ENABLE(compiler-warnings,
   AS_HELP_STRING(--enable-compiler-warnings,Enable many compiler warnings),
   [
-    for w in $warnings
-    do
-      gl_WARN_ADD([$w])
-    done
-  ]
-  )
+  dnl Enable various GCC warnings.
+  gl_MANYWARN_ALL_GCC([warnings])
+
+  # Set up the list of the pointless, undesired warnings.
+  findutils_nw=
+  findutils_nw="$findutils_nw -Wsystem-headers"	 # Don't let system headers trigger warnings
+  findutils_nw="$findutils_nw -Wundef"           # All compiler preprocessors support #if UNDEF
+  findutils_nw="$findutils_nw -Wtraditional"     # All compilers nowadays support ANSI C
+  findutils_nw="$findutils_nw -Wconversion"      # These warnings usually don't point to mistakes.
+  findutils_nw="$findutils_nw -Wsign-conversion" # Likewise.
+  findutils_nw="$findutils_nw -Wc++-compat"      # malloc returns void* and a cast would be ugly.
+  findutils_nw="$findutils_nw -Wswitch-default"  # A switch on an enum value needs no default.
+  # gettext.h and gnulib use variable length arrays and we don't want warnings for that.
+  findutils_gnulib_noise_warnings=
+  findutils_gnulib_noise_warnings="$findutils_gnulib_noise_warnings -Wvla"
+
+  # Warnings we might enable in the future, but not yet (because they generate a
+  # lot of noise).
+  findutils_marginal=""
+  findutils_marginal="$findutils_marginal -Wtraditional-conversion"
+  findutils_marginal="$findutils_marginal -Wpadded"
+  findutils_marginal="$findutils_marginal -Wformat-nonliteral"
+  findutils_marginal="$findutils_marginal -Wunreachable-code"
+  findutils_marginal="$findutils_marginal -Wunused-parameter"
+  # -Wdouble-promotion generates many warnings when printing values with fprintf.
+  findutils_marginal="$findutils_marginal -Wdouble-promotion"
+  findutils_marginal="$findutils_marginal -Woverlength-strings"
+  # Also disable some other warnings that we do in principle want, but currently lack
+  # a way to portably avoid.
+  findutils_tmp_nowarning=
+  findutils_tmp_nowarning="$findutils_tmp_nowarning -Wsuggest-attribute=const"
+  findutils_tmp_nowarning="$findutils_tmp_nowarning -Wsuggest-attribute=pure"
+  findutils_tmp_nowarning="$findutils_tmp_nowarning -Wsuggest-attribute=format"
+  # And some other warnings that we should fix but haven't, yet.
+  findutils_tmp_nowarning="$findutils_tmp_nowarning -Wsuggest-attribute=const"
+
+  # Enable all GCC warnings not in our list of excluded warnings.
+  gl_MANYWARN_COMPLEMENT(
+	[warnings], [$warnings],
+	[$findutils_nw $findutils_marginal $findutils_tmp_nowarning $findutils_gnulib_noise_warnings])
+  for w in $warnings
+  do
+    gl_WARN_ADD([$w])
+  done
+  # -Wextra implies -Wsign-compare, so removing -Wsign-compare from $warnings does not
+  # actually eliminate this warning, as manywarnings will have included -Wextra.
+  # We should actually eliminate the uses that cause this warning, but some of them are
+  # tricky as they're comparisons between a type we choose and a type the implementation
+  # chooses without stating whether or not it is signed (e.g. time_t).
+  WARN_CFLAGS="$WARN_CFLAGS  -Wno-sign-compare"
+  ])
+
+dnl For --enable-compiler-warnings-are-errors, any GCC compiler
+dnl warning is actually an error which results in a non-zero result
+dnl from the compiler (that is, the code will fail to compile).  We do
+dnl this late in the configure script so that it doesn't interfere
+dnl with the compilation tests run by other parts of the configure
+dnl script.
+AC_ARG_ENABLE(compiler-warnings-are-errors,
+  AS_HELP_STRING(--enable-compiler-warnings-are-errors,Compiler warnings are errors),
+  [
+    AC_MSG_CHECKING([whether it is safe to use -Werror])
+    AC_PROG_CC
+    if test -n "$GCC"; then
+      CFLAGS="$CFLAGS -Werror"
+      AC_MSG_RESULT([yes])
+      # Turn off warnings that would fire for code in gnulib, which we still want to be able
+      # to compile without error.
+      unwanted="vla"
+      AC_MSG_NOTICE([Turning off otherwise-fatal warnings in order to compile gnulib successfully: $unwanted])
+      for w in $unwanted; do
+        WARN_CFLAGS="${WARN_CFLAGS} -Wno-${w}"
+      done
+    else
+      AC_MSG_RESULT([no, because $CC is not GCC])
+    fi
+  ])
 
 dnl Older versions of gl/m4/nls.m4 provide AM_MKINSTALLDIRS.
 dnl The current version of gnulib does not, but the version of
