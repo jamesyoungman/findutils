@@ -56,7 +56,6 @@
 #include "fdleak.h"
 #include "unused-result.h"
 
-#define USE_SAFE_CHDIR 1
 #undef  STAT_MOUNTPOINTS
 
 
@@ -149,7 +148,6 @@ inside_dir (int dir_fd)
 static void init_mounted_dev_list (void);
 #endif
 
-#define STRINGIFY(X) #X
 #define HANDLECASE(N) case N: return #N;
 
 static const char *
@@ -280,7 +278,7 @@ show_outstanding_execdirs (FILE *fp)
 {
   if (options.debug_options & DebugExec)
     {
-      int seen=0;
+      bool seen = false;
       struct predicate *p;
       p = get_eval_tree ();
       fprintf (fp, "Outstanding execdirs:");
@@ -299,7 +297,7 @@ show_outstanding_execdirs (FILE *fp)
 	    {
 	      size_t i;
 	      const struct exec_val *execp = &p->args.exec_vec;
-	      ++seen;
+	      seen = true;
 
 	      fprintf (fp, "%s ", pfx);
 	      if (execp->multiple)
@@ -699,7 +697,7 @@ main (int argc, char **argv)
 
 
   if (options.debug_options & DebugTime)
-    fprintf (stderr, "cur_day_start = %s", ctime (&options.cur_day_start));
+    fprintf (stderr, "cur_day_start = %s", ctime (&options.cur_day_start.tv_sec));
 
 
   /* We are now processing the part of the "find" command line

@@ -452,7 +452,6 @@ PREDICATEFUNCTION pred_writable;
 PREDICATEFUNCTION pred_xtype;
 PREDICATEFUNCTION pred_context;
 
-
 bool pred_quit (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
   _GL_ATTRIBUTE_NORETURN;
 

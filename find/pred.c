@@ -73,7 +73,7 @@ static bool match_lname (const char *pathname, struct stat *stat_buf, struct pre
 struct pred_assoc
 {
   PRED_FUNC pred_func;
-  char *pred_name;
+  const char *pred_name;
 };
 
 struct pred_assoc pred_table[] =

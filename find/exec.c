@@ -292,6 +292,7 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
   static int first_time = 1;
   struct exec_val *execp = usercontext;
 
+  (void) ctl;			/* silence compiler warning */
   (void) argc;			/* silence compiler warning */
 
   /* Make sure output of command doesn't get mixed with find output. */

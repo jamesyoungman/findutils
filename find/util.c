@@ -325,12 +325,12 @@ check_nofollow (void)
       if (0 == strcmp ("Linux", uts.sysname))
 	{
 	  /* Linux kernels 2.1.126 and earlier ignore the O_NOFOLLOW flag. */
-	  return release >= 2.2; /* close enough */
+	  return release >= 2.2f; /* close enough */
 	}
       else if (0 == strcmp ("FreeBSD", uts.sysname))
 	{
 	  /* FreeBSD 3.0-CURRENT and later support it */
-	  return release >= 3.1;
+	  return release >= 3.1f;
 	}
     }
 

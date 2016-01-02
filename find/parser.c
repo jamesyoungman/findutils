@@ -672,17 +672,17 @@ find_parser (const char *search_name)
 static float
 estimate_file_age_success_rate (float num_days)
 {
-  if (num_days < 0.1)
+  if (num_days < 0.1f)
     {
       /* Assume 1% of files have timestamps in the future */
       return 0.01f;
     }
-  else if (num_days < 1)
+  else if (num_days < 1.0f)
     {
       /* Assume 30% of files have timestamps today */
       return 0.3f;
     }
-  else if (num_days > 100)
+  else if (num_days > 100.0f)
     {
       /* Assume 30% of files are very old */
       return 0.3f;
@@ -1295,7 +1295,7 @@ parse_ilname (const struct parser_table* entry, char **argv, int *arg_ptr)
       /* Use the generic glob pattern estimator to figure out how many
        * links will match, but bear in mind that most files won't be links.
        */
-      our_pred->est_success_rate = 0.1 * estimate_pattern_match_rate (name, 0);
+      our_pred->est_success_rate = 0.1f * estimate_pattern_match_rate (name, 0);
       return true;
     }
   else
@@ -1426,7 +1426,7 @@ parse_lname (const struct parser_table* entry, char **argv, int *arg_ptr)
     {
       struct predicate *our_pred = insert_primary (entry, name);
       our_pred->args.str = name;
-      our_pred->est_success_rate = 0.1 * estimate_pattern_match_rate (name, 0);
+      our_pred->est_success_rate = 0.1f * estimate_pattern_match_rate (name, 0);
       return true;
     }
   return false;
@@ -2712,7 +2712,6 @@ insert_type (char **argv, int *arg_ptr,
 	     const struct parser_table *entry,
 	     PRED_FUNC which_pred)
 {
-  mode_t type_cell;
   struct predicate *our_pred;
   float rate = 0.01;
   const char *typeletter;
@@ -2737,96 +2736,105 @@ insert_type (char **argv, int *arg_ptr,
          s         80  1.59e-05
          p         38  7.54e-06
        */
-      switch (typeletter[0])
-	{
-	case 'b':			/* block special */
-	  type_cell = S_IFBLK;
-	  rate = 0.000888f;
-	  break;
-	case 'c':			/* character special */
-	  type_cell = S_IFCHR;
-	  rate = 0.000443f;
-	  break;
-	case 'd':			/* directory */
-	  type_cell = S_IFDIR;
-	  rate = 0.0922f;
-	  break;
-	case 'f':			/* regular file */
-	  type_cell = S_IFREG;
-	  rate = 0.875f;
-	  break;
-	case 'l':			/* symbolic link */
-#ifdef S_IFLNK
-	  type_cell = S_IFLNK;
-	  rate = 0.0311f;
-#else
-	  error (EXIT_FAILURE, 0,
-		 _("-type %c is not supported because symbolic links "
-		   "are not supported on the platform find was compiled on."),
-		 (*typeletter));
-#endif
-	  break;
-	case 'p':			/* pipe */
-#ifdef S_IFIFO
-	  type_cell = S_IFIFO;
-	  rate = 7.554e-6f;
-#else
-	  error (EXIT_FAILURE, 0,
-		 _("-type %c is not supported because FIFOs "
-		   "are not supported on the platform find was compiled on."),
-		 (*typeletter));
-#endif
-	  break;
-	case 's':			/* socket */
-#ifdef S_IFSOCK
-	  type_cell = S_IFSOCK;
-	  rate = 1.59e-5f;
-#else
-	  error (EXIT_FAILURE, 0,
-		 _("-type %c is not supported because named sockets "
-		   "are not supported on the platform find was compiled on."),
-		 (*typeletter));
-#endif
-	  break;
-	case 'D':			/* Solaris door */
-#ifdef S_IFDOOR
-	  type_cell = S_IFDOOR;
-	  /* There are no Solaris doors on the example system surveyed
-	   * above, but if someone uses -type D, they are presumably
-	   * expecting to find a non-zero number.  We guess at a
-	   * rate. */
-	  rate = 1.0e-5f;
-#else
-	  error (EXIT_FAILURE, 0,
-		 _("-type %c is not supported because Solaris doors "
-		   "are not supported on the platform find was compiled on."),
-		 (*typeletter));
-#endif
-	  break;
-	default:			/* None of the above ... nuke 'em. */
-	  error (EXIT_FAILURE, 0,
-		 _("Unknown argument to -type: %c"), (*typeletter));
-	  /*NOTREACHED*/
-	  return false;
-	}
-      our_pred = insert_primary_withpred (entry, which_pred, typeletter);
-      our_pred->est_success_rate = rate;
+      {
+	mode_t type_cell;
 
-      /* Figure out if we will need to stat the file, because if we don't
-       * need to follow symlinks, we can avoid a stat call by using
-       * struct dirent.d_type.
-       */
-      if (which_pred == pred_xtype)
-	{
-	  our_pred->need_stat = true;
-	  our_pred->need_type = false;
-	}
-      else
-	{
-	  our_pred->need_stat = false; /* struct dirent is enough */
-	  our_pred->need_type = true;
-	}
-      our_pred->args.type = type_cell;
+	switch (typeletter[0])
+	  {
+	  case 'b':			/* block special */
+	    type_cell = S_IFBLK;
+	    rate = 0.000888f;
+	    break;
+	  case 'c':			/* character special */
+	    type_cell = S_IFCHR;
+	    rate = 0.000443f;
+	    break;
+	  case 'd':			/* directory */
+	    type_cell = S_IFDIR;
+	    rate = 0.0922f;
+	    break;
+	  case 'f':			/* regular file */
+	    type_cell = S_IFREG;
+	    rate = 0.875f;
+	    break;
+	  case 'l':			/* symbolic link */
+#ifdef S_IFLNK
+	    type_cell = S_IFLNK;
+	    rate = 0.0311f;
+#else
+	    type_cell = 0;
+	    error (EXIT_FAILURE, 0,
+		   _("-type %c is not supported because symbolic links "
+		     "are not supported on the platform find was compiled on."),
+		   (*typeletter));
+#endif
+	    break;
+	  case 'p':			/* pipe */
+#ifdef S_IFIFO
+	    type_cell = S_IFIFO;
+	    rate = 7.554e-6f;
+#else
+	    type_cell = 0;
+	    error (EXIT_FAILURE, 0,
+		   _("-type %c is not supported because FIFOs "
+		     "are not supported on the platform find was compiled on."),
+		   (*typeletter));
+#endif
+	    break;
+	  case 's':			/* socket */
+#ifdef S_IFSOCK
+	    type_cell = S_IFSOCK;
+	    rate = 1.59e-5f;
+#else
+	    type_cell = 0;
+	    error (EXIT_FAILURE, 0,
+		   _("-type %c is not supported because named sockets "
+		     "are not supported on the platform find was compiled on."),
+		   (*typeletter));
+#endif
+	    break;
+	  case 'D':			/* Solaris door */
+#ifdef S_IFDOOR
+	    type_cell = S_IFDOOR;
+	    /* There are no Solaris doors on the example system surveyed
+	     * above, but if someone uses -type D, they are presumably
+	     * expecting to find a non-zero number.  We guess at a
+	     * rate. */
+	    rate = 1.0e-5f;
+#else
+	    type_cell = 0;
+	    error (EXIT_FAILURE, 0,
+		   _("-type %c is not supported because Solaris doors "
+		     "are not supported on the platform find was compiled on."),
+		   (*typeletter));
+#endif
+	    break;
+	  default:			/* None of the above ... nuke 'em. */
+	    type_cell = 0;
+	    error (EXIT_FAILURE, 0,
+		   _("Unknown argument to -type: %c"), (*typeletter));
+	    /*NOTREACHED*/
+	    return false;
+	  }
+	our_pred = insert_primary_withpred (entry, which_pred, typeletter);
+	our_pred->est_success_rate = rate;
+
+	/* Figure out if we will need to stat the file, because if we don't
+	 * need to follow symlinks, we can avoid a stat call by using
+	 * struct dirent.d_type.
+	 */
+	if (which_pred == pred_xtype)
+	  {
+	    our_pred->need_stat = true;
+	    our_pred->need_type = false;
+	  }
+	else
+	  {
+	    our_pred->need_stat = false; /* struct dirent is enough */
+	    our_pred->need_type = true;
+	  }
+	our_pred->args.type = type_cell;
+      }
       return true;
     }
   return false;
@@ -3246,7 +3254,7 @@ parse_time (const struct parser_table* entry, char *argv[], int *arg_ptr)
 	{
 	  uintmax_t expected = origin.tv_sec + (DAYSECS-1);
 	  origin.tv_sec += (DAYSECS-1);
-	  if (origin.tv_sec != expected)
+	  if (expected != (uintmax_t)origin.tv_sec)
 	    {
 	      error (EXIT_FAILURE, 0,
 		     _("arithmetic overflow when trying to calculate the end of today"));
