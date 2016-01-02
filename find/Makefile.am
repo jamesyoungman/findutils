@@ -15,7 +15,7 @@ oldfind_SOURCES  = oldfind.c
 man_MANS         = find.1
 
 EXTRA_DIST = defs.h sharefile.h print.h $(man_MANS)
-AM_CPPFLAGS = -I../gl/lib -I$(top_srcdir)/lib -I$(top_srcdir)/gl/lib -I../intl -DLOCALEDIR=\"$(localedir)\"
+AM_CPPFLAGS = -I../gl/lib -I$(top_srcdir)/lib -I$(top_srcdir)/gl/lib -DLOCALEDIR=\"$(localedir)\"
 LDADD = ./libfindtools.a ../lib/libfind.a ../gl/lib/libgnulib.a $(LIBINTL) $(LIB_CLOCK_GETTIME) $(LIB_EACCESS) $(LIB_SELINUX) $(LIB_CLOSE) $(MODF_LIBM) $(FINDLIBS) $(GETHOSTNAME_LIB) $(LIB_EACCESS)
 # gnulib advises we link against <first> because we use <second>:
 # $(GETHOSTNAME_LIB)            uname
