@@ -55,9 +55,9 @@
 
 struct debug_option_assoc
 {
-  char *name;
+  const char *name;
   int    val;
-  char *docstring;
+  const char *docstring;
 };
 static struct debug_option_assoc debugassoc[] =
   {
@@ -176,6 +176,7 @@ usage (FILE *fp, int status, char *msg)
 void
 set_stat_placeholders (struct stat *p)
 {
+  (void) p; /* silence warning for systems lacking these fields. */
 #if HAVE_STRUCT_STAT_ST_BIRTHTIME
   p->st_birthtime = 0;
 #endif

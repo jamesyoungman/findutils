@@ -152,7 +152,7 @@ static void init_mounted_dev_list (void);
 #define STRINGIFY(X) #X
 #define HANDLECASE(N) case N: return #N;
 
-static char *
+static const char *
 get_fts_info_name (int info)
 {
   static char buf[10];
@@ -615,16 +615,18 @@ static bool
 process_all_startpoints (int argc, char *argv[])
 {
   int i;
+  bool empty = true;
 
   /* figure out how many start points there are */
   for (i = 0; i < argc && !looks_like_expression (argv[i], true); i++)
     {
+      empty = false;
       state.starting_path_length = strlen (argv[i]); /* TODO: is this redundant? */
       if (!find (argv[i]))
 	return false;
     }
 
-  if (i == 0)
+  if (empty)
     {
       /*
        * We use a temporary variable here because some actions modify

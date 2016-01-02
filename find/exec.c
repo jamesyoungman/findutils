@@ -114,7 +114,7 @@ impl_pred_exec (const char *pathname,
   const char *target;
   bool result;
   const bool local = is_exec_in_local_dir (pred_ptr->pred_func);
-  char *prefix;
+  const char *prefix;
   size_t pfxlen;
 
   (void) stat_buf;
@@ -291,6 +291,8 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
   pid_t child_pid;
   static int first_time = 1;
   struct exec_val *execp = usercontext;
+
+  (void) argc;			/* silence compiler warning */
 
   /* Make sure output of command doesn't get mixed with find output. */
   fflush (stdout);

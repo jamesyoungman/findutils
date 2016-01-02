@@ -95,11 +95,9 @@ enum
 static void init_mounted_dev_list (int mandatory);
 #endif
 
-static void process_top_path (char *pathname, mode_t mode, ino_t inum);
-static int process_path (char *pathname, char *name, bool leaf, char *parent, mode_t type, ino_t inum);
-static void process_dir (char *pathname, char *name, int pathlen, const struct stat *statp, char *parent);
-
-
+static void process_top_path (const char *pathname, mode_t mode, ino_t inum);
+static int process_path (const char *pathname, const char *name, bool leaf, const char *parent, mode_t type, ino_t inum);
+static void process_dir (const char *pathname, const char *name, int pathlen, const struct stat *statp, const char *parent);
 
 /* A file descriptor open to the initial working directory.
    Doing it this way allows us to work when the i.w.d. has
@@ -981,12 +979,12 @@ chdir_back (void)
  * specified directory is a child of "." or is the root directory.
  */
 static void
-at_top (char *pathname,
+at_top (const char *pathname,
 	mode_t mode,
 	ino_t inum,
 	struct stat *pstat,
-	void (*action)(char *pathname,
-		       char *basename,
+	void (*action)(const char *pathname,
+		       const char *basename,
 		       int mode,
 		       ino_t inum,
 		       struct stat *pstat))
@@ -1056,8 +1054,8 @@ at_top (char *pathname,
 }
 
 
-static void do_process_top_dir (char *pathname,
-				char *base,
+static void do_process_top_dir (const char *pathname,
+				const char *base,
 				int mode,
 				ino_t inum,
 				struct stat *pstat)
@@ -1069,8 +1067,8 @@ static void do_process_top_dir (char *pathname,
 }
 
 static void
-do_process_predicate (char *pathname,
-		      char *base,
+do_process_predicate (const char *pathname,
+		      const char *base,
 		      int mode,
 		      ino_t inum,
 		      struct stat *pstat)
@@ -1095,7 +1093,7 @@ do_process_predicate (char *pathname,
    and move to that.
 */
 static void
-process_top_path (char *pathname, mode_t mode, ino_t inum)
+process_top_path (const char *pathname, mode_t mode, ino_t inum)
 {
   at_top (pathname, mode, inum, NULL, do_process_top_dir);
 }
@@ -1181,7 +1179,7 @@ issue_loop_warning (const char *name, const char *pathname, int level)
    Return nonzero iff PATHNAME is a directory. */
 
 static int
-process_path (char *pathname, char *name, bool leaf, char *parent,
+process_path (const char *pathname, const char *name, bool leaf, const char *parent,
 	      mode_t mode, ino_t inum)
 {
   struct stat stat_buf;
@@ -1307,7 +1305,7 @@ process_path (char *pathname, char *name, bool leaf, char *parent,
    starting directory.  */
 
 static void
-process_dir (char *pathname, char *name, int pathlen, const struct stat *statp, char *parent)
+process_dir (const char *pathname, const char *name, int pathlen, const struct stat *statp, const char *parent)
 {
   int subdirs_left;		/* Number of unexamined subdirs in PATHNAME. */
   bool subdirs_unreliable;	/* if true, cannot use dir link count as subdir limif (if false, it may STILL be unreliable) */
