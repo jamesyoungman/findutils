@@ -49,12 +49,6 @@
 #else
 # define _(Text) Text
 #endif
-#ifdef gettext_noop
-# define N_(String) gettext_noop (String)
-#else
-/* See locate.c for explanation as to why not use (String) */
-# define N_(String) String
-#endif
 
 /* In order to detect FD leaks, we take a snapshot of the open
  * file descriptors which are not FD_CLOEXEC when the program starts.

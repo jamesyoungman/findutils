@@ -49,12 +49,6 @@
 #define textdomain(Domain)
 #define bindtextdomain(Package, Directory)
 #endif
-#ifdef gettext_noop
-# define N_(String) gettext_noop (String)
-#else
-/* See locate.c for explanation as to why not use (String) */
-# define N_(String) String
-#endif
 
 /* COMPAT:  SYSV version defaults size (and has a max value of) to 470.
    We try to make it as large as possible.  See bc_get_arg_max() below. */

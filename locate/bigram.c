@@ -60,12 +60,6 @@
 #define textdomain(Domain)
 #define bindtextdomain(Package, Directory)
 #endif
-#ifdef gettext_noop
-# define N_(String) gettext_noop(String)
-#else
-/* See locate.c for explanation as to why not use (String) */
-# define N_(String) String
-#endif
 
 
 /* Return the length of the longest common prefix of strings S1 and S2. */

@@ -68,12 +68,6 @@
 #define textdomain(Domain)
 #define bindtextdomain(Package, Directory)
 #endif
-#ifdef gettext_noop
-# define N_(String) gettext_noop (String)
-#else
-/* See locate.c for explanation as to why not use (String) */
-# define N_(String) String
-#endif
 
 
 /* FTS_TIGHT_CYCLE_CHECK tries to work around Savannah bug #17877

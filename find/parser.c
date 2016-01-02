@@ -76,12 +76,6 @@
 #else
 # define _(Text) Text
 #endif
-#ifdef gettext_noop
-# define N_(String) gettext_noop (String)
-#else
-/* See locate.c for explanation as to why not use (String) */
-# define N_(String) String
-#endif
 
 #ifndef HAVE_ENDGRENT
 #define endgrent ()
