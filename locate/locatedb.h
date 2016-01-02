@@ -60,7 +60,7 @@ typedef enum
   } GetwordEndianState;
 
 int getword (FILE *fp, const char *filename,
-	     size_t minvalue, size_t maxvalue,
+	     size_t maxvalue,
 	     GetwordEndianState *endian_state_flag);
 
 bool putword (FILE *fp, int word,

@@ -161,6 +161,7 @@ static bool results_were_filtered;
 
 static const char *selected_secure_db = NULL;
 
+static int dolocate (int argc, char **argv, int secure_db_fd);
 
 /* Change the number of days old the database can be
  * before we complain about it.
@@ -492,7 +493,8 @@ visit_old_format (struct process_data *procdata, void *context)
       else
         maxval = (procdata->len - 0);
       word = getword (procdata->fp, procdata->dbfile,
-                      minval, maxval, &procdata->endian_state);
+                      maxval, &procdata->endian_state);
+      assert (word >= minval);
       procdata->count += word;
       assert (procdata->count >= 0);
     }
@@ -1543,7 +1545,7 @@ cleanup_quote_opts (void)
 }
 
 
-int
+static int
 dolocate (int argc, char **argv, int secure_db_fd)
 {
   char *path_element = NULL;
@@ -1922,7 +1924,6 @@ dolocate (int argc, char **argv, int secure_db_fd)
     return 1;
 }
 
-#define ARRAYSIZE(a) (sizeof (a)/sizeof (a[0]))
 static int
 open_secure_db (void)
 {
