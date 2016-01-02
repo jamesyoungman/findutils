@@ -111,7 +111,7 @@ static bool print_num(FILE *stream, unsigned long num, int *width)
 void
 list_file (const char *name,
            int dir_fd,
-           char *relname,
+           const char *relname,
            const struct stat *statp,
            time_t current_time,
            int output_block_size,
@@ -126,7 +126,6 @@ list_file (const char *name,
   bool output_good = true;
   int chars_out;
   int failed_at = 000;
-  int inode_field_width;
 
 #if HAVE_ST_DM_MODE
   /* Cray DMF: look at the file's migrated, not real, status */
@@ -179,13 +178,35 @@ list_file (const char *name,
           output_good = false;
           failed_at = 250;
         }
+    }
+  if (output_good)
+    {
       /* modebuf includes the space between the mode and the number of links,
          as the POSIX "optional alternate access method flag".  */
-      if (fprintf (stream, "%s%3lu ", modebuf, (unsigned long) statp->st_nlink) < 0)
+      if (fputs (modebuf, stream) < 0)
+        {
+          output_good = false;
+          failed_at = 275;
+        }
+    }
+  if (output_good)
+    {
+      /* This format used to end in a space, but the output of "ls"
+         has only one space between the link count and the owner name,
+         so we removed the trailing space.  Happily this also makes it
+         easier to update nlink_width. */
+      chars_out =  fprintf (stream, "%*lu",
+			    nlink_width, (unsigned long) statp->st_nlink);
+      if (chars_out < 0)
         {
           output_good = false;
           failed_at = 300;
         }
+      else
+	{
+	  if (chars_out > nlink_width)
+	    nlink_width = chars_out;
+	}
     }
 
   if (output_good)
