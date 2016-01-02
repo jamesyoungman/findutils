@@ -28,7 +28,7 @@
    included (see the footnote to section 7.18.3 of ISO C99).  Because
    some other header may #include <stdint.h>, we define the macro
    here, first. */
-#define __STDC_LIMIT_MACROS
+#define __STDC_LIMIT_MACROS 1
 
 /* config.h must be included first. */
 #include <config.h>
@@ -74,12 +74,6 @@
 # define _(Text) Text
 #define textdomain(Domain)
 #define bindtextdomain(Package, Directory)
-#endif
-#ifdef gettext_noop
-# define N_(String) gettext_noop(String)
-#else
-/* See locate.c for explanation as to why not use (String) */
-# define N_(String) String
 #endif
 
 #ifndef LONG_MAX
@@ -402,6 +396,11 @@ main (int argc, char **argv)
   enum BC_INIT_STATUS bcstatus;
   enum { XARGS_POSIX_HEADROOM = 2048u };
   struct sigaction sigact;
+
+  /* We #define __STDC_LIMIT_MACROS above for its side effect on
+   * <limits.h>, but we use it here to avoid getting what would
+   * otherwise be a spurious compiler warning. */
+  (void) __STDC_LIMIT_MACROS;
 
   if (argv[0])
     set_program_name (argv[0]);
