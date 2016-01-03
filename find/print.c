@@ -70,6 +70,8 @@
 #undef MAX
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
+static void checked_fprintf (struct format_val *dest, const char *fmt, ...) _GL_ATTRIBUTE_FORMAT_PRINTF(2, 3);
+
 
 /* Create a new fprintf segment in *SEGMENT, with type KIND,
    from the text in FORMAT, which has length LEN.
@@ -802,6 +804,7 @@ file_sparseness (const struct stat *p)
     }
 }
 
+
 static void
 checked_fprintf (struct format_val *dest, const char *fmt, ...)
 {
@@ -816,7 +819,7 @@ checked_fprintf (struct format_val *dest, const char *fmt, ...)
 
 static void
 checked_print_quoted (struct format_val *dest,
-                           const char *format, const char *s)
+                      const char *format, const char *s)
 {
   int rv = print_quoted (dest->stream, dest->quote_opts, dest->dest_is_tty,
                          format, s);

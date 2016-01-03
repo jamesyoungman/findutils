@@ -63,14 +63,7 @@ Please stop compiling the program now
 #include "buildcmd.h"
 #include "quotearg.h"
 #include "sharefile.h"
-
-#ifndef ATTRIBUTE_NORETURN
-# if HAVE_ATTRIBUTE_NORETURN
-#  define ATTRIBUTE_NORETURN __attribute__ ((__noreturn__))
-# else
-#  define ATTRIBUTE_NORETURN /* nothing */
-# endif
-#endif
+#include "gcc-function-attributes.h"
 
 int optionl_stat (const char *name, struct stat *p);
 int optionp_stat (const char *name, struct stat *p);
@@ -399,6 +392,7 @@ bool parse_closeparen (const struct parser_table* entry, char *argv[], int *arg_
 /* pred.c */
 
 typedef bool PREDICATEFUNCTION(const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr);
+
 PREDICATEFUNCTION pred_amin;
 PREDICATEFUNCTION pred_and;
 PREDICATEFUNCTION pred_anewer;
@@ -445,7 +439,6 @@ PREDICATEFUNCTION pred_perm;
 PREDICATEFUNCTION pred_print;
 PREDICATEFUNCTION pred_print0;
 PREDICATEFUNCTION pred_prune;
-PREDICATEFUNCTION pred_quit;
 PREDICATEFUNCTION pred_readable;
 PREDICATEFUNCTION pred_regex;
 PREDICATEFUNCTION pred_samefile;
@@ -458,6 +451,10 @@ PREDICATEFUNCTION pred_user;
 PREDICATEFUNCTION pred_writable;
 PREDICATEFUNCTION pred_xtype;
 PREDICATEFUNCTION pred_context;
+
+
+bool pred_quit (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+  _GL_ATTRIBUTE_NORETURN;
 
 
 
@@ -494,8 +491,8 @@ const char *safely_quote_err_filename (int n, char const *arg);
 void record_initial_cwd (void);
 bool is_exec_in_local_dir(const PRED_FUNC pred_func);
 
-void fatal_target_file_error (int errno_value, const char *name) ATTRIBUTE_NORETURN;
-void fatal_nontarget_file_error (int errno_value, const char *name) ATTRIBUTE_NORETURN;
+void fatal_target_file_error (int errno_value, const char *name) _GL_ATTRIBUTE_NORETURN;
+void fatal_nontarget_file_error (int errno_value, const char *name) _GL_ATTRIBUTE_NORETURN;
 void nonfatal_target_file_error (int errno_value, const char *name);
 void nonfatal_nontarget_file_error (int errno_value, const char *name);
 

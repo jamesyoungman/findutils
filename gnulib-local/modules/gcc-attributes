@@ -1,0 +1,14 @@
+Description:
+Macros allowing portable use of GCC's __attribute__ feature.
+
+Files:
+lib/gcc-function-attributes.h
+
+Include:
+"lib/gcc-function-attributes.h"
+
+License:
+GPL
+
+Maintainer:
+James Youngman

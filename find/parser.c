@@ -52,6 +52,15 @@
 #include "xstrtod.h"
 #include "xstrtol.h"
 
+/* At the moment, we include this after gnulib headers, since it uses
+   some of the same names for function attribute macros as gnulib does,
+   since I plan to make gcc-sttrigbutes a gnulib module.  However, for
+   now, I haven't made the wholesale edits to gnulib that this would
+   require.   Including this file last simply minimises the number of
+   compiler warnings about macro redefinition (in gnulib headers).
+*/
+#include "gcc-function-attributes.h"
+
 /* find headers. */
 #include "buildcmd.h"
 #include "defs.h"
@@ -104,7 +113,6 @@ static bool parse_fprint0       (const struct parser_table*, char *argv[], int *
 static bool parse_fstype        (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_gid           (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_group         (const struct parser_table*, char *argv[], int *arg_ptr);
-static bool parse_help          (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_ilname        (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_iname         (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_inum          (const struct parser_table*, char *argv[], int *arg_ptr);
@@ -143,7 +151,6 @@ static bool parse_type          (const struct parser_table*, char *argv[], int *
 static bool parse_uid           (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_used          (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_user          (const struct parser_table*, char *argv[], int *arg_ptr);
-static bool parse_version       (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_wholename     (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_xdev          (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_ignore_race   (const struct parser_table*, char *argv[], int *arg_ptr);
@@ -156,6 +163,10 @@ static bool parse_context       (const struct parser_table*, char *argv[], int *
 static bool parse_show_control_chars (const struct parser_table*, char *argv[], int *arg_ptr);
 #endif
 
+static bool parse_help (const struct parser_table* entry, char **argv, int *arg_ptr)
+  _GL_ATTRIBUTE_NORETURN;
+static bool parse_version       (const struct parser_table*, char *argv[], int *arg_ptr)
+  _GL_ATTRIBUTE_NORETURN;
 
 
 static bool insert_type (char **argv, int *arg_ptr,
