@@ -1245,10 +1245,19 @@ do_fprintf (struct format_val *dest,
           }
           break;
 
-        case 0:
         case '%':
-          checked_fprintf (dest, segment->text);
+          checked_fwrite (segment->text, 1, segment->text_len, dest);
           break;
+
+        case 0:
+	  /* Trailing single %.  This should have been rejected by
+	     insert_fprintf.  We use %s here in the error message
+	     simply to ensure that the error message matches the one
+	     in insert_fprintf, easing the translation burden.
+	   */
+	  error (EXIT_FAILURE, 0, _("error: %s at end of format string"), "%");
+	  /*NOTREACHED*/
+	  break;
         }
       /* end of KIND_FORMAT case */
       break;
