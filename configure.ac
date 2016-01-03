@@ -130,7 +130,6 @@ AC_ARG_ENABLE(compiler-warnings-are-errors,
   AS_HELP_STRING(--enable-compiler-warnings-are-errors,Compiler warnings are errors),
   [
     AC_MSG_CHECKING([whether it is safe to use -Werror])
-    AC_PROG_CC
     if test -n "$GCC"; then
       CFLAGS="$CFLAGS -Werror"
       AC_MSG_RESULT([yes])
