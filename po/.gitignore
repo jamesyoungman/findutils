@@ -1,7 +1,8 @@
-*.gmo
-Makefile
-Makefile.in
-Makefile.in.in
-POTFILES
-cat-id-tbl.c
-stamp-po
+/cat-id-tbl.c
+/*.gmo
+/Makefile
+/Makefile.in
+/Makefile.in.in
+/Makevars
+/POTFILES
+/stamp-po
