@@ -1,5 +1,5 @@
 /* code -- bigram- and front-encode filenames for locate
-   Copyright (C) 1994, 2005, 2007, 2008, 2010, 2011 Free Software
+   Copyright (C) 1994, 2005, 2007-2008, 2010-2011, 2016 Free Software
    Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify

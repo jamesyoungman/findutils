@@ -1,5 +1,5 @@
 /* listfile.c -- display a long listing of a file
-   Copyright (C) 1991, 1993, 2000, 2004, 2005, 2007, 2008, 2010, 2011
+   Copyright (C) 1991, 1993, 2000, 2004-2005, 2007-2008, 2010-2011, 2016
    Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify

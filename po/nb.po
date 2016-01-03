@@ -1,5 +1,5 @@
 # Norwegian translation of GNU findutils
-# Copyright (C) 2002, 2008 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2008, 2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the findutils package.
 # Åka Sikrom <a4@hush.com>, 2014.
 #
