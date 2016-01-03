@@ -170,11 +170,6 @@ AC_CHECK_FUNCS(getmntent)
 AC_CHECK_FUNCS(setmntent endmntent)
 
 
-dnl Checks for library functions that are provided by findlib.
-FINDLIB_REPLACE_FUNCS(waitpid strspn)
-FINDLIB_REPLACE_FUNCS(forcefindlib)
-
-
 # Check for common but not-POSIX functions.
 AC_CHECK_FUNCS(setgroups)
 

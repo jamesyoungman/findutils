@@ -18,10 +18,30 @@ else
 TESTS += check-regexprops test_splitstring
 endif
 
-libfind_a_SOURCES = findutils-version.c
-EXTRA_DIST = extendbuf.h buildcmd.h \
+libfind_a_SOURCES = \
+	buildcmd.c \
+	buildcmd.h \
+	dircallback.c \
+	dircallback.h \
+	extendbuf.c \
+	extendbuf.h \
+	fdleak.c \
+	fdleak.h \
+	findutils-version.c \
 	findutils-version.h \
-	fdleak.h unused-result.h check-regexprops.sh
+	listfile.c \
+	listfile.h \
+	printquoted.c \
+	printquoted.h \
+	qmark.c \
+	regextype.c \
+	regextype.h \
+	safe-atoi.c \
+	safe-atoi.h \
+	splitstring.c \
+	splitstring.h
+
+EXTRA_DIST = unused-result.h check-regexprops.sh
 SUFFIXES =
 MOSTLYCLEANFILES =
 DISTCLEANFILES =
@@ -30,12 +50,6 @@ MAINTAINERCLEANFILES =
 
 AM_CPPFLAGS = -I../gl/lib -I$(top_srcdir)/gl/lib
 LDADD = ../gl/lib/libgnulib.a $(LIBINTL)
-
-libfind_a_SOURCES += printquoted.h listfile.h \
-	regextype.h dircallback.h safe-atoi.h splitstring.h
-libfind_a_SOURCES += listfile.c extendbuf.c buildcmd.c \
-	forcefindlib.c qmark.c printquoted.c regextype.c dircallback.c fdleak.c \
-	safe-atoi.c splitstring.c
 
 CLEANFILES = check-regexprops
 
@@ -46,10 +60,7 @@ coverage-clean:
 
 clean-local: coverage-clean
 
-EXTRA_DIST += waitpid.c forcefindlib.c
 TESTS_ENVIRONMENT = REGEXPROPS=regexprops$(EXEEXT)
-libfind_a_LIBADD = $(FINDLIBOBJS)
-libfind_a_DEPENDENCIES = $(FINDLIBOBJS)
 
 check-regexprops: check-regexprops.sh
 	cp  $(srcdir)/check-regexprops.sh check-regexprops
