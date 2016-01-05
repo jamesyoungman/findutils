@@ -1546,6 +1546,17 @@ hierarchy only once.  The
 .B \-fprintf
 action can be used to list the various matched items into several
 different output files.
+.P
+Please note that
+.B \-a
+when specified implicitly (for example by two tests appearing without
+an explicit operator between them) or explicitly has higher precedence
+than
+.BR \-o .
+This means that
+.B find . \-name afile \-o \-name bfile \-print
+will never print
+.IR afile .
 
 
 .SH UNUSUAL FILENAMES
@@ -2172,10 +2183,25 @@ syntax had been deprecated since findutils-4.2.21
 which was released in 2005.
 .P
 .SH "NON-BUGS"
+.SS Operator precedence surprises
+The command
+.B find . \-name afile \-o \-name bfile \-print
+will never print
+.I afile
+because this is actually equivalent to
+.BR "find . \-name afile \-o \e( \-name bfile \-a \-print \e)" .
+Remember that the precedence of
+.B \-a
+is higher than that of
+.B \-o
+and when there is no operator specified between tests,
+.B \-a
+is assumed.
+.SS \(lqpaths must precede expression\(rq error message
 .nf
 .B $ find . \-name *.c \-print
 find: paths must precede expression
-Usage: find [\-H] [\-L] [\-P] [\-Olevel] [\-D help|tree|search|stat|rates|opt|exec] [path...] [expression]
+Usage: find [\-H] [\-L] [\-P] [\-Olevel] [\-D ... [path...] [expression]
 .fi
 .P
 This happens because
@@ -2185,9 +2211,9 @@ resulting in
 .B find
 actually receiving a command line like this:
 .nf
-
+.
 .B find . \-name bigram.c code.c frcode.c locate.c \-print
-
+.
 .fi
 That command is of course not going to work.  Instead of doing things
 this way, you should enclose the pattern in quotes or escape the wildcard:
