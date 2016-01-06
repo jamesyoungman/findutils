@@ -56,6 +56,10 @@ exclude_file_name_regexp--sc_texinfo_acronym = doc/perm\.texi
 # cases where neither argument is a string literal.
 local-checks-to-skip += sc_prohibit_strcmp
 
+# During 'make update-copyright', collapse consecutive years into intervals.
+update-copyright-env = \
+  UPDATE_COPYRIGHT_FORCE=1 \
+  UPDATE_COPYRIGHT_USE_INTERVALS=1
 
 # NEWS hash.  We use this to detect unintended edits to bits of the NEWS file
 # other than the most recent section.   If you do need to retrospectively update
