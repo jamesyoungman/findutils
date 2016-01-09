@@ -2,7 +2,7 @@
 * Internationalization
 ** updatedb.sh should be internationalized
 
-* man pages for frcode, bigram, and code
+* man page for frcode
 Perhaps a better description in texi pages as well.
 
 * Add option for find to sort output in lexical order for use for updatedb

@@ -4,6 +4,12 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 ** Changes to locate / updatedb
 
+Support for generating old-format databases (with updatedb
+--old-format or updatedb --dbformat=old) has been removed.  The old
+database format was deprecated in 2007 (and updatedb has warned about
+this since that time).  The locate program will will read old-format
+databases, though this support also will be removed.
+
 The updatedb script now operates in the C locale only.  This means
 that character encoding issues are now not likely to cause sort to
 fail.  It also honours the TMPDIR environment variable if that was

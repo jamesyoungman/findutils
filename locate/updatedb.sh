@@ -50,11 +50,11 @@ Usage: $0 [--findoptions='-option1 -option2...']
        [--localpaths='dir1 dir2...'] [--netpaths='dir1 dir2...']
        [--prunepaths='dir1 dir2...'] [--prunefs='fs1 fs2...']
        [--output=dbfile] [--netuser=user] [--localuser=user]
-       [--old-format] [--dbformat] [--version] [--help]
+       [--dbformat] [--version] [--help]
 
 Report bugs to <bug-findutils@gnu.org>."
 changeto=/
-old=no
+
 for arg
 do
   # If we are unable to fork, the back-tick operator will
@@ -72,7 +72,6 @@ do
     --output) LOCATE_DB="$val" ;;
     --netuser) NETUSER="$val" ;;
     --localuser) LOCALUSER="$val" ;;
-    --old-format) old=yes ;;
     --changecwd)  changeto="$val" ;;
     --dbformat)   dbformat="$val" ;;
     --version) fail=0; echo "$version" || fail=1; exit $fail ;;
@@ -83,51 +82,32 @@ $usage" >&2
   esac
 done
 
-
-
-
-case "${dbformat:+yes}_${old}" in
-    yes_yes)
-	echo "The --dbformat and --old-format cannot both be specified." >&2
-	exit 1
-	;;
-	*)
-	;;
+frcode_options=""
+case "$dbformat" in
+    "")
+        # Default, use LOCATE02
+        ;;
+    LOCATE02)
+        ;;
+    slocate)
+        frcode_options="$frcode_options -S 1"
+        ;;
+    *)
+        # The "old" database format is no longer supported.
+        echo "Unsupported locate database format ${dbformat}: Supported formats are:" >&2
+        echo "LOCATE02, slocate" >&2
+        exit 1
 esac
 
-if test "$old" = yes || test "$dbformat" = "old" ; then
-    echo "Warning: future versions of findutils will shortly discontinue support for the old locate database format." >&2
-    old=yes
+
+if @SORT_SUPPORTS_Z@
+then
+    sort="@SORT@ -z"
+    print_option="-print0"
+    frcode_options="$frcode_options -0"
+else
     sort="@SORT@"
     print_option="-print"
-    frcode_options=""
-else
-    frcode_options=""
-    case "$dbformat" in
-	"")
-		# Default, use LOCATE02
-	    ;;
-	LOCATE02)
-	    ;;
-	slocate)
-	    frcode_options="$frcode_options -S 1"
-	    ;;
-	*)
-	    echo "Unsupported locate database format ${dbformat}: Supported formats are:" >&2
-	    echo "LOCATE02, slocate, old" >&2
-	    exit 1
-    esac
-
-
-    if @SORT_SUPPORTS_Z@
-    then
-        sort="@SORT@ -z"
-        print_option="-print0"
-        frcode_options="$frcode_options -0"
-    else
-        sort="@SORT@"
-        print_option="-print"
-    fi
 fi
 
 getuid() {
@@ -230,8 +210,6 @@ fi
 # The names of the utilities to run to build the database.
 : ${find:=${BINDIR}/@find@}
 : ${frcode:=${LIBEXECDIR}/@frcode@}
-: ${bigram:=${LIBEXECDIR}/@bigram@}
-: ${code:=${LIBEXECDIR}/@code@}
 
 make_tempdir () {
     # This implementation is adapted from the GNU Autoconf manual.
@@ -263,7 +241,7 @@ checkbinary () {
     fi
 }
 
-for binary in $find $frcode $bigram $code
+for binary in $find $frcode
 do
   checkbinary $binary
 done
@@ -303,8 +281,6 @@ fi
 rm -f $LOCATE_DB.n
 trap 'rm -f $LOCATE_DB.n; exit' HUP TERM
 
-if test $old = no; then
-# LOCATE02 or slocate format
 if {
 cd "$changeto"
 if test -n "$SEARCHPATHS"; then
@@ -354,75 +330,6 @@ if test -s $LOCATE_DB.n; then
 else
   echo "updatedb: new database would be empty" >&2
   rm -f $LOCATE_DB.n
-fi
-
-else # old
-
-if temp_directory="`make_tempdir`"; then
-    bigrams="${temp_directory}"/bigrams
-    filelist="${temp_directory}"/filelist
-else
-    echo "failed to create temporary directory" >&2
-    exit 1
-fi
-
-rm -f $LOCATE_DB.n
-trap 'rm -f $LOCATE_DB.n; rm -rf "${temp_directory}"; exit' HUP TERM
-
-# Alphabetize subdirectories before file entries using tr.  James Woods says:
-# "to get everything in monotonic collating sequence, to avoid some
-# breakage i'll have to think about."
-{
-cd "$changeto"
-if test -n "$SEARCHPATHS"; then
-  if [ "$LOCALUSER" != "" ]; then
-    # : A5
-    su $LOCALUSER `select_shell $LOCALUSER` -c \
-    "$find $SEARCHPATHS $FINDOPTIONS \
-     \( $prunefs_exp \
-     -type d -regex '$PRUNEREGEX' \) -prune -o $print_option" || exit $?
-  else
-    # : A6
-    $find $SEARCHPATHS $FINDOPTIONS \
-     \( $prunefs_exp \
-     -type d -regex "$PRUNEREGEX" \) -prune -o $print_option || exit $?
-  fi
-fi
-
-if test -n "$NETPATHS"; then
-  myuid=`getuid`
-  if [ "$myuid" = 0 ]; then
-    # : A7
-    su $NETUSER `select_shell $NETUSER` -c \
-     "$find $NETPATHS $FINDOPTIONS \\( -type d -regex '$PRUNEREGEX' -prune \\) -o $print_option" ||
-    exit $?
-  else
-    # : A8
-    $find $NETPATHS $FINDOPTIONS \( -type d -regex "$PRUNEREGEX" -prune \) -o $print_option ||
-    exit $?
-  fi
-fi
-} | tr / '\001' | $sort | tr '\001' / > "$filelist"
-
-# Compute the (at most 128) most common bigrams in the file list.
-$bigram $bigram_opts < $filelist | sort | uniq -c | sort -nr |
-  awk '{ if (NR <= 128) print $2 }' | tr -d '\012' > "$bigrams"
-
-# Code the file list.
-$code "$bigrams" < "$filelist" > $LOCATE_DB.n
-
-rm -rf "${temp_directory}"
-
-# To reduce the chances of breaking locate while this script is running,
-# put the results in a temp file, then rename it atomically.
-if test -s $LOCATE_DB.n; then
-  chmod 644 ${LOCATE_DB}.n
-  mv ${LOCATE_DB}.n $LOCATE_DB
-else
-  echo "updatedb: new database would be empty" >&2
-  rm -f $LOCATE_DB.n
-fi
-
 fi
 
 exit 0

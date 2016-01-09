@@ -22,8 +22,6 @@ lib/findutils-version.c
 lib/listfile.c
 lib/regextype.c
 lib/safe-atoi.c
-locate/bigram.c
-locate/code.c
 locate/frcode.c
 locate/locate.c
 locate/word_io.c

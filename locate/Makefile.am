@@ -4,12 +4,9 @@ AM_CFLAGS = $(WARN_CFLAGS)
 LOCATE_DB = $(localstatedir)/locatedb
 localedir = $(datadir)/locale
 
-AM_INSTALLCHECK_STD_OPTIONS_EXEMPT = \
-	frcode$(EXEEXT) \
-	code$(EXEEXT) \
-	bigram$(EXEEXT)
+AM_INSTALLCHECK_STD_OPTIONS_EXEMPT = frcode$(EXEEXT)
 bin_PROGRAMS = locate
-libexec_PROGRAMS = frcode code bigram
+libexec_PROGRAMS = frcode
 bin_SCRIPTS = updatedb
 man_MANS = locate.1 updatedb.1 locatedb.5
 BUILT_SOURCES = dblocation.texi
@@ -18,7 +15,6 @@ CLEANFILES = updatedb
 
 DISTCLEANFILES = dblocation.texi
 locate_SOURCES = locate.c word_io.c
-code_SOURCES = code.c word_io.c
 nodist_locate_TEXINFOS = dblocation.texi
 
 AM_CPPFLAGS = -I$(top_srcdir)/lib -I../gl/lib -I$(top_srcdir)/gl/lib -DLOCATE_DB=\"$(LOCATE_DB)\" -DLOCALEDIR=\"$(localedir)\"
@@ -34,8 +30,6 @@ updatedb: updatedb.sh Makefile
 	rm -f $@
 	find=`echo find|sed '$(transform)'`; \
 	frcode=`echo frcode|sed '$(transform)'`; \
-	bigram=`echo bigram|sed '$(transform)'`; \
-	code=`echo code|sed '$(transform)'`; \
 	sed \
 	-e "s,@""bindir""@,$(bindir)," \
 	-e "s,@""libexecdir""@,$(libexecdir)," \
@@ -44,8 +38,6 @@ updatedb: updatedb.sh Makefile
 	-e "s,@""PACKAGE_NAME""@,$(PACKAGE_NAME)," \
 	-e "s,@""find""@,$${find}," \
 	-e "s,@""frcode""@,$${frcode}," \
-	-e "s,@""bigram""@,$${bigram}," \
-	-e "s,@""code""@,$${code}," \
 	-e "s,@""SORT""@,$(SORT)," \
 	-e "s,@""SORT_SUPPORTS_Z""@,$(SORT_SUPPORTS_Z)," \
 	$(srcdir)/updatedb.sh > $@

@@ -63,10 +63,6 @@ int getword (FILE *fp, const char *filename,
 	     size_t maxvalue,
 	     GetwordEndianState *endian_state_flag);
 
-bool putword (FILE *fp, int word,
-	      GetwordEndianState endian_state_flag);
-
-
 #define SLOCATE_DB_MAGIC_LEN 2
 
 #endif /* !INC_LOCATEDB_H */

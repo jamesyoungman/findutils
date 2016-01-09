@@ -140,26 +140,3 @@ getword (FILE *fp,
       return decode_value (data, maxvalue, endian_state_flag, filename);
     }
 }
-
-
-bool
-putword (FILE *fp, int word,
-	 GetwordEndianState endian_state_flag)
-{
-  size_t items_written;
-
-  /* You must decide before calling this function which
-   * endianness you want to use.
-   */
-  assert (endian_state_flag != GetwordEndianStateInitial);
-  if (GetwordEndianStateSwab == endian_state_flag)
-    {
-      word = bswap_32(word);
-    }
-
-  items_written = fwrite (&word, sizeof (word), 1, fp);
-  if (1 == items_written)
-    return true;
-  else
-    return false;
-}
