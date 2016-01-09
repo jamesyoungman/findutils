@@ -2,6 +2,13 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 * Major changes in release 4.7.0-git, YYYY-MM-DD
 
+** Changes to locate / updatedb
+
+The updatedb script now operates in the C locale only.  This means
+that character encoding issues are now not likely to cause sort to
+fail.  It also honours the TMPDIR environment variable if that was
+set, and no longer sorts file names case-insensitively.
+
 ** Translations
 
 Updated translations: Hungarian, Slovak, Dutch, German.

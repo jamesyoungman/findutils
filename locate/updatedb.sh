@@ -31,6 +31,19 @@ There is NO WARRANTY, to the extent permitted by law.
 Written by Eric B. Decker, James Youngman, and Kevin Dalley.
 '
 
+# File path names are not actually text, anyway (since there is no
+# mechanism to enforce any constraint that the basename of a
+# subdirectory has the same character encoding as the basename of its
+# parent).  The practical effect is that, depending on the way a
+# oarticular system is configured and the content of its filesystem,
+# passing all the file names in the system through "sort" may generate
+# character encoding errors in text-based tools like "sort".  To avoid
+# this, we set LC_ALL=C.  This will, presumably, not work perfectly on
+# systems where LC_ALL is not the way to do locale configuration or
+# some other seting can override this.
+LC_ALL=C
+export LC_ALL
+
 
 usage="\
 Usage: $0 [--findoptions='-option1 -option2...']
@@ -75,7 +88,7 @@ done
 
 case "${dbformat:+yes}_${old}" in
     yes_yes)
-	echo "The --dbformat and --old cannot both be specified." >&2
+	echo "The --dbformat and --old-format cannot both be specified." >&2
 	exit 1
 	;;
 	*)
@@ -186,12 +199,14 @@ test -z "$PRUNEREGEX" &&
 : ${LOCATE_DB=@LOCATE_DB@}
 
 # Directory to hold intermediate files.
-if test -d /var/tmp; then
-  : ${TMPDIR=/var/tmp}
-elif test -d /usr/tmp; then
-  : ${TMPDIR=/usr/tmp}
-else
-  : ${TMPDIR=/tmp}
+if test -z "$TMPDIR"; then
+  if test -d /var/tmp; then
+    : ${TMPDIR=/var/tmp}
+  elif test -d /usr/tmp; then
+    : ${TMPDIR=/usr/tmp}
+  else
+    : ${TMPDIR=/tmp}
+  fi
 fi
 export TMPDIR
 
@@ -320,7 +335,7 @@ if [ "$myuid" = 0 ]; then
     exit $?
   fi
 fi
-} | $sort -f | $frcode $frcode_options > $LOCATE_DB.n
+} | $sort | $frcode $frcode_options > $LOCATE_DB.n
 then
     : OK so far
     true
@@ -387,7 +402,7 @@ if test -n "$NETPATHS"; then
     exit $?
   fi
 fi
-} | tr / '\001' | $sort -f | tr '\001' / > "$filelist"
+} | tr / '\001' | $sort | tr '\001' / > "$filelist"
 
 # Compute the (at most 128) most common bigrams in the file list.
 $bigram $bigram_opts < $filelist | sort | uniq -c | sort -nr |
