@@ -9,6 +9,11 @@ that character encoding issues are now not likely to cause sort to
 fail.  It also honours the TMPDIR environment variable if that was
 set, and no longer sorts file names case-insensitively.
 
+The (unspecified) order in which filenames are stored in the locate
+database is now different to previous versions.  However, you should
+not rely on locate's output appearing in any particular order in any
+case.
+
 ** Translations
 
 Updated translations: Hungarian, Slovak, Dutch, German.

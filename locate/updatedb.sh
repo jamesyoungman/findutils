@@ -35,7 +35,7 @@ Written by Eric B. Decker, James Youngman, and Kevin Dalley.
 # mechanism to enforce any constraint that the basename of a
 # subdirectory has the same character encoding as the basename of its
 # parent).  The practical effect is that, depending on the way a
-# oarticular system is configured and the content of its filesystem,
+# particular system is configured and the content of its filesystem,
 # passing all the file names in the system through "sort" may generate
 # character encoding errors in text-based tools like "sort".  To avoid
 # this, we set LC_ALL=C.  This will, presumably, not work perfectly on
