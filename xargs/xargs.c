@@ -1610,15 +1610,15 @@ parse_num (char *str, int option, long int min, long int max, int fatal)
   val = strtol (str, &eptr, 10);
   if (eptr == str || *eptr)
     {
-      fprintf (stderr, _("%s: invalid number for -%c option\n"),
-	       program_name, option);
+      fprintf (stderr, _("%s: invalid number \"%s\" for -%c option\n"),
+	       program_name, str, option);
       usage (stderr);
       exit (EXIT_FAILURE);
     }
   else if (val < min)
     {
-      fprintf (stderr, _("%s: value for -%c option should be >= %ld\n"),
-	       program_name, option, min);
+      fprintf (stderr, _("%s: value %s for -%c option should be >= %ld\n"),
+	       program_name, str, option, min);
       if (fatal)
 	{
 	  usage (stderr);
@@ -1631,8 +1631,8 @@ parse_num (char *str, int option, long int min, long int max, int fatal)
     }
   else if (max >= 0 && val > max)
     {
-      fprintf (stderr, _("%s: value for -%c option should be <= %ld\n"),
-	       program_name, option, max);
+      fprintf (stderr, _("%s: value %s for -%c option should be <= %ld\n"),
+	       program_name, str, option, max);
       if (fatal)
 	{
 	  usage (stderr);
