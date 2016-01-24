@@ -44,7 +44,9 @@ Written by Eric B. Decker, James Youngman, and Kevin Dalley.
 LC_ALL=C
 export LC_ALL
 
-
+# We can't use substitution on PACKAGE_URL below because it
+# (correctly) points to http://www.gnu.org/software/findutils/ instead
+# of the bug reporting page.
 usage="\
 Usage: $0 [--findoptions='-option1 -option2...']
        [--localpaths='dir1 dir2...'] [--netpaths='dir1 dir2...']
@@ -52,7 +54,11 @@ Usage: $0 [--findoptions='-option1 -option2...']
        [--output=dbfile] [--netuser=user] [--localuser=user]
        [--dbformat] [--version] [--help]
 
-Report bugs to <bug-findutils@gnu.org>."
+Report (and track progress on fixing) bugs in the updatedb
+program via the @PACKAGE_NAME@ bug-reporting page at
+http://savannah.gnu.org/bugs/?group=findutils or, if
+you have no web access, by sending email to @PACKAGE_BUGREPORT@.
+"
 changeto=/
 
 for arg

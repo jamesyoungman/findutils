@@ -98,6 +98,7 @@
 #include "findutils-version.h"
 #include "locatedb.h"
 #include "printquoted.h"
+#include "bugreports.h"
 #include "splitstring.h"
 
 
@@ -1393,7 +1394,7 @@ Usage: %s [-d path | --database=path] [-e | -E | --[non-]existing]\n\
       [--max-database-age D] [--version] [--help]\n\
       pattern...\n"),
            program_name);
-  fputs (_("\nReport bugs to <bug-findutils@gnu.org>.\n"), stream);
+  explain_how_to_report_bugs (stdout, program_name);
 }
 enum
   {

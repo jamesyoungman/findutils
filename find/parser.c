@@ -41,6 +41,7 @@
 #include "mountlist.h"
 #include "parse-datetime.h"
 #include "print.h"
+#include "progname.h"
 #include "quotearg.h"
 #include "regextype.h"
 #include "safe-atoi.h"
@@ -64,8 +65,8 @@
 #include "buildcmd.h"
 #include "defs.h"
 #include "fdleak.h"
+#include "bugreports.h"
 #include "findutils-version.h"
-
 
 
 
@@ -1263,9 +1264,7 @@ actions: -delete -print0 -printf FORMAT -fprintf FILE FORMAT -print \n\
       -exec COMMAND ; -exec COMMAND {} + -ok COMMAND ;\n\
       -execdir COMMAND ; -execdir COMMAND {} + -okdir COMMAND ;\n\
 "));
-  puts (_("Report (and track progress on fixing) bugs via the findutils bug-reporting\n\
-page at http://savannah.gnu.org/ or, if you have no web access, by sending\n\
-email to <bug-findutils@gnu.org>."));
+  explain_how_to_report_bugs (stdout, program_name);
   exit (EXIT_SUCCESS);
 }
 

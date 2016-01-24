@@ -65,6 +65,7 @@
 /* find headers. */
 #include "buildcmd.h"
 #include "fdleak.h"
+#include "bugreports.h"
 #include "findutils-version.h"
 
 #if ENABLE_NLS
@@ -1692,7 +1693,6 @@ usage (FILE *stream)
   HTL (_("  -x, --exit                   exit if the size (see -s) is exceeded\n"));
 
   HTL (_("      --help                   display this help and exit\n"));
-  HTL (_("      --version                output version information and exit\n"));
-  HTL (_("\n"
-         "Report bugs to <bug-findutils@gnu.org>.\n"));
+  HTL (_("      --version                output version information and exit\n\n"));
+  explain_how_to_report_bugs (stream, program_name);
 }

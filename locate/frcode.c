@@ -86,6 +86,7 @@
 
 /* find headers. */
 #include "findutils-version.h"
+#include "bugreports.h"
 #include "locatedb.h"
 
 #if ENABLE_NLS
@@ -147,7 +148,7 @@ usage (FILE *stream)
   fprintf (stream,
 	   _("Usage: %s [-0 | --null] [--version] [--help]\n"),
 	   program_name);
-  fputs (_("\nReport bugs to <bug-findutils@gnu.org>.\n"), stream);
+  explain_how_to_report_bugs (stream, program_name);
 }
 
 static long

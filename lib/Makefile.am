@@ -39,7 +39,9 @@ libfind_a_SOURCES = \
 	safe-atoi.c \
 	safe-atoi.h \
 	splitstring.c \
-	splitstring.h
+	splitstring.h \
+	bugreports.c \
+	bugreports.h
 
 EXTRA_DIST = unused-result.h check-regexprops.sh
 SUFFIXES =
