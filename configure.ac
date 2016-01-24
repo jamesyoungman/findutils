@@ -20,13 +20,23 @@ dnl Written by James Youngman.
 
 dnl Process this file with autoconf to produce a configure script.
 AC_INIT([GNU findutils], 4.7.0-git, [bug-findutils@gnu.org])
+
+dnl Set the bug-report URL
+dnl
 dnl The call to AC_INIT causes AC_PACKAGE_BUGREPORT to be defined
 dnl and we've used an email address.  However, we would also like to
 dnl specify at URL at which to report bugs (and in fact we prefer
 dnl people to use that).  Se we define that here, too.
-AC_DEFINE([PACKAGE_BUGREPORT_URL],
-	  ["https://savannah.gnu.org/bugs/?group=findutils"],
-	  [URL at which bugs should be reported])
+bugreport_url='https://savannah.gnu.org/bugs/?group=findutils'
+dnl Ensure that PACKAGE_BUGREPORT_URL shows up n config.h so that
+dnl it can be picked up by bugreport.c.
+AC_DEFINE_UNQUOTED([PACKAGE_BUGREPORT_URL], ["$bugreport_url"],
+                   [URL at which bugs should be reported])
+dnl Also ensure that it is substituted in output files so that it
+dnl turns up in locate/Makefile so that we can generate the correct
+dnl content in the updatedb script.
+AC_SUBST([PACKAGE_BUGREPORT_URL],[$bugreport_url])
+
 AC_CONFIG_AUX_DIR(build-aux)
 AM_INIT_AUTOMAKE
 

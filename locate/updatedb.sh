@@ -54,10 +54,11 @@ Usage: $0 [--findoptions='-option1 -option2...']
        [--output=dbfile] [--netuser=user] [--localuser=user]
        [--dbformat] [--version] [--help]
 
+Please see also the documentation at @PACKAGE_URL@.
 Report (and track progress on fixing) bugs in the updatedb
 program via the @PACKAGE_NAME@ bug-reporting page at
-http://savannah.gnu.org/bugs/?group=findutils or, if
-you have no web access, by sending email to @PACKAGE_BUGREPORT@.
+@PACKAGE_BUGREPORT_URL@ or, if
+you have no web access, by sending email to <@PACKAGE_BUGREPORT@>.
 "
 changeto=/
 

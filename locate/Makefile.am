@@ -36,6 +36,9 @@ updatedb: updatedb.sh Makefile
 	-e "s,@""LOCATE_DB""@,$(LOCATE_DB)," \
 	-e "s,@""VERSION""@,$(VERSION)," \
 	-e "s,@""PACKAGE_NAME""@,$(PACKAGE_NAME)," \
+	-e "s,@""PACKAGE_BUGREPORT""@,$(PACKAGE_BUGREPORT)," \
+	-e "s,@""PACKAGE_BUGREPORT_URL""@,$(PACKAGE_BUGREPORT_URL)," \
+	-e "s,@""PACKAGE_URL""@,$(PACKAGE_URL)," \
 	-e "s,@""find""@,$${find}," \
 	-e "s,@""frcode""@,$${frcode}," \
 	-e "s,@""SORT""@,$(SORT)," \
