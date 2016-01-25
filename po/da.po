@@ -1,10 +1,10 @@
 # Danish translation of GNU findutils.
-# Copyright (C) 2015-2016 Free Software Foundation, Inc.
+# Copyright (C) 2015 Free Software Foundation, Inc.
 # This file is distributed under the same license as the findutils package.
 #
 # Ole Laursen <olau@hardworking.dk>, 2000, 03, 04, 05.
 # Ask Hjorth Larsen <asklarsen@gmail.com>, 2009, 2010.
-# Joe Hansen <joedalton2@yahoo.dk>, 2015.
+# Joe Hansen <joedalton2@yahoo.dk>, 2015, 2016.
 #
 # Konventioner:
 #
@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: findutils 4.5.15\n"
 "Report-Msgid-Bugs-To: bug-findutils@gnu.org\n"
 "POT-Creation-Date: 2015-12-18 14:45+0000\n"
-"PO-Revision-Date: 2015-12-28 22:51+0200\n"
+"PO-Revision-Date: 2016-01-23 22:51+0200\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -66,7 +66,7 @@ msgstr "%s afsluttet af signal %d"
 #: find/find.c:203 find/ftsfind.c:677
 #, c-format
 msgid "Failed to initialize shared-file hash table"
-msgstr "Kunne ikke klargøre hashtabel som delt fil"
+msgstr "Kunne ikke klargøre hashtabel for delte filer"
 
 #: find/find.c:219 find/ftsfind.c:693 locate/bigram.c:105 locate/code.c:174
 #: locate/frcode.c:233 locate/locate.c:1581 xargs/xargs.c:401
@@ -1395,7 +1395,7 @@ msgstr "Størrelsen af kommandobufferen, som faktisk bruges: %<PRIuMAX>\n"
 #: xargs/xargs.c:719
 #, c-format
 msgid "Maximum parallelism (--max-procs must be no greater): %<PRIuMAX>\n"
-msgstr "Maksimum parallelitet (--max-procs må ikke være større): %<PRIuMAX>\n"
+msgstr "Maksimal parallelitet (--max-procs må ikke være større): %<PRIuMAX>\n"
 
 #: xargs/xargs.c:725
 #, c-format
