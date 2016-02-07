@@ -16,6 +16,7 @@ find/pred.c
 find/print.c
 find/tree.c
 find/util.c
+lib/bugreports.c
 lib/buildcmd.c
 lib/fdleak.c
 lib/findutils-version.c
