@@ -1,6 +1,6 @@
-.deps
+*~
+/*.o
+/.deps/
 Makefile
 Makefile.in
 xargs
-*~
-xargs.o
