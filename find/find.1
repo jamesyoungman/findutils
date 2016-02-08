@@ -199,7 +199,7 @@ is, any symbolic links appearing after
 on the
 command line will be dereferenced, and those before it will not).
 
-.IP "\-D debugoptions"
+.IP "\-D debugopts"
 Print diagnostic information; this can be helpful to diagnose problems
 with why
 .B find
@@ -211,10 +211,18 @@ options, see the output of
 .BR help .
 Valid debug options include
 .RS
+.IP exec
+Show diagnostic information relating to \-exec, \-execdir, \-ok and \-okdir
 .IP help
-Explain the debugging options
-.IP tree
-Show the expression tree in its original and optimised form.
+Explain the debugging options.
+.IP opt
+Prints diagnostic information relating to the optimisation of the
+expression tree; see the \-O option.
+.IP rates
+Prints a summary indicating how often each predicate succeeded or
+failed.
+.IP search
+Navigate the directory tree verbosely.
 .IP stat
 Print messages as files are examined with the
 .B stat
@@ -223,12 +231,8 @@ and
 system calls.  The
 .B find
 program tries to minimise such calls.
-.IP opt
-Prints diagnostic information relating to the optimisation of the
-expression tree; see the \-O option.
-.IP rates
-Prints a summary indicating how often each predicate succeeded or
-failed.
+.IP tree
+Show the expression tree in its original and optimised form.
 .RE
 .IP \-Olevel
 Enables query optimisation.   The
