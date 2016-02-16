@@ -39,6 +39,10 @@ a no-op since findnutils-4.5.15.
 The configure option --enable-debug has been removed.  Debugging in
 find is now controlled by its -D option only.
 
+"make dist" no longer builds .tar.gz files.
+xz is portable enough and in wide-enough use that distributing
+only .tar.xz files is enough.
+
 * Major changes in release 4.6.0, 2015-12-28
 
 ** Stable Release

@@ -38,7 +38,7 @@ dnl content in the updatedb script.
 AC_SUBST([PACKAGE_BUGREPORT_URL],[$bugreport_url])
 
 AC_CONFIG_AUX_DIR(build-aux)
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([no-dist-gzip dist-xz])
 
 AC_CONFIG_SRCDIR([find/pred.c])
 AC_CONFIG_HEADERS([config.h])
