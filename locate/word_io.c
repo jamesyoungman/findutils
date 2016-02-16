@@ -19,7 +19,6 @@
 #include <config.h>
 
 /* system headers. */
-#include <assert.h>
 #include <errno.h>
 #include <stdbool.h>		/* for bool */
 #include <stdio.h>
