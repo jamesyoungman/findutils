@@ -67,6 +67,7 @@
 #include "fdleak.h"
 #include "bugreports.h"
 #include "findutils-version.h"
+#include "gcc-function-attributes.h"
 
 #if ENABLE_NLS
 # include <libintl.h>
@@ -224,7 +225,7 @@ static void wait_for_proc_all (void);
 static void increment_proc_max (int);
 static void decrement_proc_max (int);
 static long parse_num (char *str, int option, long min, long max, int fatal);
-static void usage (FILE * stream);
+static void usage (int status) _GL_ATTRIBUTE_NORETURN;
 
 
 static char
@@ -532,8 +533,7 @@ main (int argc, char **argv)
 	  break;
 
 	case 'h':
-	  usage (stdout);
-	  return 0;
+	  usage (EXIT_SUCCESS);
 
 	case 'I':		/* POSIX */
 	case 'i':		/* deprecated */
@@ -652,8 +652,7 @@ main (int argc, char **argv)
 	  break;
 
 	default:
-	  usage (stderr);
-	  return 1;
+	  usage (EXIT_FAILURE);
 	}
     }
 
@@ -1613,7 +1612,7 @@ parse_num (char *str, int option, long int min, long int max, int fatal)
     {
       fprintf (stderr, _("%s: invalid number \"%s\" for -%c option\n"),
 	       program_name, str, option);
-      usage (stderr);
+      usage (EXIT_FAILURE);
       exit (EXIT_FAILURE);
     }
   else if (val < min)
@@ -1621,40 +1620,36 @@ parse_num (char *str, int option, long int min, long int max, int fatal)
       fprintf (stderr, _("%s: value %s for -%c option should be >= %ld\n"),
 	       program_name, str, option, min);
       if (fatal)
-	{
-	  usage (stderr);
-	  exit (EXIT_FAILURE);
-	}
-      else
-	{
-	  val = min;
-	}
+	usage (EXIT_FAILURE);
+
+      val = min;
     }
   else if (max >= 0 && val > max)
     {
       fprintf (stderr, _("%s: value %s for -%c option should be <= %ld\n"),
 	       program_name, str, option, max);
       if (fatal)
-	{
-	  usage (stderr);
-	  exit (EXIT_FAILURE);
-	}
-      else
-	{
-	  val = max;
-	}
+	usage (EXIT_FAILURE);
+
+      val = max;
     }
   return val;
 }
 
 static void
-usage (FILE *stream)
+usage (int status)
 {
-  fprintf (stream,
+  if (status != EXIT_SUCCESS)
+    {
+      fprintf (stderr, _("Try '%s --help' for more information.\n"), program_name);
+      exit (status);
+    }
+
+  fprintf (stdout,
            _("Usage: %s [OPTION]... COMMAND [INITIAL-ARGS]...\n"),
            program_name);
 
-#define HTL(t) fputs (t, stream);
+#define HTL(t) fputs (t, stdout);
 
   HTL (_("Run COMMAND with arguments INITIAL-ARGS and more arguments read from input.\n"
          "\n"));
@@ -1694,5 +1689,6 @@ usage (FILE *stream)
 
   HTL (_("      --help                   display this help and exit\n"));
   HTL (_("      --version                output version information and exit\n\n"));
-  explain_how_to_report_bugs (stream, program_name);
+  explain_how_to_report_bugs (stdout, program_name);
+  exit (status);
 }

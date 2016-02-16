@@ -84,7 +84,7 @@ do
     --version) fail=0; echo "$version" || fail=1; exit $fail ;;
     --help)    fail=0; echo "$usage"   || fail=1; exit $fail ;;
     *) echo "updatedb: invalid option $opt
-$usage" >&2
+Try '$0 --help' for more information." >&2
        exit 1 ;;
   esac
 done

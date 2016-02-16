@@ -88,6 +88,7 @@
 #include "findutils-version.h"
 #include "bugreports.h"
 #include "locatedb.h"
+#include "gcc-function-attributes.h"
 
 #if ENABLE_NLS
 # include <libintl.h>
@@ -142,13 +143,21 @@ static struct option const longopts[] =
 
 extern char *version_string;
 
-static void
-usage (FILE *stream)
+static void _GL_ATTRIBUTE_NORETURN
+usage (int status)
 {
-  fprintf (stream,
+  if (status != EXIT_SUCCESS)
+    {
+      fprintf (stderr, _("Try '%s --help' for more information.\n"), program_name);
+      exit (status);
+    }
+
+  fprintf (stdout,
 	   _("Usage: %s [-0 | --null] [--version] [--help]\n"),
 	   program_name);
-  explain_how_to_report_bugs (stream, program_name);
+
+  explain_how_to_report_bugs (stdout, program_name);
+  exit (status);
 }
 
 static long
@@ -157,8 +166,8 @@ get_seclevel (char *s)
   long result;
   char *p;
 
-  /* Reset errno in oreder to be able to distinguish LONG_MAX/LONG_MIN
-   * from values whichare actually out of range
+  /* Reset errno in order to be able to distinguish LONG_MAX/LONG_MIN
+   * from values which are actually out of range.
    */
   errno = 0;
 
@@ -249,23 +258,21 @@ main (int argc, char **argv)
 	break;
 
       case 'h':
-	usage (stdout);
-	return 0;
+	usage (EXIT_SUCCESS);
 
       case 'v':
 	display_findutils_version ("frcode");
 	return 0;
 
       default:
-	usage (stderr);
-	return 1;
+	usage (EXIT_FAILURE);
       }
 
   /* We expect to have no arguments. */
   if (optind != argc)
     {
-      usage (stderr);
-      return 1;
+      error (0, 0, _("no argument expected."));
+      usage (EXIT_FAILURE);
     }
 
 

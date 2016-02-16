@@ -1233,39 +1233,7 @@ parse_help (const struct parser_table* entry, char **argv, int *arg_ptr)
   (void) argv;
   (void) arg_ptr;
 
-  usage (stdout, 0, NULL);
-  puts (_("\n\
-default path is the current directory; default expression is -print\n\
-expression may consist of: operators, options, tests, and actions:\n"));
-  puts (_("\
-operators (decreasing precedence; -and is implicit where no others are given):\n\
-      ( EXPR )   ! EXPR   -not EXPR   EXPR1 -a EXPR2   EXPR1 -and EXPR2\n\
-      EXPR1 -o EXPR2   EXPR1 -or EXPR2   EXPR1 , EXPR2\n"));
-  puts (_("\
-positional options (always true): -daystart -follow -regextype\n\n\
-normal options (always true, specified before other expressions):\n\
-      -depth --help -maxdepth LEVELS -mindepth LEVELS -mount -noleaf\n\
-      --version -xdev -ignore_readdir_race -noignore_readdir_race\n"));
-  puts (_("\
-tests (N can be +N or -N or N): -amin N -anewer FILE -atime N -cmin N\n\
-      -cnewer FILE -ctime N -empty -false -fstype TYPE -gid N -group NAME\n\
-      -ilname PATTERN -iname PATTERN -inum N -iwholename PATTERN -iregex PATTERN\n\
-      -links N -lname PATTERN -mmin N -mtime N -name PATTERN -newer FILE"));
-  puts (_("\
-      -nouser -nogroup -path PATTERN -perm [-/]MODE -regex PATTERN\n\
-      -readable -writable -executable\n\
-      -wholename PATTERN -size N[bcwkMG] -true -type [bcdpflsD] -uid N\n\
-      -used N -user NAME -xtype [bcdpfls]"));
-  puts (_("\
-      -context CONTEXT\n"));
-  puts (_("\n\
-actions: -delete -print0 -printf FORMAT -fprintf FILE FORMAT -print \n\
-      -fprint0 FILE -fprint FILE -ls -fls FILE -prune -quit\n\
-      -exec COMMAND ; -exec COMMAND {} + -ok COMMAND ;\n\
-      -execdir COMMAND ; -execdir COMMAND {} + -okdir COMMAND ;\n\
-"));
-  explain_how_to_report_bugs (stdout, program_name);
-  exit (EXIT_SUCCESS);
+  usage (EXIT_SUCCESS);
 }
 
 static float

@@ -100,6 +100,7 @@
 #include "printquoted.h"
 #include "bugreports.h"
 #include "splitstring.h"
+#include "gcc-function-attributes.h"
 
 
 #if ENABLE_NLS
@@ -1382,10 +1383,16 @@ search_one_database (int argc,
 
 extern char *version_string;
 
-static void
-usage (FILE *stream)
+static void _GL_ATTRIBUTE_NORETURN
+usage (int status)
 {
-  fprintf (stream, _("\
+  if (status != EXIT_SUCCESS)
+    {
+      fprintf (stderr, _("Try '%s --help' for more information.\n"), program_name);
+      exit (status);
+    }
+
+  fprintf (stdout, _("\
 Usage: %s [-d path | --database=path] [-e | -E | --[non-]existing]\n\
       [-i | --ignore-case] [-w | --wholename] [-b | --basename] \n\
       [--limit=N | -l N] [-S | --statistics] [-0 | --null] [-c | --count]\n\
@@ -1394,8 +1401,11 @@ Usage: %s [-d path | --database=path] [-e | -E | --[non-]existing]\n\
       [--max-database-age D] [--version] [--help]\n\
       pattern...\n"),
            program_name);
+
   explain_how_to_report_bugs (stdout, program_name);
+  exit (status);
 }
+
 enum
   {
     REGEXTYPE_OPTION = CHAR_MAX + 1,
@@ -1642,8 +1652,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
           break;
 
         case 'h':
-          usage (stdout);
-          return 0;
+          usage (EXIT_SUCCESS);
 
         case MAX_DB_AGE:
           /* XXX: nothing in the test suite for this option. */
@@ -1707,8 +1716,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
           break;
 
         default:
-          usage (stderr);
-          return 1;
+          usage (EXIT_FAILURE);
         }
     }
 
@@ -1737,8 +1745,8 @@ dolocate (int argc, char **argv, int secure_db_fd)
     {
       if (!just_count && optind == argc)
         {
-          usage (stderr);
-          return 1;
+          error (0, 0, _("pattern argument expected"));
+          usage (EXIT_FAILURE);
         }
     }
 

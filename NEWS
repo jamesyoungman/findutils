@@ -20,6 +20,13 @@ database is now different to previous versions.  However, you should
 not rely on locate's output appearing in any particular order in any
 case.
 
+** Improvements
+
+All utilities now only show the full usage text when requested via
+the --help option.  Previously, when the user passed invalid options
+or arguments, the user's attention to the corresponding error
+diagnostic was distracted by that lengthy text.
+
 ** Translations
 
 Updated translations: Hungarian, Slovak, Dutch, German, Danish.

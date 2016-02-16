@@ -482,7 +482,7 @@ bool fd_leak_check_is_enabled (void);
 struct predicate *insert_primary (const struct parser_table *entry, const char *arg);
 struct predicate *insert_primary_noarg (const struct parser_table *entry);
 struct predicate *insert_primary_withpred (const struct parser_table *entry, PRED_FUNC fptr, const char *arg);
-void usage (FILE *fp, int status, char *msg);
+void usage (int status) _GL_ATTRIBUTE_NORETURN;
 extern bool check_nofollow(void);
 void complete_pending_execs(struct predicate *p);
 void complete_pending_execdirs (void);
