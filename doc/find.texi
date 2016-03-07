@@ -3285,9 +3285,6 @@ above options are triggered by:
 Use of the @samp{-d} option which is deprecated; please use
 @samp{-depth} instead, since the latter is POSIX-compliant.
 @item
-Use of the @samp{-ipath} option which is deprecated; please use
-@samp{-iwholename} instead.
-@item
 Specifying an option (for example @samp{-mindepth}) after a non-option
 (for example @samp{-type} or @samp{-print}) on the command line.
 @item
