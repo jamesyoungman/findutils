@@ -2063,8 +2063,8 @@ what is going on.
 
 .P
 .nf
-.B find repo/ -exec test -d {}/.svn \e; -or \e
-.B -exec test -d {}/.git \e; -or -exec test  -d {}/CVS \e; \e
+.B find repo/ \e( -exec test -d {}/.svn \e; -or \e
+.B -exec test -d {}/.git \e; -or -exec test  -d {}/CVS \e; \e) \e
 .B -print -prune
 .fi
 
