@@ -14,6 +14,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+manual_title = Finding Files
+# We need to pass the -I option to gendocs so that the texinfo tools
+# can find dblocation.texi, which is a generated file.
+gendocs_options_ = -s find.texi -I $(abs_builddir)/doc
+
 local-checks-to-skip :=
 
 # Errors I think are too picky anyway.
