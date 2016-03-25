@@ -27,6 +27,10 @@ the --help option.  Previously, when the user passed invalid options
 or arguments, the user's attention to the corresponding error
 diagnostic was distracted by that lengthy text.
 
+** Bug Fixes
+
+#46784: frcode drops last char if no final newline
+
 ** Translations
 
 Updated translations: Hungarian, Slovak, Dutch, German, Danish, Greek.

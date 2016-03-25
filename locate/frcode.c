@@ -295,7 +295,14 @@ main (int argc, char **argv)
 
   while ((line_len = getdelim (&path, &pathsize, delimiter, stdin)) > 0)
     {
-      path[line_len - 1] = '\0'; /* FIXME temporary: nuke the newline.  */
+      if (path[line_len - 1] != delimiter)
+	{
+	  error (0, 0, _("The input file should end with the delimiter"));
+	}
+      else
+	{
+	  path[line_len - 1] = '\0'; /* FIXME temporary: nuke the delimiter.  */
+	}
 
       count = prefix_length (oldpath, path);
       diffcount = count - oldcount;

@@ -115,11 +115,14 @@ proc locate_textonly { passfail id intext locateoptions outtext } {
     # Generate the "frcode" input.
     catch { file delete -force $listfle }
     set f [open $listfile w]
-    puts $f "$intext"
+    puts -nonewline $f "$intext"
     close $f
 
-    # Run frcode
-    exec $FRCODE < $listfile > $dbfile
+    # Run frcode.  Redirect stderr so that warning messages don't
+    # cause the function to fail when a warning message is issued.
+    # Don't use catch here because we would still want to diagnose a
+    # problem if frcode's exit status is non-zero.
+    exec $FRCODE < $listfile > $dbfile 2> /dev/null
 
     # Now run locate.
     set locatecmd "$LOCATE -d $dbfile $locateoptions"
@@ -144,8 +147,8 @@ proc locate_textonly { passfail id intext locateoptions outtext } {
 	}
     } else {
 	send_log "Output mismatch.\n"
-	send_log "Expected: $outtext\n"
-	send_log "Got     : $result\n"
+	send_log "Expected:\n$outtext\n"
+	send_log "Got     :\n$result\n"
 	fail "$testname-$id"
     }
 }
