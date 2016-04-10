@@ -10,7 +10,7 @@ Prerequisites
 
  * git (to check out both findutils and gnulib).
  * A C compiler, linker and software development libraries (the standard
-   C library).  Any compiler compliant with the 1990 ICO C standard running
+   C library).  Any compiler compliant with the 1990 ISO C standard running
    on a POSIX system should work.
  * GNU Autoconf
  * GNU Automake
@@ -18,7 +18,7 @@ Prerequisites
  * GNU gettext
  * GNU Dejagnu
 
-Dejagnu is in fact optional, but it's strongly recommened, since it is
+Dejagnu is in fact optional, but it's strongly recommended, since it is
 needed to run findutils' test suite (which is how you know that find
 works once it is built on your system).
 
@@ -106,10 +106,10 @@ MAX_PROC_MAX.
 --- example ends ---
 
 There are several things to notice about this checkin message.  Most
-importatly, it begins with a single line summary of the whole change.
+importantly, it begins with a single line summary of the whole change.
 This needs to be short.  It would be used as the subject line of
 patches mailed by "git send-email".  Some people begin that line with
-a one-word tag indicating what is addected (for example find: for
+a one-word tag indicating what is affected (for example find: for
 changes to find, doc: to changes to the documentation, maint: for
 changes to the maintainer automation and so forth).
 
