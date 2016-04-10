@@ -257,6 +257,7 @@ sv-bug-32043.sh \
 test_escapechars.sh \
 test_escape_c.sh \
 test_inode.sh \
+test_type-list.sh \
 sv-34079.sh \
 sv-34976-execdir-fd-leak.sh
 

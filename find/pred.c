@@ -1032,7 +1032,7 @@ bool
 pred_type (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
 {
   mode_t mode;
-  mode_t type = pred_ptr->args.type;
+  enum file_type type = FTYPE_COUNT;
 
   assert (state.have_type);
 
@@ -1052,31 +1052,76 @@ pred_type (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
      mode = state.type;
 
 #ifndef S_IFMT
-  /* POSIX system; check `mode' the slow way. */
-  if ((S_ISBLK (mode) && type == S_IFBLK)
-      || (S_ISCHR (mode) && type == S_IFCHR)
-      || (S_ISDIR (mode) && type == S_IFDIR)
-      || (S_ISREG (mode) && type == S_IFREG)
+  /* POSIX system; check `mode' the slow way.
+   * Search in the order of probability (f,d,l,b,c,s,p,D).
+   */
+  if (S_ISREG (mode))
+     type = FTYPE_REG;
+  else if (S_ISDIR (mode))
+     type = FTYPE_DIR;
 #ifdef S_IFLNK
-      || (S_ISLNK (mode) && type == S_IFLNK)
+  else if (S_ISLNK (mode))
+     type = FTYPE_LNK;
+#endif
+  else if (S_ISBLK (mode))
+     type = FTYPE_BLK;
+  else if (S_ISCHR (mode))
+     type = FTYPE_CHR;
+#ifdef S_IFSOCK
+  else if (S_ISSOCK (mode))
+     type = FTYPE_SOCK;
 #endif
 #ifdef S_IFIFO
-      || (S_ISFIFO (mode) && type == S_IFIFO)
-#endif
-#ifdef S_IFSOCK
-      || (S_ISSOCK (mode) && type == S_IFSOCK)
+  else if (S_ISFIFO (mode))
+     type = FTYPE_FIFO;
 #endif
 #ifdef S_IFDOOR
-      || (S_ISDOOR (mode) && type == S_IFDOOR)
+  else if (S_ISDOOR (mode))
+    type = FTYPE_DOOR;
 #endif
-      )
 #else /* S_IFMT */
   /* Unix system; check `mode' the fast way. */
-  if ((mode & S_IFMT) == type)
+  switch (mode & S_IFMT)
+    {
+    case S_IFREG:
+      type = FTYPE_REG;
+      break;
+    case S_IFDIR:
+      type = FTYPE_DIR;
+      break;
+#ifdef S_IFLNK
+    case S_IFLNK:
+      type = FTYPE_LNK;
+      break;
+#endif
+    case S_IFBLK:
+      type = FTYPE_BLK;
+      break;
+    case S_IFCHR:
+      type = FTYPE_CHR;
+      break;
+#ifdef S_IFSOCK
+    case S_IFSOCK:
+      type = FTYPE_SOCK;
+      break;
+#endif
+#ifdef S_IFIFO
+    case S_IFIFO:
+      type = FTYPE_FIFO;
+      break;
+#endif
+#ifdef S_IFDOOR
+    case S_IFDOOR:
+      type = FTYPE_DOOR;
+      break;
+#endif
+    }
 #endif /* S_IFMT */
-    return (true);
+
+  if ((type != FTYPE_COUNT) && pred_ptr->args.types[type])
+    return true;
   else
-    return (false);
+    return false;
 }
 
 bool

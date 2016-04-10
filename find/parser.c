@@ -2679,131 +2679,171 @@ insert_type (char **argv, int *arg_ptr,
 	     PRED_FUNC which_pred)
 {
   struct predicate *our_pred;
-  float rate = 0.01;
   const char *typeletter;
+  const char *pred_string = which_pred == pred_xtype ? "-xtype" : "-type";
 
-  if (collect_arg (argv, arg_ptr, &typeletter))
+  if (! collect_arg (argv, arg_ptr, &typeletter))
+    return false;
+
+  if (!*typeletter)
     {
-      if (strlen (typeletter) != 1u)
+      error (EXIT_FAILURE, 0,
+	     _("Arguments to %s should contain at least one letter"),
+	     pred_string);
+      /*NOTREACHED*/
+      return false;
+    }
+
+  our_pred = insert_primary_withpred (entry, which_pred, typeletter);
+  our_pred->est_success_rate = 0.0;
+
+  /* Figure out if we will need to stat the file, because if we don't
+   * need to follow symlinks, we can avoid a stat call by using
+   * struct dirent.d_type.
+   */
+  if (which_pred == pred_xtype)
+    {
+      our_pred->need_stat = true;
+      our_pred->need_type = false;
+    }
+  else
+    {
+      our_pred->need_stat = false; /* struct dirent is enough */
+      our_pred->need_type = true;
+    }
+
+  /* From a real system here are the counts of files by type:
+     Type   Count  Fraction
+     f    4410884  0.875
+     d     464722  0.0922
+     l     156662  0.0311
+     b       4476  0.000888
+     c       2233  0.000443
+     s         80  1.59e-05
+     p         38  7.54e-06
+  */
+
+  for (; *typeletter; )
+    {
+      unsigned int type_cell;
+      float rate = 0.01;
+
+      switch (*typeletter)
+      {
+      case 'b':			/* block special */
+	type_cell = FTYPE_BLK;
+	rate = 0.000888f;
+	break;
+      case 'c':			/* character special */
+	type_cell = FTYPE_CHR;
+	rate = 0.000443f;
+	break;
+      case 'd':			/* directory */
+	type_cell = FTYPE_DIR;
+	rate = 0.0922f;
+	break;
+      case 'f':			/* regular file */
+	type_cell = FTYPE_REG;
+	rate = 0.875f;
+	break;
+      case 'l':			/* symbolic link */
+#ifdef S_IFLNK
+	type_cell = FTYPE_LNK;
+	rate = 0.0311f;
+#else
+	type_cell = 0;
+	error (EXIT_FAILURE, 0,
+	       _("%s %c is not supported because symbolic links "
+		 "are not supported on the platform find was compiled on."),
+	       pred_string, (*typeletter));
+#endif
+	break;
+      case 'p':			/* pipe */
+#ifdef S_IFIFO
+	type_cell = FTYPE_FIFO;
+	rate = 7.554e-6f;
+#else
+	type_cell = 0;
+	error (EXIT_FAILURE, 0,
+	       _("%s %c is not supported because FIFOs "
+		 "are not supported on the platform find was compiled on."),
+	       pred_string, (*typeletter));
+#endif
+	break;
+      case 's':			/* socket */
+#ifdef S_IFSOCK
+	type_cell = FTYPE_SOCK;
+	rate = 1.59e-5f;
+#else
+	type_cell = 0;
+	error (EXIT_FAILURE, 0,
+	       _("%s %c is not supported because named sockets "
+		 "are not supported on the platform find was compiled on."),
+	       pred_string, (*typeletter));
+#endif
+	break;
+      case 'D':			/* Solaris door */
+#ifdef S_IFDOOR
+	type_cell = FTYPE_DOOR;
+	/* There are no Solaris doors on the example system surveyed
+	 * above, but if someone uses -type D, they are presumably
+	 * expecting to find a non-zero number.  We guess at a
+	 * rate. */
+	rate = 1.0e-5f;
+#else
+	type_cell = 0;
+	error (EXIT_FAILURE, 0,
+	       _("%s %c is not supported because Solaris doors "
+		 "are not supported on the platform find was compiled on."),
+	       pred_string, (*typeletter));
+#endif
+	break;
+      default:			/* None of the above ... nuke 'em. */
+	type_cell = 0;
+	error (EXIT_FAILURE, 0,
+	       _("Unknown argument to %s: %c"), pred_string, (*typeletter));
+	/*NOTREACHED*/
+	return false;
+      }
+
+      if (our_pred->args.types[type_cell])
 	{
 	  error (EXIT_FAILURE, 0,
-		 _("Arguments to -type should contain only one letter"));
-	  /*NOTREACHED*/
-	  return false;
+		 _("Duplicate file type '%c' in the argument list to %s."),
+		 (*typeletter), pred_string);
 	}
 
-      /* From a real system here are the counts of files by type:
-         Type   Count  Fraction
-         f    4410884  0.875
-         d     464722  0.0922
-         l     156662  0.0311
-         b       4476  0.000888
-         c       2233  0.000443
-         s         80  1.59e-05
-         p         38  7.54e-06
+      our_pred->est_success_rate += rate;
+      our_pred->args.types[type_cell] = true;
+
+      /* Advance.
+       * Currently, only 1-character file types separated by ',' are supported.
        */
-      {
-	mode_t type_cell;
-
-	switch (typeletter[0])
-	  {
-	  case 'b':			/* block special */
-	    type_cell = S_IFBLK;
-	    rate = 0.000888f;
-	    break;
-	  case 'c':			/* character special */
-	    type_cell = S_IFCHR;
-	    rate = 0.000443f;
-	    break;
-	  case 'd':			/* directory */
-	    type_cell = S_IFDIR;
-	    rate = 0.0922f;
-	    break;
-	  case 'f':			/* regular file */
-	    type_cell = S_IFREG;
-	    rate = 0.875f;
-	    break;
-	  case 'l':			/* symbolic link */
-#ifdef S_IFLNK
-	    type_cell = S_IFLNK;
-	    rate = 0.0311f;
-#else
-	    type_cell = 0;
-	    error (EXIT_FAILURE, 0,
-		   _("-type %c is not supported because symbolic links "
-		     "are not supported on the platform find was compiled on."),
-		   (*typeletter));
-#endif
-	    break;
-	  case 'p':			/* pipe */
-#ifdef S_IFIFO
-	    type_cell = S_IFIFO;
-	    rate = 7.554e-6f;
-#else
-	    type_cell = 0;
-	    error (EXIT_FAILURE, 0,
-		   _("-type %c is not supported because FIFOs "
-		     "are not supported on the platform find was compiled on."),
-		   (*typeletter));
-#endif
-	    break;
-	  case 's':			/* socket */
-#ifdef S_IFSOCK
-	    type_cell = S_IFSOCK;
-	    rate = 1.59e-5f;
-#else
-	    type_cell = 0;
-	    error (EXIT_FAILURE, 0,
-		   _("-type %c is not supported because named sockets "
-		     "are not supported on the platform find was compiled on."),
-		   (*typeletter));
-#endif
-	    break;
-	  case 'D':			/* Solaris door */
-#ifdef S_IFDOOR
-	    type_cell = S_IFDOOR;
-	    /* There are no Solaris doors on the example system surveyed
-	     * above, but if someone uses -type D, they are presumably
-	     * expecting to find a non-zero number.  We guess at a
-	     * rate. */
-	    rate = 1.0e-5f;
-#else
-	    type_cell = 0;
-	    error (EXIT_FAILURE, 0,
-		   _("-type %c is not supported because Solaris doors "
-		     "are not supported on the platform find was compiled on."),
-		   (*typeletter));
-#endif
-	    break;
-	  default:			/* None of the above ... nuke 'em. */
-	    type_cell = 0;
-	    error (EXIT_FAILURE, 0,
-		   _("Unknown argument to -type: %c"), (*typeletter));
-	    /*NOTREACHED*/
-	    return false;
-	  }
-	our_pred = insert_primary_withpred (entry, which_pred, typeletter);
-	our_pred->est_success_rate = rate;
-
-	/* Figure out if we will need to stat the file, because if we don't
-	 * need to follow symlinks, we can avoid a stat call by using
-	 * struct dirent.d_type.
-	 */
-	if (which_pred == pred_xtype)
-	  {
-	    our_pred->need_stat = true;
-	    our_pred->need_type = false;
-	  }
-	else
-	  {
-	    our_pred->need_stat = false; /* struct dirent is enough */
-	    our_pred->need_type = true;
-	  }
-	our_pred->args.type = type_cell;
-      }
-      return true;
+      typeletter++;
+      if (*typeletter)
+	{
+	  if (*typeletter != ',')
+	    {
+	      error (EXIT_FAILURE, 0,
+		     _("Must separate multiple arguments to %s using: ','"),
+		     pred_string);
+	      /*NOTREACHED*/
+	      return false;
+	    }
+	  typeletter++;
+	  if (!*typeletter)
+	    {
+	      error (EXIT_FAILURE, 0,
+		     _("Last file type in list argument to %s "
+		       "is missing, i.e., list is ending on: ','"),
+		     pred_string);
+	      /*NOTREACHED*/
+	      return false;
+	    }
+	}
     }
-  return false;
+
+  return true;
 }
 
 

@@ -163,6 +163,27 @@ struct size_val
   uintmax_t size;
 };
 
+/* Supported file types for the -type/-xtype options.  */
+enum file_type
+  {
+    FTYPE_BLK,
+    FTYPE_CHR,
+    FTYPE_DIR,
+    FTYPE_REG,
+#ifdef S_IFLNK
+    FTYPE_LNK,
+#endif
+#ifdef S_IFIFO
+    FTYPE_FIFO,
+#endif
+#ifdef S_IFSOCK
+    FTYPE_SOCK,
+#endif
+#ifdef S_IFDOOR
+    FTYPE_DOOR,
+#endif
+    FTYPE_COUNT
+  };
 
 enum xval
   {
@@ -305,7 +326,7 @@ struct predicate
     struct time_val reftime;	/* newer newerXY anewer cnewer mtime atime ctime mmin amin cmin */
     struct perm_val perm;	/* perm */
     struct samefile_file_id samefileid; /* samefile */
-    mode_t type;		/* type */
+    bool types[FTYPE_COUNT];	/* file type(s) */
     struct format_val printf_vec; /* printf fprintf fprint ls fls print0 fprint0 print */
     security_context_t scontext; /* security context */
   } args;

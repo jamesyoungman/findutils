@@ -27,6 +27,11 @@ the --help option.  Previously, when the user passed invalid options
 or arguments, the user's attention to the corresponding error
 diagnostic was distracted by that lengthy text.
 
+find now accepts multiple file type arguments to the -type and -xtype
+options separated by comma ','.  For example, to search for symbolic
+links and directories simply provide the shorter '-type l,d' instead
+of the - yet more portable - '( -type l -o -type d )'.
+
 ** Bug Fixes
 
 #46784: frcode drops last char if no final newline

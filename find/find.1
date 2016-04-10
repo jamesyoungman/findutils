@@ -954,6 +954,9 @@ socket
 .IP D
 door (Solaris)
 .RE
+.IP
+To search for more than one type at once, you can supply the combined list of
+type letters separated by a comma `,' (GNU extension).
 .IP "\-uid \fIn\fR"
 File's numeric user ID is \fIn\fR.
 
@@ -1653,6 +1656,8 @@ previous versions of findutils.
 .IP \fB\-type\fR
 Supported.   POSIX specifies `b', `c', `d', `l', `p', `f' and `s'.
 GNU find also supports `D', representing a Door, where the OS provides these.
+Furthermore, GNU find allows multiple types to be specified at once in a
+comma-separated list.
 
 .IP \fB\-ok\fR
 Supported.
@@ -2086,6 +2091,20 @@ prevents unnecessary descent into directories that have already been
 discovered (for example we do not search project3/src because we
 already found project3/.svn), but ensures sibling directories
 (project2 and project3) are found.
+
+.P
+.nf
+.B find /tmp -type f,d,l
+.fi
+
+Search for files, directories, and symbolic links in the directory
+.B /tmp
+passing these types as a comma-separated list (GNU extension),
+which is otherwise equivalent to the longer, yet more portable:
+
+.nf
+.B find /tmp \e( -type f -o -type d -o -type l \e)
+.fi
 
 .SH EXIT STATUS
 .PP

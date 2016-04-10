@@ -1081,6 +1081,10 @@ socket
 @item D
 door (Solaris)
 @end table
+
+As a GNU extension, multiple file types can be provided as a combined list
+separated by comma @samp{,}. For example, @samp{-type f,d,l} is logically
+interpreted as @samp{( -type f -o -type d -o -type l )}.
 @end deffn
 
 @deffn Test -xtype c
