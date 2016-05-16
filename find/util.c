@@ -575,7 +575,7 @@ cleanup (void)
       complete_pending_execdirs ();
     }
 
-  /* Close ouptut files and NULL out references to them. */
+  /* Close output files and NULL out references to them. */
   sharefile_destroy (state.shared_files);
   if (eval_tree)
     traverse_tree (eval_tree, undangle_file_pointers);

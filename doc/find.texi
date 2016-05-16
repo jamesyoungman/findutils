@@ -2589,7 +2589,7 @@ overall latency by overlapping their waiting time.
 
 If you are running commands in parallel, you need to think about how
 they should arbitrate access to any resources that they share.  For
-example, if more than one of them tries to print to stdout, the ouptut
+example, if more than one of them tries to print to stdout, the output
 will be produced in an indeterminate order (and very likely mixed up)
 unless the processes collaborate in some way to prevent this.  Using
 some kind of locking scheme is one way to prevent such problems.  In
