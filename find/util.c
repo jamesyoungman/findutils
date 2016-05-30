@@ -43,6 +43,7 @@
 /* find headers. */
 #include "defs.h"
 #include "dircallback.h"
+#include "bugreports.h"
 
 
 #if ENABLE_NLS

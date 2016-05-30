@@ -65,7 +65,6 @@
 #include "buildcmd.h"
 #include "defs.h"
 #include "fdleak.h"
-#include "bugreports.h"
 #include "findutils-version.h"
 
 
