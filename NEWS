@@ -34,6 +34,12 @@ of the - yet more portable - '( -type l -o -type d )'.
 
 ** Bug Fixes
 
+#48030: find -exec + does not pass all arguments for certain specific filename
+        lengths.  After the internal (usually 128k) buffer is full and find(1)
+        executed the given command with these arguments, it would miss to run
+        the command yet another time if only one other file argument has to be
+        processed.  Bug introduced in FINDUTILS-4.2.12.
+
 #46784: frcode drops last char if no final newline
 
 ** Translations

@@ -350,11 +350,6 @@ bc_push_arg (struct buildcmd_control *ctl,
 
   assert (arg != NULL);
 
-  if (!initial_args)
-    {
-      state->todo = 1;
-    }
-
   if (!terminate)
     {
       if (state->cmd_argv_chars + len + pfxlen > ctl->arg_max)
@@ -372,6 +367,11 @@ bc_push_arg (struct buildcmd_control *ctl,
         }
       if (bc_argc_limit_reached (initial_args, ctl, state))
             bc_do_exec (ctl, state);
+    }
+
+  if (!initial_args)
+    {
+      state->todo = 1;
     }
 
   if (state->cmd_argc >= state->cmd_argv_alloc)
