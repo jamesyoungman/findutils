@@ -2,6 +2,9 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 * Major changes in release ?.?.?, YYYY-MM-DD
 
+** Bug Fixes
+
+#48135: Fix testsuite error on Hurd and BSD related to ln
 
 * Major changes in release 4.7.0, 2019-08-29
 
