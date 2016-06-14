@@ -260,7 +260,8 @@ test_inode.sh \
 test_type-list.sh \
 sv-34079.sh \
 sv-34976-execdir-fd-leak.sh \
-sv-48030-exec-plus-bug.sh
+sv-48030-exec-plus-bug.sh \
+sv-48180-refuse-noop.sh
 
 EXTRA_DIST = $(EXTRA_DIST_EXP) $(EXTRA_DIST_XO) $(EXTRA_DIST_GOLDEN) \
 	$(test_shell_progs) binary_locations.sh checklists.py

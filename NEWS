@@ -34,6 +34,9 @@ of the - yet more portable - '( -type l -o -type d )'.
 
 ** Bug Fixes
 
+#48180: find -noop (an internal option not intended to be exposed to the user)
+         no longer crashes.  Bug introduced in FINDUTILS-4.3.1.
+
 #48030: find -exec + does not pass all arguments for certain specific filename
         lengths.  After the internal (usually 128k) buffer is full and find(1)
         executed the given command with these arguments, it would miss to run

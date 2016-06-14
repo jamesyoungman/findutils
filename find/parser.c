@@ -323,7 +323,8 @@ static struct parser_table const parse_table[] =
    */
   {ARG_TEST, "false",                 parse_false,   pred_false}, /* GNU */
   {ARG_TEST, "true",                  parse_true,    pred_true }, /* GNU */
-  {ARG_NOOP, "noop",                  NULL,          pred_true }, /* GNU, internal use only */
+  /* Internal pseudo-option, therefore 3 minus: ---noop.  */
+  {ARG_NOOP, "--noop",                NULL,          pred_true }, /* GNU, internal use only */
 
   /* Various other cases that don't fit neatly into our macro scheme. */
   {ARG_TEST, "help",                  parse_help,    NULL},       /* GNU */
@@ -599,6 +600,9 @@ found_parser (const char *original_arg, const struct parser_table *entry)
    */
   if (entry->type != ARG_POSITIONAL_OPTION)
     {
+      if (entry->type == ARG_NOOP)
+        return NULL;  /* internal use only, trap -noop here.  */
+
       /* Something other than -follow/-daystart.
        * If this is an option, check if it followed
        * a non-option and if so, issue a warning.
