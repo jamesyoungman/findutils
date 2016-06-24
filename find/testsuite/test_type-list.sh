@@ -96,7 +96,7 @@ fi
 # Check if the given file type is supported by find.
 # Used for the file type compiled in conditionally: l,p,s,D)
 find_supports_type() {
-  find '.' -maxdepth 0 -type "$1"
+  "${ftsfind}" '.' -maxdepth 0 -type "$1"
 }
 
 # Create test files of all possible types (if possible):
