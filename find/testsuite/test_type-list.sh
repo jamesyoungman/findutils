@@ -235,6 +235,26 @@ for exe in "${ftsfind}" "${oldfind}"; do
     ||  { cat $err; fail=1; }
 
   # Continue with positive tests.
+  # Files only
+  grep -e '/reg$' $all > $exp
+  "${exe}" "${outdir}" -type f > $out || fail=1
+  sort -o $out $out
+  compare $exp $out || fail=1;
+
+  # Symbolic links only.
+  if [ $HAVE_LINK = 1 ]; then
+
+    grep -e 'link$' $all > $exp
+    "${exe}" "${outdir}" -type l > $out || fail=1
+    sort -o $out $out
+    compare $exp $out || fail=1;
+
+    grep -e 'dangling-link$' $all > $exp
+    "${exe}" "${outdir}" -xtype l > $out || fail=1
+    sort -o $out $out
+    compare $exp $out || fail=1;
+  fi
+
   # Files and directories.
   grep -e '/reg$' -e '/dir$' $all > $exp
   "${exe}" "${outdir}" -mindepth 1 -type f,d > $out || fail=1
