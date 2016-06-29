@@ -865,14 +865,11 @@ set_new_parent (struct predicate *curr, enum predicate_precedence high_prec, str
 {
   struct predicate *new_parent;
 
-  new_parent = xmalloc (sizeof (struct predicate));
+  /* Allocate + initialize a new predicate.  */
+  new_parent = xzalloc (sizeof (struct predicate));
   new_parent->p_type = BI_OP;
   new_parent->p_prec = high_prec;
-  new_parent->need_stat = false;
-  new_parent->need_type = false;
-  new_parent->need_inum = false;
   new_parent->p_cost = NeedsNothing;
-  new_parent->arg_text = NULL;
 
   switch (high_prec)
     {
@@ -895,14 +892,8 @@ set_new_parent (struct predicate *curr, enum predicate_precedence high_prec, str
       ;				/* empty */
     }
 
-  new_parent->side_effects = false;
-  new_parent->no_default_print = false;
-  new_parent->args.str = NULL;
-  new_parent->pred_next = NULL;
-
   /* Link in new_parent.
      Pushes rest of left branch down 1 level to new_parent->pred_right. */
-  new_parent->pred_left = NULL;
   new_parent->pred_right = curr;
   *prevp = new_parent;
 
@@ -1488,37 +1479,25 @@ get_new_pred (const struct parser_table *entry)
   assert (entry->type != ARG_OPTION);
   assert (entry->type != ARG_POSITIONAL_OPTION);
 
+  /* Allocate + initialize a new predicate.  */
+  new_pred = xzalloc (sizeof (struct predicate));
   if (predicates == NULL)
     {
-      predicates = (struct predicate *)
-	xmalloc (sizeof (struct predicate));
-      last_pred = predicates;
+      last_pred = predicates = new_pred;
     }
   else
     {
-      new_pred = xmalloc (sizeof (struct predicate));
       last_pred->pred_next = new_pred;
       last_pred = new_pred;
     }
   last_pred->parser_entry = entry;
-  last_pred->pred_func = NULL;
-  last_pred->p_name = NULL;
   last_pred->p_type = NO_TYPE;
   last_pred->p_prec = NO_PREC;
-  last_pred->side_effects = false;
-  last_pred->no_default_print = false;
   last_pred->need_stat = true;
   last_pred->need_type = true;
-  last_pred->need_inum = false;
   last_pred->p_cost = NeedsUnknown;
   last_pred->arg_text = "ThisShouldBeSetToSomethingElse";
-  last_pred->args.str = NULL;
-  last_pred->args.scontext = NULL;
-  last_pred->pred_next = NULL;
-  last_pred->pred_left = NULL;
-  last_pred->pred_right = NULL;
   last_pred->literal_control_chars = options.literal_control_chars;
-  last_pred->artificial = false;
   last_pred->est_success_rate = 1.0;
   init_pred_perf (last_pred);
   return last_pred;
