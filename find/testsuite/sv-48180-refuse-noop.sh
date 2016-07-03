@@ -103,8 +103,9 @@ fail=0
 # and the now renamed '---noop' option for both find executables.
 for exe in "${ftsfind}" "${oldfind}"; do
   for opt in 'noop' '--noop'; do
-    out="${exe}${opt}.out"
-    err="${exe}${opt}.err"
+    e="$(basename "$exe")"
+    out="${e}${opt}.out"
+    err="${e}${opt}.err"
     returns_ 1 "$exe" "-${opt}" >"$out" 2> "$err" || fail=1
     compare /dev/null "$out" || fail=1
     grep "find: unknown predicate .-${opt}." "$err" \
