@@ -32,6 +32,9 @@ options separated by comma ','.  For example, to search for symbolic
 links and directories simply provide the shorter '-type l,d' instead
 of the - yet more portable - '( -type l -o -type d )'.
 
+find now diagnoses failures returned by readdir().  This bug was inherent
+in the use of FTS.
+
 ** Bug Fixes
 
 #48180: find -noop (an internal option not intended to be exposed to the user)
