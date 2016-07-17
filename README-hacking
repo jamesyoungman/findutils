@@ -59,10 +59,10 @@ If you already have a copy you can refresh it with:
  This will also run Autoconf and Automake to generate the "configure"
  script and "Makefile.in" files.
 
-3. Run "configure" and "make" in the normal way.
+3. Run "./configure" and "make" in the normal way.
 
- If you have GNU libintl installed, you can just run "configure".
- Otherwise, run "configure --disable-nls".
+ If you have GNU libintl installed, you can just run "./configure".
+ Otherwise, run "./configure --disable-nls".
 
 You are now at the point where your local directory looks just like it
 would after building a source release, except that your copy is more
@@ -113,7 +113,7 @@ a one-word tag indicating what is affected (for example find: for
 changes to find, doc: to changes to the documentation, maint: for
 changes to the maintainer automation and so forth).
 
-All changes a file are grouped together in an entry which begins with
+All changes to a file are grouped together in an entry which begins with
 an asterisk (*) and the file name.  The name of the modified function
 (if any) follows immediately in parentheses followed by a colon.  If
 you're modifying a file for which "function" isn't the logical unit of
@@ -128,10 +128,11 @@ just say "Update all callers to remove this function argument".  If
 that change spans several files, mention the other files modified.
 
 Note for maintainers:
-Prior to pushing a commit in the name of someone else to the public Git
-repository, please check if that person has undergone the "Copyright
-assignment" process for GNU findutils described below, or - in case of a
-trivial (<10 lines) change - document that such paperwork is not required
+Prior to pushing a commit in the name of someone else to the public
+Git repository, please check if that person has undergone the
+"Copyright assignment" process for GNU findutils described below, or -
+in case of a trivial change (<10 lines, cumulatively with all their
+previous contributions) - document that such paperwork is not required
 by adding this line to the commit message:
 
   Copyright-paperwork-exempt: Yes
