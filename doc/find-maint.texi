@@ -610,8 +610,6 @@ version 3.
 Generic installation instructions for installing GNU programs.
 @item README
 Information about how to compile findutils in particular
-@item README-alpha
-A README file which is included with testing releases of findutils.
 @item README-hacking
 Describes how to build findutils from the code in git.
 @item THANKS
