@@ -225,7 +225,7 @@ main (int argc, char **argv)
     options.xstat = debug_stat;
 
   if (options.debug_options & DebugTime)
-    fprintf (stderr, "cur_day_start = %s", ctime (&options.cur_day_start));
+    fprintf (stderr, "cur_day_start = %s", ctime (&options.cur_day_start.tv_sec));
 
   /* state.cwd_dir_fd has to be initialized before we call build_expression_tree ()
    * because command-line parsing may lead us to stat some files.
@@ -991,7 +991,7 @@ at_top (const char *pathname,
 {
   int dirchange;
   char *parent_dir = dir_name (pathname);
-  char *base = last_component (pathname);
+  const char *base = last_component (pathname);
 
   state.curdepth = 0;
   state.starting_path_length = strlen (pathname);
