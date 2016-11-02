@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: findutils 4.5.12\n"
 "Report-Msgid-Bugs-To: bug-findutils@gnu.org\n"
-"POT-Creation-Date: 2015-12-27 20:34+0000\n"
+"POT-Creation-Date: 2016-11-02 23:33+0100\n"
 "PO-Revision-Date: 2013-10-07 21:22+0200\n"
 "Last-Translator: Giorgio Catanzaro <catanzag@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -19,71 +19,113 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: find/exec.c:136
+#: find/exec.c:129
 #, c-format
 msgid "Failed to save working directory in order to run a command on %s"
 msgstr ""
 "Salvataggio della directory di lavoro per eseguire un comando su %s non "
 "riuscito"
 
-#: find/exec.c:256
+#: find/exec.c:249
 #, c-format
 msgid "Cannot close standard input"
 msgstr "Impossibile chiudere lo standard input"
 
-#: find/exec.c:285
+#: find/exec.c:278
 #, fuzzy, c-format
 msgid "Failed to change directory%s%s"
 msgstr "Cambio di directory non riuscito"
 
-#: find/exec.c:314 xargs/xargs.c:1265
+#: find/exec.c:310 xargs/xargs.c:1264
 #, c-format
 msgid "cannot fork"
 msgstr "impossibile fare fork"
 
-#: find/exec.c:345
+#: find/exec.c:341
 #, c-format
 msgid "error waiting for %s"
 msgstr "errore aspettando %s"
 
-#: find/exec.c:354
+#: find/exec.c:350
 #, c-format
 msgid "%s terminated by signal %d"
 msgstr "%s terminato dal segnale %d"
 
-#: find/oldfind.c:204 find/ftsfind.c:677
+#: find/fstype.c:179
+#, c-format
+msgid "Cannot read mounted file system list"
+msgstr "Impossibile leggere l'elenco dei file system montati"
+
+#: find/fstype.c:238
+msgid "unknown"
+msgstr "sconosciuto"
+
+#: find/ftsfind.c:237 find/oldfind.c:1136
+#, c-format
+msgid ""
+"Symbolic link %s is part of a loop in the directory hierarchy; we have "
+"already visited the directory to which it points."
+msgstr ""
+"Il collegamento simbolico %s è parte di un ciclo nella gerarchia delle "
+"directory; la directory a cui punta è già stata visitata."
+
+#: find/ftsfind.c:251
+#, c-format
+msgid ""
+"File system loop detected; %s is part of the same file system loop as %s."
+msgstr ""
+"Rilevato un ciclo nel file system; %s è parte dello stesso ciclo nel file "
+"system di %s."
+
+#: find/ftsfind.c:436 find/util.c:260
+#, c-format
+msgid "WARNING: file %s appears to have mode 0000"
+msgstr "ATTENZIONE: il file %s sembra avere modo 0000"
+
+#: find/ftsfind.c:551
+#, c-format
+msgid "cannot search %s"
+msgstr "impossibile cercare in %s"
+
+#: find/ftsfind.c:601
+#, c-format
+msgid "failed to restore working directory after searching %s"
+msgstr ""
+"ripristino della directory di lavoro dopo la ricerca in %s non riuscito"
+
+#: find/ftsfind.c:671 find/oldfind.c:202
 #, fuzzy, c-format
 msgid "Failed to initialize shared-file hash table"
 msgstr "Inizializzazione della tabella hash dei file condivisi non riuscita"
 
-#: find/oldfind.c:220 find/ftsfind.c:693 locate/bigram.c:105 locate/code.c:174
-#: locate/frcode.c:233 locate/locate.c:1581 xargs/xargs.c:423
+#: find/ftsfind.c:687 find/oldfind.c:218 locate/frcode.c:231
+#: locate/locate.c:1594 xargs/xargs.c:424
 #, fuzzy, c-format
 msgid "The atexit library function failed"
 msgstr ""
 "il controllo interno della funzione di libreria fnmatch() non è riuscito."
 
-#: find/oldfind.c:264
+#: find/oldfind.c:261
 #, c-format
 msgid "cannot stat current directory"
 msgstr "impossibile per «stat» ottenere informazioni sulla directory corrente"
 
-#: find/oldfind.c:355
+#: find/oldfind.c:352
 #, c-format
 msgid "Cannot read list of mounted devices."
 msgstr "Impossibile leggere l'elenco dei dispositivi montati."
 
-#: find/oldfind.c:444
+#: find/oldfind.c:441
 #, c-format
 msgid "WARNING: file system %s has recently been unmounted."
 msgstr "ATTENZIONE: il file system %s è stato recentemente smontato."
 
-#: find/oldfind.c:454
+#: find/oldfind.c:451
 #, c-format
 msgid "WARNING: file system %s has recently been mounted."
 msgstr "ATTENZIONE: il file system %s è stato recentemente montato."
 
-#: find/oldfind.c:551
+#: find/oldfind.c:548
 #, c-format
 msgid ""
 "%s%s changed during execution of %s (old device number %ld, new device "
@@ -92,7 +134,7 @@ msgstr ""
 "%s%s è cambiato durante l'esecuzione di %s (vecchio numero di device %ld, "
 "nuovo numero di device %ld, tipo di file system %s) [ref %ld]"
 
-#: find/oldfind.c:588
+#: find/oldfind.c:585
 #, c-format
 msgid ""
 "%s%s changed during execution of %s (old inode number %<PRIuMAX>, new inode "
@@ -102,26 +144,17 @@ msgstr ""
 "%<PRIuMAX>, nuovo numero di inode %<PRIuMAX>, tipo di file system %s) [ref "
 "%ld]"
 
-#: find/oldfind.c:753
+#: find/oldfind.c:750
 #, c-format
 msgid "failed to return to parent directory"
 msgstr "ritorno alla directory padre non riuscito"
 
-#: find/oldfind.c:1039
+#: find/oldfind.c:1036
 #, c-format
 msgid "Failed to safely change directory into %s"
 msgstr "Cambio di directory sicuro in %s non riuscito"
 
-#: find/oldfind.c:1139 find/ftsfind.c:245
-#, c-format
-msgid ""
-"Symbolic link %s is part of a loop in the directory hierarchy; we have "
-"already visited the directory to which it points."
-msgstr ""
-"Il collegamento simbolico %s è parte di un ciclo nella gerarchia delle "
-"directory; la directory a cui punta è già stata visitata."
-
-#: find/oldfind.c:1158
+#: find/oldfind.c:1155
 #, c-format
 msgid ""
 "Filesystem loop detected; %s has the same device number and inode as a "
@@ -138,12 +171,12 @@ msgstr[1] ""
 "inode di una directory che è %d livelli più alta nella gerarchia del file "
 "system"
 
-#: find/oldfind.c:1410
+#: find/oldfind.c:1407
 #, c-format
 msgid "warning: not following the symbolic link %s"
 msgstr "attenzione: non viene seguito il collegamento simbolico %s"
 
-#: find/oldfind.c:1483
+#: find/oldfind.c:1480
 #, c-format
 msgid ""
 "WARNING: Hard link count is wrong for %s (saw only st_nlink=%<PRIuMAX> but "
@@ -158,40 +191,7 @@ msgstr ""
 "dell'opzione -noleaf di find. I risultati precedenti potrebbero non aver "
 "incluso directory che dovevano essere analizzate."
 
-#: find/fstype.c:185
-#, c-format
-msgid "Cannot read mounted file system list"
-msgstr "Impossibile leggere l'elenco dei file system montati"
-
-#: find/fstype.c:244
-msgid "unknown"
-msgstr "sconosciuto"
-
-#: find/ftsfind.c:259
-#, c-format
-msgid ""
-"File system loop detected; %s is part of the same file system loop as %s."
-msgstr ""
-"Rilevato un ciclo nel file system; %s è parte dello stesso ciclo nel file "
-"system di %s."
-
-#: find/ftsfind.c:444 find/util.c:222
-#, c-format
-msgid "WARNING: file %s appears to have mode 0000"
-msgstr "ATTENZIONE: il file %s sembra avere modo 0000"
-
-#: find/ftsfind.c:559
-#, c-format
-msgid "cannot search %s"
-msgstr "impossibile cercare in %s"
-
-#: find/ftsfind.c:609
-#, c-format
-msgid "failed to restore working directory after searching %s"
-msgstr ""
-"ripristino della directory di lavoro dopo la ricerca in %s non riuscito"
-
-#: find/parser.c:452
+#: find/parser.c:458
 #, c-format
 msgid ""
 "The -delete action automatically turns on -depth, but -prune does nothing "
@@ -202,7 +202,7 @@ msgstr ""
 "quando -depth è attivato. Se si vuole proseguire comunque, usare "
 "esplicitamente l'opzione -depth."
 
-#: find/parser.c:608
+#: find/parser.c:617
 #, c-format
 msgid ""
 "warning: you have specified the %s option after a non-option argument %s, "
@@ -215,7 +215,7 @@ msgstr ""
 "indicati sia prima che dopo di essa). Usare le opzioni prima degli altri "
 "argomenti.\n"
 
-#: find/parser.c:915
+#: find/parser.c:924
 #, c-format
 msgid ""
 "warning: the -d option is deprecated; please use -depth instead, because the "
@@ -224,7 +224,7 @@ msgstr ""
 "attenzione: l'opzione -d è deprecata; usare l'opzione -depth che è conforme "
 "a POSIX."
 
-#: find/parser.c:1188
+#: find/parser.c:1197
 #, c-format
 msgid ""
 "%s is not the name of an existing group and it does not look like a numeric "
@@ -233,116 +233,23 @@ msgstr ""
 "%s non è il nome di un gruppo esistente e non sembra un id di gruppo "
 "numerico perché ha il suffisso non atteso %s"
 
-#: find/parser.c:1203
+#: find/parser.c:1212
 #, c-format
 msgid "%s is not the name of an existing group"
 msgstr "%s non è il nome di un gruppo esistente"
 
-#: find/parser.c:1209
+#: find/parser.c:1218
 #, c-format
 msgid "argument to -group is empty, but should be a group name"
 msgstr "l'argomento di -group è vuoto, ma deve essere un nome di gruppo"
 
-#: find/parser.c:1231
-msgid ""
-"\n"
-"default path is the current directory; default expression is -print\n"
-"expression may consist of: operators, options, tests, and actions:\n"
-msgstr ""
-"\n"
-"il percorso predefinito è la directory corrente; l'espressione predefinita è "
-"-print\n"
-"l'espressione può essere formata da: operatori, opzioni, test e azioni:\n"
-
-#: find/parser.c:1234
-msgid ""
-"operators (decreasing precedence; -and is implicit where no others are "
-"given):\n"
-"      ( EXPR )   ! EXPR   -not EXPR   EXPR1 -a EXPR2   EXPR1 -and EXPR2\n"
-"      EXPR1 -o EXPR2   EXPR1 -or EXPR2   EXPR1 , EXPR2\n"
-msgstr ""
-"operatori (precedenza decrescente; -and è implicito se non ne sono indicati "
-"altri):\n"
-"      ( EXPR )   ! EXPR   -not EXPR   EXPR1 -a EXPR2   EXPR1 -and EXPR2\n"
-"      EXPR1 -o EXPR2   EXPR1 -or EXPR2   EXPR1 , EXPR2\n"
-
-#: find/parser.c:1238
-msgid ""
-"positional options (always true): -daystart -follow -regextype\n"
-"\n"
-"normal options (always true, specified before other expressions):\n"
-"      -depth --help -maxdepth LEVELS -mindepth LEVELS -mount -noleaf\n"
-"      --version -xdev -ignore_readdir_race -noignore_readdir_race\n"
-msgstr ""
-"opzioni posizionali (sempre vere): -daystart -follow -regextype\n"
-"\n"
-"opzioni normali (sempre vere, indicate prima delle altre espressioni):\n"
-"      -depth --help -maxdepth LIVELLI -mindepth LIVELLI -mount -noleaf\n"
-"      --version -xdev -ignore_readdir_race -noignore_readdir_race\n"
-
-#: find/parser.c:1243
-msgid ""
-"tests (N can be +N or -N or N): -amin N -anewer FILE -atime N -cmin N\n"
-"      -cnewer FILE -ctime N -empty -false -fstype TYPE -gid N -group NAME\n"
-"      -ilname PATTERN -iname PATTERN -inum N -iwholename PATTERN -iregex "
-"PATTERN\n"
-"      -links N -lname PATTERN -mmin N -mtime N -name PATTERN -newer FILE"
-msgstr ""
-"test (N può essere +N o -N o N): -amin N -anewer FILE -atime N -cmin N\n"
-"      -cnewer FILE -ctime N -empty -false -fstype TIPO -gid N -group NOME\n"
-"      -ilname MODELLO -iname MODELLO -inum N -iwholename MODELLO -iregex "
-"MODELLO\n"
-"      -links N -lname MODELLO -mmin N -mtime N -name MODELLO -newer FILE"
-
-#: find/parser.c:1248
-msgid ""
-"      -nouser -nogroup -path PATTERN -perm [-/]MODE -regex PATTERN\n"
-"      -readable -writable -executable\n"
-"      -wholename PATTERN -size N[bcwkMG] -true -type [bcdpflsD] -uid N\n"
-"      -used N -user NAME -xtype [bcdpfls]"
-msgstr ""
-"      -nouser -nogroup -path MODELLO -perm [+-]MODO -regex MODELLO\n"
-"      -readable -writable -executable\n"
-"      -wholename MODELLO -size N[bcwkMG] -true -type [bcdpflsD] -uid N\n"
-"      -used N -user NOME -xtype [bcdpfls]"
-
-#: find/parser.c:1253
-msgid "      -context CONTEXT\n"
-msgstr "      -context CONTESTO\n"
-
-#: find/parser.c:1255
-msgid ""
-"\n"
-"actions: -delete -print0 -printf FORMAT -fprintf FILE FORMAT -print \n"
-"      -fprint0 FILE -fprint FILE -ls -fls FILE -prune -quit\n"
-"      -exec COMMAND ; -exec COMMAND {} + -ok COMMAND ;\n"
-"      -execdir COMMAND ; -execdir COMMAND {} + -okdir COMMAND ;\n"
-msgstr ""
-"\n"
-"azioni: -delete -print0 -printf FORMATO -fprintf FILE FORMATO -print \n"
-"      -fprint0 FILE -fprint FILE -ls -fls FILE -prune -quit\n"
-"      -exec COMANDO ; -exec COMANDO {} + -ok COMANDO ;\n"
-"      -execdir COMANDO ; -execdir COMANDO {} + -okdir COMANDO ;\n"
-
-#: find/parser.c:1261
-msgid ""
-"Report (and track progress on fixing) bugs via the findutils bug-reporting\n"
-"page at http://savannah.gnu.org/ or, if you have no web access, by sending\n"
-"email to <bug-findutils@gnu.org>."
-msgstr ""
-"È possibile segnalare i bug (e seguire la loro correzione) tramite la "
-"pagina\n"
-"di segnalazione dei bug di findutils presso http://savannah.gnu.org/, o se "
-"non\n"
-"si ha accesso al web inviando una mail a <bug-findutils@gnu.org>."
-
-#: find/parser.c:1316
+#: find/parser.c:1291
 #, c-format
 msgid "sanity check of the fnmatch() library function failed."
 msgstr ""
 "il controllo interno della funzione di libreria fnmatch() non è riuscito."
 
-#: find/parser.c:1330
+#: find/parser.c:1305
 #, c-format
 msgid ""
 "warning: Unix filenames usually don't contain slashes (though pathnames "
@@ -357,44 +264,44 @@ msgstr ""
 "wholename» o forse «-samefile». In alternativa, se viene usato GNU grep, è "
 "possibile utilizzare «find ... -print0 | grep -FzZ %s»."
 
-#: find/parser.c:1456
+#: find/parser.c:1431
 #, c-format
 msgid "Expected a positive decimal integer argument to %s, but got %s"
 msgstr ""
 "Atteso un intero decimale positivo come argomento di %s, ma ottenuto %s"
 
-#: find/parser.c:1621
+#: find/parser.c:1596
 #, c-format
 msgid "This system does not provide a way to find the birth time of a file."
 msgstr ""
 "Il sistema non fornisce un modo per trovare la data di creazione di un file."
 
-#: find/parser.c:1642
+#: find/parser.c:1617
 #, c-format
 msgid "The %s test needs an argument"
 msgstr "Il test %s ha bisogno di un argomento"
 
-#: find/parser.c:1679
+#: find/parser.c:1654
 #, c-format
 msgid "I cannot figure out how to interpret %s as a date or time"
 msgstr "Impossibile capire se interpretare %s come data o ora"
 
-#: find/parser.c:1696
+#: find/parser.c:1671
 #, c-format
 msgid "Cannot obtain birth time of file %s"
 msgstr "Impossibile ottenere la data di creazione del file %s"
 
-#: find/parser.c:1840
+#: find/parser.c:1815
 #, c-format
 msgid "warning: -%s %s will not match anything because it ends with /."
 msgstr "attenzione: -%s %s non corrisponde a nulla perché termina con /."
 
-#: find/parser.c:1937
+#: find/parser.c:1910
 #, c-format
 msgid "invalid mode %s"
 msgstr "modo %s non valido"
 
-#: find/parser.c:1955
+#: find/parser.c:1928
 #, c-format
 msgid ""
 "warning: you have specified a mode pattern %s (which is equivalent to /000). "
@@ -406,22 +313,27 @@ msgstr ""
 "-000, cioè mentre precedentemente non corrispondeva ad alcun file, adesso "
 "corrisponde a tutti i file."
 
-#: find/parser.c:2156
+#: find/parser.c:2101
+#, c-format
+msgid "failed to compile regular expression '%s': %s"
+msgstr ""
+
+#: find/parser.c:2130
 #, c-format
 msgid "invalid null argument to -size"
 msgstr "-size non può avere un argomento nullo"
 
-#: find/parser.c:2206
+#: find/parser.c:2180
 #, c-format
 msgid "invalid -size type `%c'"
 msgstr "il tipo di -size \"%c\" non è valido"
 
-#: find/parser.c:2216
+#: find/parser.c:2190
 #, c-format
 msgid "Invalid argument `%s%s' to -size"
 msgstr "Argomento «%s%s» non valido per -size"
 
-#: find/parser.c:2398
+#: find/parser.c:2372
 msgid ""
 "The -show-control-chars option takes a single argument which must be "
 "'literal' or 'safe'"
@@ -429,78 +341,95 @@ msgstr ""
 "L'opzione -show-control-chars richiede un argomento singolo che deve essere "
 "\"literal\" o \"safe\""
 
-#: find/parser.c:2512
+#: find/parser.c:2486
 #, c-format
 msgid "Invalid argument %s to -used"
 msgstr "Argomento %s non valido per -used"
 
-#: find/parser.c:2553
+#: find/parser.c:2527
 #, c-format
 msgid "%s is not the name of a known user"
 msgstr "%s non è il nome di un utente conosciuto"
 
-#: find/parser.c:2560
+#: find/parser.c:2534
 #, c-format
 msgid "The argument to -user should not be empty"
 msgstr "L'argomento di -user non deve essere vuoto"
 
-#: find/parser.c:2585
+#: find/parser.c:2559
 #, c-format
 msgid "Features enabled: "
 msgstr "Funzionalità abilitate: "
 
-#: find/parser.c:2662
+#: find/parser.c:2628
 #, c-format
 msgid "invalid predicate -context: SELinux is not enabled."
 msgstr "opzione -context non valida: SELinux non è abilitato."
 
-#: find/parser.c:2726
-#, c-format
-msgid "Arguments to -type should contain only one letter"
+#: find/parser.c:2692
+#, fuzzy, c-format
+msgid "Arguments to %s should contain at least one letter"
 msgstr "L'argomento di -type deve contenere solo una lettera"
 
-#: find/parser.c:2755
-#, c-format
+#: find/parser.c:2757
+#, fuzzy, c-format
 msgid ""
-"-type %c is not supported because symbolic links are not supported on the "
+"%s %c is not supported because symbolic links are not supported on the "
 "platform find was compiled on."
 msgstr ""
 "-type %c non è supportato perché i collegamenti simbolici non sono "
 "supportati nella piattaforma su cui find è stato compilato."
 
-#: find/parser.c:2766
-#, c-format
+#: find/parser.c:2769
+#, fuzzy, c-format
 msgid ""
-"-type %c is not supported because FIFOs are not supported on the platform "
-"find was compiled on."
+"%s %c is not supported because FIFOs are not supported on the platform find "
+"was compiled on."
 msgstr ""
 "-type %c non è supportato perché le FIFO non sono supportate nella "
 "piattaforma su cui find è stato compilato."
 
-#: find/parser.c:2777
-#, c-format
+#: find/parser.c:2781
+#, fuzzy, c-format
 msgid ""
-"-type %c is not supported because named sockets are not supported on the "
+"%s %c is not supported because named sockets are not supported on the "
 "platform find was compiled on."
 msgstr ""
 "-type %c non è supportato perché i socket con nome non sono supportati nella "
 "piattaforma su cui find è stato compilato."
 
-#: find/parser.c:2788
-#, c-format
+#: find/parser.c:2797
+#, fuzzy, c-format
 msgid ""
-"-type %c is not supported because Solaris doors are not supported on the "
+"%s %c is not supported because Solaris doors are not supported on the "
 "platform find was compiled on."
 msgstr ""
 "-type %c non è supportato perché le porte Solaris non sono supportate nella "
 "piattaforma su cui find è stato compilato."
 
-#: find/parser.c:2795
-#, c-format
-msgid "Unknown argument to -type: %c"
+#: find/parser.c:2805
+#, fuzzy, c-format
+msgid "Unknown argument to %s: %c"
 msgstr "Argomento sconosciuto per -type: %c"
 
-#: find/parser.c:2869
+#: find/parser.c:2813
+#, c-format
+msgid "Duplicate file type '%c' in the argument list to %s."
+msgstr ""
+
+#: find/parser.c:2829
+#, c-format
+msgid "Must separate multiple arguments to %s using: ','"
+msgstr ""
+
+#: find/parser.c:2838
+#, c-format
+msgid ""
+"Last file type in list argument to %s is missing, i.e., list is ending on: "
+"','"
+msgstr ""
+
+#: find/parser.c:2897
 #, c-format
 msgid ""
 "The current directory is included in the PATH environment variable, which is "
@@ -513,7 +442,7 @@ msgstr ""
 "directory corrente da $PATH (cioè rimuovere \".\", doppi punti o i due punti "
 "prima o dopo)"
 
-#: find/parser.c:2881
+#: find/parser.c:2909
 #, c-format
 msgid ""
 "The relative path %s is included in the PATH environment variable, which is "
@@ -524,7 +453,7 @@ msgstr ""
 "insicura in combinazione con l'azione %s di ricerca. Rimuovere la voce da "
 "$PATH"
 
-#: find/parser.c:2990
+#: find/parser.c:3018
 #, c-format
 msgid ""
 "You may not use {} within the utility name for -execdir and -okdir, because "
@@ -533,86 +462,86 @@ msgstr ""
 "Non è possibile utilizzare {} nel nome dell'utility per -execdir e -okdir a "
 "causa di possibili problemi di sicurezza."
 
-#: find/parser.c:3016
+#: find/parser.c:3044
 #, c-format
 msgid "Only one instance of {} is supported with -exec%s ... +"
 msgstr "Solo un'occorrenza di {} è supportata con -exec%s ... +"
 
-#: find/parser.c:3026
+#: find/parser.c:3054
 #, c-format
 msgid "In %s the %s must appear by itself, but you specified %s"
 msgstr "In %s %s deve apparire da sé, ma è stato specificato %s"
 
-#: find/parser.c:3046
+#: find/parser.c:3074
 #, c-format
 msgid "The environment is too large for exec()."
 msgstr "L'ambiente è troppo grande per exec()."
 
-#: find/parser.c:3215
+#: find/parser.c:3243
 #, c-format
 msgid "arithmetic overflow while converting %s days to a number of seconds"
 msgstr ""
 "overflow aritmetico nella conversione di %s giorni in numero di secondi"
 
-#: find/parser.c:3239
+#: find/parser.c:3267
 #, c-format
 msgid "arithmetic overflow when trying to calculate the end of today"
 msgstr "overflow aritmetico nel calcolo della fine di oggi"
 
-#: find/parser.c:3398
+#: find/parser.c:3426
 msgid "standard error"
 msgstr "standard error"
 
-#: find/parser.c:3403
+#: find/parser.c:3431
 msgid "standard output"
 msgstr "standard output"
 
-#: find/pred.c:338
+#: find/pred.c:330
 #, c-format
 msgid "cannot delete %s"
 msgstr "impossibile eliminare %s"
 
-#: find/pred.c:718
+#: find/pred.c:720
 #, c-format
 msgid "WARNING: cannot determine birth time of file %s"
 msgstr "ATTENZIONE: impossibile determinare la data di creazione del file %s"
 
-#: find/pred.c:766
+#: find/pred.c:768
 #, c-format
 msgid "< %s ... %s > ? "
 msgstr "< %s ... %s > ? "
 
-#: find/pred.c:768
+#: find/pred.c:770
 #, fuzzy, c-format
 msgid "Failed to write prompt for -ok"
 msgstr "Scrittura su standard output non riuscita"
 
-#: find/pred.c:1192 find/print.c:1239
+#: find/pred.c:1239 find/print.c:1235
 #, c-format
 msgid "getfilecon failed: %s"
 msgstr "getfilecon non riuscito: %s"
 
-#: find/print.c:346
+#: find/print.c:341
 #, c-format
 msgid "warning: escape `\\' followed by nothing at all"
 msgstr ""
 
-#: find/print.c:365
+#: find/print.c:360
 #, c-format
 msgid "warning: unrecognized escape `\\%c'"
 msgstr "attenzione: sequenza di escape «\\%c» non riconosciuta"
 
-#: find/print.c:385
+#: find/print.c:380 find/print.c:1257
 #, c-format
 msgid "error: %s at end of format string"
 msgstr "errore: %s alla fine della stringa di formato"
 
-#: find/print.c:409
+#: find/print.c:404
 #, c-format
 msgid "error: the format directive `%%%c' is reserved for future use"
 msgstr "errore: la direttiva di formato «%%%c» è riservata per uso futuro"
 
-#: find/print.c:417
+#: find/print.c:412
 #, c-format
 msgid ""
 "warning: format directive `%%%c' should be followed by another character"
@@ -620,17 +549,17 @@ msgstr ""
 "attenzione: la direttiva di formato «%%%c» deve essere seguita da un altro "
 "carattere"
 
-#: find/print.c:425
+#: find/print.c:420
 #, c-format
 msgid "warning: unrecognized format directive `%%%c'"
 msgstr "attenzione: direttiva di formato «%%%c» non riconosciuta"
 
-#: find/tree.c:129 find/tree.c:134 find/tree.c:224 find/tree.c:263
+#: find/tree.c:123 find/tree.c:128 find/tree.c:218 find/tree.c:257
 #, c-format
 msgid "invalid expression"
 msgstr "espressione non valida"
 
-#: find/tree.c:140
+#: find/tree.c:134
 #, c-format
 msgid ""
 "invalid expression; you have used a binary operator '%s' with nothing before "
@@ -639,22 +568,22 @@ msgstr ""
 "espressione non valida; è stato usato un operatore binario «%s» senza "
 "anteporre niente."
 
-#: find/tree.c:151
+#: find/tree.c:145
 #, c-format
 msgid "expected an expression between '%s' and ')'"
 msgstr "attesa un'espressione tra \"%s\" e \")\""
 
-#: find/tree.c:161
+#: find/tree.c:155
 #, c-format
 msgid "expected an expression after '%s'"
 msgstr "attesa un'espressione dopo \"%s\""
 
-#: find/tree.c:166
+#: find/tree.c:160
 #, c-format
 msgid "invalid expression; you have too many ')'"
 msgstr "espressione non valida: troppe \")\""
 
-#: find/tree.c:189
+#: find/tree.c:183
 #, c-format
 msgid ""
 "invalid expression; expected to find a ')' but didn't see one.  Perhaps you "
@@ -663,12 +592,12 @@ msgstr ""
 "espressione non valida; attesa \")\" ma non trovata. Forse è necessario un "
 "altro predicato dopo \"%s\""
 
-#: find/tree.c:197
+#: find/tree.c:191
 #, c-format
 msgid "invalid expression; empty parentheses are not allowed."
 msgstr "espressione non valida: parentesi vuote non permesse."
 
-#: find/tree.c:203
+#: find/tree.c:197
 #, c-format
 msgid ""
 "invalid expression; I was expecting to find a ')' somewhere but did not see "
@@ -677,17 +606,17 @@ msgstr ""
 "espressione non valida; attesa una \")\" da qualche parte ma non ne sono "
 "state trovate."
 
-#: find/tree.c:209 find/tree.c:833
+#: find/tree.c:203 find/tree.c:827
 #, c-format
 msgid "oops -- invalid expression type!"
 msgstr "tipo di espressione non valido."
 
-#: find/tree.c:281
+#: find/tree.c:275
 #, c-format
 msgid "oops -- invalid expression type (%d)!"
 msgstr "tipo di espressione non valido (%d)."
 
-#: find/tree.c:1120
+#: find/tree.c:1105
 #, c-format
 msgid ""
 "warning: there is no entry in the predicate evaluation cost table for "
@@ -696,97 +625,195 @@ msgstr ""
 "attenzione: non ci sono voci nella tabella dei costi di valutazione dei "
 "predicati per il predicato %s; segnalare questo bug"
 
-#: find/tree.c:1294
+#: find/tree.c:1279
 #, c-format
 msgid "paths must precede expression: %s"
 msgstr "i percorsi devono precedere le espressioni: %s"
 
-#: find/tree.c:1303
+#: find/tree.c:1288
 #, c-format
 msgid "unknown predicate `%s'"
 msgstr "predicato sconosciuto \"%s\""
 
-#: find/tree.c:1323
+#: find/tree.c:1309
 #, c-format
 msgid "invalid predicate `%s'"
 msgstr "predicato \"%s\" non valido"
 
-#: find/tree.c:1328
+#: find/tree.c:1314
 #, c-format
 msgid "invalid argument `%s' to `%s'"
 msgstr "argomento «%s» non valido per «%s»"
 
-#: find/tree.c:1336
+#: find/tree.c:1322
 #, c-format
 msgid "missing argument to `%s'"
 msgstr "manca l'argomento per «%s»"
 
-#: find/tree.c:1412
+#: find/tree.c:1399
 #, c-format
 msgid "you have too many ')'"
 msgstr "troppe \")\""
 
-#: find/tree.c:1418
+#: find/tree.c:1405
 #, c-format
 msgid "unexpected extra predicate '%s'"
 msgstr "predicato aggiuntivo \"%s\" non atteso"
 
-#: find/tree.c:1420
+#: find/tree.c:1407
 #, c-format
 msgid "unexpected extra predicate"
 msgstr "predicato aggiuntivo non atteso"
 
-#: find/tree.c:1553
+#: find/tree.c:1528
 #, c-format
 msgid "oops -- invalid default insertion of and!"
 msgstr "inserimento predefinito di and non valido."
 
-#: find/util.c:175
+#: find/util.c:145
+#, fuzzy
+msgid "Valid arguments for -D:\n"
+msgstr "Argomento %s non valido per -used"
+
+#: find/util.c:169 locate/frcode.c:151 locate/locate.c:1391 xargs/xargs.c:1644
 #, c-format
-msgid "Usage: %s [-H] [-L] [-P] [-Olevel] [-D "
+msgid "Try '%s --help' for more information.\n"
+msgstr ""
+
+#: find/util.c:175
+#, fuzzy, c-format
+msgid ""
+"Usage: %s [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]\n"
 msgstr "Uso: %s [-H] [-L] [-P] [-Olivello] [-D "
 
-#: find/util.c:177
-#, c-format
-msgid "] [path...] [expression]\n"
-msgstr "] [percorso...] [espressione]\n"
+#: find/util.c:179
+msgid ""
+"\n"
+"default path is the current directory; default expression is -print\n"
+"expression may consist of: operators, options, tests, and actions:\n"
+msgstr ""
+"\n"
+"il percorso predefinito è la directory corrente; l'espressione predefinita è "
+"-print\n"
+"l'espressione può essere formata da: operatori, opzioni, test e azioni:\n"
 
-#: find/util.c:459
+#: find/util.c:182
+msgid ""
+"operators (decreasing precedence; -and is implicit where no others are "
+"given):\n"
+"      ( EXPR )   ! EXPR   -not EXPR   EXPR1 -a EXPR2   EXPR1 -and EXPR2\n"
+"      EXPR1 -o EXPR2   EXPR1 -or EXPR2   EXPR1 , EXPR2\n"
+msgstr ""
+"operatori (precedenza decrescente; -and è implicito se non ne sono indicati "
+"altri):\n"
+"      ( EXPR )   ! EXPR   -not EXPR   EXPR1 -a EXPR2   EXPR1 -and EXPR2\n"
+"      EXPR1 -o EXPR2   EXPR1 -or EXPR2   EXPR1 , EXPR2\n"
+
+#: find/util.c:186
+msgid ""
+"positional options (always true): -daystart -follow -regextype\n"
+"\n"
+"normal options (always true, specified before other expressions):\n"
+"      -depth --help -maxdepth LEVELS -mindepth LEVELS -mount -noleaf\n"
+"      --version -xdev -ignore_readdir_race -noignore_readdir_race\n"
+msgstr ""
+"opzioni posizionali (sempre vere): -daystart -follow -regextype\n"
+"\n"
+"opzioni normali (sempre vere, indicate prima delle altre espressioni):\n"
+"      -depth --help -maxdepth LIVELLI -mindepth LIVELLI -mount -noleaf\n"
+"      --version -xdev -ignore_readdir_race -noignore_readdir_race\n"
+
+#: find/util.c:191
+msgid ""
+"tests (N can be +N or -N or N): -amin N -anewer FILE -atime N -cmin N\n"
+"      -cnewer FILE -ctime N -empty -false -fstype TYPE -gid N -group NAME\n"
+"      -ilname PATTERN -iname PATTERN -inum N -iwholename PATTERN -iregex "
+"PATTERN\n"
+"      -links N -lname PATTERN -mmin N -mtime N -name PATTERN -newer FILE"
+msgstr ""
+"test (N può essere +N o -N o N): -amin N -anewer FILE -atime N -cmin N\n"
+"      -cnewer FILE -ctime N -empty -false -fstype TIPO -gid N -group NOME\n"
+"      -ilname MODELLO -iname MODELLO -inum N -iwholename MODELLO -iregex "
+"MODELLO\n"
+"      -links N -lname MODELLO -mmin N -mtime N -name MODELLO -newer FILE"
+
+#: find/util.c:196
+#, fuzzy
+msgid ""
+"\n"
+"      -nouser -nogroup -path PATTERN -perm [-/]MODE -regex PATTERN\n"
+"      -readable -writable -executable\n"
+"      -wholename PATTERN -size N[bcwkMG] -true -type [bcdpflsD] -uid N\n"
+"      -used N -user NAME -xtype [bcdpfls]"
+msgstr ""
+"      -nouser -nogroup -path MODELLO -perm [+-]MODO -regex MODELLO\n"
+"      -readable -writable -executable\n"
+"      -wholename MODELLO -size N[bcwkMG] -true -type [bcdpflsD] -uid N\n"
+"      -used N -user NOME -xtype [bcdpfls]"
+
+#: find/util.c:201
+msgid "      -context CONTEXT\n"
+msgstr "      -context CONTESTO\n"
+
+#: find/util.c:203
+#, fuzzy
+msgid ""
+"\n"
+"actions: -delete -print0 -printf FORMAT -fprintf FILE FORMAT -print \n"
+"      -fprint0 FILE -fprint FILE -ls -fls FILE -prune -quit\n"
+"      -exec COMMAND ; -exec COMMAND {} + -ok COMMAND ;\n"
+"      -execdir COMMAND ; -execdir COMMAND {} + -okdir COMMAND ;\n"
+"\n"
+msgstr ""
+"\n"
+"azioni: -delete -print0 -printf FORMATO -fprintf FILE FORMATO -print \n"
+"      -fprint0 FILE -fprint FILE -ls -fls FILE -prune -quit\n"
+"      -exec COMANDO ; -exec COMANDO {} + -ok COMANDO ;\n"
+"      -execdir COMANDO ; -execdir COMANDO {} + -okdir COMANDO ;\n"
+
+#: find/util.c:211
+msgid ""
+"\n"
+"Use '-D help' for a description of the options, or see find(1)\n"
+"\n"
+msgstr ""
+
+#: find/util.c:497
 #, fuzzy, c-format
 msgid "Failed to save initial working directory%s%s"
 msgstr "salvataggio della directory iniziale di lavoro non riuscito"
 
-#: find/util.c:478
+#: find/util.c:516
 #, fuzzy, c-format
 msgid "Failed to restore initial working directory%s%s"
 msgstr "ripristino della directory iniziale di lavoro non riuscito"
 
-#: find/util.c:828
+#: find/util.c:866
 #, c-format
 msgid "Ignoring unrecognised debug flag %s"
 msgstr "Ignorato flag di debug %s non riconosciuto"
 
-#: find/util.c:835
+#: find/util.c:873
 #, c-format
 msgid "Empty argument to the -D option."
 msgstr "Argomento vuoto per l'opzione -D."
 
-#: find/util.c:851
+#: find/util.c:890
 #, c-format
 msgid "The -O option must be immediately followed by a decimal integer"
 msgstr "L'opzione -O deve essere immediatamente seguita da un intero decimale"
 
-#: find/util.c:861 find/util.c:872
+#: find/util.c:900 find/util.c:911
 #, c-format
 msgid "Please specify a decimal number immediately after -O"
 msgstr "Specificare un numero decimale immediatamente dopo -O"
 
-#: find/util.c:877 find/util.c:882
+#: find/util.c:916 find/util.c:921
 #, c-format
 msgid "Invalid optimisation level %s"
 msgstr "Livello di ottimizzazione %s non valido"
 
-#: find/util.c:890
+#: find/util.c:929
 #, c-format
 msgid ""
 "Optimisation level %lu is too high.  If you want to find files very quickly, "
@@ -795,7 +822,7 @@ msgstr ""
 "Livello di ottimizzazione %lu troppo alto. Per trovare i file più "
 "rapidamente, si suggerisce di usare GNU locate."
 
-#: find/util.c:1034
+#: find/util.c:1073
 #, c-format
 msgid ""
 "The environment variable FIND_BLOCK_SIZE is not supported, the only thing "
@@ -804,349 +831,49 @@ msgstr ""
 "La variabile di ambiente FIND_BLOCK_SIZE non è supportata, la dimensione dei "
 "blocchi è influenzata solo dalla variabile di ambiente POSIXLY_CORRECT"
 
-#: gl/lib/argmatch.c:133
+#: lib/bugreports.c:33
 #, fuzzy, c-format
-msgid "invalid argument %s for %s"
-msgstr "argomento «%s» non valido per «%s»"
-
-#: gl/lib/argmatch.c:134
-#, fuzzy, c-format
-msgid "ambiguous argument %s for %s"
-msgstr "argomento «%s» non valido per «%s»"
-
-#: gl/lib/argmatch.c:153
-#, fuzzy
-msgid "Valid arguments are:"
-msgstr "Argomento %s non valido per -used"
-
-#: gl/lib/closein.c:100
-msgid "error closing file"
-msgstr ""
-
-#: gl/lib/closeout.c:112 locate/code.c:153 locate/frcode.c:210
-#, c-format
-msgid "write error"
-msgstr "errore di scrittura"
-
-#: gl/lib/error.c:191
-msgid "Unknown system error"
-msgstr ""
-
-#: gl/lib/getopt.c:575 gl/lib/getopt.c:604
-#, c-format
-msgid "%s: option '%s' is ambiguous; possibilities:"
-msgstr ""
-
-#: gl/lib/getopt.c:619
-#, fuzzy, c-format
-msgid "%s: option '%s' is ambiguous\n"
-msgstr "Il test %s ha bisogno di un argomento"
-
-#: gl/lib/getopt.c:654 gl/lib/getopt.c:658
-#, c-format
-msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr ""
-
-#: gl/lib/getopt.c:667 gl/lib/getopt.c:672
-#, c-format
-msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr ""
-
-#: gl/lib/getopt.c:715 gl/lib/getopt.c:734
-#, fuzzy, c-format
-msgid "%s: option '--%s' requires an argument\n"
-msgstr "Il test %s ha bisogno di un argomento"
-
-#: gl/lib/getopt.c:772 gl/lib/getopt.c:775
-#, c-format
-msgid "%s: unrecognized option '--%s'\n"
-msgstr ""
-
-#: gl/lib/getopt.c:783 gl/lib/getopt.c:786
-#, fuzzy, c-format
-msgid "%s: unrecognized option '%c%s'\n"
-msgstr "attenzione: sequenza di escape «\\%c» non riconosciuta"
-
-#: gl/lib/getopt.c:835 gl/lib/getopt.c:838
-#, fuzzy, c-format
-msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: il numero per l'opzione -%c non è valido\n"
-
-#: gl/lib/getopt.c:891 gl/lib/getopt.c:908 gl/lib/getopt.c:1118
-#: gl/lib/getopt.c:1136
-#, c-format
-msgid "%s: option requires an argument -- '%c'\n"
-msgstr ""
-
-#: gl/lib/getopt.c:964 gl/lib/getopt.c:980
-#, c-format
-msgid "%s: option '-W %s' is ambiguous\n"
-msgstr ""
-
-#: gl/lib/getopt.c:1004 gl/lib/getopt.c:1022
-#, c-format
-msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr ""
-
-#: gl/lib/getopt.c:1043 gl/lib/getopt.c:1061
-#, fuzzy, c-format
-msgid "%s: option '-W %s' requires an argument\n"
-msgstr "Il test %s ha bisogno di un argomento"
-
-#: gl/lib/openat-die.c:38
-#, fuzzy, c-format
-msgid "unable to record current working directory"
-msgstr "ripristino della directory iniziale di lavoro non riuscito"
-
-#: gl/lib/openat-die.c:57
-#, fuzzy, c-format
-msgid "failed to return to initial working directory"
-msgstr "ripristino della directory iniziale di lavoro non riuscito"
-
-#. TRANSLATORS:
-#. Get translations for open and closing quotation marks.
-#. The message catalog should translate "`" to a left
-#. quotation mark suitable for the locale, and similarly for
-#. "'".  For example, a French Unicode local should translate
-#. these to U+00AB (LEFT-POINTING DOUBLE ANGLE
-#. QUOTATION MARK), and U+00BB (RIGHT-POINTING DOUBLE ANGLE
-#. QUOTATION MARK), respectively.
-#.
-#. If the catalog has no translation, we will try to
-#. use Unicode U+2018 (LEFT SINGLE QUOTATION MARK) and
-#. Unicode U+2019 (RIGHT SINGLE QUOTATION MARK).  If the
-#. current locale is not Unicode, locale_quoting_style
-#. will quote 'like this', and clocale_quoting_style will
-#. quote "like this".  You should always include translations
-#. for "`" and "'" even if U+2018 and U+2019 are appropriate
-#. for your locale.
-#.
-#. If you don't know what to put here, please see
-#. <http://en.wikipedia.org/wiki/Quotation_marks_in_other_languages>
-#. and use glyphs suitable for your language.
-#: gl/lib/quotearg.c:347
-msgid "`"
-msgstr ""
-
-#: gl/lib/quotearg.c:348
-msgid "'"
-msgstr ""
-
-#. TRANSLATORS: A regular expression testing for an affirmative answer
-#. (english: "yes").  Testing the first character may be sufficient.
-#. Take care to consider upper and lower case.
-#. To enquire the regular expression that your system uses for this
-#. purpose, you can use the command
-#. locale -k LC_MESSAGES | grep '^yesexpr='
-#: gl/lib/rpmatch.c:150
-msgid "^[yY]"
-msgstr ""
-
-#. TRANSLATORS: A regular expression testing for a negative answer
-#. (english: "no").  Testing the first character may be sufficient.
-#. Take care to consider upper and lower case.
-#. To enquire the regular expression that your system uses for this
-#. purpose, you can use the command
-#. locale -k LC_MESSAGES | grep '^noexpr='
-#: gl/lib/rpmatch.c:163
-msgid "^[nN]"
-msgstr ""
-
-#: gl/lib/version-etc.c:74
-#, c-format
-msgid "Packaged by %s (%s)\n"
-msgstr ""
-
-#: gl/lib/version-etc.c:77
-#, c-format
-msgid "Packaged by %s\n"
-msgstr ""
-
-#. TRANSLATORS: Translate "(C)" to the copyright symbol
-#. (C-in-a-circle), if this symbol is available in the user's
-#. locale.  Otherwise, do not translate "(C)"; leave it as-is.
-#: gl/lib/version-etc.c:84
-msgid "(C)"
-msgstr ""
-
-#: gl/lib/version-etc.c:86
 msgid ""
-"\n"
-"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl."
-"html>.\n"
-"This is free software: you are free to change and redistribute it.\n"
-"There is NO WARRANTY, to the extent permitted by law.\n"
-"\n"
+"Please see also the documentation at %s.\n"
+"You can report (and track progress on fixing) bugs in the \"%s\"\n"
+"program via the %s bug-reporting page at\n"
+"%s or, if\n"
+"you have no web access, by sending email to <%s>.\n"
 msgstr ""
+"È possibile segnalare i bug (e seguire la loro correzione) tramite la "
+"pagina\n"
+"di segnalazione dei bug di findutils presso http://savannah.gnu.org/, o se "
+"non\n"
+"si ha accesso al web inviando una mail a <bug-findutils@gnu.org>."
 
-#. TRANSLATORS: %s denotes an author name.
-#: gl/lib/version-etc.c:102
-#, c-format
-msgid "Written by %s.\n"
-msgstr ""
-
-#. TRANSLATORS: Each %s denotes an author name.
-#: gl/lib/version-etc.c:106
-#, c-format
-msgid "Written by %s and %s.\n"
-msgstr ""
-
-#. TRANSLATORS: Each %s denotes an author name.
-#: gl/lib/version-etc.c:110
-#, c-format
-msgid "Written by %s, %s, and %s.\n"
-msgstr ""
-
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:117
-#, c-format
-msgid ""
-"Written by %s, %s, %s,\n"
-"and %s.\n"
-msgstr ""
-
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:124
-#, c-format
-msgid ""
-"Written by %s, %s, %s,\n"
-"%s, and %s.\n"
-msgstr ""
-
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:131
-#, c-format
-msgid ""
-"Written by %s, %s, %s,\n"
-"%s, %s, and %s.\n"
-msgstr ""
-
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:139
-#, c-format
-msgid ""
-"Written by %s, %s, %s,\n"
-"%s, %s, %s, and %s.\n"
-msgstr ""
-
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:147
-#, c-format
-msgid ""
-"Written by %s, %s, %s,\n"
-"%s, %s, %s, %s,\n"
-"and %s.\n"
-msgstr ""
-
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:156
-#, c-format
-msgid ""
-"Written by %s, %s, %s,\n"
-"%s, %s, %s, %s,\n"
-"%s, and %s.\n"
-msgstr ""
-
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:167
-#, c-format
-msgid ""
-"Written by %s, %s, %s,\n"
-"%s, %s, %s, %s,\n"
-"%s, %s, and others.\n"
-msgstr ""
-
-#. TRANSLATORS: The placeholder indicates the bug-reporting address
-#. for this package.  Please add _another line_ saying
-#. "Report translation bugs to <...>\n" with the address for translation
-#. bugs (typically your translation team's web or email address).
-#: gl/lib/version-etc.c:245
-#, c-format
-msgid ""
-"\n"
-"Report bugs to: %s\n"
-msgstr ""
-
-#: gl/lib/version-etc.c:247
-#, c-format
-msgid "Report %s bugs to: %s\n"
-msgstr ""
-
-#: gl/lib/version-etc.c:251
-#, c-format
-msgid "%s home page: <%s>\n"
-msgstr ""
-
-#: gl/lib/version-etc.c:253
-#, c-format
-msgid "%s home page: <http://www.gnu.org/software/%s/>\n"
-msgstr ""
-
-#: gl/lib/version-etc.c:256
-msgid "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
-msgstr ""
-
-#: gl/lib/xalloc-die.c:34
-msgid "memory exhausted"
-msgstr ""
-
-#: gl/lib/xstrtol-error.c:63
-#, fuzzy, c-format
-msgid "invalid %s%s argument '%s'"
-msgstr "argomento «%s» non valido per «%s»"
-
-#: gl/lib/xstrtol-error.c:68
-#, fuzzy, c-format
-msgid "invalid suffix in %s%s argument '%s'"
-msgstr "argomento «%s» non valido per «%s»"
-
-#: gl/lib/xstrtol-error.c:72
-#, fuzzy, c-format
-msgid "%s%s argument '%s' too large"
-msgstr "elenco degli argomenti troppo lungo"
-
-#: lib/buildcmd.c:161
+#: lib/buildcmd.c:154
 #, c-format
 msgid "command too long"
 msgstr "comando troppo lungo"
 
-#: lib/buildcmd.c:301
+#: lib/buildcmd.c:294
 #, c-format
 msgid "can't call exec() due to argument size restrictions"
 msgstr ""
 "impossibile chiamare exec() per restrizioni alla dimensione dell'argomento"
 
-#: lib/buildcmd.c:371
+#: lib/buildcmd.c:359
 #, c-format
 msgid "cannot fit single argument within argument list size limit"
 msgstr "un unico argomento eccede le dimensioni dell'elenco di argomenti"
 
-#: lib/buildcmd.c:377
+#: lib/buildcmd.c:365
 #, c-format
 msgid "argument list too long"
 msgstr "elenco degli argomenti troppo lungo"
 
-#: lib/buildcmd.c:629
+#: lib/buildcmd.c:622
 #, c-format
 msgid "Environment variable %s is not set to a valid decimal number"
 msgstr ""
 "La variabile di ambiente %s non è impostata a un valore decimale valido"
 
-#: lib/fdleak.c:377
+#: lib/fdleak.c:384
 #, c-format
 msgid ""
 "File descriptor %d will leak; please report this as a bug, remembering to "
@@ -1168,123 +895,120 @@ msgstr "James Youngman"
 msgid "Kevin Dalley"
 msgstr "Kevin Dalley"
 
-#: lib/listfile.c:452
+#: lib/listfile.c:466
 #, fuzzy, c-format
 msgid "Failed to write output (at stage %d)"
 msgstr "Scrittura su standard output non riuscita"
 
-#: lib/regextype.c:110
+#: lib/regextype.c:104
 #, c-format
 msgid "Unknown regular expression type %s; valid types are %s."
 msgstr "Tipo sconosciuto di espressione regolare %s; i tipi validi sono %s."
 
-#: lib/safe-atoi.c:81
+#: lib/safe-atoi.c:75
 #, c-format
 msgid "Unexpected suffix %s on %s"
 msgstr "Suffisso %s non atteso su %s"
 
-#: lib/safe-atoi.c:87
+#: lib/safe-atoi.c:81
 #, c-format
 msgid "Expected an integer: %s"
 msgstr "Atteso un intero: \"%s\""
 
-#: locate/code.c:131
-#, c-format
-msgid ""
-"Usage: %s [--version | --help]\n"
-"or     %s most_common_bigrams < file-list > locate-database\n"
-msgstr ""
-"Uso: %s [--version | --help]\n"
-"     %s bigrammi_più_comuni < elenco-di-file > database-di-locate\n"
-
-#: locate/code.c:135 locate/frcode.c:162 locate/locate.c:1394
-#: xargs/xargs.c:1697
-msgid ""
-"\n"
-"Report bugs to <bug-findutils@gnu.org>.\n"
-msgstr ""
-"\n"
-"Segnalare i bug a <bug-findutils@gnu.org>.\n"
-
-#: locate/frcode.c:160
+#: locate/frcode.c:156
 #, c-format
 msgid "Usage: %s [-0 | --null] [--version] [--help]\n"
 msgstr "Uso: %s [-0 | --null] [--version] [--help]\n"
 
-#: locate/frcode.c:180
+#: locate/frcode.c:178
 #, c-format
 msgid "You need to specify a security level as a decimal integer."
 msgstr "Specificare un livello di sicurezza come intero decimale."
 
-#: locate/frcode.c:188
+#: locate/frcode.c:186
 #, c-format
 msgid "Security level %s is outside the convertible range."
 msgstr "Il livello di sicurezza %s è fuori dall'intervallo convertibile."
 
-#: locate/frcode.c:196
+#: locate/frcode.c:194
 #, c-format
 msgid "Security level %s has unexpected suffix %s."
 msgstr "Il livello di sicurezza %s ha il suffisso %s non atteso."
 
-#: locate/frcode.c:257
+#: locate/frcode.c:208
+#, c-format
+msgid "write error"
+msgstr "errore di scrittura"
+
+#: locate/frcode.c:255
 #, c-format
 msgid "slocate security level %ld is unsupported."
 msgstr "Il livello di sicurezza %ld di slocate non è supportato."
 
-#: locate/frcode.c:295
+#: locate/frcode.c:274
+#, fuzzy, c-format
+msgid "no argument expected."
+msgstr "Argomento sconosciuto per -type: %c"
+
+#: locate/frcode.c:291
 #, c-format
 msgid "Failed to write to standard output"
 msgstr "Scrittura su standard output non riuscita"
 
-#: locate/locate.c:131
+#: locate/frcode.c:300
+#, c-format
+msgid "The input file should end with the delimiter"
+msgstr ""
+
+#: locate/locate.c:133
 msgid "days"
 msgstr "giorni"
 
-#: locate/locate.c:178
+#: locate/locate.c:181
 #, c-format
 msgid "The argument for option --max-database-age must not be empty"
 msgstr "L'argomento per l'opzione --max-database-age non deve essere vuoto"
 
-#: locate/locate.c:194 locate/locate.c:201
+#: locate/locate.c:197 locate/locate.c:204
 #, c-format
 msgid "Invalid argument %s for option --max-database-age"
 msgstr "Argomento %s non valido per l'opzione --max-database-age"
 
-#: locate/locate.c:451
+#: locate/locate.c:454
 #, c-format
 msgid "locate database %s contains a filename longer than locate can handle"
 msgstr ""
 "il database locate %s contiene un nome di file più lungo di quanto locate "
 "possa gestire"
 
-#: locate/locate.c:561 locate/locate.c:580
+#: locate/locate.c:565 locate/locate.c:584
 #, c-format
 msgid "locate database %s is corrupt or invalid"
 msgstr "il database locate %s è corrotto o non valido"
 
-#: locate/locate.c:865
+#: locate/locate.c:869
 #, c-format
 msgid "Database was last modified at %s.%09ld"
 msgstr ""
 
-#: locate/locate.c:873
+#: locate/locate.c:877
 #, c-format
 msgid "Locate database size: %s byte\n"
 msgid_plural "Locate database size: %s bytes\n"
 msgstr[0] "Dimensione del database locate: %s byte\n"
 msgstr[1] "Dimensione del database locate: %s byte\n"
 
-#: locate/locate.c:879
+#: locate/locate.c:883
 #, c-format
 msgid "Matching Filenames: %s\n"
 msgstr "Nomi dei file corrispondenti: %s\n"
 
-#: locate/locate.c:880
+#: locate/locate.c:884
 #, c-format
 msgid "All Filenames: %s\n"
 msgstr "Tutti i nomi dei file: %s\n"
 
-#: locate/locate.c:886
+#: locate/locate.c:890
 #, c-format
 msgid ""
 "File names have a cumulative length of %s bytes.\n"
@@ -1301,7 +1025,7 @@ msgstr ""
 "\t%s contengono ritorni a capo  \n"
 "\te %s contengono caratteri con il bit alto impostato.\n"
 
-#: locate/locate.c:900
+#: locate/locate.c:904
 #, c-format
 msgid ""
 "Some filenames may have been filtered out, so we cannot compute the "
@@ -1310,17 +1034,17 @@ msgstr ""
 "Alcuni nomi di file possono essere stati esclusi dal filtro, quindi non è "
 "possibile calcolare il rapporto di compressione.\n"
 
-#: locate/locate.c:913
+#: locate/locate.c:917
 #, c-format
 msgid "Compression ratio %4.2f%% (higher is better)\n"
 msgstr "Rapporto di compressione %4.2f%% (più alto è meglio)\n"
 
-#: locate/locate.c:920
+#: locate/locate.c:924
 #, c-format
 msgid "Compression ratio is undefined\n"
 msgstr "Rapporto di compressione non definito\n"
 
-#: locate/locate.c:975
+#: locate/locate.c:979
 #, c-format
 msgid ""
 "locate database %s looks like an slocate database but it seems to have "
@@ -1329,7 +1053,7 @@ msgstr ""
 "il database locate %s appare come un database slocate ma con livello di "
 "sicurezza %c, non attualmente supportato da GNU findutils"
 
-#: locate/locate.c:1088
+#: locate/locate.c:1092
 #, c-format
 msgid ""
 "%s is an slocate database.  Support for these is new, expect problems for "
@@ -1338,7 +1062,7 @@ msgstr ""
 "%s è un database slocate. Il supporto per questi è nuovo, è possibile che si "
 "verifichino problemi per il momento."
 
-#: locate/locate.c:1102
+#: locate/locate.c:1106
 #, c-format
 msgid ""
 "%s is an slocate database of unsupported security level %d; skipping it."
@@ -1346,7 +1070,7 @@ msgstr ""
 "%s è un database slocate con livello di sicurezza %d non supportato e sarà "
 "tralasciato."
 
-#: locate/locate.c:1119
+#: locate/locate.c:1123
 #, c-format
 msgid ""
 "You specified the -E option, but that option cannot be used with slocate-"
@@ -1357,38 +1081,38 @@ msgstr ""
 "i database in formato slocate con livello di sicurezza diverso da zero. Non "
 "sarà generato alcun risultato per questo database.\n"
 
-#: locate/locate.c:1130
+#: locate/locate.c:1134
 #, c-format
 msgid "%s is an slocate database.  Turning on the '-e' option."
 msgstr "%s è un database slocate. Attivata l'opzione \"-e\"."
 
-#: locate/locate.c:1168
+#: locate/locate.c:1172
 #, c-format
 msgid "Old-format locate database %s is too short to be valid"
 msgstr ""
 "Il database con il vecchio formato locate %s è troppo piccolo per essere "
 "valido"
 
-#: locate/locate.c:1320
+#: locate/locate.c:1324
 #, c-format
 msgid "Database %s is in the %s format.\n"
 msgstr "Il database %s è nel formato %s.\n"
 
-#: locate/locate.c:1347
+#: locate/locate.c:1351
 msgid "The database has little-endian machine-word encoding.\n"
 msgstr "Il database ha una codifica little-endian per le parole macchina.\n"
 
-#: locate/locate.c:1349
+#: locate/locate.c:1353
 msgid "The database has big-endian machine-word encoding.\n"
 msgstr "Il database ha una codifica big-endian per le parole macchina.\n"
 
-#: locate/locate.c:1362
+#: locate/locate.c:1366
 #, c-format
 msgid "The database machine-word encoding order is not obvious.\n"
 msgstr ""
 "Il database ha un ordine di codifica per le parole macchina non ovvio.\n"
 
-#: locate/locate.c:1385
+#: locate/locate.c:1395
 #, c-format
 msgid ""
 "Usage: %s [-d path | --database=path] [-e | -E | --[non-]existing]\n"
@@ -1407,64 +1131,69 @@ msgstr ""
 "      [--max-database-age D] [--version] [--help]\n"
 "      modello...\n"
 
-#: locate/locate.c:1448
+#: locate/locate.c:1461
 msgid "failed to drop group privileges"
 msgstr "rimozione dei privilegi di gruppo non riuscita"
 
-#: locate/locate.c:1466
+#: locate/locate.c:1479
 msgid "failed to drop setuid privileges"
 msgstr "rimozione dei privilegi di setuid non riuscita"
 
-#: locate/locate.c:1480
+#: locate/locate.c:1493
 msgid "Failed to fully drop privileges"
 msgstr "Rimozione totale dei privilegi non riuscita"
 
-#: locate/locate.c:1498
+#: locate/locate.c:1511
 msgid "failed to drop setgid privileges"
 msgstr "rimozione dei privilegi di setgid non riuscita"
 
-#: locate/locate.c:1778
+#: locate/locate.c:1748
+#, c-format
+msgid "pattern argument expected"
+msgstr ""
+
+#: locate/locate.c:1789
 #, c-format
 msgid "warning: the locate database can only be read from stdin once."
 msgstr ""
 "attenzione: il database locate può essere letto da stdin una sola volta."
 
-#: locate/locate.c:1851
+#: locate/locate.c:1862
 #, c-format
 msgid "time system call failed"
 msgstr "chiamata di sistema time non riuscita"
 
-#: locate/locate.c:1862
+#: locate/locate.c:1873
 #, c-format
 msgid "warning: database %s is more than %d %s old (actual age is %.1f %s)"
 msgstr ""
 "attenzione: il database %s è più vecchio di %d %s (l'età reale è %.1f %s)"
 
-#: locate/word_io.c:98
+#: locate/word_io.c:85
 #, c-format
 msgid "WARNING: locate database %s was built with a different byte order"
 msgstr ""
 "ATTENZIONE: il database locate %s è stato compilato con un differente ordine "
 "di byte"
 
-#: locate/word_io.c:145
+#: locate/word_io.c:131
 #, c-format
 msgid "unexpected EOF in %s"
 msgstr "EOF non atteso in %s"
 
-#: locate/word_io.c:148
+#: locate/word_io.c:134
 #, c-format
 msgid "error reading a word from %s"
 msgstr "errore leggendo una parola da %s"
 
-#: xargs/xargs.c:262
+#: xargs/xargs.c:257
 #, c-format
 msgid "Invalid escape sequence %s in input delimiter specification."
 msgstr ""
 "Sequenza di protezione %s non valida nella specifica del delimitatore "
 "dell'input."
 
-#: xargs/xargs.c:280
+#: xargs/xargs.c:275
 #, c-format
 msgid ""
 "Invalid escape sequence %s in input delimiter specification; character "
@@ -1473,7 +1202,7 @@ msgstr ""
 "Sequenza di protezione %s non valida nella specifica del delimitatore "
 "dell'input; i valori del carattere non devono superare %lx."
 
-#: xargs/xargs.c:286
+#: xargs/xargs.c:281
 #, c-format
 msgid ""
 "Invalid escape sequence %s in input delimiter specification; character "
@@ -1482,7 +1211,7 @@ msgstr ""
 "Sequenza di protezione %s non valida nella specifica del delimitatore "
 "dell'input; i valori del carattere non devono superare %lo."
 
-#: xargs/xargs.c:295
+#: xargs/xargs.c:290
 #, c-format
 msgid ""
 "Invalid escape sequence %s in input delimiter specification; trailing "
@@ -1491,7 +1220,7 @@ msgstr ""
 "Sequenza di protezione %s non valida nella specifica del delimitatore "
 "dell'input; caratteri finali %s non riconosciuti."
 
-#: xargs/xargs.c:340
+#: xargs/xargs.c:335
 #, c-format
 msgid ""
 "Invalid input delimiter specification %s: the delimiter must be either a "
@@ -1500,7 +1229,7 @@ msgstr ""
 "Specifica del delimitatore dell'input %s non valida: il delimitatore deve "
 "essere un singolo carattere o una sequenza di protezione che inizi per \\."
 
-#: xargs/xargs.c:357
+#: xargs/xargs.c:352
 #, c-format
 msgid "environment is too large for exec"
 msgstr "l'ambiente è troppo grande per fare exec"
@@ -1522,39 +1251,39 @@ msgstr "l'opzione --%s non può essere impostata a un valore che include «=»"
 msgid "failed to unset environment variable %s"
 msgstr "azzeramento della variabile di ambiente %s non riuscito"
 
-#: xargs/xargs.c:663
+#: xargs/xargs.c:662
 #, c-format
 msgid "warning: the -E option has no effect if -0 or -d is used.\n"
 msgstr "attenzione: l'opzione -E non ha effetto se è usato -0 o -d.\n"
 
-#: xargs/xargs.c:685
+#: xargs/xargs.c:684
 #, c-format
 msgid "Cannot set SIGUSR1 signal handler"
 msgstr "Impossibile impostare il gestore del segnale SIGUSR1"
 
-#: xargs/xargs.c:691
+#: xargs/xargs.c:690
 #, c-format
 msgid "Cannot set SIGUSR2 signal handler"
 msgstr "Impossibile impostare il gestore del segnale SIGUSR2"
 
-#: xargs/xargs.c:707
+#: xargs/xargs.c:706
 #, c-format
 msgid "Cannot open input file %s"
 msgstr "Impossibile aprire il file di input %s"
 
-#: xargs/xargs.c:726
+#: xargs/xargs.c:725
 #, c-format
 msgid "Your environment variables take up %<PRIuMAX> bytes\n"
 msgstr "Le proprie variabili di ambiente occupano %<PRIuMAX> byte\n"
 
-#: xargs/xargs.c:729
+#: xargs/xargs.c:728
 #, c-format
 msgid "POSIX upper limit on argument length (this system): %<PRIuMAX>\n"
 msgstr ""
 "Limite superiore POSIX sulla lunghezza di un argomento (in questo sistema): "
 "%<PRIuMAX>\n"
 
-#: xargs/xargs.c:732
+#: xargs/xargs.c:731
 #, c-format
 msgid ""
 "POSIX smallest allowable upper limit on argument length (all systems): "
@@ -1563,22 +1292,22 @@ msgstr ""
 "Il più piccolo possibile limite superiore POSIX sulla lunghezza di un "
 "argomento (in tutti i sistemi): %<PRIuMAX>\n"
 
-#: xargs/xargs.c:735
+#: xargs/xargs.c:734
 #, c-format
 msgid "Maximum length of command we could actually use: %<PRIuMAX>\n"
 msgstr "Lunghezza massima di un comando effettivamente usabile: %<PRIuMAX>\n"
 
-#: xargs/xargs.c:738
+#: xargs/xargs.c:737
 #, c-format
 msgid "Size of command buffer we are actually using: %<PRIuMAX>\n"
 msgstr "Dimensione del buffer di comando attualmente in uso: %<PRIuMAX>\n"
 
-#: xargs/xargs.c:741
+#: xargs/xargs.c:740
 #, c-format
 msgid "Maximum parallelism (--max-procs must be no greater): %<PRIuMAX>\n"
 msgstr ""
 
-#: xargs/xargs.c:747
+#: xargs/xargs.c:746
 #, c-format
 msgid ""
 "\n"
@@ -1591,7 +1320,7 @@ msgstr ""
 "eseguire i comandi; se questo non è ciò che si vuole, digitare la sequenza "
 "di tasti end-of-file.\n"
 
-#: xargs/xargs.c:755
+#: xargs/xargs.c:754
 #, c-format
 msgid ""
 "Warning: %s will be run at least once.  If you do not want that to happen, "
@@ -1600,7 +1329,7 @@ msgstr ""
 "Attenzione: %s sarà eseguito almeno una volta. Se non è ciò che si vuole, "
 "digitare la sequenza di tasti interrupt.\n"
 
-#: xargs/xargs.c:883 xargs/xargs.c:976
+#: xargs/xargs.c:882 xargs/xargs.c:975
 #, c-format
 msgid ""
 "unmatched %s quote; by default quotes are special to xargs unless you use "
@@ -1609,15 +1338,15 @@ msgstr ""
 "virgolette %s non accoppiate; le virgolette hanno un significato speciale "
 "per xargs, a meno che si usi l'opzione -0"
 
-#: xargs/xargs.c:884 xargs/xargs.c:977
+#: xargs/xargs.c:883 xargs/xargs.c:976
 msgid "double"
 msgstr "doppie"
 
-#: xargs/xargs.c:884 xargs/xargs.c:977
+#: xargs/xargs.c:883 xargs/xargs.c:976
 msgid "single"
 msgstr "singole"
 
-#: xargs/xargs.c:996
+#: xargs/xargs.c:995
 #, c-format
 msgid ""
 "WARNING: a NUL character occurred in the input.  It cannot be passed through "
@@ -1626,42 +1355,42 @@ msgstr ""
 "ATTENZIONE: un carattere NUL è presente nell'input. Non può essere passato "
 "attraverso l'elenco degli argomenti. Si vuole usare l'opzione --null?"
 
-#: xargs/xargs.c:1006 xargs/xargs.c:1071
+#: xargs/xargs.c:1005 xargs/xargs.c:1070
 #, c-format
 msgid "argument line too long"
 msgstr "la riga dell'argomento è troppo lunga"
 
-#: xargs/xargs.c:1090 xargs/xargs.c:1107
+#: xargs/xargs.c:1089 xargs/xargs.c:1106
 #, fuzzy, c-format
 msgid "Failed to write to stderr"
 msgstr "Scrittura su standard output non riuscita"
 
-#: xargs/xargs.c:1103
+#: xargs/xargs.c:1102
 #, c-format
 msgid "failed to open /dev/tty for reading"
 msgstr "apertura di /dev/tty in lettura non riuscita"
 
-#: xargs/xargs.c:1113
+#: xargs/xargs.c:1112
 #, fuzzy, c-format
 msgid "Failed to read from stdin"
 msgstr "Scrittura su standard output non riuscita"
 
-#: xargs/xargs.c:1150
+#: xargs/xargs.c:1149
 #, c-format
 msgid "unable to allocate memory"
 msgstr "impossibile allocare memoria"
 
-#: xargs/xargs.c:1165
+#: xargs/xargs.c:1164
 #, c-format
 msgid "failed to set environment variable %s"
 msgstr "impostazione della variabile di ambiente %s non riuscita"
 
-#: xargs/xargs.c:1254
+#: xargs/xargs.c:1253
 #, c-format
 msgid "could not create pipe before fork"
 msgstr "impossibile creare una pipe prima di un fork"
 
-#: xargs/xargs.c:1325
+#: xargs/xargs.c:1324
 #, c-format
 msgid ""
 "errno-buffer safe_read failed in xargs_do_exec (this is probably a bug, "
@@ -1670,7 +1399,7 @@ msgstr ""
 "safe_read di errno-buffer in xargs_do_exec non riuscita (questo è "
 "probabilmente un bug da riportare)"
 
-#: xargs/xargs.c:1378
+#: xargs/xargs.c:1377
 #, fuzzy, c-format
 msgid ""
 "read returned unexpected value %zu; this is probably a bug, please report it"
@@ -1678,52 +1407,52 @@ msgstr ""
 "read ha restituito il valore non atteso %d; questo è probabilmente un bug da "
 "riportare"
 
-#: xargs/xargs.c:1471
+#: xargs/xargs.c:1470
 #, c-format
 msgid "error waiting for child process"
 msgstr "errore aspettando il processo figlio"
 
-#: xargs/xargs.c:1504
+#: xargs/xargs.c:1503
 #, c-format
 msgid "WARNING: Lost track of %lu child processes"
 msgstr "ATTENZIONE: perse le tracce di %lu processi figlio"
 
-#: xargs/xargs.c:1523
+#: xargs/xargs.c:1522
 #, c-format
 msgid "%s: exited with status 255; aborting"
 msgstr "%s: uscito con stato 255; termina"
 
-#: xargs/xargs.c:1526
+#: xargs/xargs.c:1525
 #, c-format
 msgid "%s: stopped by signal %d"
 msgstr "%s: fermato dal segnale %d"
 
-#: xargs/xargs.c:1529
+#: xargs/xargs.c:1528
 #, c-format
 msgid "%s: terminated by signal %d"
 msgstr "%s: terminato dal segnale %d"
 
-#: xargs/xargs.c:1614
-#, c-format
-msgid "%s: invalid number for -%c option\n"
+#: xargs/xargs.c:1613
+#, fuzzy, c-format
+msgid "%s: invalid number \"%s\" for -%c option\n"
 msgstr "%s: il numero per l'opzione -%c non è valido\n"
 
-#: xargs/xargs.c:1621
-#, c-format
-msgid "%s: value for -%c option should be >= %ld\n"
+#: xargs/xargs.c:1620
+#, fuzzy, c-format
+msgid "%s: value %s for -%c option should be >= %ld\n"
 msgstr "%s: il valore per l'opzione -%c deve essere >= %ld\n"
 
-#: xargs/xargs.c:1635
+#: xargs/xargs.c:1629
 #, fuzzy, c-format
-msgid "%s: value for -%c option should be <= %ld\n"
+msgid "%s: value %s for -%c option should be <= %ld\n"
 msgstr "%s: il valore per l'opzione -%c deve essere < %ld\n"
 
-#: xargs/xargs.c:1654
+#: xargs/xargs.c:1649
 #, c-format
 msgid "Usage: %s [OPTION]... COMMAND [INITIAL-ARGS]...\n"
 msgstr "Uso: %s [OPZIONE]... COMANDO [ARG-INIZIALI]...\n"
 
-#: xargs/xargs.c:1659
+#: xargs/xargs.c:1654
 msgid ""
 "Run COMMAND with arguments INITIAL-ARGS and more arguments read from input.\n"
 "\n"
@@ -1732,7 +1461,7 @@ msgstr ""
 "dall'input.\n"
 "\n"
 
-#: xargs/xargs.c:1661
+#: xargs/xargs.c:1656
 msgid ""
 "Mandatory and optional arguments to long options are also\n"
 "mandatory or optional for the corresponding short option.\n"
@@ -1740,7 +1469,7 @@ msgstr ""
 "Gli argomenti obbligatori e opzionali per le opzioni lunghe\n"
 "sono anche obbligatori e opzionali per le opzioni corte.\n"
 
-#: xargs/xargs.c:1663
+#: xargs/xargs.c:1658
 #, fuzzy
 msgid ""
 "  -0, --null                   items are separated by a null, not "
@@ -1755,14 +1484,14 @@ msgstr ""
 "backslash\n"
 "                                 e la gestione dell'EOF logico.\n"
 
-#: xargs/xargs.c:1666
+#: xargs/xargs.c:1661
 msgid ""
 "  -a, --arg-file=FILE          read arguments from FILE, not standard input\n"
 msgstr ""
 "  -a, --arg-file=FILE          legge gli argomenti da FILE, non dallo "
 "standard input\n"
 
-#: xargs/xargs.c:1667
+#: xargs/xargs.c:1662
 msgid ""
 "  -d, --delimiter=CHARACTER    items in input stream are separated by "
 "CHARACTER,\n"
@@ -1776,7 +1505,7 @@ msgstr ""
 "gestione del backslash\n"
 "                                 e la gestione dell'EOF logico\n"
 
-#: xargs/xargs.c:1670
+#: xargs/xargs.c:1665
 #, fuzzy
 msgid ""
 "  -E END                       set logical EOF string; if END occurs as a "
@@ -1789,7 +1518,7 @@ msgstr ""
 "                                 di input, il resto dell'input è ignorato\n"
 "                                 (ignorato se è specificato -0 o -d)\n"
 
-#: xargs/xargs.c:1673
+#: xargs/xargs.c:1668
 msgid ""
 "  -e, --eof[=END]              equivalent to -E END if END is specified;\n"
 "                                 otherwise, there is no end-of-file string\n"
@@ -1798,11 +1527,11 @@ msgstr ""
 "specificato;\n"
 "                                 altrimenti, non c'è la stringa end-of-file\n"
 
-#: xargs/xargs.c:1675
+#: xargs/xargs.c:1670
 msgid "  -I R                         same as --replace=R\n"
 msgstr "  -I R                         come --replace=R\n"
 
-#: xargs/xargs.c:1676
+#: xargs/xargs.c:1671
 msgid ""
 "  -i, --replace[=R]            replace R in INITIAL-ARGS with names read\n"
 "                                 from standard input; if R is unspecified,\n"
@@ -1814,7 +1543,7 @@ msgstr ""
 "specificato,\n"
 "                                 assume {}\n"
 
-#: xargs/xargs.c:1679
+#: xargs/xargs.c:1674
 msgid ""
 "  -L, --max-lines=MAX-LINES    use at most MAX-LINES non-blank input lines "
 "per\n"
@@ -1824,7 +1553,7 @@ msgstr ""
 "per\n"
 "                                 riga di comando\n"
 
-#: xargs/xargs.c:1681
+#: xargs/xargs.c:1676
 msgid ""
 "  -l[MAX-LINES]                similar to -L but defaults to at most one "
 "non-\n"
@@ -1836,7 +1565,7 @@ msgstr ""
 "                                 input non vuota se MAX-RIGHE non è "
 "specificato\n"
 
-#: xargs/xargs.c:1683
+#: xargs/xargs.c:1678
 msgid ""
 "  -n, --max-args=MAX-ARGS      use at most MAX-ARGS arguments per command "
 "line\n"
@@ -1844,17 +1573,17 @@ msgstr ""
 "  -n, --max-args=MAX-ARG      usa al più MAX-ARG argomenti per riga di "
 "comando\n"
 
-#: xargs/xargs.c:1684
+#: xargs/xargs.c:1679
 msgid ""
 "  -P, --max-procs=MAX-PROCS    run at most MAX-PROCS processes at a time\n"
 msgstr ""
 "  -P, --max-procs=MAX-PROC     esegue al più MAX-PROC processi per volta\n"
 
-#: xargs/xargs.c:1685
+#: xargs/xargs.c:1680
 msgid "  -p, --interactive            prompt before running commands\n"
 msgstr "  -p, --interactive            chiede prima di eseguire i comandi\n"
 
-#: xargs/xargs.c:1686
+#: xargs/xargs.c:1681
 msgid ""
 "      --process-slot-var=VAR   set environment variable VAR in child "
 "processes\n"
@@ -1862,7 +1591,7 @@ msgstr ""
 "      --process-slot-var=VAR   imposta la variabile di ambiente VAR nei "
 "processi figli\n"
 
-#: xargs/xargs.c:1687
+#: xargs/xargs.c:1682
 msgid ""
 "  -r, --no-run-if-empty        if there are no arguments, then do not run "
 "COMMAND;\n"
@@ -1875,37 +1604,105 @@ msgstr ""
 "                                 se questa opzione non è data, COMANDO sarà\n"
 "                                 eseguito almeno una volta\n"
 
-#: xargs/xargs.c:1690
+#: xargs/xargs.c:1685
 msgid ""
 "  -s, --max-chars=MAX-CHARS    limit length of command line to MAX-CHARS\n"
 msgstr ""
 "  -s, --max-chars=MAX-CAR      limita la lunghezza della riga di comando a "
 "MAX-CAR\n"
 
-#: xargs/xargs.c:1691
+#: xargs/xargs.c:1686
 msgid "      --show-limits            show limits on command-line length\n"
 msgstr ""
 "      --show-limits            mostra i limiti sulla lunghezza della riga di "
 "comando\n"
 
-#: xargs/xargs.c:1692
+#: xargs/xargs.c:1687
 msgid "  -t, --verbose                print commands before executing them\n"
 msgstr "  -t, --verbose                stampa i comandi prima di eseguirli\n"
 
-#: xargs/xargs.c:1693
+#: xargs/xargs.c:1688
 msgid "  -x, --exit                   exit if the size (see -s) is exceeded\n"
 msgstr ""
 "  -x, --exit                   esce se la dimensione (consultare -s) è "
 "superata\n"
 
-#: xargs/xargs.c:1695
+#: xargs/xargs.c:1690
 msgid "      --help                   display this help and exit\n"
 msgstr "      --help                   mostra questo aiuto ed esce\n"
 
-#: xargs/xargs.c:1696
-msgid "      --version                output version information and exit\n"
+#: xargs/xargs.c:1691
+#, fuzzy
+msgid ""
+"      --version                output version information and exit\n"
+"\n"
 msgstr ""
 "      --version                stampa le informazioni di versione ed esce\n"
+
+#~ msgid "] [path...] [expression]\n"
+#~ msgstr "] [percorso...] [espressione]\n"
+
+#, fuzzy
+#~ msgid "invalid argument %s for %s"
+#~ msgstr "argomento «%s» non valido per «%s»"
+
+#, fuzzy
+#~ msgid "ambiguous argument %s for %s"
+#~ msgstr "argomento «%s» non valido per «%s»"
+
+#, fuzzy
+#~ msgid "%s: option '%s' is ambiguous\n"
+#~ msgstr "Il test %s ha bisogno di un argomento"
+
+#, fuzzy
+#~ msgid "%s: option '--%s' requires an argument\n"
+#~ msgstr "Il test %s ha bisogno di un argomento"
+
+#, fuzzy
+#~ msgid "%s: unrecognized option '%c%s'\n"
+#~ msgstr "attenzione: sequenza di escape «\\%c» non riconosciuta"
+
+#, fuzzy
+#~ msgid "%s: invalid option -- '%c'\n"
+#~ msgstr "%s: il numero per l'opzione -%c non è valido\n"
+
+#, fuzzy
+#~ msgid "%s: option '-W %s' requires an argument\n"
+#~ msgstr "Il test %s ha bisogno di un argomento"
+
+#, fuzzy
+#~ msgid "unable to record current working directory"
+#~ msgstr "ripristino della directory iniziale di lavoro non riuscito"
+
+#, fuzzy
+#~ msgid "failed to return to initial working directory"
+#~ msgstr "ripristino della directory iniziale di lavoro non riuscito"
+
+#, fuzzy
+#~ msgid "invalid %s%s argument '%s'"
+#~ msgstr "argomento «%s» non valido per «%s»"
+
+#, fuzzy
+#~ msgid "invalid suffix in %s%s argument '%s'"
+#~ msgstr "argomento «%s» non valido per «%s»"
+
+#, fuzzy
+#~ msgid "%s%s argument '%s' too large"
+#~ msgstr "elenco degli argomenti troppo lungo"
+
+#~ msgid ""
+#~ "Usage: %s [--version | --help]\n"
+#~ "or     %s most_common_bigrams < file-list > locate-database\n"
+#~ msgstr ""
+#~ "Uso: %s [--version | --help]\n"
+#~ "     %s bigrammi_più_comuni < elenco-di-file > database-di-locate\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Report bugs to <bug-findutils@gnu.org>.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Segnalare i bug a <bug-findutils@gnu.org>.\n"
 
 #, fuzzy
 #~ msgid "Failed initialize shared-file hash table"

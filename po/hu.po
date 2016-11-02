@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: findutils 4.5.15\n"
 "Report-Msgid-Bugs-To: bug-findutils@gnu.org\n"
-"POT-Creation-Date: 2015-12-18 14:45+0000\n"
+"POT-Creation-Date: 2016-11-02 23:33+0100\n"
 "PO-Revision-Date: 2015-12-20 16:24+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -21,189 +21,692 @@ msgstr ""
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 "X-Launchpad-Export-Date: 2015-12-30 11:04+0000\n"
 
-#: find/exec.c:136
+#: find/exec.c:129
 #, c-format
 msgid "Failed to save working directory in order to run a command on %s"
 msgstr "A munkakönyvtár mentése meghiúsult egy parancs futtatásához ezen: %s"
 
-#: find/exec.c:256
+#: find/exec.c:249
 #, c-format
 msgid "Cannot close standard input"
 msgstr "A szabványos bemenet nem zárható le"
 
-#: find/exec.c:285
-#, c-format
-msgid "Failed to change directory: %s"
+#: find/exec.c:278
+#, fuzzy, c-format
+msgid "Failed to change directory%s%s"
 msgstr "A könyvtárváltás meghiúsult: %s"
 
-#: find/exec.c:312 xargs/xargs.c:1241
+#: find/exec.c:310 xargs/xargs.c:1264
 #, c-format
 msgid "cannot fork"
 msgstr "fork() rendszerhívás sikertelen"
 
-#: find/exec.c:343
+#: find/exec.c:341
 #, c-format
 msgid "error waiting for %s"
 msgstr "hiba a következőre várakozás közben: %s"
 
-#: find/exec.c:352
+#: find/exec.c:350
 #, c-format
 msgid "%s terminated by signal %d"
 msgstr "%s leállítva %d szignállal"
 
-#: find/find.c:203 find/ftsfind.c:677
-#, c-format
-msgid "Failed to initialize shared-file hash table"
-msgstr "A megosztott fájlok hash táblájának előkészítése sikertelen"
-
-#: find/find.c:219 find/ftsfind.c:693 locate/bigram.c:105 locate/code.c:174
-#: locate/frcode.c:233 locate/locate.c:1581 xargs/xargs.c:401
-#, c-format
-msgid "The atexit library function failed"
-msgstr "Az atexit könyvtári függvény sikertelen"
-
-#: find/find.c:263
-#, c-format
-msgid "cannot stat current directory"
-msgstr "az aktuális könyvtár elérése sikertelen"
-
-#: find/find.c:354
-#, c-format
-msgid "Cannot read list of mounted devices."
-msgstr "A csatolt eszközök listájának olvasása sikertelen."
-
-#: find/find.c:443
-#, c-format
-msgid "WARNING: file system %s has recently been unmounted."
-msgstr "FIGYELMEZTETÉS: a fájlrendszer (%s) nemrég le lett választva."
-
-#: find/find.c:453
-#, c-format
-msgid "WARNING: file system %s has recently been mounted."
-msgstr "FIGYELMEZTETÉS: a fájlrendszer (%s) nemrég csatlakoztatva lett."
-
-#: find/find.c:550
-#, c-format
-msgid "%s%s changed during execution of %s (old device number %ld, new device number %ld, file system type is %s) [ref %ld]"
-msgstr "A(z) %s%s megváltozott a(z) %s végrehajtása során (régi eszközszám: %ld, új eszközszám: %ld, a fájlrendszer típusa: %s) [ref %ld]"
-
-#: find/find.c:587
-#, c-format
-msgid "%s%s changed during execution of %s (old inode number %<PRIuMAX>, new inode number %<PRIuMAX>, file system type is %s) [ref %ld]"
-msgstr "A(z) %s%s megváltozott a(z) %s végrehajtása során (régi inode szám: %<PRIuMAX>, új inode szám: %<PRIuMAX>, fájlrendszer típusa: %s) [ref %ld]"
-
-#: find/find.c:752
-#, c-format
-msgid "failed to return to parent directory"
-msgstr "a visszatérés meghiúsult a szülőkönyvtárba"
-
-#: find/find.c:1038
-#, c-format
-msgid "Failed to safely change directory into %s"
-msgstr "A könyvtárváltás meghiúsult ide: %s"
-
-#: find/find.c:1138 find/ftsfind.c:245
-#, c-format
-msgid "Symbolic link %s is part of a loop in the directory hierarchy; we have already visited the directory to which it points."
-msgstr "A(z) %s szimbolikus link egy hurok része a könyvtárhierarchiában; a program már bejárta azt a pontot, ahová mutat."
-
-#: find/find.c:1157
-#, c-format
-msgid "Filesystem loop detected; %s has the same device number and inode as a directory which is %d level higher in the file system hierarchy"
-msgid_plural "Filesystem loop detected; %s has the same device number and inode as a directory which is %d levels higher in the file system hierarchy"
-msgstr[0] "A rendszer fájlrendszerhurkot észlelt; a(z) %s azonos eszközszámmal és inode-dal rendelkezik, mint egy, a fájlrendszer-hierarchiában %d szinttel feljebb lévő könyvtár."
-msgstr[1] "A rendszer fájlrendszerhurkot észlelt; a(z) %s azonos eszközszámmal és inode-dal rendelkezik, mint egy, a fájlrendszer-hierarchiában %d szinttel feljebb lévő könyvtár."
-
-#: find/find.c:1409
-#, c-format
-msgid "warning: not following the symbolic link %s"
-msgstr "figyelmeztetés: a(z) %s szimbolikus linket a rendszer nem követi"
-
-#: find/find.c:1482
-#, c-format
-msgid "WARNING: Hard link count is wrong for %s (saw only st_nlink=%<PRIuMAX> but we already saw %<PRIuMAX> subdirectories): this may be a bug in your file system driver.  Automatically turning on find's -noleaf option.  Earlier results may have failed to include directories that should have been searched."
-msgstr "FIGYELMEZTETÉS: A hard linkek száma hibás a következőhöz: %s; (csak st_nlink=%<PRIuMAX> volt látható, de már %<PRIuMAX> alkönyvtár be lett járva) ez hibát jelezhet a fájlrendszer illesztőprogramjában. A find -noleaf kapcsolója automatikusan bekapcsolva. A korábbi próbálkozások meghiúsulhattak a keresendő könyvtárak felvételére."
-
-#: find/fstype.c:185
+#: find/fstype.c:179
 #, c-format
 msgid "Cannot read mounted file system list"
 msgstr "A csatolt fájlrendszerek listájának olvasása sikertelen"
 
-#: find/fstype.c:244
+#: find/fstype.c:238
 msgid "unknown"
 msgstr "ismeretlen"
 
-#: find/ftsfind.c:259
+#: find/ftsfind.c:237 find/oldfind.c:1136
 #, c-format
-msgid "File system loop detected; %s is part of the same file system loop as %s."
-msgstr "A rendszer fájlrendszerhurkot észlelt; a(z) %s ugyanannak a fájlrendszerhuroknak része, mint %s."
+msgid ""
+"Symbolic link %s is part of a loop in the directory hierarchy; we have "
+"already visited the directory to which it points."
+msgstr ""
+"A(z) %s szimbolikus link egy hurok része a könyvtárhierarchiában; a program "
+"már bejárta azt a pontot, ahová mutat."
 
-#: find/ftsfind.c:444 find/util.c:222
+#: find/ftsfind.c:251
+#, c-format
+msgid ""
+"File system loop detected; %s is part of the same file system loop as %s."
+msgstr ""
+"A rendszer fájlrendszerhurkot észlelt; a(z) %s ugyanannak a "
+"fájlrendszerhuroknak része, mint %s."
+
+#: find/ftsfind.c:436 find/util.c:260
 #, c-format
 msgid "WARNING: file %s appears to have mode 0000"
 msgstr "FIGYELMEZTETÉS: úgy tűnik, a(z) %s fájl módja 0000"
 
-#: find/ftsfind.c:559
+#: find/ftsfind.c:551
 #, c-format
 msgid "cannot search %s"
 msgstr "%s nem kereshető"
 
-#: find/ftsfind.c:609
+#: find/ftsfind.c:601
 #, c-format
 msgid "failed to restore working directory after searching %s"
 msgstr "a munkakönyvtár visszaállítása nem sikerült „%s” keresése után"
 
-#: find/parser.c:452
+#: find/ftsfind.c:671 find/oldfind.c:202
 #, c-format
-msgid "The -delete action automatically turns on -depth, but -prune does nothing when -depth is in effect.  If you want to carry on anyway, just explicitly use the -depth option."
-msgstr "A -delete művelet automatikusan engedélyezi a -depth kapcsolót, de a -prune nem csinál semmit, ha a -depth be van kapcsolva. Ha mindenképp folytatni akarja, használja a -depth kapcsolót."
+msgid "Failed to initialize shared-file hash table"
+msgstr "A megosztott fájlok hash táblájának előkészítése sikertelen"
 
-#: find/parser.c:599
+#: find/ftsfind.c:687 find/oldfind.c:218 locate/frcode.c:231
+#: locate/locate.c:1594 xargs/xargs.c:424
 #, c-format
-msgid "warning: you have specified the %s option after a non-option argument %s, but options are not positional (%s affects tests specified before it as well as those specified after it).  Please specify options before other arguments.\n"
-msgstr "figyelmeztetés: a(z) %s kapcsolót a(z) %s nem kapcsoló argumentum után adtad meg, de a kapcsolók nem helyzetérzékenyek (a(z) %s hatással van mind az előtte, mind az utána található tesztekre). A kapcsolókat az egyéb argumentumok előtt kell megadni.\n"
+msgid "The atexit library function failed"
+msgstr "Az atexit könyvtári függvény sikertelen"
 
-#: find/parser.c:906
+#: find/oldfind.c:261
 #, c-format
-msgid "warning: the -d option is deprecated; please use -depth instead, because the latter is a POSIX-compliant feature."
-msgstr "figyelmeztetés: a -d kapcsoló elavult; helyette a -depth kapcsoló használandó, mivel az utóbbi felel meg a POSIX-nak."
+msgid "cannot stat current directory"
+msgstr "az aktuális könyvtár elérése sikertelen"
 
-#: find/parser.c:1179
+#: find/oldfind.c:352
 #, c-format
-msgid "%s is not the name of an existing group and it does not look like a numeric group ID because it has the unexpected suffix %s"
-msgstr "%s nem egy meglévő csoport neve és nem tűnik numerikus csoportazonosítónak, mivel a nem várt %s kiterjesztéssel rendelkezik."
+msgid "Cannot read list of mounted devices."
+msgstr "A csatolt eszközök listájának olvasása sikertelen."
 
-#: find/parser.c:1194
+#: find/oldfind.c:441
+#, c-format
+msgid "WARNING: file system %s has recently been unmounted."
+msgstr "FIGYELMEZTETÉS: a fájlrendszer (%s) nemrég le lett választva."
+
+#: find/oldfind.c:451
+#, c-format
+msgid "WARNING: file system %s has recently been mounted."
+msgstr "FIGYELMEZTETÉS: a fájlrendszer (%s) nemrég csatlakoztatva lett."
+
+#: find/oldfind.c:548
+#, c-format
+msgid ""
+"%s%s changed during execution of %s (old device number %ld, new device "
+"number %ld, file system type is %s) [ref %ld]"
+msgstr ""
+"A(z) %s%s megváltozott a(z) %s végrehajtása során (régi eszközszám: %ld, új "
+"eszközszám: %ld, a fájlrendszer típusa: %s) [ref %ld]"
+
+#: find/oldfind.c:585
+#, c-format
+msgid ""
+"%s%s changed during execution of %s (old inode number %<PRIuMAX>, new inode "
+"number %<PRIuMAX>, file system type is %s) [ref %ld]"
+msgstr ""
+"A(z) %s%s megváltozott a(z) %s végrehajtása során (régi inode szám: "
+"%<PRIuMAX>, új inode szám: %<PRIuMAX>, fájlrendszer típusa: %s) [ref %ld]"
+
+#: find/oldfind.c:750
+#, c-format
+msgid "failed to return to parent directory"
+msgstr "a visszatérés meghiúsult a szülőkönyvtárba"
+
+#: find/oldfind.c:1036
+#, c-format
+msgid "Failed to safely change directory into %s"
+msgstr "A könyvtárváltás meghiúsult ide: %s"
+
+#: find/oldfind.c:1155
+#, c-format
+msgid ""
+"Filesystem loop detected; %s has the same device number and inode as a "
+"directory which is %d level higher in the file system hierarchy"
+msgid_plural ""
+"Filesystem loop detected; %s has the same device number and inode as a "
+"directory which is %d levels higher in the file system hierarchy"
+msgstr[0] ""
+"A rendszer fájlrendszerhurkot észlelt; a(z) %s azonos eszközszámmal és inode-"
+"dal rendelkezik, mint egy, a fájlrendszer-hierarchiában %d szinttel feljebb "
+"lévő könyvtár."
+msgstr[1] ""
+"A rendszer fájlrendszerhurkot észlelt; a(z) %s azonos eszközszámmal és inode-"
+"dal rendelkezik, mint egy, a fájlrendszer-hierarchiában %d szinttel feljebb "
+"lévő könyvtár."
+
+#: find/oldfind.c:1407
+#, c-format
+msgid "warning: not following the symbolic link %s"
+msgstr "figyelmeztetés: a(z) %s szimbolikus linket a rendszer nem követi"
+
+#: find/oldfind.c:1480
+#, c-format
+msgid ""
+"WARNING: Hard link count is wrong for %s (saw only st_nlink=%<PRIuMAX> but "
+"we already saw %<PRIuMAX> subdirectories): this may be a bug in your file "
+"system driver.  Automatically turning on find's -noleaf option.  Earlier "
+"results may have failed to include directories that should have been "
+"searched."
+msgstr ""
+"FIGYELMEZTETÉS: A hard linkek száma hibás a következőhöz: %s; (csak st_nlink="
+"%<PRIuMAX> volt látható, de már %<PRIuMAX> alkönyvtár be lett járva) ez "
+"hibát jelezhet a fájlrendszer illesztőprogramjában. A find -noleaf "
+"kapcsolója automatikusan bekapcsolva. A korábbi próbálkozások "
+"meghiúsulhattak a keresendő könyvtárak felvételére."
+
+#: find/parser.c:458
+#, c-format
+msgid ""
+"The -delete action automatically turns on -depth, but -prune does nothing "
+"when -depth is in effect.  If you want to carry on anyway, just explicitly "
+"use the -depth option."
+msgstr ""
+"A -delete művelet automatikusan engedélyezi a -depth kapcsolót, de a -prune "
+"nem csinál semmit, ha a -depth be van kapcsolva. Ha mindenképp folytatni "
+"akarja, használja a -depth kapcsolót."
+
+#: find/parser.c:617
+#, c-format
+msgid ""
+"warning: you have specified the %s option after a non-option argument %s, "
+"but options are not positional (%s affects tests specified before it as well "
+"as those specified after it).  Please specify options before other "
+"arguments.\n"
+msgstr ""
+"figyelmeztetés: a(z) %s kapcsolót a(z) %s nem kapcsoló argumentum után adtad "
+"meg, de a kapcsolók nem helyzetérzékenyek (a(z) %s hatással van mind az "
+"előtte, mind az utána található tesztekre). A kapcsolókat az egyéb "
+"argumentumok előtt kell megadni.\n"
+
+#: find/parser.c:924
+#, c-format
+msgid ""
+"warning: the -d option is deprecated; please use -depth instead, because the "
+"latter is a POSIX-compliant feature."
+msgstr ""
+"figyelmeztetés: a -d kapcsoló elavult; helyette a -depth kapcsoló "
+"használandó, mivel az utóbbi felel meg a POSIX-nak."
+
+#: find/parser.c:1197
+#, c-format
+msgid ""
+"%s is not the name of an existing group and it does not look like a numeric "
+"group ID because it has the unexpected suffix %s"
+msgstr ""
+"%s nem egy meglévő csoport neve és nem tűnik numerikus csoportazonosítónak, "
+"mivel a nem várt %s kiterjesztéssel rendelkezik."
+
+#: find/parser.c:1212
 #, c-format
 msgid "%s is not the name of an existing group"
 msgstr "%s nem egy meglévő csoport neve"
 
-#: find/parser.c:1200
+#: find/parser.c:1218
 #, c-format
 msgid "argument to -group is empty, but should be a group name"
 msgstr "a -group argumentuma üres, de egy csoportnévnek kellene lennie"
 
-#: find/parser.c:1222
+#: find/parser.c:1291
+#, c-format
+msgid "sanity check of the fnmatch() library function failed."
+msgstr "az fnmatch() könyvtári függvény vizsgálata sikertelen."
+
+#: find/parser.c:1305
+#, c-format
+msgid ""
+"warning: Unix filenames usually don't contain slashes (though pathnames "
+"do).  That means that '%s %s' will probably evaluate to false all the time "
+"on this system.  You might find the '-wholename' test more useful, or "
+"perhaps '-samefile'.  Alternatively, if you are using GNU grep, you could "
+"use 'find ... -print0 | grep -FzZ %s'."
+msgstr ""
+"figyelmeztetés: a Unix fájlnevek általában nem tartalmaznak / jeleket (noha "
+"az útvonalnevek igen). Ez azt jelenti, hogy a(z) „%s %s” értéke valószínűleg "
+"mindig hamis lesz ezen a rendszeren. Lehet, hogy a „-wholename” vagy a „-"
+"samefile” tesztet sokkal hasznosabbnak találná. Ennek alternatívájaként, ha "
+"a GNU grep-et használja, akkor használható a következő parancs: „find ... -"
+"print0 | grep -FzZ %s”."
+
+#: find/parser.c:1431
+#, c-format
+msgid "Expected a positive decimal integer argument to %s, but got %s"
+msgstr "%s várt pozitív egész argumentuma helyett %s érkezett."
+
+#: find/parser.c:1596
+#, c-format
+msgid "This system does not provide a way to find the birth time of a file."
+msgstr ""
+"A rendszer nem ad lehetőséget a fájl létrehozási idejének megállapítására."
+
+#: find/parser.c:1617
+#, c-format
+msgid "The %s test needs an argument"
+msgstr "A teszthez (%s) argumentum szükséges"
+
+#: find/parser.c:1654
+#, c-format
+msgid "I cannot figure out how to interpret %s as a date or time"
+msgstr "%s nem értelmezhető dátumként vagy időként"
+
+#: find/parser.c:1671
+#, c-format
+msgid "Cannot obtain birth time of file %s"
+msgstr "A(z) „%s” fájl létrehozási ideje nem kérhető le"
+
+#: find/parser.c:1815
+#, c-format
+msgid "warning: -%s %s will not match anything because it ends with /."
+msgstr ""
+"figyelmeztetés: -%s %s nem fog semmire sem illeszkedni, mert / jellel "
+"végződik."
+
+#: find/parser.c:1910
+#, c-format
+msgid "invalid mode %s"
+msgstr "érvénytelen mód: %s"
+
+#: find/parser.c:1928
+#, c-format
+msgid ""
+"warning: you have specified a mode pattern %s (which is equivalent to /000). "
+"The meaning of -perm /000 has now been changed to be consistent with -perm "
+"-000; that is, while it used to match no files, it now matches all files."
+msgstr ""
+"figyelmeztetés: a(z) %s módmintát adta meg, amely azonos a /000-val. A -"
+"perm /000 jelentése módosult, így összhangba került a -perm -000-val, azaz "
+"míg korábban nem illeszkedett egyetlen fájlra sem, most az összes fájlra "
+"illeszkedik."
+
+#: find/parser.c:2101
+#, fuzzy, c-format
+msgid "failed to compile regular expression '%s': %s"
+msgstr "Érvénytelen szabályos kifejezés"
+
+#: find/parser.c:2130
+#, c-format
+msgid "invalid null argument to -size"
+msgstr "érvénytelen null argumentum a -size kapcsolónál"
+
+#: find/parser.c:2180
+#, c-format
+msgid "invalid -size type `%c'"
+msgstr "a -size típusa („%c”) érvénytelen"
+
+#: find/parser.c:2190
+#, c-format
+msgid "Invalid argument `%s%s' to -size"
+msgstr "A(z) „%s%s” argumentum érvénytelen a -size kapcsolóhoz"
+
+#: find/parser.c:2372
+msgid ""
+"The -show-control-chars option takes a single argument which must be "
+"'literal' or 'safe'"
+msgstr ""
+"A -show-control-chars kapcsoló egyetlen paramétert vár, amely a „literal” "
+"vagy „safe” egyike lehet"
+
+#: find/parser.c:2486
+#, c-format
+msgid "Invalid argument %s to -used"
+msgstr "a(z) „%s” argumentum érvénytelen a -used kapcsolóhoz"
+
+#: find/parser.c:2527
+#, c-format
+msgid "%s is not the name of a known user"
+msgstr "%s nem egy ismert felhasználó neve"
+
+#: find/parser.c:2534
+#, c-format
+msgid "The argument to -user should not be empty"
+msgstr "A -user argumentuma nem lehet üres"
+
+#: find/parser.c:2559
+#, c-format
+msgid "Features enabled: "
+msgstr "Engedélyezett szolgáltatások: "
+
+#: find/parser.c:2628
+#, c-format
+msgid "invalid predicate -context: SELinux is not enabled."
+msgstr "a -context érvénytelen predikátum: a SELinux nem engedélyezett."
+
+#: find/parser.c:2692
+#, fuzzy, c-format
+msgid "Arguments to %s should contain at least one letter"
+msgstr "A -type argumentumai csak egy betűt tartalmazhatnak"
+
+#: find/parser.c:2757
+#, fuzzy, c-format
+msgid ""
+"%s %c is not supported because symbolic links are not supported on the "
+"platform find was compiled on."
+msgstr ""
+"a -type %c nem támogatott, mert a szimbolikus linkek nem támogatottak a find "
+"fordítására használt rendszeren."
+
+#: find/parser.c:2769
+#, fuzzy, c-format
+msgid ""
+"%s %c is not supported because FIFOs are not supported on the platform find "
+"was compiled on."
+msgstr ""
+"a -type %c nem támogatott, mert a FIFO-k nem támogatottak a find fordítására "
+"használt rendszeren."
+
+#: find/parser.c:2781
+#, fuzzy, c-format
+msgid ""
+"%s %c is not supported because named sockets are not supported on the "
+"platform find was compiled on."
+msgstr ""
+"a -type %c nem támogatott, mert a nevesített foglalatok nem támogatottak a "
+"find fordítására használt rendszeren."
+
+#: find/parser.c:2797
+#, fuzzy, c-format
+msgid ""
+"%s %c is not supported because Solaris doors are not supported on the "
+"platform find was compiled on."
+msgstr ""
+"a -type %c nem támogatott, mert a Solaris door-ok nem támogatottak a find "
+"fordítására használt rendszeren."
+
+#: find/parser.c:2805
+#, fuzzy, c-format
+msgid "Unknown argument to %s: %c"
+msgstr "A -type argumentuma ismeretlen: %c"
+
+#: find/parser.c:2813
+#, c-format
+msgid "Duplicate file type '%c' in the argument list to %s."
+msgstr ""
+
+#: find/parser.c:2829
+#, c-format
+msgid "Must separate multiple arguments to %s using: ','"
+msgstr ""
+
+#: find/parser.c:2838
+#, c-format
+msgid ""
+"Last file type in list argument to %s is missing, i.e., list is ending on: "
+"','"
+msgstr ""
+
+#: find/parser.c:2897
+#, c-format
+msgid ""
+"The current directory is included in the PATH environment variable, which is "
+"insecure in combination with the %s action of find.  Please remove the "
+"current directory from your $PATH (that is, remove \".\", doubled colons, or "
+"leading or trailing colons)"
+msgstr ""
+"Az aktuális könyvtárat tartalmazza a PATH környezeti változó, amely nem "
+"biztonságos kombináció a find %s műveletével. Távolítsa el az aktuális "
+"könyvtárat a $PATH változóból (azaz a pontot, dupla kettőspontokat, vagy a "
+"kezdő/záró kettőspontokat)."
+
+#: find/parser.c:2909
+#, c-format
+msgid ""
+"The relative path %s is included in the PATH environment variable, which is "
+"insecure in combination with the %s action of find.  Please remove that "
+"entry from $PATH"
+msgstr ""
+"A(z) %s relatív útvonalat tartalmazza a PATH környezeti változó, amely nem "
+"biztonságos a find %s műveletével kombinálva. Távolítsa el ezt a bejegyzést "
+"a $PATH változóból."
+
+#: find/parser.c:3018
+#, c-format
+msgid ""
+"You may not use {} within the utility name for -execdir and -okdir, because "
+"this is a potential security problem."
+msgstr ""
+"A {} jel nem használható a -execdir és -okdir segédprogramjának nevében, "
+"mivel ez egy lehetséges biztonsági probléma."
+
+#: find/parser.c:3044
+#, c-format
+msgid "Only one instance of {} is supported with -exec%s ... +"
+msgstr "Csak egyetlen {} példány támogatott a -exec%s ... + esetén"
+
+#: find/parser.c:3054
+#, c-format
+msgid "In %s the %s must appear by itself, but you specified %s"
+msgstr "Itt: %s, a(z) %s önállóan kell megjelenjen, de ezt adta meg: %s"
+
+#: find/parser.c:3074
+#, c-format
+msgid "The environment is too large for exec()."
+msgstr "A környezet túl nagy az exec() híváshoz."
+
+#: find/parser.c:3243
+#, c-format
+msgid "arithmetic overflow while converting %s days to a number of seconds"
+msgstr "matematikai túlcsordulás %s nap másodpercekké alakítása közben"
+
+#: find/parser.c:3267
+#, c-format
+msgid "arithmetic overflow when trying to calculate the end of today"
+msgstr "túlcsordulás a mai nap végének kiszámítására tett kísérlet közben"
+
+#: find/parser.c:3426
+msgid "standard error"
+msgstr "szabványos hibakimenet"
+
+#: find/parser.c:3431
+msgid "standard output"
+msgstr "szabványos kimenet"
+
+#: find/pred.c:330
+#, c-format
+msgid "cannot delete %s"
+msgstr "%s nem törölhető"
+
+#: find/pred.c:720
+#, c-format
+msgid "WARNING: cannot determine birth time of file %s"
+msgstr "FIGYELMEZTETÉS: a(z) %s fájl létrehozási dátuma nem állapítható meg"
+
+#: find/pred.c:768
+#, c-format
+msgid "< %s ... %s > ? "
+msgstr "< %s ... %s > ? "
+
+#: find/pred.c:770
+#, c-format
+msgid "Failed to write prompt for -ok"
+msgstr "A prompt írása meghiúsult a -ok tevékenységhez"
+
+#: find/pred.c:1239 find/print.c:1235
+#, c-format
+msgid "getfilecon failed: %s"
+msgstr "a getfilecon sikertelen: %s"
+
+#: find/print.c:341
+#, c-format
+msgid "warning: escape `\\' followed by nothing at all"
+msgstr "figyelmeztetés: a „\\” védést nem követi semmi"
+
+#: find/print.c:360
+#, c-format
+msgid "warning: unrecognized escape `\\%c'"
+msgstr "figyelmeztetés: ismeretlen escape: „\\%c”"
+
+#: find/print.c:380 find/print.c:1257
+#, c-format
+msgid "error: %s at end of format string"
+msgstr "hiba: %s a formátum-karaktersorozat végén"
+
+#: find/print.c:404
+#, c-format
+msgid "error: the format directive `%%%c' is reserved for future use"
+msgstr ""
+"hiba: a „%%%c” formátumdirektíva fenn van tartva a jövőbeli használatra"
+
+#: find/print.c:412
+#, c-format
+msgid ""
+"warning: format directive `%%%c' should be followed by another character"
+msgstr ""
+"figyelmeztetés: ezt a formátum-előírást egy másik karakternek kell követnie: "
+"„%%%c”"
+
+#: find/print.c:420
+#, c-format
+msgid "warning: unrecognized format directive `%%%c'"
+msgstr "figyelmeztetés: ismeretlen formátum-előírás: „%%%c”"
+
+#: find/tree.c:123 find/tree.c:128 find/tree.c:218 find/tree.c:257
+#, c-format
+msgid "invalid expression"
+msgstr "érvénytelen kifejezés"
+
+#: find/tree.c:134
+#, c-format
+msgid ""
+"invalid expression; you have used a binary operator '%s' with nothing before "
+"it."
+msgstr ""
+"érvénytelen kifejezés; bináris operátort („%s”) használtál úgy, hogy semmi "
+"nem volt előtte."
+
+#: find/tree.c:145
+#, c-format
+msgid "expected an expression between '%s' and ')'"
+msgstr "a program kifejezést várt a(z) „%s” és „)” között"
+
+#: find/tree.c:155
+#, c-format
+msgid "expected an expression after '%s'"
+msgstr "a program kifejezést várt a(z) „%s” után"
+
+#: find/tree.c:160
+#, c-format
+msgid "invalid expression; you have too many ')'"
+msgstr "érvénytelen kifejezés; túl sok ) karaktert tartalmaz"
+
+#: find/tree.c:183
+#, c-format
+msgid ""
+"invalid expression; expected to find a ')' but didn't see one.  Perhaps you "
+"need an extra predicate after '%s'"
+msgstr ""
+"érvénytelen kifejezés; a program egy „)” jelre számított, de nem találta "
+"meg. Lehet, hogy egy további predikátum szükséges a(z) „%s” után."
+
+#: find/tree.c:191
+#, c-format
+msgid "invalid expression; empty parentheses are not allowed."
+msgstr "érvénytelen kifejezés; az üres zárójelek nem engedélyezettek."
+
+#: find/tree.c:197
+#, c-format
+msgid ""
+"invalid expression; I was expecting to find a ')' somewhere but did not see "
+"one."
+msgstr ""
+"érvénytelen kifejezés; a program egy ) jelre számított, de nem találta meg."
+
+#: find/tree.c:203 find/tree.c:827
+#, c-format
+msgid "oops -- invalid expression type!"
+msgstr "hoppá -- érvénytelen kifejezéstípus!"
+
+#: find/tree.c:275
+#, c-format
+msgid "oops -- invalid expression type (%d)!"
+msgstr "hoppá -- érvénytelen kifejezéstípus (%d)!"
+
+#: find/tree.c:1105
+#, c-format
+msgid ""
+"warning: there is no entry in the predicate evaluation cost table for "
+"predicate %s; please report this as a bug"
+msgstr ""
+"Figyelmeztetés: nincs bejegyzés a predikátumkiértékelési költségtáblában "
+"ehhez a predikátumhoz: %s. Jelentse ezt hibaként (angolul)."
+
+#: find/tree.c:1279
+#, c-format
+msgid "paths must precede expression: %s"
+msgstr "az útvonalaknak meg kell előzniük a kifejezést: %s"
+
+#: find/tree.c:1288
+#, c-format
+msgid "unknown predicate `%s'"
+msgstr "ismeretlen predikátum: „%s”"
+
+#: find/tree.c:1309
+#, c-format
+msgid "invalid predicate `%s'"
+msgstr "érvénytelen predikátum: „%s”"
+
+#: find/tree.c:1314
+#, c-format
+msgid "invalid argument `%s' to `%s'"
+msgstr "A(z) „%s” argumentum érvénytelen a következőhöz: %s"
+
+#: find/tree.c:1322
+#, c-format
+msgid "missing argument to `%s'"
+msgstr "A(z) „%s” argumentuma hiányzik"
+
+#: find/tree.c:1399
+#, c-format
+msgid "you have too many ')'"
+msgstr "túl sok „)” karaktert tartalmaz"
+
+#: find/tree.c:1405
+#, c-format
+msgid "unexpected extra predicate '%s'"
+msgstr "váratlan extra predikátum: „%s”"
+
+#: find/tree.c:1407
+#, c-format
+msgid "unexpected extra predicate"
+msgstr "váratlan extra predikátum"
+
+#: find/tree.c:1528
+#, c-format
+msgid "oops -- invalid default insertion of and!"
+msgstr "hoppá -- az and alapértelmezett beszúrása érvénytelen!"
+
+#: find/util.c:145
+#, fuzzy
+msgid "Valid arguments for -D:\n"
+msgstr "Az érvényes argumentumok a következők:"
+
+#: find/util.c:169 locate/frcode.c:151 locate/locate.c:1391 xargs/xargs.c:1644
+#, c-format
+msgid "Try '%s --help' for more information.\n"
+msgstr ""
+
+#: find/util.c:175
+#, fuzzy, c-format
+msgid ""
+"Usage: %s [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]\n"
+msgstr "Használat: %s [-H] [-L] [-P][-Oszint] [-D "
+
+#: find/util.c:179
 msgid ""
 "\n"
 "default path is the current directory; default expression is -print\n"
 "expression may consist of: operators, options, tests, and actions:\n"
 msgstr ""
 "\n"
-"az alapértelmezett útvonal az aktuális könyvtár; az alapértelmezett kifejezés -print, kifejezés lehet:\n"
+"az alapértelmezett útvonal az aktuális könyvtár; az alapértelmezett "
+"kifejezés -print, kifejezés lehet:\n"
 "operátorok, kapcsolók, tesztek és tevékenységek:\n"
 
-#: find/parser.c:1225
+#: find/util.c:182
 msgid ""
-"operators (decreasing precedence; -and is implicit where no others are given):\n"
+"operators (decreasing precedence; -and is implicit where no others are "
+"given):\n"
 "      ( EXPR )   ! EXPR   -not EXPR   EXPR1 -a EXPR2   EXPR1 -and EXPR2\n"
 "      EXPR1 -o EXPR2   EXPR1 -or EXPR2   EXPR1 , EXPR2\n"
 msgstr ""
-"operátorok (csökkenő precedencia; alapértelmezett -and, ha nincs más megadva):\n"
+"operátorok (csökkenő precedencia; alapértelmezett -and, ha nincs más "
+"megadva):\n"
 "      ( KIF ) ! KIF -not KIF KIF1 -a KIF2 KIF1 -and KIF2\n"
 "      KIF1 -o KIF2 KIF1 -or KIF2 KIF1 , KIF2\n"
 
-#: find/parser.c:1229
+#: find/util.c:186
 msgid ""
 "positional options (always true): -daystart -follow -regextype\n"
 "\n"
@@ -217,11 +720,12 @@ msgstr ""
 "      -depth --help -maxdepth SZINTEK -mindepth SZINTEK -mount -noleaf\n"
 "      --version -xdev -ignore_readdir_race -noignore_readdir_race\n"
 
-#: find/parser.c:1234
+#: find/util.c:191
 msgid ""
 "tests (N can be +N or -N or N): -amin N -anewer FILE -atime N -cmin N\n"
 "      -cnewer FILE -ctime N -empty -false -fstype TYPE -gid N -group NAME\n"
-"      -ilname PATTERN -iname PATTERN -inum N -iwholename PATTERN -iregex PATTERN\n"
+"      -ilname PATTERN -iname PATTERN -inum N -iwholename PATTERN -iregex "
+"PATTERN\n"
 "      -links N -lname PATTERN -mmin N -mtime N -name PATTERN -newer FILE"
 msgstr ""
 "Tesztek (Az N +N, -N vagy N lehet): -amin N -anewer FILE -atime N -cmin N\n"
@@ -229,8 +733,10 @@ msgstr ""
 "      -ilname MINTA -iname MINTA -inum N -ipath MINTA -iregex MINTA\n"
 "      -links N -lname MINTA -mmin N -mtime N -name MINTA -newer FÁJL"
 
-#: find/parser.c:1239
+#: find/util.c:196
+#, fuzzy
 msgid ""
+"\n"
 "      -nouser -nogroup -path PATTERN -perm [-/]MODE -regex PATTERN\n"
 "      -readable -writable -executable\n"
 "      -wholename PATTERN -size N[bcwkMG] -true -type [bcdpflsD] -uid N\n"
@@ -241,776 +747,134 @@ msgstr ""
 "      -wholename MINTA -size N[bcwkMG] -true -type [bcdpflsD]\n"
 "      -uid N -used N -user NÉV -xtype [bcdpfls]"
 
-#: find/parser.c:1244
+#: find/util.c:201
 msgid "      -context CONTEXT\n"
 msgstr "      -context KONTEXTUS\n"
 
-#: find/parser.c:1246
+#: find/util.c:203
+#, fuzzy
 msgid ""
 "\n"
 "actions: -delete -print0 -printf FORMAT -fprintf FILE FORMAT -print \n"
 "      -fprint0 FILE -fprint FILE -ls -fls FILE -prune -quit\n"
 "      -exec COMMAND ; -exec COMMAND {} + -ok COMMAND ;\n"
 "      -execdir COMMAND ; -execdir COMMAND {} + -okdir COMMAND ;\n"
+"\n"
 msgstr ""
 "\n"
-"tevékenységek: -delete -print0 -printf FORMÁTUM -fprintf FÁJL FORMÁTUM -print\n"
+"tevékenységek: -delete -print0 -printf FORMÁTUM -fprintf FÁJL FORMÁTUM -"
+"print\n"
 "      -fprint0 FÁJL -fprint FÁJL -ls -fls FÁJL -prune -quit\n"
 "      -exec PARANCS; -exec PARANCS {} + -ok PARANCS ;\n"
 "      -execdir PARANCS ; -execdir PARANCS {} + -okdir PARANCS ;\n"
 
-#: find/parser.c:1252
+#: find/util.c:211
 msgid ""
-"Report (and track progress on fixing) bugs via the findutils bug-reporting\n"
-"page at http://savannah.gnu.org/ or, if you have no web access, by sending\n"
-"email to <bug-findutils@gnu.org>."
+"\n"
+"Use '-D help' for a description of the options, or see find(1)\n"
+"\n"
 msgstr ""
-"A hibák a findutils hibajelentő oldalán jelenthetők be a\n"
-"http://savannah.gnu.org/ címen, vagy e-mailben a <bug-findutils@gnu.org> címen."
 
-#: find/parser.c:1307
-#, c-format
-msgid "sanity check of the fnmatch() library function failed."
-msgstr "az fnmatch() könyvtári függvény vizsgálata sikertelen."
-
-#: find/parser.c:1321
-#, c-format
-msgid "warning: Unix filenames usually don't contain slashes (though pathnames do).  That means that '%s %s' will probably evaluate to false all the time on this system.  You might find the '-wholename' test more useful, or perhaps '-samefile'.  Alternatively, if you are using GNU grep, you could use 'find ... -print0 | grep -FzZ %s'."
-msgstr "figyelmeztetés: a Unix fájlnevek általában nem tartalmaznak / jeleket (noha az útvonalnevek igen). Ez azt jelenti, hogy a(z) „%s %s” értéke valószínűleg mindig hamis lesz ezen a rendszeren. Lehet, hogy a „-wholename” vagy a „-samefile” tesztet sokkal hasznosabbnak találná. Ennek alternatívájaként, ha a GNU grep-et használja, akkor használható a következő parancs: „find ... -print0 | grep -FzZ %s”."
-
-#: find/parser.c:1447
-#, c-format
-msgid "Expected a positive decimal integer argument to %s, but got %s"
-msgstr "%s várt pozitív egész argumentuma helyett %s érkezett."
-
-#: find/parser.c:1612
-#, c-format
-msgid "This system does not provide a way to find the birth time of a file."
-msgstr "A rendszer nem ad lehetőséget a fájl létrehozási idejének megállapítására."
-
-#: find/parser.c:1633
-#, c-format
-msgid "The %s test needs an argument"
-msgstr "A teszthez (%s) argumentum szükséges"
-
-#: find/parser.c:1670
-#, c-format
-msgid "I cannot figure out how to interpret %s as a date or time"
-msgstr "%s nem értelmezhető dátumként vagy időként"
-
-#: find/parser.c:1687
-#, c-format
-msgid "Cannot obtain birth time of file %s"
-msgstr "A(z) „%s” fájl létrehozási ideje nem kérhető le"
-
-#: find/parser.c:1831
-#, c-format
-msgid "warning: -%s %s will not match anything because it ends with /."
-msgstr "figyelmeztetés: -%s %s nem fog semmire sem illeszkedni, mert / jellel végződik."
-
-#: find/parser.c:1928
-#, c-format
-msgid "invalid mode %s"
-msgstr "érvénytelen mód: %s"
-
-#: find/parser.c:1946
-#, c-format
-msgid "warning: you have specified a mode pattern %s (which is equivalent to /000). The meaning of -perm /000 has now been changed to be consistent with -perm -000; that is, while it used to match no files, it now matches all files."
-msgstr "figyelmeztetés: a(z) %s módmintát adta meg, amely azonos a /000-val. A -perm /000 jelentése módosult, így összhangba került a -perm -000-val, azaz míg korábban nem illeszkedett egyetlen fájlra sem, most az összes fájlra illeszkedik."
-
-#: find/parser.c:2147
-#, c-format
-msgid "invalid null argument to -size"
-msgstr "érvénytelen null argumentum a -size kapcsolónál"
-
-#: find/parser.c:2197
-#, c-format
-msgid "invalid -size type `%c'"
-msgstr "a -size típusa („%c”) érvénytelen"
-
-#: find/parser.c:2207
-#, c-format
-msgid "Invalid argument `%s%s' to -size"
-msgstr "A(z) „%s%s” argumentum érvénytelen a -size kapcsolóhoz"
-
-#: find/parser.c:2389
-msgid "The -show-control-chars option takes a single argument which must be 'literal' or 'safe'"
-msgstr "A -show-control-chars kapcsoló egyetlen paramétert vár, amely a „literal” vagy „safe” egyike lehet"
-
-#: find/parser.c:2503
-#, c-format
-msgid "Invalid argument %s to -used"
-msgstr "a(z) „%s” argumentum érvénytelen a -used kapcsolóhoz"
-
-#: find/parser.c:2544
-#, c-format
-msgid "%s is not the name of a known user"
-msgstr "%s nem egy ismert felhasználó neve"
-
-#: find/parser.c:2551
-#, c-format
-msgid "The argument to -user should not be empty"
-msgstr "A -user argumentuma nem lehet üres"
-
-#: find/parser.c:2576
-#, c-format
-msgid "Features enabled: "
-msgstr "Engedélyezett szolgáltatások: "
-
-#: find/parser.c:2653
-#, c-format
-msgid "invalid predicate -context: SELinux is not enabled."
-msgstr "a -context érvénytelen predikátum: a SELinux nem engedélyezett."
-
-#: find/parser.c:2717
-#, c-format
-msgid "Arguments to -type should contain only one letter"
-msgstr "A -type argumentumai csak egy betűt tartalmazhatnak"
-
-#: find/parser.c:2746
-#, c-format
-msgid "-type %c is not supported because symbolic links are not supported on the platform find was compiled on."
-msgstr "a -type %c nem támogatott, mert a szimbolikus linkek nem támogatottak a find fordítására használt rendszeren."
-
-#: find/parser.c:2757
-#, c-format
-msgid "-type %c is not supported because FIFOs are not supported on the platform find was compiled on."
-msgstr "a -type %c nem támogatott, mert a FIFO-k nem támogatottak a find fordítására használt rendszeren."
-
-#: find/parser.c:2768
-#, c-format
-msgid "-type %c is not supported because named sockets are not supported on the platform find was compiled on."
-msgstr "a -type %c nem támogatott, mert a nevesített foglalatok nem támogatottak a find fordítására használt rendszeren."
-
-#: find/parser.c:2779
-#, c-format
-msgid "-type %c is not supported because Solaris doors are not supported on the platform find was compiled on."
-msgstr "a -type %c nem támogatott, mert a Solaris door-ok nem támogatottak a find fordítására használt rendszeren."
-
-#: find/parser.c:2786
-#, c-format
-msgid "Unknown argument to -type: %c"
-msgstr "A -type argumentuma ismeretlen: %c"
-
-#: find/parser.c:2860
-#, c-format
-msgid "The current directory is included in the PATH environment variable, which is insecure in combination with the %s action of find.  Please remove the current directory from your $PATH (that is, remove \".\", doubled colons, or leading or trailing colons)"
-msgstr "Az aktuális könyvtárat tartalmazza a PATH környezeti változó, amely nem biztonságos kombináció a find %s műveletével. Távolítsa el az aktuális könyvtárat a $PATH változóból (azaz a pontot, dupla kettőspontokat, vagy a kezdő/záró kettőspontokat)."
-
-#: find/parser.c:2872
-#, c-format
-msgid "The relative path %s is included in the PATH environment variable, which is insecure in combination with the %s action of find.  Please remove that entry from $PATH"
-msgstr "A(z) %s relatív útvonalat tartalmazza a PATH környezeti változó, amely nem biztonságos a find %s műveletével kombinálva. Távolítsa el ezt a bejegyzést a $PATH változóból."
-
-#: find/parser.c:2981
-#, c-format
-msgid "You may not use {} within the utility name for -execdir and -okdir, because this is a potential security problem."
-msgstr "A {} jel nem használható a -execdir és -okdir segédprogramjának nevében, mivel ez egy lehetséges biztonsági probléma."
-
-#: find/parser.c:3007
-#, c-format
-msgid "Only one instance of {} is supported with -exec%s ... +"
-msgstr "Csak egyetlen {} példány támogatott a -exec%s ... + esetén"
-
-#: find/parser.c:3017
-#, c-format
-msgid "In %s the %s must appear by itself, but you specified %s"
-msgstr "Itt: %s, a(z) %s önállóan kell megjelenjen, de ezt adta meg: %s"
-
-#: find/parser.c:3037
-#, c-format
-msgid "The environment is too large for exec()."
-msgstr "A környezet túl nagy az exec() híváshoz."
-
-#: find/parser.c:3206
-#, c-format
-msgid "arithmetic overflow while converting %s days to a number of seconds"
-msgstr "matematikai túlcsordulás %s nap másodpercekké alakítása közben"
-
-#: find/parser.c:3230
-#, c-format
-msgid "arithmetic overflow when trying to calculate the end of today"
-msgstr "túlcsordulás a mai nap végének kiszámítására tett kísérlet közben"
-
-#: find/parser.c:3389
-msgid "standard error"
-msgstr "szabványos hibakimenet"
-
-#: find/parser.c:3394
-msgid "standard output"
-msgstr "szabványos kimenet"
-
-#: find/pred.c:338
-#, c-format
-msgid "cannot delete %s"
-msgstr "%s nem törölhető"
-
-#: find/pred.c:718
-#, c-format
-msgid "WARNING: cannot determine birth time of file %s"
-msgstr "FIGYELMEZTETÉS: a(z) %s fájl létrehozási dátuma nem állapítható meg"
-
-#: find/pred.c:766
-#, c-format
-msgid "< %s ... %s > ? "
-msgstr "< %s ... %s > ? "
-
-#: find/pred.c:768
-#, c-format
-msgid "Failed to write prompt for -ok"
-msgstr "A prompt írása meghiúsult a -ok tevékenységhez"
-
-#: find/pred.c:1192 find/print.c:1239
-#, c-format
-msgid "getfilecon failed: %s"
-msgstr "a getfilecon sikertelen: %s"
-
-#: find/print.c:346
-#, c-format
-msgid "warning: escape `\\' followed by nothing at all"
-msgstr "figyelmeztetés: a „\\” védést nem követi semmi"
-
-#: find/print.c:365
-#, c-format
-msgid "warning: unrecognized escape `\\%c'"
-msgstr "figyelmeztetés: ismeretlen escape: „\\%c”"
-
-#: find/print.c:385
-#, c-format
-msgid "error: %s at end of format string"
-msgstr "hiba: %s a formátum-karaktersorozat végén"
-
-#: find/print.c:409
-#, c-format
-msgid "error: the format directive `%%%c' is reserved for future use"
-msgstr "hiba: a „%%%c” formátumdirektíva fenn van tartva a jövőbeli használatra"
-
-#: find/print.c:417
-#, c-format
-msgid "warning: format directive `%%%c' should be followed by another character"
-msgstr "figyelmeztetés: ezt a formátum-előírást egy másik karakternek kell követnie: „%%%c”"
-
-#: find/print.c:425
-#, c-format
-msgid "warning: unrecognized format directive `%%%c'"
-msgstr "figyelmeztetés: ismeretlen formátum-előírás: „%%%c”"
-
-#: find/tree.c:129 find/tree.c:134 find/tree.c:224 find/tree.c:263
-#, c-format
-msgid "invalid expression"
-msgstr "érvénytelen kifejezés"
-
-#: find/tree.c:140
-#, c-format
-msgid "invalid expression; you have used a binary operator '%s' with nothing before it."
-msgstr "érvénytelen kifejezés; bináris operátort („%s”) használtál úgy, hogy semmi nem volt előtte."
-
-#: find/tree.c:151
-#, c-format
-msgid "expected an expression between '%s' and ')'"
-msgstr "a program kifejezést várt a(z) „%s” és „)” között"
-
-#: find/tree.c:161
-#, c-format
-msgid "expected an expression after '%s'"
-msgstr "a program kifejezést várt a(z) „%s” után"
-
-#: find/tree.c:166
-#, c-format
-msgid "invalid expression; you have too many ')'"
-msgstr "érvénytelen kifejezés; túl sok ) karaktert tartalmaz"
-
-#: find/tree.c:189
-#, c-format
-msgid "invalid expression; expected to find a ')' but didn't see one.  Perhaps you need an extra predicate after '%s'"
-msgstr "érvénytelen kifejezés; a program egy „)” jelre számított, de nem találta meg. Lehet, hogy egy további predikátum szükséges a(z) „%s” után."
-
-#: find/tree.c:197
-#, c-format
-msgid "invalid expression; empty parentheses are not allowed."
-msgstr "érvénytelen kifejezés; az üres zárójelek nem engedélyezettek."
-
-#: find/tree.c:203
-#, c-format
-msgid "invalid expression; I was expecting to find a ')' somewhere but did not see one."
-msgstr "érvénytelen kifejezés; a program egy ) jelre számított, de nem találta meg."
-
-#: find/tree.c:209 find/tree.c:833
-#, c-format
-msgid "oops -- invalid expression type!"
-msgstr "hoppá -- érvénytelen kifejezéstípus!"
-
-#: find/tree.c:281
-#, c-format
-msgid "oops -- invalid expression type (%d)!"
-msgstr "hoppá -- érvénytelen kifejezéstípus (%d)!"
-
-#: find/tree.c:1120
-#, c-format
-msgid "warning: there is no entry in the predicate evaluation cost table for predicate %s; please report this as a bug"
-msgstr "Figyelmeztetés: nincs bejegyzés a predikátumkiértékelési költségtáblában ehhez a predikátumhoz: %s. Jelentse ezt hibaként (angolul)."
-
-#: find/tree.c:1294
-#, c-format
-msgid "paths must precede expression: %s"
-msgstr "az útvonalaknak meg kell előzniük a kifejezést: %s"
-
-#: find/tree.c:1303
-#, c-format
-msgid "unknown predicate `%s'"
-msgstr "ismeretlen predikátum: „%s”"
-
-#: find/tree.c:1323
-#, c-format
-msgid "invalid predicate `%s'"
-msgstr "érvénytelen predikátum: „%s”"
-
-#: find/tree.c:1328
-#, c-format
-msgid "invalid argument `%s' to `%s'"
-msgstr "A(z) „%s” argumentum érvénytelen a következőhöz: %s"
-
-#: find/tree.c:1336
-#, c-format
-msgid "missing argument to `%s'"
-msgstr "A(z) „%s” argumentuma hiányzik"
-
-#: find/tree.c:1412
-#, c-format
-msgid "you have too many ')'"
-msgstr "túl sok „)” karaktert tartalmaz"
-
-#: find/tree.c:1418
-#, c-format
-msgid "unexpected extra predicate '%s'"
-msgstr "váratlan extra predikátum: „%s”"
-
-#: find/tree.c:1420
-#, c-format
-msgid "unexpected extra predicate"
-msgstr "váratlan extra predikátum"
-
-#: find/tree.c:1553
-#, c-format
-msgid "oops -- invalid default insertion of and!"
-msgstr "hoppá -- az and alapértelmezett beszúrása érvénytelen!"
-
-#: find/util.c:175
-#, c-format
-msgid "Usage: %s [-H] [-L] [-P] [-Olevel] [-D "
-msgstr "Használat: %s [-H] [-L] [-P][-Oszint] [-D "
-
-#: find/util.c:177
-#, c-format
-msgid "] [path...] [expression]\n"
-msgstr "] [útvonal...] [kifejezés]\n"
-
-#: find/util.c:459
-#, c-format
-msgid "failed to save initial working directory: %s"
+#: find/util.c:497
+#, fuzzy, c-format
+msgid "Failed to save initial working directory%s%s"
 msgstr "a kiinduló munkakönyvtár mentése meghiúsult: %s"
 
-#: find/util.c:476
-#, c-format
-msgid "failed to restore initial working directory: %s"
+#: find/util.c:516
+#, fuzzy, c-format
+msgid "Failed to restore initial working directory%s%s"
 msgstr "a kiinduló munkakönyvtár visszaállítása meghiúsult: %s"
 
-#: find/util.c:824
+#: find/util.c:866
 #, c-format
 msgid "Ignoring unrecognised debug flag %s"
 msgstr "Az ismeretlen hibakereső jelző figyelmen kívül marad: %s"
 
-#: find/util.c:831
+#: find/util.c:873
 #, c-format
 msgid "Empty argument to the -D option."
 msgstr "A -D kapcsoló paramétere üres."
 
-#: find/util.c:847
+#: find/util.c:890
 #, c-format
 msgid "The -O option must be immediately followed by a decimal integer"
-msgstr "A -O kapcsolót azonnal egy tízes számrendszerbeli egésznek kell követnie"
+msgstr ""
+"A -O kapcsolót azonnal egy tízes számrendszerbeli egésznek kell követnie"
 
-#: find/util.c:857 find/util.c:868
+#: find/util.c:900 find/util.c:911
 #, c-format
 msgid "Please specify a decimal number immediately after -O"
 msgstr "Közvetlenül a -O után adjon meg egy tízes számrendszerbeli egészet"
 
-#: find/util.c:873 find/util.c:878
+#: find/util.c:916 find/util.c:921
 #, c-format
 msgid "Invalid optimisation level %s"
 msgstr "Érvénytelen optimalizálási szint: %s"
 
-#: find/util.c:886
-#, c-format
-msgid "Optimisation level %lu is too high.  If you want to find files very quickly, consider using GNU locate."
-msgstr "A(z) %lu optimalizálási szint túl nagy. Ha nagyon gyorsan akar fájlokat megtalálni, akkor használja a GNU locate programot."
-
-#: find/util.c:1030
-#, c-format
-msgid "The environment variable FIND_BLOCK_SIZE is not supported, the only thing that affects the block size is the POSIXLY_CORRECT environment variable"
-msgstr "A FIND_BLOCK_SIZE környezeti változó nem támogatott, egyedül a POSIXLY_CORRECT környezeti változó befolyásolja a blokkméretet."
-
-#: gl/lib/argmatch.c:133
-#, c-format
-msgid "invalid argument %s for %s"
-msgstr "az argumentum (%s) szabálytalan a következőhöz: %s"
-
-#: gl/lib/argmatch.c:134
-#, c-format
-msgid "ambiguous argument %s for %s"
-msgstr "a(z) „%s” argumentum nem egyértelmű a következőhöz: „%s”"
-
-#: gl/lib/argmatch.c:153
-msgid "Valid arguments are:"
-msgstr "Az érvényes argumentumok a következők:"
-
-#: gl/lib/closein.c:100
-msgid "error closing file"
-msgstr "hiba a fájl lezárásakor"
-
-#: gl/lib/closeout.c:112 locate/code.c:153 locate/frcode.c:210
-#, c-format
-msgid "write error"
-msgstr "íráshiba"
-
-#: gl/lib/error.c:188
-msgid "Unknown system error"
-msgstr "Ismeretlen rendszerhiba"
-
-#: gl/lib/getopt.c:547 gl/lib/getopt.c:576
-#, c-format
-msgid "%s: option '%s' is ambiguous; possibilities:"
-msgstr "%s: a(z) „%s” kapcsoló nem egyértelmű; a lehetőségek:"
-
-#: gl/lib/getopt.c:624 gl/lib/getopt.c:628
-#, c-format
-msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: a(z) „--%s” kapcsoló nem enged meg argumentumot\n"
-
-#: gl/lib/getopt.c:637 gl/lib/getopt.c:642
-#, c-format
-msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr "%s: a(z) „%c%s” kapcsoló nem enged meg argumentumot\n"
-
-#: gl/lib/getopt.c:685 gl/lib/getopt.c:704
-#, c-format
-msgid "%s: option '--%s' requires an argument\n"
-msgstr "%s: a(z) „--%s” kapcsolóhoz argumentum szükséges\n"
-
-#: gl/lib/getopt.c:742 gl/lib/getopt.c:745
-#, c-format
-msgid "%s: unrecognized option '--%s'\n"
-msgstr "%s: a(z) „--%s” kapcsoló ismeretlen\n"
-
-#: gl/lib/getopt.c:753 gl/lib/getopt.c:756
-#, c-format
-msgid "%s: unrecognized option '%c%s'\n"
-msgstr "%s: a(z) „%c%s” kapcsoló ismeretlen\n"
-
-#: gl/lib/getopt.c:805 gl/lib/getopt.c:808
-#, c-format
-msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: érvénytelen kapcsoló -- „%c”\n"
-
-#: gl/lib/getopt.c:861 gl/lib/getopt.c:878 gl/lib/getopt.c:1088
-#: gl/lib/getopt.c:1106
-#, c-format
-msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: a kapcsoló egy argumentumot igényel -- „%c”\n"
-
-#: gl/lib/getopt.c:934 gl/lib/getopt.c:950
-#, c-format
-msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: a „-W %s” kapcsoló nem egyértelmű\n"
-
-#: gl/lib/getopt.c:974 gl/lib/getopt.c:992
-#, c-format
-msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: a „-W %s” kapcsoló nem enged meg argumentumot\n"
-
-#: gl/lib/getopt.c:1013 gl/lib/getopt.c:1031
-#, c-format
-msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: a(z) „-W%s” kapcsolóhoz argumentum szükséges\n"
-
-#: gl/lib/openat-die.c:38
-#, c-format
-msgid "unable to record current working directory"
-msgstr "az aktuális munkakönyvtár feljegyzése meghiúsult"
-
-#: gl/lib/openat-die.c:57
-#, c-format
-msgid "failed to return to initial working directory"
-msgstr "a visszatérés meghiúsult a kiinduló munkakönyvtárba"
-
-#. TRANSLATORS:
-#. Get translations for open and closing quotation marks.
-#. The message catalog should translate "`" to a left
-#. quotation mark suitable for the locale, and similarly for
-#. "'".  For example, a French Unicode local should translate
-#. these to U+00AB (LEFT-POINTING DOUBLE ANGLE
-#. QUOTATION MARK), and U+00BB (RIGHT-POINTING DOUBLE ANGLE
-#. QUOTATION MARK), respectively.
-#.
-#. If the catalog has no translation, we will try to
-#. use Unicode U+2018 (LEFT SINGLE QUOTATION MARK) and
-#. Unicode U+2019 (RIGHT SINGLE QUOTATION MARK).  If the
-#. current locale is not Unicode, locale_quoting_style
-#. will quote 'like this', and clocale_quoting_style will
-#. quote "like this".  You should always include translations
-#. for "`" and "'" even if U+2018 and U+2019 are appropriate
-#. for your locale.
-#.
-#. If you don't know what to put here, please see
-#. <http://en.wikipedia.org/wiki/Quotation_marks_in_other_languages>
-#. and use glyphs suitable for your language.
-#: gl/lib/quotearg.c:312
-msgid "`"
-msgstr "„"
-
-#: gl/lib/quotearg.c:313
-msgid "'"
-msgstr "”"
-
-#. TRANSLATORS: A regular expression testing for an affirmative answer
-#. (english: "yes").  Testing the first character may be sufficient.
-#. Take care to consider upper and lower case.
-#. To enquire the regular expression that your system uses for this
-#. purpose, you can use the command
-#. locale -k LC_MESSAGES | grep '^yesexpr='
-#: gl/lib/rpmatch.c:150
-msgid "^[yY]"
-msgstr "^[iIyY]"
-
-#. TRANSLATORS: A regular expression testing for a negative answer
-#. (english: "no").  Testing the first character may be sufficient.
-#. Take care to consider upper and lower case.
-#. To enquire the regular expression that your system uses for this
-#. purpose, you can use the command
-#. locale -k LC_MESSAGES | grep '^noexpr='
-#: gl/lib/rpmatch.c:163
-msgid "^[nN]"
-msgstr "^[nN]"
-
-#: gl/lib/version-etc.c:74
-#, c-format
-msgid "Packaged by %s (%s)\n"
-msgstr "Csomagolta: %s (%s)\n"
-
-#: gl/lib/version-etc.c:77
-#, c-format
-msgid "Packaged by %s\n"
-msgstr "Csomagolta: %s\n"
-
-#. TRANSLATORS: Translate "(C)" to the copyright symbol
-#. (C-in-a-circle), if this symbol is available in the user's
-#. locale.  Otherwise, do not translate "(C)"; leave it as-is.
-#: gl/lib/version-etc.c:84
-msgid "(C)"
-msgstr "©"
-
-#: gl/lib/version-etc.c:86
-msgid ""
-"\n"
-"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\n"
-"This is free software: you are free to change and redistribute it.\n"
-"There is NO WARRANTY, to the extent permitted by law.\n"
-"\n"
-msgstr ""
-"\n"
-"A licenc GPLv3+: a GNU GPL 3. vagy újabb változata <http://gnu.org/licenses/gpl.html>\n"
-"Ez egy szabad szoftver, terjesztheti és/vagy módosíthatja.\n"
-"NINCS GARANCIA, a törvény által engedélyezett mértékig.\n"
-"\n"
-
-#. TRANSLATORS: %s denotes an author name.
-#: gl/lib/version-etc.c:102
-#, c-format
-msgid "Written by %s.\n"
-msgstr "Írta %s.\n"
-
-#. TRANSLATORS: Each %s denotes an author name.
-#: gl/lib/version-etc.c:106
-#, c-format
-msgid "Written by %s and %s.\n"
-msgstr "Írta %s és %s.\n"
-
-#. TRANSLATORS: Each %s denotes an author name.
-#: gl/lib/version-etc.c:110
-#, c-format
-msgid "Written by %s, %s, and %s.\n"
-msgstr "Írta %s, %s, és %s.\n"
-
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:117
+#: find/util.c:929
 #, c-format
 msgid ""
-"Written by %s, %s, %s,\n"
-"and %s.\n"
+"Optimisation level %lu is too high.  If you want to find files very quickly, "
+"consider using GNU locate."
 msgstr ""
-"Írta %s, %s, %s,\n"
-"és %s.\n"
+"A(z) %lu optimalizálási szint túl nagy. Ha nagyon gyorsan akar fájlokat "
+"megtalálni, akkor használja a GNU locate programot."
 
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:124
+#: find/util.c:1073
 #, c-format
 msgid ""
-"Written by %s, %s, %s,\n"
-"%s, and %s.\n"
+"The environment variable FIND_BLOCK_SIZE is not supported, the only thing "
+"that affects the block size is the POSIXLY_CORRECT environment variable"
 msgstr ""
-"Írta %s, %s, %s,\n"
-"%s, és %s.\n"
+"A FIND_BLOCK_SIZE környezeti változó nem támogatott, egyedül a "
+"POSIXLY_CORRECT környezeti változó befolyásolja a blokkméretet."
 
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:131
-#, c-format
+#: lib/bugreports.c:33
+#, fuzzy, c-format
 msgid ""
-"Written by %s, %s, %s,\n"
-"%s, %s, and %s.\n"
+"Please see also the documentation at %s.\n"
+"You can report (and track progress on fixing) bugs in the \"%s\"\n"
+"program via the %s bug-reporting page at\n"
+"%s or, if\n"
+"you have no web access, by sending email to <%s>.\n"
 msgstr ""
-"Írta %s, %s, %s,\n"
-"%s, %s, és %s.\n"
+"A hibák a findutils hibajelentő oldalán jelenthetők be a\n"
+"http://savannah.gnu.org/ címen, vagy e-mailben a <bug-findutils@gnu.org> "
+"címen."
 
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:139
-#, c-format
-msgid ""
-"Written by %s, %s, %s,\n"
-"%s, %s, %s, and %s.\n"
-msgstr ""
-"Írta %s, %s, %s,\n"
-"%s, %s, %s, és %s.\n"
-
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:147
-#, c-format
-msgid ""
-"Written by %s, %s, %s,\n"
-"%s, %s, %s, %s,\n"
-"and %s.\n"
-msgstr ""
-"Írta %s, %s, %s,\n"
-"%s, %s, %s, %s,\n"
-"és %s.\n"
-
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:156
-#, c-format
-msgid ""
-"Written by %s, %s, %s,\n"
-"%s, %s, %s, %s,\n"
-"%s, and %s.\n"
-msgstr ""
-"Írta %s, %s, %s,\n"
-"%s, %s, %s, %s,\n"
-"%s, és %s.\n"
-
-#. TRANSLATORS: Each %s denotes an author name.
-#. You can use line breaks, estimating that each author name occupies
-#. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: gl/lib/version-etc.c:167
-#, c-format
-msgid ""
-"Written by %s, %s, %s,\n"
-"%s, %s, %s, %s,\n"
-"%s, %s, and others.\n"
-msgstr ""
-"Írta %s, %s, %s,\n"
-"%s, %s, %s, %s,\n"
-"%s, %s, és mások.\n"
-
-#. TRANSLATORS: The placeholder indicates the bug-reporting address
-#. for this package.  Please add _another line_ saying
-#. "Report translation bugs to <...>\n" with the address for translation
-#. bugs (typically your translation team's web or email address).
-#: gl/lib/version-etc.c:245
-#, c-format
-msgid ""
-"\n"
-"Report bugs to: %s\n"
-msgstr ""
-"\n"
-"A hibák a(z) %s címen jelenthetők.\n"
-
-#: gl/lib/version-etc.c:247
-#, c-format
-msgid "Report %s bugs to: %s\n"
-msgstr "A(z) %s hibái a(z) %s címen jelenthetők.\n"
-
-#: gl/lib/version-etc.c:251
-#, c-format
-msgid "%s home page: <%s>\n"
-msgstr "A(z) %s honlapja: <%s>\n"
-
-#: gl/lib/version-etc.c:253
-#, c-format
-msgid "%s home page: <http://www.gnu.org/software/%s/>\n"
-msgstr "A(z) %s honlapja: <http://www.gnu.org/software/%s/>\n"
-
-#: gl/lib/version-etc.c:256
-msgid "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
-msgstr "Általános segítség a GNU szoftverek használatához: <http://www.gnu.org/gethelp/>\n"
-
-#: gl/lib/xalloc-die.c:34
-msgid "memory exhausted"
-msgstr "elfogyott a memória"
-
-#: gl/lib/xstrtol-error.c:63
-#, c-format
-msgid "invalid %s%s argument '%s'"
-msgstr "érvénytelen %s%s argumentum: „%s”"
-
-#: gl/lib/xstrtol-error.c:68
-#, c-format
-msgid "invalid suffix in %s%s argument '%s'"
-msgstr "érvénytelen utótag a(z) %s%s argumentumban: „%s”"
-
-#: gl/lib/xstrtol-error.c:72
-#, c-format
-msgid "%s%s argument '%s' too large"
-msgstr "%s%s: a(z) „%s” argumentum túl nagy"
-
-#: lib/buildcmd.c:161
+#: lib/buildcmd.c:154
 #, c-format
 msgid "command too long"
 msgstr "a parancs túl hosszú"
 
-#: lib/buildcmd.c:301
+#: lib/buildcmd.c:294
 #, c-format
 msgid "can't call exec() due to argument size restrictions"
 msgstr "nem hívható meg az exec() az argumentum méretének korlátozásai miatt"
 
-#: lib/buildcmd.c:371
+#: lib/buildcmd.c:359
 #, c-format
 msgid "cannot fit single argument within argument list size limit"
 msgstr "egy argumentum nem fér el az argumentumlista méretkorlátjába"
 
-#: lib/buildcmd.c:377
+#: lib/buildcmd.c:365
 #, c-format
 msgid "argument list too long"
 msgstr "az argumentumlista túl hosszú"
 
-#: lib/buildcmd.c:629
+#: lib/buildcmd.c:622
 #, c-format
 msgid "Environment variable %s is not set to a valid decimal number"
 msgstr "A(z) %s környezeti változó nincs érvényes decimális számra állítva"
 
-#: lib/fdleak.c:377
+#: lib/fdleak.c:384
 #, c-format
-msgid "File descriptor %d will leak; please report this as a bug, remembering to include a detailed description of the simplest way to reproduce this problem."
-msgstr "A(z) %d fájlleíró el fog szivárogni, jelentse ezt hibaként (angolul), és ne felejtse el megadni a probléma reprodukálásának legegyszerűbb módját."
+msgid ""
+"File descriptor %d will leak; please report this as a bug, remembering to "
+"include a detailed description of the simplest way to reproduce this problem."
+msgstr ""
+"A(z) %d fájlleíró el fog szivárogni, jelentse ezt hibaként (angolul), és ne "
+"felejtse el megadni a probléma reprodukálásának legegyszerűbb módját."
 
 #: lib/findutils-version.c:55
 msgid "Eric B. Decker"
@@ -1024,121 +888,120 @@ msgstr "James Youngman"
 msgid "Kevin Dalley"
 msgstr "Kevin Dalley"
 
-#: lib/listfile.c:452
+#: lib/listfile.c:466
 #, c-format
 msgid "Failed to write output (at stage %d)"
 msgstr "A kimenet írása meghiúsult (a(z) %d. fázisban)"
 
-#: lib/regextype.c:110
+#: lib/regextype.c:104
 #, c-format
 msgid "Unknown regular expression type %s; valid types are %s."
 msgstr "Ismeretlen reguláriskifejezés-típus: %s; az érvényes típusok: %s."
 
-#: lib/safe-atoi.c:81
+#: lib/safe-atoi.c:75
 #, c-format
 msgid "Unexpected suffix %s on %s"
 msgstr "Váratlan utótag (%s) ehhez: %s"
 
-#: lib/safe-atoi.c:87
+#: lib/safe-atoi.c:81
 #, c-format
 msgid "Expected an integer: %s"
 msgstr "A program egész számot várt: %s"
 
-#: locate/code.c:131
-#, c-format
-msgid ""
-"Usage: %s [--version | --help]\n"
-"or     %s most_common_bigrams < file-list > locate-database\n"
-msgstr ""
-"Használat: %s [--version | --help]\n"
-"vagy %s most_common_bigrams < fájllista > locate-adatbázis\n"
-
-#: locate/code.c:135 locate/frcode.c:162 locate/locate.c:1394
-#: xargs/xargs.c:1673
-msgid ""
-"\n"
-"Report bugs to <bug-findutils@gnu.org>.\n"
-msgstr ""
-"\n"
-"A hibák a <bug-findutils@gnu.org> címen jelenthetők.\n"
-
-#: locate/frcode.c:160
+#: locate/frcode.c:156
 #, c-format
 msgid "Usage: %s [-0 | --null] [--version] [--help]\n"
 msgstr "Használat: %s [-0 | --null] [--version] [--help]\n"
 
-#: locate/frcode.c:180
+#: locate/frcode.c:178
 #, c-format
 msgid "You need to specify a security level as a decimal integer."
 msgstr "A biztonsági szintet tízes alapú egészként kell megadni."
 
-#: locate/frcode.c:188
+#: locate/frcode.c:186
 #, c-format
 msgid "Security level %s is outside the convertible range."
 msgstr "A biztonsági szint (%s) kívül esik az átalakítható tartományon."
 
-#: locate/frcode.c:196
+#: locate/frcode.c:194
 #, c-format
 msgid "Security level %s has unexpected suffix %s."
 msgstr "A biztonsági szint (%s) váratlan utótaggal rendelkezik: %s."
 
-#: locate/frcode.c:257
+#: locate/frcode.c:208
+#, c-format
+msgid "write error"
+msgstr "íráshiba"
+
+#: locate/frcode.c:255
 #, c-format
 msgid "slocate security level %ld is unsupported."
 msgstr "a megadott slocate biztonsági szint (%ld) nem támogatott."
 
-#: locate/frcode.c:295
+#: locate/frcode.c:274
+#, fuzzy, c-format
+msgid "no argument expected."
+msgstr "A -type argumentuma ismeretlen: %c"
+
+#: locate/frcode.c:291
 #, c-format
 msgid "Failed to write to standard output"
 msgstr "Az írás meghiúsult a szabványos kimenetre"
 
-#: locate/locate.c:131
+#: locate/frcode.c:300
+#, c-format
+msgid "The input file should end with the delimiter"
+msgstr ""
+
+#: locate/locate.c:133
 msgid "days"
 msgstr "nap"
 
-#: locate/locate.c:178
+#: locate/locate.c:181
 #, c-format
 msgid "The argument for option --max-database-age must not be empty"
 msgstr "a --max-database-age kapcsoló argumentuma nem lehet üres"
 
-#: locate/locate.c:194 locate/locate.c:201
+#: locate/locate.c:197 locate/locate.c:204
 #, c-format
 msgid "Invalid argument %s for option --max-database-age"
 msgstr "A(z) „%s” argumentum érvénytelen a --max-database-age kapcsolóhoz"
 
-#: locate/locate.c:451
+#: locate/locate.c:454
 #, c-format
 msgid "locate database %s contains a filename longer than locate can handle"
-msgstr "a(z) %s locate adatbázis a locate által kezelhetőnél hosszabb fájlnevet tartalmaz"
+msgstr ""
+"a(z) %s locate adatbázis a locate által kezelhetőnél hosszabb fájlnevet "
+"tartalmaz"
 
-#: locate/locate.c:561 locate/locate.c:580
+#: locate/locate.c:565 locate/locate.c:584
 #, c-format
 msgid "locate database %s is corrupt or invalid"
 msgstr "a(z) „%s” locate adatbázis sérült vagy érvénytelen"
 
-#: locate/locate.c:865
+#: locate/locate.c:869
 #, c-format
 msgid "Database was last modified at %s.%09ld"
 msgstr "Az adatbázis utolsó módosítása: %s.%09ld"
 
-#: locate/locate.c:873
+#: locate/locate.c:877
 #, c-format
 msgid "Locate database size: %s byte\n"
 msgid_plural "Locate database size: %s bytes\n"
 msgstr[0] "A locate adatbázis mérete: %s bájt\n"
 msgstr[1] "A locate adatbázis mérete: %s bájt\n"
 
-#: locate/locate.c:879
+#: locate/locate.c:883
 #, c-format
 msgid "Matching Filenames: %s\n"
 msgstr "Illeszkedő fájlnevek: %s\n"
 
-#: locate/locate.c:880
+#: locate/locate.c:884
 #, c-format
 msgid "All Filenames: %s\n"
 msgstr "Minden fájlnév: %s\n"
 
-#: locate/locate.c:886
+#: locate/locate.c:890
 #, c-format
 msgid ""
 "File names have a cumulative length of %s bytes.\n"
@@ -1155,70 +1018,92 @@ msgstr ""
 "\t%s tartalmaz új sor karaktert,\n"
 "\tés %s tartalmaz beállított magas bittel rendelkező karaktert.\n"
 
-#: locate/locate.c:900
+#: locate/locate.c:904
 #, c-format
-msgid "Some filenames may have been filtered out, so we cannot compute the compression ratio.\n"
-msgstr "Egyes fájlnevek lehet, hogy ki lettek szűrve, így nem számítható ki a tömörítési arány.\n"
+msgid ""
+"Some filenames may have been filtered out, so we cannot compute the "
+"compression ratio.\n"
+msgstr ""
+"Egyes fájlnevek lehet, hogy ki lettek szűrve, így nem számítható ki a "
+"tömörítési arány.\n"
 
-#: locate/locate.c:913
+#: locate/locate.c:917
 #, c-format
 msgid "Compression ratio %4.2f%% (higher is better)\n"
 msgstr "Tömörítési arány: %4.2f%% (a nagyobb jobb)\n"
 
-#: locate/locate.c:920
+#: locate/locate.c:924
 #, c-format
 msgid "Compression ratio is undefined\n"
 msgstr "A tömörítési arány nincs megadva\n"
 
-#: locate/locate.c:975
+#: locate/locate.c:979
 #, c-format
-msgid "locate database %s looks like an slocate database but it seems to have security level %c, which GNU findutils does not currently support"
-msgstr "a(z) „%s” locate adatbázis slocate adatbázisnak tűnik, azonban a biztonsági szintje %c, amit a GNU findutils jelenleg nem támogat"
+msgid ""
+"locate database %s looks like an slocate database but it seems to have "
+"security level %c, which GNU findutils does not currently support"
+msgstr ""
+"a(z) „%s” locate adatbázis slocate adatbázisnak tűnik, azonban a biztonsági "
+"szintje %c, amit a GNU findutils jelenleg nem támogat"
 
-#: locate/locate.c:1088
+#: locate/locate.c:1092
 #, c-format
-msgid "%s is an slocate database.  Support for these is new, expect problems for now."
-msgstr "a(z) „%s” egy slocate adatbázis. Ezek támogatása új, jelenleg problémák lehetnek vele."
+msgid ""
+"%s is an slocate database.  Support for these is new, expect problems for "
+"now."
+msgstr ""
+"a(z) „%s” egy slocate adatbázis. Ezek támogatása új, jelenleg problémák "
+"lehetnek vele."
 
-#: locate/locate.c:1102
+#: locate/locate.c:1106
 #, c-format
-msgid "%s is an slocate database of unsupported security level %d; skipping it."
-msgstr "a(z) „%s” egy nem támogatott biztonsági szintű (%d) slocate adatbázis; figyelmen kívül marad"
+msgid ""
+"%s is an slocate database of unsupported security level %d; skipping it."
+msgstr ""
+"a(z) „%s” egy nem támogatott biztonsági szintű (%d) slocate adatbázis; "
+"figyelmen kívül marad"
 
-#: locate/locate.c:1119
+#: locate/locate.c:1123
 #, c-format
-msgid "You specified the -E option, but that option cannot be used with slocate-format databases with a non-zero security level.  No results will be generated for this database.\n"
-msgstr "A -E kapcsoló került megadásra, de ez nem használható az slocate formátumú, nem nulla biztonsági szintű adatbázisokkal. Ebből az adatbázisból nem lesznek találatok előállítva.\n"
+msgid ""
+"You specified the -E option, but that option cannot be used with slocate-"
+"format databases with a non-zero security level.  No results will be "
+"generated for this database.\n"
+msgstr ""
+"A -E kapcsoló került megadásra, de ez nem használható az slocate formátumú, "
+"nem nulla biztonsági szintű adatbázisokkal. Ebből az adatbázisból nem "
+"lesznek találatok előállítva.\n"
 
-#: locate/locate.c:1130
+#: locate/locate.c:1134
 #, c-format
 msgid "%s is an slocate database.  Turning on the '-e' option."
 msgstr "a(z) „%s” egy slocate adatbázis. A -e kapcsoló engedélyezve lesz."
 
-#: locate/locate.c:1168
+#: locate/locate.c:1172
 #, c-format
 msgid "Old-format locate database %s is too short to be valid"
-msgstr "A régi formátumú %s locate adatbázis túl rövid ahhoz, hogy érvényes legyen"
+msgstr ""
+"A régi formátumú %s locate adatbázis túl rövid ahhoz, hogy érvényes legyen"
 
-#: locate/locate.c:1320
+#: locate/locate.c:1324
 #, c-format
 msgid "Database %s is in the %s format.\n"
 msgstr "A(z) %s adatbázis %s formátumú.\n"
 
-#: locate/locate.c:1347
+#: locate/locate.c:1351
 msgid "The database has little-endian machine-word encoding.\n"
 msgstr "Az adatbázis gépiszó-kódolása kis endian.\n"
 
-#: locate/locate.c:1349
+#: locate/locate.c:1353
 msgid "The database has big-endian machine-word encoding.\n"
 msgstr "Az adatbázis gépiszó-kódolása nagy endian.\n"
 
-#: locate/locate.c:1362
+#: locate/locate.c:1366
 #, c-format
 msgid "The database machine-word encoding order is not obvious.\n"
 msgstr "Az adatbázis gépiszó-kódolási sorrendje nem nyilvánvaló.\n"
 
-#: locate/locate.c:1385
+#: locate/locate.c:1395
 #, c-format
 msgid ""
 "Usage: %s [-d path | --database=path] [-e | -E | --[non-]existing]\n"
@@ -1229,7 +1114,8 @@ msgid ""
 "      [--max-database-age D] [--version] [--help]\n"
 "      pattern...\n"
 msgstr ""
-"Használat: %s [-d útvonal | --database=útvonal] [-e | -E | --[non-]existing]\n"
+"Használat: %s [-d útvonal | --database=útvonal] [-e | -E | --"
+"[non-]existing]\n"
 "      [-i | --ignore-case] [-w | --wholename] [-b | --basename]\n"
 "      [--limit=N | -l N] [-S | --statistics] [-0 | --null] [-c | --count]\n"
 "      [-P | -H | --nofollow] [-L | --follow] [-m | --mmap] [-s | --stdio]\n"
@@ -1237,279 +1123,340 @@ msgstr ""
 "      [--max-database-age D] [--version] [--help]\n"
 "      minta...\n"
 
-#: locate/locate.c:1448
+#: locate/locate.c:1461
 msgid "failed to drop group privileges"
 msgstr "a csoport jogosultságainak eldobása meghiúsult"
 
-#: locate/locate.c:1466
+#: locate/locate.c:1479
 msgid "failed to drop setuid privileges"
 msgstr "a setuid jogosultságok eldobása meghiúsult"
 
-#: locate/locate.c:1480
+#: locate/locate.c:1493
 msgid "Failed to fully drop privileges"
 msgstr "A jogosultságok teljes eldobása meghiúsult"
 
-#: locate/locate.c:1498
+#: locate/locate.c:1511
 msgid "failed to drop setgid privileges"
 msgstr "a setgid jogosultságok eldobása meghiúsult"
 
-#: locate/locate.c:1778
+#: locate/locate.c:1748
+#, c-format
+msgid "pattern argument expected"
+msgstr ""
+
+#: locate/locate.c:1789
 #, c-format
 msgid "warning: the locate database can only be read from stdin once."
-msgstr "figyelmeztetés: a locate adatbázis csak egyszer olvasható a szabvány bemenetről."
+msgstr ""
+"figyelmeztetés: a locate adatbázis csak egyszer olvasható a szabvány "
+"bemenetről."
 
-#: locate/locate.c:1851
+#: locate/locate.c:1862
 #, c-format
 msgid "time system call failed"
 msgstr "a time rendszerhívás meghiúsult"
 
-#: locate/locate.c:1862
+#: locate/locate.c:1873
 #, c-format
 msgid "warning: database %s is more than %d %s old (actual age is %.1f %s)"
-msgstr "figyelmeztetés: a(z) „%s” adatbázis régebbi %d %s napnál (a tényleges kor %.1f %s)"
+msgstr ""
+"figyelmeztetés: a(z) „%s” adatbázis régebbi %d %s napnál (a tényleges kor "
+"%.1f %s)"
 
-#: locate/word_io.c:98
+#: locate/word_io.c:85
 #, c-format
 msgid "WARNING: locate database %s was built with a different byte order"
 msgstr "FIGYELMEZTETÉS: a(z) %s locate adatbázis eltérő bájtsorrenddel készült"
 
-#: locate/word_io.c:145
+#: locate/word_io.c:131
 #, c-format
 msgid "unexpected EOF in %s"
 msgstr "váratlan fájlvége ebben: %s"
 
-#: locate/word_io.c:148
+#: locate/word_io.c:134
 #, c-format
 msgid "error reading a word from %s"
 msgstr "hiba szó olvasásakor a következőből: %s"
 
-#: xargs/xargs.c:261
+#: xargs/xargs.c:257
 #, c-format
 msgid "Invalid escape sequence %s in input delimiter specification."
-msgstr "A(z) „%s” escape sorozat érvénytelen a bemenet elhatárolójának meghatározásában."
+msgstr ""
+"A(z) „%s” escape sorozat érvénytelen a bemenet elhatárolójának "
+"meghatározásában."
 
-#: xargs/xargs.c:279
+#: xargs/xargs.c:275
 #, c-format
-msgid "Invalid escape sequence %s in input delimiter specification; character values must not exceed %lx."
-msgstr "A(z) „%s” escape sorozat érvénytelen a bemenet elhatárolójának meghatározásában; a karakterértékek nem léphetik túl a(z) %lx értéket."
+msgid ""
+"Invalid escape sequence %s in input delimiter specification; character "
+"values must not exceed %lx."
+msgstr ""
+"A(z) „%s” escape sorozat érvénytelen a bemenet elhatárolójának "
+"meghatározásában; a karakterértékek nem léphetik túl a(z) %lx értéket."
 
-#: xargs/xargs.c:285
+#: xargs/xargs.c:281
 #, c-format
-msgid "Invalid escape sequence %s in input delimiter specification; character values must not exceed %lo."
-msgstr "A(z) „%s” escape sorozat érvénytelen a bemenet elhatárolójának meghatározásában; a karakterértékek nem léphetik túl a(z) %lo értéket."
+msgid ""
+"Invalid escape sequence %s in input delimiter specification; character "
+"values must not exceed %lo."
+msgstr ""
+"A(z) „%s” escape sorozat érvénytelen a bemenet elhatárolójának "
+"meghatározásában; a karakterértékek nem léphetik túl a(z) %lo értéket."
 
-#: xargs/xargs.c:294
+#: xargs/xargs.c:290
 #, c-format
-msgid "Invalid escape sequence %s in input delimiter specification; trailing characters %s not recognised."
-msgstr "A(z) „%s” escape sorozat érvénytelen a bemenet elhatárolójának meghatározásában ;a(z) %s záró karaktereket a program nem ismerte fel."
+msgid ""
+"Invalid escape sequence %s in input delimiter specification; trailing "
+"characters %s not recognised."
+msgstr ""
+"A(z) „%s” escape sorozat érvénytelen a bemenet elhatárolójának "
+"meghatározásában ;a(z) %s záró karaktereket a program nem ismerte fel."
 
-#: xargs/xargs.c:339
+#: xargs/xargs.c:335
 #, c-format
-msgid "Invalid input delimiter specification %s: the delimiter must be either a single character or an escape sequence starting with \\."
-msgstr "A bemenet elhatárolójának „%s” meghatározása érvénytelen: az elhatároló vagy egy karakter, vagy egy \\ kezdetű escape sorozat kell legyen."
+msgid ""
+"Invalid input delimiter specification %s: the delimiter must be either a "
+"single character or an escape sequence starting with \\."
+msgstr ""
+"A bemenet elhatárolójának „%s” meghatározása érvénytelen: az elhatároló vagy "
+"egy karakter, vagy egy \\ kezdetű escape sorozat kell legyen."
 
-#: xargs/xargs.c:356
+#: xargs/xargs.c:352
 #, c-format
 msgid "environment is too large for exec"
 msgstr "a környezet túl nagy az exec-hez"
 
-#: xargs/xargs.c:568
+#: xargs/xargs.c:590
 #, c-format
 msgid "warning: value %ld for -s option is too large, using %ld instead"
-msgstr "figyelmeztetés: a -s kapcsoló %ld értéke túl nagy, helyette a(z) %ld kerül felhasználásra"
+msgstr ""
+"figyelmeztetés: a -s kapcsoló %ld értéke túl nagy, helyette a(z) %ld kerül "
+"felhasználásra"
 
-#: xargs/xargs.c:615
+#: xargs/xargs.c:637
 #, c-format
 msgid "option --%s may not be set to a value which includes `='"
 msgstr "a --%s kapcsoló nem állítható „=” jelet tartalmazó értékre"
 
-#: xargs/xargs.c:627
+#: xargs/xargs.c:649
 #, c-format
 msgid "failed to unset environment variable %s"
 msgstr "a(z) %s környezeti változó törlése meghiúsult"
 
-#: xargs/xargs.c:641
+#: xargs/xargs.c:662
 #, c-format
 msgid "warning: the -E option has no effect if -0 or -d is used.\n"
-msgstr "figyelmeztetés: a -E kapcsoló hatástalan a -0 vagy -d megadása esetén.\n"
+msgstr ""
+"figyelmeztetés: a -E kapcsoló hatástalan a -0 vagy -d megadása esetén.\n"
 
-#: xargs/xargs.c:663
+#: xargs/xargs.c:684
 #, c-format
 msgid "Cannot set SIGUSR1 signal handler"
 msgstr "Nem állítható be a SIGUSR1 jelzéskezelő"
 
-#: xargs/xargs.c:669
+#: xargs/xargs.c:690
 #, c-format
 msgid "Cannot set SIGUSR2 signal handler"
 msgstr "Nem állítható be a SIGUSR2 jelzéskezelő"
 
-#: xargs/xargs.c:685
+#: xargs/xargs.c:706
 #, c-format
 msgid "Cannot open input file %s"
 msgstr "A bemeneti fájl (%s) nem nyitható meg"
 
-#: xargs/xargs.c:704
+#: xargs/xargs.c:725
 #, c-format
 msgid "Your environment variables take up %<PRIuMAX> bytes\n"
 msgstr "A környezeti változói %<PRIuMAX> bájtot foglalnak\n"
 
-#: xargs/xargs.c:707
+#: xargs/xargs.c:728
 #, c-format
 msgid "POSIX upper limit on argument length (this system): %<PRIuMAX>\n"
-msgstr "A POSIX felső korlátja az argumentum hosszára (ezen a rendszeren): %<PRIuMAX>\n"
+msgstr ""
+"A POSIX felső korlátja az argumentum hosszára (ezen a rendszeren): "
+"%<PRIuMAX>\n"
 
-#: xargs/xargs.c:710
+#: xargs/xargs.c:731
 #, c-format
-msgid "POSIX smallest allowable upper limit on argument length (all systems): %<PRIuMAX>\n"
-msgstr "A POSIX által megengedhető legkisebb korlát az argumentum hosszára (minden rendszeren): %<PRIuMAX>\n"
+msgid ""
+"POSIX smallest allowable upper limit on argument length (all systems): "
+"%<PRIuMAX>\n"
+msgstr ""
+"A POSIX által megengedhető legkisebb korlát az argumentum hosszára (minden "
+"rendszeren): %<PRIuMAX>\n"
 
-#: xargs/xargs.c:713
+#: xargs/xargs.c:734
 #, c-format
 msgid "Maximum length of command we could actually use: %<PRIuMAX>\n"
 msgstr "A ténylegesen használható parancs maximális hossza: %<PRIuMAX>\n"
 
-#: xargs/xargs.c:716
+#: xargs/xargs.c:737
 #, c-format
 msgid "Size of command buffer we are actually using: %<PRIuMAX>\n"
 msgstr "A ténylegesen használt parancspuffer hossza: %<PRIuMAX>\n"
 
-#: xargs/xargs.c:719
+#: xargs/xargs.c:740
 #, c-format
 msgid "Maximum parallelism (--max-procs must be no greater): %<PRIuMAX>\n"
-msgstr "A maximális párhuzamosság (--max-procs) nem lehet nagyobb, mint %<PRIuMAX>\n"
+msgstr ""
+"A maximális párhuzamosság (--max-procs) nem lehet nagyobb, mint %<PRIuMAX>\n"
 
-#: xargs/xargs.c:725
+#: xargs/xargs.c:746
 #, c-format
 msgid ""
 "\n"
-"Execution of xargs will continue now, and it will try to read its input and run commands; if this is not what you wanted to happen, please type the end-of-file keystroke.\n"
+"Execution of xargs will continue now, and it will try to read its input and "
+"run commands; if this is not what you wanted to happen, please type the end-"
+"of-file keystroke.\n"
 msgstr ""
 "\n"
-"Az xargs végrehajtása most folytatódik, és megpróbálja beolvasni a bemenetét és végrehajtani a parancsokat; ha nem ezt akarta, akkor nyomja meg a fájl vége billentyűkombinációt.\n"
+"Az xargs végrehajtása most folytatódik, és megpróbálja beolvasni a bemenetét "
+"és végrehajtani a parancsokat; ha nem ezt akarta, akkor nyomja meg a fájl "
+"vége billentyűkombinációt.\n"
 
-#: xargs/xargs.c:733
+#: xargs/xargs.c:754
 #, c-format
-msgid "Warning: %s will be run at least once.  If you do not want that to happen, then press the interrupt keystroke.\n"
-msgstr "Figyelmeztetés: %s legalább egyszer lefut. Ha nem akarja, hogy ez megtörténjen, akkor nyomja meg a megszakítás kombinációt.\n"
+msgid ""
+"Warning: %s will be run at least once.  If you do not want that to happen, "
+"then press the interrupt keystroke.\n"
+msgstr ""
+"Figyelmeztetés: %s legalább egyszer lefut. Ha nem akarja, hogy ez "
+"megtörténjen, akkor nyomja meg a megszakítás kombinációt.\n"
 
-#: xargs/xargs.c:861 xargs/xargs.c:954
+#: xargs/xargs.c:882 xargs/xargs.c:975
 #, c-format
-msgid "unmatched %s quote; by default quotes are special to xargs unless you use the -0 option"
-msgstr "pár nélküli %s idézőjel; alapértelmezésben az idézőjelek speciálisak az xargs számára, hacsak nem használja a -0 kapcsolót"
+msgid ""
+"unmatched %s quote; by default quotes are special to xargs unless you use "
+"the -0 option"
+msgstr ""
+"pár nélküli %s idézőjel; alapértelmezésben az idézőjelek speciálisak az "
+"xargs számára, hacsak nem használja a -0 kapcsolót"
 
-#: xargs/xargs.c:862 xargs/xargs.c:955
+#: xargs/xargs.c:883 xargs/xargs.c:976
 msgid "double"
 msgstr "kettős"
 
-#: xargs/xargs.c:862 xargs/xargs.c:955
+#: xargs/xargs.c:883 xargs/xargs.c:976
 msgid "single"
 msgstr "egyszeres"
 
-#: xargs/xargs.c:974
+#: xargs/xargs.c:995
 #, c-format
-msgid "WARNING: a NUL character occurred in the input.  It cannot be passed through in the argument list.  Did you mean to use the --null option?"
-msgstr "FIGYELMEZTETÉS: NULL karakter fordult elő a bemenetben. Az argumentumlistán keresztül ez nem adható át. Lehet, hogy a --null kapcsolót akarta használni?"
+msgid ""
+"WARNING: a NUL character occurred in the input.  It cannot be passed through "
+"in the argument list.  Did you mean to use the --null option?"
+msgstr ""
+"FIGYELMEZTETÉS: NULL karakter fordult elő a bemenetben. Az argumentumlistán "
+"keresztül ez nem adható át. Lehet, hogy a --null kapcsolót akarta használni?"
 
-#: xargs/xargs.c:984 xargs/xargs.c:1049
+#: xargs/xargs.c:1005 xargs/xargs.c:1070
 #, c-format
 msgid "argument line too long"
 msgstr "az argumentumsor túl hosszú"
 
-#: xargs/xargs.c:1068 xargs/xargs.c:1085
+#: xargs/xargs.c:1089 xargs/xargs.c:1106
 #, c-format
 msgid "Failed to write to stderr"
 msgstr "Az írás meghiúsult a szabványos hibakimenetre"
 
-#: xargs/xargs.c:1081
+#: xargs/xargs.c:1102
 #, c-format
 msgid "failed to open /dev/tty for reading"
 msgstr "A /dev/tty megnyitása olvasásra meghiúsult"
 
-#: xargs/xargs.c:1091
+#: xargs/xargs.c:1112
 #, c-format
 msgid "Failed to read from stdin"
 msgstr "Az olvasás meghiúsult a szabványos bemenetről"
 
-#: xargs/xargs.c:1128
+#: xargs/xargs.c:1149
 #, c-format
 msgid "unable to allocate memory"
 msgstr "nem foglalható memória"
 
-#: xargs/xargs.c:1143
+#: xargs/xargs.c:1164
 #, c-format
 msgid "failed to set environment variable %s"
 msgstr "a(z) %s környezeti változó beállítása meghiúsult"
 
-#: xargs/xargs.c:1230
+#: xargs/xargs.c:1253
 #, c-format
 msgid "could not create pipe before fork"
 msgstr "nem sikerült az adatcsatorna létrehozása a folyamatindítás előtt"
 
-#: xargs/xargs.c:1301
+#: xargs/xargs.c:1324
 #, c-format
-msgid "errno-buffer safe_read failed in xargs_do_exec (this is probably a bug, please report it)"
-msgstr "az errno-buffer safe_read sikertelen az xargs_do_exec-ben (ez valószínűleg programhiba, jelentse be)"
+msgid ""
+"errno-buffer safe_read failed in xargs_do_exec (this is probably a bug, "
+"please report it)"
+msgstr ""
+"az errno-buffer safe_read sikertelen az xargs_do_exec-ben (ez valószínűleg "
+"programhiba, jelentse be)"
 
-#: xargs/xargs.c:1354
+#: xargs/xargs.c:1377
 #, c-format
-msgid "read returned unexpected value %zu; this is probably a bug, please report it"
-msgstr "az olvasás a váratlan %zu értéket adta vissza, ez valószínűleg programhiba, jelentse be"
+msgid ""
+"read returned unexpected value %zu; this is probably a bug, please report it"
+msgstr ""
+"az olvasás a váratlan %zu értéket adta vissza, ez valószínűleg programhiba, "
+"jelentse be"
 
-#: xargs/xargs.c:1447
+#: xargs/xargs.c:1470
 #, c-format
 msgid "error waiting for child process"
 msgstr "hiba a gyermekfolyamatra való várakozás közben"
 
-#: xargs/xargs.c:1480
+#: xargs/xargs.c:1503
 #, c-format
 msgid "WARNING: Lost track of %lu child processes"
 msgstr "FIGYELMEZTETÉS: %lu gyermekfolyamatnak nyoma veszett"
 
-#: xargs/xargs.c:1499
+#: xargs/xargs.c:1522
 #, c-format
 msgid "%s: exited with status 255; aborting"
 msgstr "%s: kilépési értéke 255; megszakítás"
 
-#: xargs/xargs.c:1502
+#: xargs/xargs.c:1525
 #, c-format
 msgid "%s: stopped by signal %d"
 msgstr "%s: %d szignállal leállítva (stopped)"
 
-#: xargs/xargs.c:1505
+#: xargs/xargs.c:1528
 #, c-format
 msgid "%s: terminated by signal %d"
 msgstr "%s: %d szignállal leállítva (terminated)"
 
-#: xargs/xargs.c:1590
-#, c-format
-msgid "%s: invalid number for -%c option\n"
+#: xargs/xargs.c:1613
+#, fuzzy, c-format
+msgid "%s: invalid number \"%s\" for -%c option\n"
 msgstr "%s: érvénytelen szám a -%c kapcsolóhoz\n"
 
-#: xargs/xargs.c:1597
-#, c-format
-msgid "%s: value for -%c option should be >= %ld\n"
+#: xargs/xargs.c:1620
+#, fuzzy, c-format
+msgid "%s: value %s for -%c option should be >= %ld\n"
 msgstr "%s: a -%c kapcsoló értéke >= %ld kell legyen\n"
 
-#: xargs/xargs.c:1611
-#, c-format
-msgid "%s: value for -%c option should be <= %ld\n"
+#: xargs/xargs.c:1629
+#, fuzzy, c-format
+msgid "%s: value %s for -%c option should be <= %ld\n"
 msgstr "%s: a -%c kapcsoló értéke <= %ld kell legyen\n"
 
-#: xargs/xargs.c:1630
+#: xargs/xargs.c:1649
 #, c-format
 msgid "Usage: %s [OPTION]... COMMAND [INITIAL-ARGS]...\n"
 msgstr "Használat: %s [KAPCSOLÓ]… PARANCS [KIINDULÓ_ARGUMENTUMOK]…\n"
 
-#: xargs/xargs.c:1635
+#: xargs/xargs.c:1654
 msgid ""
 "Run COMMAND with arguments INITIAL-ARGS and more arguments read from input.\n"
 "\n"
 msgstr ""
-"A PARANCS futtatása a KIINDULÓ_ARGUMENTUMOK-ban megadott, valamint a bemenetről\n"
+"A PARANCS futtatása a KIINDULÓ_ARGUMENTUMOK-ban megadott, valamint a "
+"bemenetről\n"
 "olvasott argumentumokkal.\n"
 "\n"
 
-#: xargs/xargs.c:1637
+#: xargs/xargs.c:1656
 msgid ""
 "Mandatory and optional arguments to long options are also\n"
 "mandatory or optional for the corresponding short option.\n"
@@ -1517,140 +1464,374 @@ msgstr ""
 "A hosszú kapcsolók kötelező és elhagyható argumentumai a megfelelő rövid\n"
 "kapcsolókhoz is kötelezőek vagy elhagyhatóak.\n"
 
-#: xargs/xargs.c:1639
+#: xargs/xargs.c:1658
 msgid ""
-"  -0, --null                   items are separated by a null, not whitespace;\n"
-"                                 disables quote and backslash processing and\n"
+"  -0, --null                   items are separated by a null, not "
+"whitespace;\n"
+"                                 disables quote and backslash processing "
+"and\n"
 "                                 logical EOF processing\n"
 msgstr ""
-"  -0, --null                   az elemeket null, és nem üres hely választja el\n"
+"  -0, --null                   az elemeket null, és nem üres hely választja "
+"el\n"
 "                                 ez kikapcsolja az idézőjelek és visszaper\n"
-"                                 feldolgozását, és a logikai EOF feldolgozást\n"
+"                                 feldolgozását, és a logikai EOF "
+"feldolgozást\n"
 
-#: xargs/xargs.c:1642
-msgid "  -a, --arg-file=FILE          read arguments from FILE, not standard input\n"
+#: xargs/xargs.c:1661
+msgid ""
+"  -a, --arg-file=FILE          read arguments from FILE, not standard input\n"
 msgstr ""
-"  -a, --arg-file=FÁJL          az argumentumok olvasása a FÁJLBÓL a szabványos\n"
+"  -a, --arg-file=FÁJL          az argumentumok olvasása a FÁJLBÓL a "
+"szabványos\n"
 "                                 bemenet helyett\n"
 
-#: xargs/xargs.c:1643
+#: xargs/xargs.c:1662
 msgid ""
-"  -d, --delimiter=CHARACTER    items in input stream are separated by CHARACTER,\n"
-"                                 not by whitespace; disables quote and backslash\n"
+"  -d, --delimiter=CHARACTER    items in input stream are separated by "
+"CHARACTER,\n"
+"                                 not by whitespace; disables quote and "
+"backslash\n"
 "                                 processing and logical EOF processing\n"
 msgstr ""
 "  -d, --delimiter=KARAKTER     a bemeneti adatfolyam elemeit a KARAKTER\n"
-"                                 választja el, nem üres hely. Ez kikapcsolja\n"
+"                                 választja el, nem üres hely. Ez "
+"kikapcsolja\n"
 "                                 az idézőjelek és visszaper feldolgozását,\n"
 "                                 és a logikai EOF feldolgozást\n"
 
-#: xargs/xargs.c:1646
+#: xargs/xargs.c:1665
 msgid ""
-"  -E END                       set logical EOF string; if END occurs as a line\n"
+"  -E END                       set logical EOF string; if END occurs as a "
+"line\n"
 "                                 of input, the rest of the input is ignored\n"
 "                                 (ignored if -0 or -d was specified)\n"
 msgstr ""
-"  -E VÉG                       a logikai EOF karakterlánc megadása, ha a VÉG\n"
-"                                 előfordul egy bemeneti sorban, a sor további\n"
+"  -E VÉG                       a logikai EOF karakterlánc megadása, ha a "
+"VÉG\n"
+"                                 előfordul egy bemeneti sorban, a sor "
+"további\n"
 "                                 része figyelmen kívül marad (a -0 vagy -d\n"
 "                                 megadása esetén figyelmen kívül marad)\n"
 
-#: xargs/xargs.c:1649
+#: xargs/xargs.c:1668
 msgid ""
 "  -e, --eof[=END]              equivalent to -E END if END is specified;\n"
 "                                 otherwise, there is no end-of-file string\n"
 msgstr ""
-"  -e, --eof[=VÉG]              ugyanaz, mint a -E VÉG, ha a VÉG meg van adva;\n"
+"  -e, --eof[=VÉG]              ugyanaz, mint a -E VÉG, ha a VÉG meg van "
+"adva;\n"
 "                                 egyébként nincs fájl vége karakterlánc\n"
 
-#: xargs/xargs.c:1651
+#: xargs/xargs.c:1670
 msgid "  -I R                         same as --replace=R\n"
 msgstr "  -I R                         ugyanaz, mint a --replace=R\n"
 
-#: xargs/xargs.c:1652
+#: xargs/xargs.c:1671
 msgid ""
 "  -i, --replace[=R]            replace R in INITIAL-ARGS with names read\n"
 "                                 from standard input; if R is unspecified,\n"
 "                                 assume {}\n"
 msgstr ""
 "  -i, --replace[=R]            az R cseréje a KIINDULÓ_ARGUMENTUMOKBAN a\n"
-"                                 szabványos bemenetről olvasott nevekkel; ha az\n"
+"                                 szabványos bemenetről olvasott nevekkel; ha "
+"az\n"
 "                                 R nincs megadva, a {} feltételezése\n"
 
-#: xargs/xargs.c:1655
+#: xargs/xargs.c:1674
 msgid ""
-"  -L, --max-lines=MAX-LINES    use at most MAX-LINES non-blank input lines per\n"
+"  -L, --max-lines=MAX-LINES    use at most MAX-LINES non-blank input lines "
+"per\n"
 "                                 command line\n"
 msgstr ""
 "  -L, --max-lines=MAX-SOROK    legfeljebb MAX-SOROK nem üres bemeneti sor\n"
 "                                 használata parancssoronként\n"
 
-#: xargs/xargs.c:1657
+#: xargs/xargs.c:1676
 msgid ""
-"  -l[MAX-LINES]                similar to -L but defaults to at most one non-\n"
-"                                 blank input line if MAX-LINES is not specified\n"
+"  -l[MAX-LINES]                similar to -L but defaults to at most one "
+"non-\n"
+"                                 blank input line if MAX-LINES is not "
+"specified\n"
 msgstr ""
 "  -l[MAX-SOROK]                hasonló a -L-hez, de az alapértelmezés a\n"
 "                                 legfeljebb egy nem üres bemeneti sor, ha\n"
 "                                 a MAX-SOROK nincs megadva\n"
 
-#: xargs/xargs.c:1659
-msgid "  -n, --max-args=MAX-ARGS      use at most MAX-ARGS arguments per command line\n"
+#: xargs/xargs.c:1678
+msgid ""
+"  -n, --max-args=MAX-ARGS      use at most MAX-ARGS arguments per command "
+"line\n"
 msgstr ""
 "  -n, --max-args=MAX-ARG       legfeljebb MAX-ARG argumentum használata\n"
 "                                 parancssoronként\n"
 
-#: xargs/xargs.c:1660
-msgid "  -P, --max-procs=MAX-PROCS    run at most MAX-PROCS processes at a time\n"
-msgstr "  -P, --max-procs=MAX-FOLY     legfeljebb MAX-FOLY folyamat futtatása egyszerre\n"
+#: xargs/xargs.c:1679
+msgid ""
+"  -P, --max-procs=MAX-PROCS    run at most MAX-PROCS processes at a time\n"
+msgstr ""
+"  -P, --max-procs=MAX-FOLY     legfeljebb MAX-FOLY folyamat futtatása "
+"egyszerre\n"
 
-#: xargs/xargs.c:1661
+#: xargs/xargs.c:1680
 msgid "  -p, --interactive            prompt before running commands\n"
 msgstr "  -p, --interactive            kérdés parancsok futtatása előtt\n"
 
-#: xargs/xargs.c:1662
-msgid "      --process-slot-var=VAR   set environment variable VAR in child processes\n"
+#: xargs/xargs.c:1681
+msgid ""
+"      --process-slot-var=VAR   set environment variable VAR in child "
+"processes\n"
 msgstr ""
 "      --process-slot-var=VÁLT  a VÁLT környezeti változó beállítása a\n"
 "                                 gyermekfolyamatokban\n"
 
-#: xargs/xargs.c:1663
+#: xargs/xargs.c:1682
 msgid ""
-"  -r, --no-run-if-empty        if there are no arguments, then do not run COMMAND;\n"
-"                                 if this option is not given, COMMAND will be\n"
+"  -r, --no-run-if-empty        if there are no arguments, then do not run "
+"COMMAND;\n"
+"                                 if this option is not given, COMMAND will "
+"be\n"
 "                                 run at least once\n"
 msgstr ""
 "  -r, --no-run-if-empty        ha nincsenek argumentumok, ne futtassa a\n"
 "                                 PARANCSOT; ha ez a kapcsoló nincs megadva,\n"
 "                                 akkor a PARANCS legalább egyszer lefut\n"
 
-#: xargs/xargs.c:1666
-msgid "  -s, --max-chars=MAX-CHARS    limit length of command line to MAX-CHARS\n"
+#: xargs/xargs.c:1685
+msgid ""
+"  -s, --max-chars=MAX-CHARS    limit length of command line to MAX-CHARS\n"
 msgstr ""
 "  -s, --max-chars=MAX-KAR      a parancssor hosszának korlátozása MAX-KAR\n"
 "                                 karakterre\n"
 
-#: xargs/xargs.c:1667
+#: xargs/xargs.c:1686
 msgid "      --show-limits            show limits on command-line length\n"
 msgstr ""
 "      --show-limits            a parancssor hosszára vonatkozó korlátok\n"
 "                                 megjelenítése\n"
 
-#: xargs/xargs.c:1668
+#: xargs/xargs.c:1687
 msgid "  -t, --verbose                print commands before executing them\n"
-msgstr "  -t, --verbose                parancsok kiírása a végrehajtásuk előtt\n"
+msgstr ""
+"  -t, --verbose                parancsok kiírása a végrehajtásuk előtt\n"
 
-#: xargs/xargs.c:1669
+#: xargs/xargs.c:1688
 msgid "  -x, --exit                   exit if the size (see -s) is exceeded\n"
-msgstr "  -x, --exit                   kilépés a méret (lásd: -s) túllépésekor\n"
+msgstr ""
+"  -x, --exit                   kilépés a méret (lásd: -s) túllépésekor\n"
 
-#: xargs/xargs.c:1671
+#: xargs/xargs.c:1690
 msgid "      --help                   display this help and exit\n"
 msgstr "      --help                   ezen súgó megjelenítése és kilépés\n"
 
-#: xargs/xargs.c:1672
-msgid "      --version                output version information and exit\n"
-msgstr "      --version                verzióinformációk megjelenítése és kilépés\n"
+#: xargs/xargs.c:1691
+#, fuzzy
+msgid ""
+"      --version                output version information and exit\n"
+"\n"
+msgstr ""
+"      --version                verzióinformációk megjelenítése és kilépés\n"
+
+#~ msgid "] [path...] [expression]\n"
+#~ msgstr "] [útvonal...] [kifejezés]\n"
+
+#~ msgid "invalid argument %s for %s"
+#~ msgstr "az argumentum (%s) szabálytalan a következőhöz: %s"
+
+#~ msgid "ambiguous argument %s for %s"
+#~ msgstr "a(z) „%s” argumentum nem egyértelmű a következőhöz: „%s”"
+
+#~ msgid "error closing file"
+#~ msgstr "hiba a fájl lezárásakor"
+
+#~ msgid "Unknown system error"
+#~ msgstr "Ismeretlen rendszerhiba"
+
+#~ msgid "%s: option '%s' is ambiguous; possibilities:"
+#~ msgstr "%s: a(z) „%s” kapcsoló nem egyértelmű; a lehetőségek:"
+
+#~ msgid "%s: option '--%s' doesn't allow an argument\n"
+#~ msgstr "%s: a(z) „--%s” kapcsoló nem enged meg argumentumot\n"
+
+#~ msgid "%s: option '%c%s' doesn't allow an argument\n"
+#~ msgstr "%s: a(z) „%c%s” kapcsoló nem enged meg argumentumot\n"
+
+#~ msgid "%s: option '--%s' requires an argument\n"
+#~ msgstr "%s: a(z) „--%s” kapcsolóhoz argumentum szükséges\n"
+
+#~ msgid "%s: unrecognized option '--%s'\n"
+#~ msgstr "%s: a(z) „--%s” kapcsoló ismeretlen\n"
+
+#~ msgid "%s: unrecognized option '%c%s'\n"
+#~ msgstr "%s: a(z) „%c%s” kapcsoló ismeretlen\n"
+
+#~ msgid "%s: invalid option -- '%c'\n"
+#~ msgstr "%s: érvénytelen kapcsoló -- „%c”\n"
+
+#~ msgid "%s: option requires an argument -- '%c'\n"
+#~ msgstr "%s: a kapcsoló egy argumentumot igényel -- „%c”\n"
+
+#~ msgid "%s: option '-W %s' is ambiguous\n"
+#~ msgstr "%s: a „-W %s” kapcsoló nem egyértelmű\n"
+
+#~ msgid "%s: option '-W %s' doesn't allow an argument\n"
+#~ msgstr "%s: a „-W %s” kapcsoló nem enged meg argumentumot\n"
+
+#~ msgid "%s: option '-W %s' requires an argument\n"
+#~ msgstr "%s: a(z) „-W%s” kapcsolóhoz argumentum szükséges\n"
+
+#~ msgid "unable to record current working directory"
+#~ msgstr "az aktuális munkakönyvtár feljegyzése meghiúsult"
+
+#~ msgid "failed to return to initial working directory"
+#~ msgstr "a visszatérés meghiúsult a kiinduló munkakönyvtárba"
+
+#~ msgid "`"
+#~ msgstr "„"
+
+#~ msgid "'"
+#~ msgstr "”"
+
+#~ msgid "^[yY]"
+#~ msgstr "^[iIyY]"
+
+#~ msgid "^[nN]"
+#~ msgstr "^[nN]"
+
+#~ msgid "Packaged by %s (%s)\n"
+#~ msgstr "Csomagolta: %s (%s)\n"
+
+#~ msgid "Packaged by %s\n"
+#~ msgstr "Csomagolta: %s\n"
+
+#~ msgid "(C)"
+#~ msgstr "©"
+
+#~ msgid ""
+#~ "\n"
+#~ "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl."
+#~ "html>.\n"
+#~ "This is free software: you are free to change and redistribute it.\n"
+#~ "There is NO WARRANTY, to the extent permitted by law.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "A licenc GPLv3+: a GNU GPL 3. vagy újabb változata <http://gnu.org/"
+#~ "licenses/gpl.html>\n"
+#~ "Ez egy szabad szoftver, terjesztheti és/vagy módosíthatja.\n"
+#~ "NINCS GARANCIA, a törvény által engedélyezett mértékig.\n"
+#~ "\n"
+
+#~ msgid "Written by %s.\n"
+#~ msgstr "Írta %s.\n"
+
+#~ msgid "Written by %s and %s.\n"
+#~ msgstr "Írta %s és %s.\n"
+
+#~ msgid "Written by %s, %s, and %s.\n"
+#~ msgstr "Írta %s, %s, és %s.\n"
+
+#~ msgid ""
+#~ "Written by %s, %s, %s,\n"
+#~ "and %s.\n"
+#~ msgstr ""
+#~ "Írta %s, %s, %s,\n"
+#~ "és %s.\n"
+
+#~ msgid ""
+#~ "Written by %s, %s, %s,\n"
+#~ "%s, and %s.\n"
+#~ msgstr ""
+#~ "Írta %s, %s, %s,\n"
+#~ "%s, és %s.\n"
+
+#~ msgid ""
+#~ "Written by %s, %s, %s,\n"
+#~ "%s, %s, and %s.\n"
+#~ msgstr ""
+#~ "Írta %s, %s, %s,\n"
+#~ "%s, %s, és %s.\n"
+
+#~ msgid ""
+#~ "Written by %s, %s, %s,\n"
+#~ "%s, %s, %s, and %s.\n"
+#~ msgstr ""
+#~ "Írta %s, %s, %s,\n"
+#~ "%s, %s, %s, és %s.\n"
+
+#~ msgid ""
+#~ "Written by %s, %s, %s,\n"
+#~ "%s, %s, %s, %s,\n"
+#~ "and %s.\n"
+#~ msgstr ""
+#~ "Írta %s, %s, %s,\n"
+#~ "%s, %s, %s, %s,\n"
+#~ "és %s.\n"
+
+#~ msgid ""
+#~ "Written by %s, %s, %s,\n"
+#~ "%s, %s, %s, %s,\n"
+#~ "%s, and %s.\n"
+#~ msgstr ""
+#~ "Írta %s, %s, %s,\n"
+#~ "%s, %s, %s, %s,\n"
+#~ "%s, és %s.\n"
+
+#~ msgid ""
+#~ "Written by %s, %s, %s,\n"
+#~ "%s, %s, %s, %s,\n"
+#~ "%s, %s, and others.\n"
+#~ msgstr ""
+#~ "Írta %s, %s, %s,\n"
+#~ "%s, %s, %s, %s,\n"
+#~ "%s, %s, és mások.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Report bugs to: %s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "A hibák a(z) %s címen jelenthetők.\n"
+
+#~ msgid "Report %s bugs to: %s\n"
+#~ msgstr "A(z) %s hibái a(z) %s címen jelenthetők.\n"
+
+#~ msgid "%s home page: <%s>\n"
+#~ msgstr "A(z) %s honlapja: <%s>\n"
+
+#~ msgid "%s home page: <http://www.gnu.org/software/%s/>\n"
+#~ msgstr "A(z) %s honlapja: <http://www.gnu.org/software/%s/>\n"
+
+#~ msgid "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
+#~ msgstr ""
+#~ "Általános segítség a GNU szoftverek használatához: <http://www.gnu.org/"
+#~ "gethelp/>\n"
+
+#~ msgid "memory exhausted"
+#~ msgstr "elfogyott a memória"
+
+#~ msgid "invalid %s%s argument '%s'"
+#~ msgstr "érvénytelen %s%s argumentum: „%s”"
+
+#~ msgid "invalid suffix in %s%s argument '%s'"
+#~ msgstr "érvénytelen utótag a(z) %s%s argumentumban: „%s”"
+
+#~ msgid "%s%s argument '%s' too large"
+#~ msgstr "%s%s: a(z) „%s” argumentum túl nagy"
+
+#~ msgid ""
+#~ "Usage: %s [--version | --help]\n"
+#~ "or     %s most_common_bigrams < file-list > locate-database\n"
+#~ msgstr ""
+#~ "Használat: %s [--version | --help]\n"
+#~ "vagy %s most_common_bigrams < fájllista > locate-adatbázis\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Report bugs to <bug-findutils@gnu.org>.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "A hibák a <bug-findutils@gnu.org> címen jelenthetők.\n"
 
 #~ msgid "%s: illegal option -- %c\n"
 #~ msgstr "%s: szabálytalan kapcsoló -- %c\n"
@@ -1660,9 +1841,6 @@ msgstr "      --version                verzióinformációk megjelenítése és 
 
 #~ msgid "No match"
 #~ msgstr "Nincs találat"
-
-#~ msgid "Invalid regular expression"
-#~ msgstr "Érvénytelen szabályos kifejezés"
 
 #~ msgid "Invalid collation character"
 #~ msgstr "Érvénytelen leválogatási karakter"
@@ -1713,7 +1891,9 @@ msgstr "      --version                verzióinformációk megjelenítése és 
 #~ msgstr "az aktuális könyvtár beolvasása sikertelen"
 
 #~ msgid "Mode %s is not valid when POSIXLY_CORRECT is on."
-#~ msgstr "A mód (%s) nem érvényes, ha a POSIXLY_CORRECT környezeti változó engedélyezett."
+#~ msgstr ""
+#~ "A mód (%s) nem érvényes, ha a POSIXLY_CORRECT környezeti változó "
+#~ "engedélyezett."
 
 #~ msgid "Built using GNU gnulib version %s\n"
 #~ msgstr "Készült a GNU gnulib %s verzió használatával\n"
