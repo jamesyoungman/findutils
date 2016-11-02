@@ -380,6 +380,9 @@ pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 	  state.exit_status = 1;
 	  return false;
 	}
+      /* errno is not touched in the loop body, so initializing it here
+       * once before the loop is enough to detect readdir(3) errors.  */
+      errno = 0;
       for (dp = readdir (d); dp; dp = readdir (d))
 	{
 	  if (dp->d_name[0] != '.'
@@ -389,6 +392,13 @@ pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 	      empty = false;
 	      break;
 	    }
+	}
+      if (errno)
+	{
+	  /* Handle errors from readdir(3). */
+	  error (0, errno, "%s", safely_quote_err_filename (0, pathname));
+	  state.exit_status = 1;
+	  return false;
 	}
       if (CLOSEDIR (d))
 	{

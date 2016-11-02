@@ -19,6 +19,7 @@
 
 /* system headers. */
 #include <assert.h>
+#include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
 #include <poll.h>
@@ -77,11 +78,23 @@ get_proc_max_fd (void)
       int good = 0;
       struct dirent *dent;
 
-      while ((dent=readdir (dir)) != NULL)
-	{
+      while (1)
+        {
+	  errno = 0;
+	  dent = readdir (dir);
+	  if (NULL == dent)
+	    {
+	      if (errno)
+		{
+		  error (0, errno, "%s", quotearg_n_style (0, locale_quoting_style, path));
+		  good = 0;
+		}
+	      break;
+	    }
+
 	  if (dent->d_name[0] != '.'
-	      || (dent->d_name[0] != 0
-		  && dent->d_name[1] != 0 && dent->d_name[1] != '.'))
+	      || (dent->d_name[1] != 0
+		  && (dent->d_name[1] != '.' || dent->d_name[2] != 0)))
 	    {
 	      const int fd = safe_atoi (dent->d_name, literal_quoting_style);
 	      if (fd > maxfd)
