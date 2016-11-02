@@ -288,7 +288,7 @@ static struct parser_table const parse_table[] =
   PARSE_PUNCTUATION("or",                    or),	     /* GNU */
   PARSE_ACTION     ("ok",                    ok), /* POSIX */
   PARSE_ACTION     ("okdir",                 okdir), /* GNU (-execdir is BSD) */
-  PARSE_TEST       ("path",                  path), /* GNU, HP-UX, RMS prefers wholename, but anyway soon POSIX */
+  PARSE_TEST       ("path",                  path), /* POSIX */
   PARSE_TEST       ("perm",                  perm), /* POSIX */
   PARSE_ACTION     ("print",                 print), /* POSIX */
   PARSE_ACTION     ("print0",                print0),	     /* GNU */
@@ -307,7 +307,7 @@ static struct parser_table const parse_table[] =
   PARSE_TEST       ("uid",                   uid),	     /* GNU */
   PARSE_TEST       ("used",                  used),	     /* GNU */
   PARSE_TEST       ("user",                  user), /* POSIX */
-  PARSE_TEST_NP    ("wholename",             wholename), /* GNU, replaced -path, but anyway -path will soon be in POSIX */
+  PARSE_TEST_NP    ("wholename",             wholename), /* GNU, replaced -path, but now -path is standardized since POSIX 2008 */
   {ARG_TEST,       "writable",               parse_accesscheck, pred_writable}, /* GNU, 4.3.0+ */
   PARSE_OPTION     ("xdev",                  xdev), /* POSIX */
   PARSE_TEST       ("xtype",                 xtype),	     /* GNU */
@@ -1828,9 +1828,7 @@ insert_path_check (const struct parser_table* entry, char **argv, int *arg_ptr,
  * "file name" to "path name".
  *
  * We do not issue a warning that this usage is deprecated
- * since
- * (a) HPUX find supports this predicate also and
- * (b) it will soon be in POSIX anyway.
+ * since it is standardized since POSIX 2008.
  */
 static bool
 parse_path (const struct parser_table* entry, char **argv, int *arg_ptr)
