@@ -1079,36 +1079,6 @@ static float estimate_fstype_success_rate (const char *fsname)
 
 
 static bool
-is_used_fs_type(const char *name)
-{
-  if (0 == strcmp("afs", name))
-    {
-      /* I guess AFS may not appear in /etc/mtab (or equivalent) but still be in use,
-	 so assume we always need to check for AFS.  */
-      return true;
-    }
-  else
-    {
-      const struct mount_entry *entries = read_file_system_list(false);
-      if (entries)
-	{
-	  const struct mount_entry *entry;
-	  for (entry = entries; entry; entry = entry->me_next)
-	    {
-	      if (0 == strcmp(name, entry->me_type))
-		return true;
-	    }
-	}
-      else
-	{
-	  return true;
-	}
-    }
-  return false;
-}
-
-
-static bool
 parse_fstype (const struct parser_table* entry, char **argv, int *arg_ptr)
 {
   const char *typename;

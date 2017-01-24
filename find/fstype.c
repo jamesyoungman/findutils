@@ -138,6 +138,35 @@ filesystem_type (const struct stat *statp, const char *path)
   return current_fstype;
 }
 
+bool
+is_used_fs_type(const char *name)
+{
+  if (0 == strcmp("afs", name))
+    {
+      /* I guess AFS may not appear in /etc/mtab (or equivalent) but still be in use,
+	 so assume we always need to check for AFS.  */
+      return true;
+    }
+  else
+    {
+      const struct mount_entry *entries = read_file_system_list(false);
+      if (entries)
+	{
+	  const struct mount_entry *entry;
+	  for (entry = entries; entry; entry = entry->me_next)
+	    {
+	      if (0 == strcmp(name, entry->me_type))
+		return true;
+	    }
+	}
+      else
+	{
+	  return true;
+	}
+    }
+  return false;
+}
+
 static int
 set_fstype_devno (struct mount_entry *p)
 {
