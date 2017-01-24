@@ -371,7 +371,6 @@ void cleanup(void);
 
 /* fstype.c */
 char *filesystem_type (const struct stat *statp, const char *path);
-char * get_mounted_filesystems (void);
 dev_t * get_mounted_devices (size_t *);
 
 

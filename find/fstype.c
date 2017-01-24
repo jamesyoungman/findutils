@@ -232,44 +232,6 @@ file_system_type_uncached (const struct stat *statp, const char *path)
 }
 
 
-char *
-get_mounted_filesystems (void)
-{
-  char *result = NULL;
-  size_t alloc_size = 0u;
-  size_t used = 0u;
-  struct mount_entry *entries, *entry;
-  void *p;
-
-  entries = must_read_fs_list (false);
-  for (entry=entries; entry; entry=entry->me_next)
-    {
-      size_t len;
-
-#ifdef MNTTYPE_IGNORE
-      if (!strcmp (entry->me_type, MNTTYPE_IGNORE))
-	continue;
-#endif
-
-      len = strlen (entry->me_mountdir) + 1;
-      p = extendbuf (result, used+len, &alloc_size);
-      if (p)
-	{
-	  result = p;
-	  strcpy (&result[used], entry->me_mountdir);
-	  used += len;		/* len already includes one for the \0 */
-	}
-      else
-	{
-	  break;
-	}
-    }
-
-  free_file_system_list (entries);
-  return result;
-}
-
-
 dev_t *
 get_mounted_devices (size_t *n)
 {
