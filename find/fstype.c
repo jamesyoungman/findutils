@@ -116,6 +116,31 @@ in_afs (char *path)
 /* Nonzero if the current file system's type is known.  */
 static int fstype_known = 0;
 
+/* Read the mount list into a static cache, and return it.
+   This is a wrapper around gnulib's read_file_system_list ()
+   to avoid unneccessary reading of the mount list.  */
+static struct mount_entry *
+get_file_system_list (bool need_fs_type)
+{
+  /* Local cache for the mount list.  */
+  static struct mount_entry *mount_list = NULL;
+
+  /* Remember if the list contains the ME_TYPE members.  */
+  static bool has_fstype = false;
+
+  if (mount_list && ! has_fstype && need_fs_type)
+    {
+      free_file_system_list (mount_list);
+      mount_list = NULL;
+    }
+  if (! mount_list)
+    {
+      mount_list = read_file_system_list(need_fs_type);
+      has_fstype = need_fs_type;
+    }
+  return mount_list;
+}
+
 /* Return a static string naming the type of file system that the file PATH,
    described by STATP, is on.
    RELPATH is the file name relative to the current directory.
@@ -149,7 +174,7 @@ is_used_fs_type(const char *name)
     }
   else
     {
-      const struct mount_entry *entries = read_file_system_list(false);
+      const struct mount_entry *entries = get_file_system_list(false);
       if (entries)
 	{
 	  const struct mount_entry *entry;
@@ -210,7 +235,7 @@ file_system_type_uncached (const struct stat *statp, const char *path)
 #endif
 
   best = NULL;
-  entries = read_file_system_list (true);
+  entries = get_file_system_list (true);
   if (NULL == entries)
     {
       /* We cannot determine for sure which file we were trying to
@@ -243,7 +268,6 @@ file_system_type_uncached (const struct stat *statp, const char *path)
     {
       type = xstrdup (best->me_type);
     }
-  free_file_system_list (entries);
 
   /* Don't cache unknown values. */
   fstype_known = (type != NULL);
