@@ -84,12 +84,6 @@ enum
 #define bindtextdomain(Package, Directory)
 #define ngettext(singular,plural,n) ((1==n) ? singular : plural)
 #endif
-#ifdef gettext_noop
-# define N_(String) gettext_noop (String)
-#else
-/* See locate.c for explanation as to why not use (String) */
-# define N_(String) String
-#endif
 
 #ifdef STAT_MOUNTPOINTS
 static void init_mounted_dev_list (int mandatory);
