@@ -1454,8 +1454,7 @@ process_dir (const char *pathname, const char *name, int pathlen, const struct s
 	  file_len = pathname_len + strlen (namep);
 	  if (file_len > cur_path_size)
 	    {
-	      while (file_len > cur_path_size)
-		cur_path_size += 1024;
+	      cur_path_size = (file_len/1024 + 1) * 1024;
 	      free (cur_path);
 	      cur_path = xmalloc (cur_path_size);
 	      strcpy (cur_path, pathname);
