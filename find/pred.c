@@ -1325,7 +1325,7 @@ print_optlist (FILE *fp, const struct predicate *p)
       fprintf (fp, " [est success rate %.4g] ", p->est_success_rate);
       if (options.debug_options & DebugSuccessRates)
         {
-          fprintf (fp, "[real success rate %ld/%ld", p->perf.successes, p->perf.visits);
+          fprintf (fp, "[real success rate %lu/%lu", p->perf.successes, p->perf.visits);
           if (p->perf.visits)
             {
               double real_rate = (double)p->perf.successes / (double)p->perf.visits;

@@ -1870,7 +1870,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
                   /* For example:
                      warning: database `fred' is more than 8 days old (actual age is 10 days)*/
                   error (0, 0,
-                         _("warning: database %s is more than %d %s old (actual age is %.1f %s)"),
+                         _("warning: database %s is more than %u %s old (actual age is %.1f %s)"),
                          quotearg_n_style (0,  locale_quoting_style, db_name),
                          warn_number_units,              _(warn_name_units),
                          (age/(double)SECONDS_PER_UNIT), _(warn_name_units));
@@ -1924,7 +1924,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
 
   if (just_count)
     {
-      printf ("%ld\n", found);
+      printf ("%lu\n", found);
     }
 
   if (found || (use_limit && (limits.limit==0)) || stats )

@@ -363,7 +363,7 @@ bc_push_arg (struct buildcmd_control *ctl,
               || (ctl->exit_if_size_exceeded &&
                   (ctl->lines_per_exec || ctl->args_per_exec)))
             error (EXIT_FAILURE, 0, _("argument list too long"));
-            bc_do_exec (ctl, state);
+          bc_do_exec (ctl, state);
         }
       if (bc_argc_limit_reached (initial_args, ctl, state))
             bc_do_exec (ctl, state);

@@ -446,7 +446,7 @@ scan_for_digit_differences (const char *p, const char *q,
     {
       if (p[i] != q[i])
         {
-          if (!isdigit ((unsigned char)q[i]) || !isdigit ((unsigned char)q[i]))
+          if (!isdigit ((unsigned char)p[i]) || !isdigit ((unsigned char)q[i]))
             return false;
 
           if (!seen)
