@@ -842,7 +842,7 @@ File has fewer than @var{n} hard links.
 @node Time
 @section Time
 
-Each file has three time stamps, which record the last time that
+Each file has three timestamps, which record the last time that
 certain operations were performed on the file:
 
 @enumerate
@@ -862,8 +862,8 @@ However, even on systems which support file birth time, files may
 exist for which this information was not recorded (for example, UFS1
 file systems simply do not contain this information).
 
-You can search for files whose time stamps are within a certain age
-range, or compare them to other time stamps.
+You can search for files whose timestamps are within a certain age
+range, or compare them to other timestamps.
 
 @menu
 * Age Ranges::
