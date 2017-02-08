@@ -66,7 +66,9 @@
 # define _(Text) Text
 #endif
 
-static char *file_system_type_uncached (const struct stat *statp, const char *path);
+static char *file_system_type_uncached (const struct stat *statp,
+                                        const char *path,
+                                        bool *fstype_known);
 
 
 static void
@@ -113,9 +115,6 @@ in_afs (char *path)
 }
 #endif /* AFS */
 
-/* Nonzero if the current file system's type is known.  */
-static int fstype_known = 0;
-
 /* Read the mount list into a static cache, and return it.
    This is a wrapper around gnulib's read_file_system_list ()
    to avoid unneccessary reading of the mount list.  */
@@ -149,6 +148,9 @@ get_file_system_list (bool need_fs_type)
 char *
 filesystem_type (const struct stat *statp, const char *path)
 {
+  /* Nonzero if the current file system's type is known.  */
+  static bool fstype_known = false;
+
   static char *current_fstype = NULL;
   static dev_t current_dev;
 
@@ -159,7 +161,7 @@ filesystem_type (const struct stat *statp, const char *path)
       free (current_fstype);
     }
   current_dev = statp->st_dev;
-  current_fstype = file_system_type_uncached (statp, path);
+  current_fstype = file_system_type_uncached (statp, path, &fstype_known);
   return current_fstype;
 }
 
@@ -219,7 +221,8 @@ set_fstype_devno (struct mount_entry *p)
    Return "unknown" if its file system type is unknown.  */
 
 static char *
-file_system_type_uncached (const struct stat *statp, const char *path)
+file_system_type_uncached (const struct stat *statp, const char *path,
+                           bool *fstype_known)
 {
   struct mount_entry *entries, *entry, *best;
   char *type;
@@ -229,7 +232,7 @@ file_system_type_uncached (const struct stat *statp, const char *path)
 #ifdef AFS
   if (in_afs (path))
     {
-      fstype_known = 1;
+      *fstype_known = true;
       return xstrdup ("afs");
     }
 #endif
@@ -270,7 +273,7 @@ file_system_type_uncached (const struct stat *statp, const char *path)
     }
 
   /* Don't cache unknown values. */
-  fstype_known = (type != NULL);
+  *fstype_known = (type != NULL);
 
   return type ? type : xstrdup (_("unknown"));
 }
