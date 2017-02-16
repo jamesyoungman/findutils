@@ -37,8 +37,8 @@ in the use of FTS.
 
 ** Bug Fixes
 
-find no longer leaks memory for a recently added member in gnulib's
-mount list structure.
+#50326: find no longer leaks memory for a recently added member in gnulib's
+        mount list structure.
 
 #48180: find -noop (an internal option not intended to be exposed to the user)
          no longer crashes.  Bug introduced in FINDUTILS-4.3.1.
