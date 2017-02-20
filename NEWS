@@ -40,8 +40,14 @@ in the use of FTS.
 #50326: find no longer leaks memory for a recently added member in gnulib's
         mount list structure.
 
+#50259: find -printf '%h' now outputs the correct path for arguments with one or
+        more trailing slashes.  Previously, it would e.g. output "foo" instead
+        of "." when "foo/" was passed; likewise, it would output "/user/xxx/"
+        instead of "/user" when "/user/xxx//" was passed.
+        Bug introduced in FINDUTILS-4.2.19.
+
 #48180: find -noop (an internal option not intended to be exposed to the user)
-         no longer crashes.  Bug introduced in FINDUTILS-4.3.1.
+        no longer crashes.  Bug introduced in FINDUTILS-4.3.1.
 
 #48030: find -exec + does not pass all arguments for certain specific filename
         lengths.  After the internal (usually 128k) buffer is full and find(1)

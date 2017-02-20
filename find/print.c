@@ -965,8 +965,18 @@ do_fprintf (struct format_val *dest,
         case 'h':               /* leading directories part of path */
           /* sanitised */
           {
-            cp = strrchr (pathname, '/');
-            if (cp == NULL)     /* No leading directories. */
+            char *pname = strdup (pathname);
+
+            /* Remove trailing slashes - unless it's the root '/' directory.  */
+            char *s = pname + strlen (pname) -1;
+            for ( ; pname <= s; s--)
+              if (*s != '/')
+                break;
+            if (pname < s && *(s+1) == '/')
+              *(s+1) = '\0';
+
+            s = strrchr (pname, '/');
+            if (s == NULL)     /* No leading directories. */
               {
                 /* If there is no slash in the pathname, we still
                  * print the string because it contains characters
@@ -976,11 +986,10 @@ do_fprintf (struct format_val *dest,
               }
             else
               {
-                char *s = strdup (pathname);
-                s[cp - pathname] = 0;
-                checked_print_quoted (dest, segment->text, s);
-                free (s);
+                *s = '\0';
+                checked_print_quoted (dest, segment->text, pname);
               }
+            free (pname);
           }
           break;
 
