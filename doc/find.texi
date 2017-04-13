@@ -1239,9 +1239,9 @@ Match files that are writable by somebody (their owner, or
 their group, or anybody else).
 
 @item -perm /022
-Match files that are writable by either their owner or their
-group.  The files don't have to be writable by both the owner and
-group to be matched; either will do.
+Match files that are writable by their group or everyone else - the latter
+often called @dfn{other}.  The files don't have to be writable by both the
+group and other to be matched; either will do.
 
 @item -perm /g+w,o+w
 As above.
@@ -1250,14 +1250,13 @@ As above.
 As above.
 
 @item -perm -022
-Match files that are writable by both their owner and their
-group.
+Match files that are writable by both their group and everyone else.
 
 @item -perm -444 -perm /222 ! -perm /111
 Match files that are readable for everybody, have at least one
 write bit set (i.e., somebody can write to them), but that cannot be
 executed/searched by anybody.  Note that in some shells the @samp{!} must be
-escaped;.
+escaped.
 
 @item -perm -a+r -perm /a+w ! -perm /a+x
 As above.

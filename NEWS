@@ -35,7 +35,16 @@ of the - yet more portable - '( -type l -o -type d )'.
 find now diagnoses failures returned by readdir().  This bug was inherent
 in the use of FTS.
 
+** Documentation Changes
+
+Some minor documentation improvements are listed in "Bug Fixes" below.
+
 ** Bug Fixes
+
+#50758: doc: fix the description of the -perm examples matching the permission
+        mode "022" in find's texinfo manual: the match is for the file's group
+        and 'other' mode bits instead of for user and group.
+        Bug introduced when adding the -perm examples in FINDUTILS-4.2.11.
 
 #50326: find no longer leaks memory for a recently added member in gnulib's
         mount list structure.
