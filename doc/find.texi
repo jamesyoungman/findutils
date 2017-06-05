@@ -2287,8 +2287,8 @@ find $HOME -name '*.c' -print | xargs grep -l sprintf
 
 However, if the command needs to have its standard input be a terminal
 (@code{less}, for example), you have to use the shell command
-substitution method or use the @samp{--arg-file} option of
-@code{xargs}.
+substitution method or use either the @samp{--arg-file} option or the
+@samp{--open-tty} option of @code{xargs}.
 
 The @code{xargs} command will process all its input, building command
 lines and executing them, unless one of the commands exits with a
@@ -2392,7 +2392,8 @@ As of findutils version 4.2.4, the @code{locate} program also has a
 
 If you want to be able to handle file names safely but need to run
 commands which want to be connected to a terminal on their input, you
-can use the @samp{--arg-file} option to @code{xargs} like this:
+can use the @samp{--open-tty} option to @code{xargs} or the
+@samp{--arg-file} option to @code{xargs} like this:
 
 @example
 find / -name xyzzy -print0 > list
