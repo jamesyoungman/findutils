@@ -4,34 +4,7 @@ xargs \- build and execute command lines from standard input
 .SH SYNOPSIS
 .B xargs
 .nh
-[\fB\-0prtx\fR]
-[\fB\-E \fIeof-str\fR]
-[\fB\-e\fR[\fIeof-str\fR]]
-[\fB\-\-eof\fR[=\fIeof-str\fR]]
-[\fB\-\-null\fR]
-[\fB\-d \fIdelimiter\fR]
-[\fB\-\-delimiter \fIdelimiter\fR]
-[\fB\-I \fIreplace-str\fR]
-[\fB\-i\fR[\fIreplace-str\fR]]
-[\fB\-\-replace\fR[=\fIreplace-str\fR]]
-[\fB\-l\fR[\fImax-lines\fR]]
-[\fB\-L \fImax-lines\fR]
-[\fB\-\-max\-lines\fR[=\fImax-lines\fR]]
-[\fB\-n \fImax-args\fR]
-[\fB\-\-max\-args\fR=\fImax-args\fR]
-[\fB\-s \fImax-chars\fR]
-[\fB\-\-max\-chars\fR=\fImax-chars\fR]
-[\fB\-P \fImax-procs\fR]
-[\fB\-\-max\-procs\fR=\fImax-procs\fR]
-[\fB\-\-process\-slot\-var\fR=\fIname\fR]
-[\fB\-\-interactive\fR]
-[\fB\-\-verbose\fR]
-[\fB\-\-exit\fR]
-[\fB\-\-no\-run\-if\-empty\fR]
-[\fB\-\-arg\-file\fR=\fIfile\fR]
-[\fB\-\-show\-limits\fR]
-[\fB\-\-version\fR]
-[\fB\-\-help\fR]
+[\fIoptions\fR]
 [\fIcommand\fR [\fIinitial-arguments\fR]]
 .hy
 .SH DESCRIPTION
@@ -252,6 +225,15 @@ arrange for each process to produce a separate output file (or
 otherwise use separate resources).
 .TP
 .PD
+.B \-o, \-\-open\-tty
+Reopen stdin as
+.I /dev/tty
+in the child process before executing the command.  This is useful if
+you want
+.B xargs
+to run an interactive application.
+.TP
+.PD
 .B \-p, \-\-interactive
 Prompt the user about whether to run each command line and read a line
 from the terminal.  Only run the command line if the response starts
@@ -403,6 +385,9 @@ is not to have a logical end-of-file marker.  POSIX (IEEE Std 1003.1,
 The \-l and \-i options appear in the 1997 version of the POSIX
 standard, but do not appear in the 2004 version of the standard.
 Therefore you should use \-L and \-I instead, respectively.
+.P
+The \-o option is an extension to the POSIX standard for better
+compatibility with BSD.
 .P
 The POSIX standard allows implementations to have a limit on the size
 of arguments to the

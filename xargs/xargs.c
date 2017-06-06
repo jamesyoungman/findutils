@@ -151,6 +151,9 @@ static volatile int child_error = EXIT_SUCCESS;
 
 static volatile int original_exit_value;
 
+/* If true, open /dev/tty in the child process before executing the command.  */
+static bool open_tty = false; /* option -o */
+
 /* If true, print each command on stderr before executing it.  */
 static bool print_command = false; /* Option -t */
 
@@ -185,6 +188,7 @@ static struct option const longopts[] =
   {"replace", optional_argument, NULL, 'I'},
   {"max-lines", optional_argument, NULL, 'l'},
   {"max-args", required_argument, NULL, 'n'},
+  {"open-tty", no_argument, NULL, 'o'},
   {"interactive", no_argument, NULL, 'p'},
   {"no-run-if-empty", no_argument, NULL, 'r'},
   {"max-chars", required_argument, NULL, 's'},
@@ -509,7 +513,7 @@ main (int argc, char **argv)
       bc_use_sensible_arg_max (&bc_ctl);
     }
 
-  while ((optc = getopt_long (argc, argv, "+0a:E:e::i::I:l::L:n:prs:txP:d:",
+  while ((optc = getopt_long (argc, argv, "+0a:E:e::i::I:l::L:n:oprs:txP:d:",
 			      longopts, &option_index)) != -1)
     {
       switch (optc)
@@ -606,6 +610,10 @@ main (int argc, char **argv)
 
 	case 'x':
 	  bc_ctl.exit_if_size_exceeded = true;
+	  break;
+
+	case 'o':
+	  open_tty = true;
 	  break;
 
 	case 'p':
@@ -1185,21 +1193,29 @@ prep_child_for_exec (void)
   unsigned int slot = add_proc (0);
   set_slot_var (slot);
 
-  if (!keep_stdin)
+  if (!keep_stdin || open_tty)
     {
-      const char inputfile[] = "/dev/null";
-      /* fprintf (stderr, "attaching stdin to /dev/null\n"); */
+      int fd;
+      const char *inputfile = open_tty ? "/dev/tty" : "/dev/null";
 
       close (0);
-      if (open (inputfile, O_RDONLY) < 0)
+      if ((fd = open (inputfile, O_RDONLY)) < 0)
 	{
-	  /* This is not entirely fatal, since
+	  /* Treat a failure to open /dev/tty as fatal.
+	   * The other case is not entirely fatal, since
 	   * executing the child with a closed
 	   * stdin is almost as good as executing it
 	   * with its stdin attached to /dev/null.
 	   */
-	  error (0, errno, "%s",
+	  error (open_tty ? EXIT_FAILURE : 0, errno, "%s",
 		 quotearg_n_style (0, locale_quoting_style, inputfile));
+	}
+      if (STDIN_FILENO < fd)
+	{
+	  if (dup2(fd, STDIN_FILENO) != 0)
+	    error (EXIT_FAILURE, errno,
+	           _("failed to redirect standard input of the child process"));
+	  close(fd);
 	}
     }
 }
@@ -1676,6 +1692,9 @@ usage (int status)
   HTL (_("  -l[MAX-LINES]                similar to -L but defaults to at most one non-\n"
          "                                 blank input line if MAX-LINES is not specified\n"));
   HTL (_("  -n, --max-args=MAX-ARGS      use at most MAX-ARGS arguments per command line\n"));
+  HTL (_("  -o, --open-tty               Reopen stdin as /dev/tty in the child process\n"
+         "                                 before executing the command; useful to run an\n"
+         "                                 interactive application.\n"));
   HTL (_("  -P, --max-procs=MAX-PROCS    run at most MAX-PROCS processes at a time\n"));
   HTL (_("  -p, --interactive            prompt before running commands\n"));
   HTL (_("      --process-slot-var=VAR   set environment variable VAR in child processes\n"));

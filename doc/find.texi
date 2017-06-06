@@ -3746,6 +3746,17 @@ Use at most @var{max-args} arguments per command line.  Fewer than
 option) is exceeded, unless the @samp{-x} option is given, in which
 case @code{xargs} will exit.
 
+@item --open-tty
+@itemx -o
+Reopen stdin as @file{/dev/tty} in the child process before executing
+the command, thus allowing that command to be associated to the terminal
+while @code{xargs} reads from a different stream, e.g. from a pipe.
+This is useful if you want @code{xargs} to run an interactive application.
+@example
+grep -lz PATTERN * | xargs -0o vi
+@end example
+
+
 @item --interactive
 @itemx -p
 Prompt the user about whether to run each command line and read a line
@@ -3876,6 +3887,10 @@ because the subshell needs to do nothing once Emacs has been invoked.
 Therefore instead of keeping a @code{sh} process around for no reason,
 we just arrange for the subshell to exec Emacs, saving an extra
 process creation.
+
+Although GNU @code{xargs} and the implementations on some other platforms
+like BSD support the @samp{-o} option to achieve the same, the above is
+the portable way to redirect stdin to @file{/dev/tty}.
 
 Sometimes, though, it can be helpful to keep the shell process around:
 
@@ -4049,6 +4064,10 @@ protect the @code{$@@} against expansion by your interactive shell
 (which will normally have no arguments and thus expand @code{$@@} to
 nothing).  The capitalised @samp{Emacs} on the command line is used as
 @code{$0} by the shell that @code{xargs} launches.
+
+Please note that the implementations in GNU @code{xargs} and at least BSD
+support the @samp{-o} option as extension to achieve the same, while the
+above is the portable way to redirect stdin to @file{/dev/tty}.
 
 @node Archiving
 @section Archiving
@@ -5564,6 +5583,11 @@ signals to increase or decrease the parallelism of its processing.
 If you don't plan to send it those signals, this warning can be ignored
 (though if you're a programmer, you may want to help us figure out
 why @code{xargs} is confused by your operating system).
+
+@item failed to redirect standard input of the child process
+@code{xargs} redirects the stdin stream of the command to be run to either
+@file{/dev/null} or to @file{/dev/tty} for the @samp{-o} option.
+See the manual of the system call @code{dup2(2)}.
 @end table
 
 @node Error Messages From locate
