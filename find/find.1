@@ -916,7 +916,8 @@ differently.  The `b' suffix always denotes 512-byte blocks and never
 1024-byte blocks, which is different to the behaviour of
 .BR \-ls .
 .IP
-The + and - prefixes signify greater than and less than, as usual.
+The + and - prefixes signify greater than and less than, as usual;
+i.e., an exact size of \fIn\fR units does not match.
 Bear in mind that the size is rounded up to the next unit. Therefore
 .BR "\-size \-1M"
 is not equivalent to

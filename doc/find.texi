@@ -1034,7 +1034,8 @@ The number can be prefixed with a `+' or a `-'.  A plus sign indicates
 that the test should succeed if the file uses at least @var{n} units
 of storage (a common use of this test) and a minus sign
 indicates that the test should succeed if the file uses less than
-@var{n} units of storage.  Bear in mind that the size is rounded up to
+@var{n} units of storage; i.e., an exact size of @var{n} units does not match.
+Bear in mind that the size is rounded up to
 the next unit. Therefore @samp{-size -1M} is not equivalent to
 @samp{-size -1048576c}. The former only matches empty files, the latter
 matches files from 0 to 1,048,575 bytes.  There is no `=' prefix, because
