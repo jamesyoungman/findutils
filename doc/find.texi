@@ -1037,7 +1037,7 @@ indicates that the test should succeed if the file uses less than
 @var{n} units of storage.  Bear in mind that the size is rounded up to
 the next unit. Therefore @samp{-size -1M} is not equivalent to
 @samp{-size -1048576c}. The former only matches empty files, the latter
-matches files from 1 to 1,048,575 bytes.  There is no `=' prefix, because
+matches files from 0 to 1,048,575 bytes.  There is no `=' prefix, because
 that's the default anyway.
 
 The size does not count indirect blocks, but it does count blocks in
