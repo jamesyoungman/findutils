@@ -2117,12 +2117,12 @@ parse_size (const struct parser_table* entry, char **argv, int *arg_ptr)
       arg[len - 1] = '\0';
       break;
 
-    case 'M':			/* Megabytes */
+    case 'M':			/* Mebibytes */
       blksize = 1024*1024;
       arg[len - 1] = '\0';
       break;
 
-    case 'G':			/* Gigabytes */
+    case 'G':			/* Gibibytes */
       blksize = 1024*1024*1024;
       arg[len - 1] = '\0';
       break;
@@ -2149,7 +2149,7 @@ parse_size (const struct parser_table* entry, char **argv, int *arg_ptr)
       error (EXIT_FAILURE, 0,
 	     _("invalid -size type `%c'"), argv[*arg_ptr][len - 1]);
     }
-  /* TODO: accept fractional megabytes etc. ? */
+  /* TODO: accept fractional mebibytes etc. ? */
   if (!get_num (arg, &num, &c_type))
     {
       char tail[2];

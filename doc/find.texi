@@ -240,7 +240,7 @@ find @r{[}@var{file}@dots{}@r{]} @r{[}@var{expression}@r{]}
 @noindent
 Here is a typical use of @code{find}.  This example prints the names
 of all files in the directory tree rooted in @file{/usr/src} whose
-name ends with @samp{.c} and that are larger than 100 Kilobytes.
+name ends with @samp{.c} and that are larger than 100 KiB.
 @example
 find /usr/src -name '*.c' -size +100k -print
 @end example
@@ -1014,14 +1014,14 @@ one-character suffix to @var{n}:
 512-byte blocks (never 1024)
 @item c
 bytes
-@item k
-kilobytes (1024 bytes)
 @item w
 2-byte words
+@item k
+Kibibytes (KiB, units of 1024 bytes)
 @item M
-Megabytes (units of 1048576 bytes)
+Mebibytes (MiB, units of 1024 * 1024 = 1048576 bytes)
 @item G
-Gigabytes (units of 1073741824 bytes)
+Gibibytes (GiB, units of 1024 * 1024 * 1024 = 1073741824 bytes)
 @end table
 
 The `b' suffix always considers blocks to be 512 bytes.  This is not

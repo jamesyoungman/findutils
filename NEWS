@@ -45,6 +45,13 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
 
+#51304: doc: use correct IEC unit prefixes in the documentation of 'find -size'.
+        find(1) uses binary-based units for the suffixes 'k', 'M', and 'G' of
+        the argument of the '-size' option: 1024, 1024*1024 and 1024^3.
+        Therefore, the documentation should use the correct IEC prefixes
+        kibibyte, mebibyte and gibibyte respectively (or their abbreviations
+        'KiB', 'MiB' and 'GiB').
+
 #50758: doc: fix the description of the -perm examples matching the permission
         mode "022" in find's texinfo manual: the match is for the file's group
         and 'other' mode bits instead of for user and group.

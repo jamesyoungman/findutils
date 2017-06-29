@@ -900,11 +900,11 @@ for bytes
 .IP `w'
 for two-byte words
 .IP `k'
-for Kilobytes (units of 1024 bytes)
+for Kibibytes (KiB, units of 1024 bytes)
 .IP `M'
-for Megabytes (units of 1048576 bytes)
+for Mebibytes (MiB, units of 1024 * 1024 = 1048576 bytes)
 .IP `G'
-for Gigabytes (units of 1073741824 bytes)
+for Gibibytes (GiB, units of 1024 * 1024 * 1024 = 1073741824 bytes)
 .RE
 .IP
 The size does not count indirect blocks, but it does count blocks in
@@ -913,7 +913,7 @@ sparse files that are not actually allocated.  Bear in mind that the
 .B \-printf
 handle sparse files
 differently.  The `b' suffix always denotes 512-byte blocks and never
-1 Kilobyte blocks, which is different to the behaviour of
+1024-byte blocks, which is different to the behaviour of
 .BR \-ls .
 .IP
 The + and - prefixes signify greater than and less than, as usual.
