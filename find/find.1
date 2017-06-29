@@ -1651,7 +1651,7 @@ actions print the current filename as-is.  This may change in a future release.
 .SH "STANDARDS CONFORMANCE"
 For closest compliance to the POSIX standard, you should set the
 POSIXLY_CORRECT environment variable.  The following options are
-specified in the POSIX standard (IEEE Std 1003.1, 2003 Edition):
+specified in the POSIX standard (IEEE Std 1003.1-2008, 2016 Edition):
 
 .IP \fB\-H\fR
 This option is supported.
@@ -1698,36 +1698,25 @@ Supported.  If the POSIXLY_CORRECT environment variable is not set,
 some mode arguments (for example +a+x) which are not valid in POSIX
 are supported for backward-compatibility.
 
-.IP "Other predicates"
-The predicates
+.IP "Other primaries"
+The primaries
 .BR \-atime ,
 .BR \-ctime ,
 .BR \-depth ,
+.BR \-exec ,
 .BR \-group ,
 .BR \-links ,
 .BR \-mtime ,
 .BR \-nogroup ,
 .BR \-nouser ,
+.BR \-ok ,
+.BR \-path ,
 .BR \-print ,
 .BR \-prune ,
 .BR \-size ,
 .BR \-user
 and
 .B \-xdev
-`\-atime',
-`\-ctime',
-`\-depth',
-`\-group',
-`\-links',
-`\-mtime',
-`\-nogroup',
-`\-nouser',
-`\-perm',
-`\-print',
-`\-prune',
-`\-size',
-`\-user' and
-`\-xdev',
 are all supported.
 
 .P
