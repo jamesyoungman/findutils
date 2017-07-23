@@ -2,6 +2,16 @@
 # option.  It specifies what changes to make to each given SHA1's commit
 # log and metadata, using Perl-eval'able expressions.
 
+# Suppress a merge log message.
+3e94355b192ffd647ec22031c61c5df61b27f334
+s,Merge branch 'master'.*,IGNORE_THIS,
+
+# Suppress a badly-formatted checkin message (a later checkin contains
+# the correct message, so the ChangeLog will still reflect the actual
+# changes).
+5e56fe96bc5cf5c0b616dc0251dddebb7e480074
+s,2017-07-23.*,IGNORE_THIS,
+
 dd7c9c6ee7fea07759e0a52716d4096598375638
 s,fixing Savannah bug,applying Savannah patch,
 

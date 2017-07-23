@@ -23,6 +23,7 @@ top_srcdir="$1"
 "${top_srcdir}/build-aux/gitlog-to-changelog" \
     --srcdir="${top_srcdir}" \
     --amend="${top_srcdir}/build-aux/git-log-fix" \
+    --ignore-matching='IGNORE_THIS' \
     --since='2014-01-01' \
     --strip-cherry-pick \
   && cat "${top_srcdir}/ChangeLog-2013"
