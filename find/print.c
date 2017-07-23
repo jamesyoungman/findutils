@@ -631,7 +631,11 @@ format_date (struct timespec ts, int kind)
   /* Format the main part of the time. */
   if (kind == '+')
     {
-      strcpy (fmt, "%F+%T");
+      /* Avoid %F, some Unix versions lack it.  For example:
+         HP Tru64 UNIX V5.1B (Rev. 2650); Wed Feb 17 22:59:59 CST 2016
+         Also, some older HP-UX versions expand %F as the full month (like %B).
+         Reported by Steven M. Schweda <sms@antinode.info> */
+      strcpy (fmt, "%Y-%m-%d+%T");
       need_ns_suffix = 1;
     }
   else
