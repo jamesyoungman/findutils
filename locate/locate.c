@@ -1088,11 +1088,6 @@ search_one_database (int argc,
                                    nread,
                                    &slocate_seclevel))
     {
-      error (0, 0,
-             _("%s is an slocate database.  "
-               "Support for these is new, expect problems for now."),
-             quotearg_n_style (0, locale_quoting_style, procdata.dbfile));
-
       /* slocate also uses frcode, but with a different header.
        * We handle the header here and then work with the data
        * in the normal way.
