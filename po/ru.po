@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: findutils 4.5.15\n"
 "Report-Msgid-Bugs-To: bug-findutils@gnu.org\n"
-"POT-Creation-Date: 2016-11-02 23:33+0100\n"
+"POT-Creation-Date: 2017-07-29 12:19+0100\n"
 "PO-Revision-Date: 2015-12-20 10:13+0300\n"
 "Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
 "Language-Team: Russian <gnu@d07.ru>\n"
@@ -37,7 +37,7 @@ msgstr "Не удалось закрыть стандартный поток в�
 msgid "Failed to change directory%s%s"
 msgstr "Не удалось изменить каталог: %s"
 
-#: find/exec.c:310 xargs/xargs.c:1264
+#: find/exec.c:310 xargs/xargs.c:1280
 #, c-format
 msgid "cannot fork"
 msgstr "не удалось создать процесс"
@@ -52,16 +52,16 @@ msgstr "ошибка ожидания %s"
 msgid "%s terminated by signal %d"
 msgstr "%s прерван по сигналу %d"
 
-#: find/fstype.c:179
+#: find/fstype.c:248
 #, c-format
 msgid "Cannot read mounted file system list"
 msgstr "Не удалось прочитать список смонтированных файловых систем"
 
-#: find/fstype.c:238
+#: find/fstype.c:278
 msgid "unknown"
 msgstr "неизвестный"
 
-#: find/ftsfind.c:237 find/oldfind.c:1136
+#: find/ftsfind.c:237 find/oldfind.c:1124
 #, c-format
 msgid ""
 "Symbolic link %s is part of a loop in the directory hierarchy; we have "
@@ -93,38 +93,38 @@ msgstr "не удалось найти %s"
 msgid "failed to restore working directory after searching %s"
 msgstr "не удалось восстановить рабочий каталог после поиска %s"
 
-#: find/ftsfind.c:671 find/oldfind.c:202
+#: find/ftsfind.c:671 find/oldfind.c:190
 #, c-format
 msgid "Failed to initialize shared-file hash table"
 msgstr "Не удалось выполнить инициализацию хэш-таблицы на основе общего файла"
 
-#: find/ftsfind.c:687 find/oldfind.c:218 locate/frcode.c:231
-#: locate/locate.c:1594 xargs/xargs.c:424
+#: find/ftsfind.c:687 find/oldfind.c:206 locate/frcode.c:231
+#: locate/locate.c:1589 xargs/xargs.c:428
 #, c-format
 msgid "The atexit library function failed"
 msgstr "Ошибка при работе библиотечной функции atexit"
 
-#: find/oldfind.c:261
+#: find/oldfind.c:249
 #, c-format
 msgid "cannot stat current directory"
 msgstr "не удалось выполнить stat для текущего каталога"
 
-#: find/oldfind.c:352
+#: find/oldfind.c:340
 #, c-format
 msgid "Cannot read list of mounted devices."
 msgstr "Не удалось прочитать список смонтированных устройств."
 
-#: find/oldfind.c:441
+#: find/oldfind.c:429
 #, c-format
 msgid "WARNING: file system %s has recently been unmounted."
 msgstr "ПРЕДУПРЕЖДЕНИЕ: файловая система %s недавно была отмонтирована."
 
-#: find/oldfind.c:451
+#: find/oldfind.c:439
 #, c-format
 msgid "WARNING: file system %s has recently been mounted."
 msgstr "ПРЕДУПРЕЖДЕНИЕ: файловая система %s недавно была cмонтирована."
 
-#: find/oldfind.c:548
+#: find/oldfind.c:536
 #, c-format
 msgid ""
 "%s%s changed during execution of %s (old device number %ld, new device "
@@ -133,7 +133,7 @@ msgstr ""
 "%s%s изменилось во время выполнения %s (старый номер устройства %ld, новый "
 "номер устройства %ld, тип файловой системы %s) [ссылка %ld]"
 
-#: find/oldfind.c:585
+#: find/oldfind.c:573
 #, c-format
 msgid ""
 "%s%s changed during execution of %s (old inode number %<PRIuMAX>, new inode "
@@ -142,17 +142,17 @@ msgstr ""
 "%s%s изменилось во время выполнения %s (старый номер inode %<PRIuMAX>, новый "
 "номер %<PRIuMAX>, тип файловой системы %s) [ссылка %ld]"
 
-#: find/oldfind.c:750
+#: find/oldfind.c:738
 #, c-format
 msgid "failed to return to parent directory"
 msgstr "не удалось вернуться в родительский каталог"
 
-#: find/oldfind.c:1036
+#: find/oldfind.c:1024
 #, c-format
 msgid "Failed to safely change directory into %s"
 msgstr "Не удалось безопасно перейти в каталог %s"
 
-#: find/oldfind.c:1155
+#: find/oldfind.c:1143
 #, c-format
 msgid ""
 "Filesystem loop detected; %s has the same device number and inode as a "
@@ -170,12 +170,12 @@ msgstr[2] ""
 "Обнаружено зацикливание в файловой системе; %s имеет тот же номер устройства "
 "и inode что и каталог, который на %d уровней выше в дереве каталогов"
 
-#: find/oldfind.c:1407
+#: find/oldfind.c:1395
 #, c-format
 msgid "warning: not following the symbolic link %s"
 msgstr "предупреждение: нет перехода по символической ссылке %s"
 
-#: find/oldfind.c:1480
+#: find/oldfind.c:1467
 #, c-format
 msgid ""
 "WARNING: Hard link count is wrong for %s (saw only st_nlink=%<PRIuMAX> but "
@@ -222,7 +222,7 @@ msgstr ""
 "предупреждение: не рекомендуется использовать параметр -d; вместо него "
 "используйте -depth, так как он есть в составе POSIX."
 
-#: find/parser.c:1197
+#: find/parser.c:1167
 #, c-format
 msgid ""
 "%s is not the name of an existing group and it does not look like a numeric "
@@ -231,22 +231,22 @@ msgstr ""
 "%s не является именем существующей группы и не похоже на числовой ID группы, "
 "так как имеет неожидаемый суффикс %s"
 
-#: find/parser.c:1212
+#: find/parser.c:1182
 #, c-format
 msgid "%s is not the name of an existing group"
 msgstr "%s не является именем существующей группы"
 
-#: find/parser.c:1218
+#: find/parser.c:1188
 #, c-format
 msgid "argument to -group is empty, but should be a group name"
 msgstr "пустой аргумент у -group, а должно быть имя группы"
 
-#: find/parser.c:1291
+#: find/parser.c:1261
 #, c-format
 msgid "sanity check of the fnmatch() library function failed."
 msgstr "не прошла общая проверка на ошибки в библиотечной функции fnmatch()."
 
-#: find/parser.c:1305
+#: find/parser.c:1275
 #, c-format
 msgid ""
 "warning: Unix filenames usually don't contain slashes (though pathnames "
@@ -261,43 +261,43 @@ msgstr ""
 "wholename», или, возможно, «-samefile». Или же, если вы используете GNU "
 "grep, то можете выполнять так: «find ... -print0 | grep -FzZ %s»."
 
-#: find/parser.c:1431
+#: find/parser.c:1401
 #, c-format
 msgid "Expected a positive decimal integer argument to %s, but got %s"
 msgstr "Для %s ожидалось целое положительное значение аргумента, а получен %s"
 
-#: find/parser.c:1596
+#: find/parser.c:1566
 #, c-format
 msgid "This system does not provide a way to find the birth time of a file."
 msgstr "Эта система не позволяет осуществлять поиск по дате создания файла."
 
-#: find/parser.c:1617
+#: find/parser.c:1587
 #, c-format
 msgid "The %s test needs an argument"
 msgstr "Для теста %s требуется аргумент"
 
-#: find/parser.c:1654
+#: find/parser.c:1624
 #, c-format
 msgid "I cannot figure out how to interpret %s as a date or time"
 msgstr "Не удалось понять чем считать %s -- датой или временем"
 
-#: find/parser.c:1671
+#: find/parser.c:1641
 #, c-format
 msgid "Cannot obtain birth time of file %s"
 msgstr "Не удалось получить время создания файла %s"
 
-#: find/parser.c:1815
+#: find/parser.c:1785
 #, c-format
 msgid "warning: -%s %s will not match anything because it ends with /."
 msgstr ""
 "предупреждение: -%s %s ни с чем не совпадёт, так как заканчивается на /."
 
-#: find/parser.c:1910
+#: find/parser.c:1880
 #, c-format
 msgid "invalid mode %s"
 msgstr "неверные права %s"
 
-#: find/parser.c:1928
+#: find/parser.c:1898
 #, c-format
 msgid ""
 "warning: you have specified a mode pattern %s (which is equivalent to /000). "
@@ -309,27 +309,27 @@ msgstr ""
 "хотя он используется для проверки отсутствия файлов, теперь он совпадает со "
 "всеми файлами."
 
-#: find/parser.c:2101
+#: find/parser.c:2071
 #, c-format
 msgid "failed to compile regular expression '%s': %s"
 msgstr ""
 
-#: find/parser.c:2130
+#: find/parser.c:2100
 #, c-format
 msgid "invalid null argument to -size"
 msgstr "отсутствует аргумент у -size"
 
-#: find/parser.c:2180
+#: find/parser.c:2150
 #, c-format
 msgid "invalid -size type `%c'"
 msgstr "неверный тип «%c» для -size"
 
-#: find/parser.c:2190
+#: find/parser.c:2160
 #, c-format
 msgid "Invalid argument `%s%s' to -size"
 msgstr "Неверный аргумент «%s%s» для -size"
 
-#: find/parser.c:2372
+#: find/parser.c:2342
 msgid ""
 "The -show-control-chars option takes a single argument which must be "
 "'literal' or 'safe'"
@@ -337,37 +337,37 @@ msgstr ""
 "У параметра -show-control-chars имеется единственный аргумент, который "
 "должен быть «literal» или «safe»"
 
-#: find/parser.c:2486
+#: find/parser.c:2456
 #, c-format
 msgid "Invalid argument %s to -used"
 msgstr "Неверный аргумент %s для -used"
 
-#: find/parser.c:2527
+#: find/parser.c:2497
 #, c-format
 msgid "%s is not the name of a known user"
 msgstr "%s не является именем известного пользователя"
 
-#: find/parser.c:2534
+#: find/parser.c:2504
 #, c-format
 msgid "The argument to -user should not be empty"
 msgstr "Аргумент параметра -user не должен быть пустым"
 
-#: find/parser.c:2559
+#: find/parser.c:2529
 #, c-format
 msgid "Features enabled: "
 msgstr "Включённые возможности: "
 
-#: find/parser.c:2628
+#: find/parser.c:2598
 #, c-format
 msgid "invalid predicate -context: SELinux is not enabled."
 msgstr "неправильный предикат -context: SELinux не включён."
 
-#: find/parser.c:2692
+#: find/parser.c:2662
 #, fuzzy, c-format
 msgid "Arguments to %s should contain at least one letter"
 msgstr "Аргументы -type должны быть односимвольными"
 
-#: find/parser.c:2757
+#: find/parser.c:2727
 #, fuzzy, c-format
 msgid ""
 "%s %c is not supported because symbolic links are not supported on the "
@@ -376,7 +376,7 @@ msgstr ""
 "-type %c не поддерживается, так как символические ссылки не поддерживаются "
 "на платформе, на которой был скомпилирован find."
 
-#: find/parser.c:2769
+#: find/parser.c:2739
 #, fuzzy, c-format
 msgid ""
 "%s %c is not supported because FIFOs are not supported on the platform find "
@@ -385,7 +385,7 @@ msgstr ""
 "-type %c не поддерживается, так как FIFO не поддерживаются на платформе, на "
 "которой был скомпилирован find."
 
-#: find/parser.c:2781
+#: find/parser.c:2751
 #, fuzzy, c-format
 msgid ""
 "%s %c is not supported because named sockets are not supported on the "
@@ -394,7 +394,7 @@ msgstr ""
 "-type %c не поддерживается, так как именованные сокеты не поддерживаются на "
 "платформе, на которой был скомпилирован find."
 
-#: find/parser.c:2797
+#: find/parser.c:2767
 #, fuzzy, c-format
 msgid ""
 "%s %c is not supported because Solaris doors are not supported on the "
@@ -403,29 +403,29 @@ msgstr ""
 "-type %c не поддерживается, так как Solaris doors не поддерживаются на "
 "платформе, на которой был скомпилирован find."
 
-#: find/parser.c:2805
+#: find/parser.c:2775
 #, fuzzy, c-format
 msgid "Unknown argument to %s: %c"
 msgstr "Неизвестный аргумент у -type: %c"
 
-#: find/parser.c:2813
+#: find/parser.c:2783
 #, c-format
 msgid "Duplicate file type '%c' in the argument list to %s."
 msgstr ""
 
-#: find/parser.c:2829
+#: find/parser.c:2799
 #, c-format
 msgid "Must separate multiple arguments to %s using: ','"
 msgstr ""
 
-#: find/parser.c:2838
+#: find/parser.c:2808
 #, c-format
 msgid ""
 "Last file type in list argument to %s is missing, i.e., list is ending on: "
 "','"
 msgstr ""
 
-#: find/parser.c:2897
+#: find/parser.c:2867
 #, c-format
 msgid ""
 "The current directory is included in the PATH environment variable, which is "
@@ -437,7 +437,7 @@ msgstr ""
 "небезопасным при использовании действия %s у find. Удалите текущий каталог "
 "из $PATH (т.е., удалите «.» или начальные или конечные двоеточия)."
 
-#: find/parser.c:2909
+#: find/parser.c:2879
 #, c-format
 msgid ""
 "The relative path %s is included in the PATH environment variable, which is "
@@ -447,7 +447,7 @@ msgstr ""
 "Относительный путь %s включён в переменную окружения PATH, что является "
 "небезопасным при использовании действия %s у find. Удалите эту часть из $PATH"
 
-#: find/parser.c:3018
+#: find/parser.c:2988
 #, c-format
 msgid ""
 "You may not use {} within the utility name for -execdir and -okdir, because "
@@ -456,37 +456,37 @@ msgstr ""
 "Нельзя использовать {} при указании имени утилиты в -execdir и -okdir, так "
 "как это вызывает проблемы с безопасностью."
 
-#: find/parser.c:3044
+#: find/parser.c:3014
 #, c-format
 msgid "Only one instance of {} is supported with -exec%s ... +"
 msgstr "Только один экземпляр {} поддерживается с -exec%s ... +"
 
-#: find/parser.c:3054
+#: find/parser.c:3024
 #, c-format
 msgid "In %s the %s must appear by itself, but you specified %s"
 msgstr "В %s значение %s должно появляться как есть, но вы указали %s"
 
-#: find/parser.c:3074
+#: find/parser.c:3044
 #, c-format
 msgid "The environment is too large for exec()."
 msgstr "Окружение слишком велико для exec()."
 
-#: find/parser.c:3243
+#: find/parser.c:3213
 #, c-format
 msgid "arithmetic overflow while converting %s days to a number of seconds"
 msgstr ""
 "арифметическое переполнение при преобразовании %s дней в количество секунд"
 
-#: find/parser.c:3267
+#: find/parser.c:3237
 #, c-format
 msgid "arithmetic overflow when trying to calculate the end of today"
 msgstr "арифметическое переполнение при вычислении конца сегодняшнего дня"
 
-#: find/parser.c:3426
+#: find/parser.c:3396
 msgid "standard error"
 msgstr "стандартный поток ошибок"
 
-#: find/parser.c:3431
+#: find/parser.c:3401
 msgid "standard output"
 msgstr "стандартный поток вывода"
 
@@ -510,7 +510,7 @@ msgstr "< %s ... %s > ? "
 msgid "Failed to write prompt for -ok"
 msgstr "Не удалось записать запрос для -ok"
 
-#: find/pred.c:1239 find/print.c:1235
+#: find/pred.c:1239 find/print.c:1248
 #, c-format
 msgid "getfilecon failed: %s"
 msgstr "getfilecon завершилась неудачно: %s"
@@ -525,7 +525,7 @@ msgstr "предупреждение: после экранирующей «\\»
 msgid "warning: unrecognized escape `\\%c'"
 msgstr "предупреждение: нераспознанная экранирующая последовательность «\\%c»"
 
-#: find/print.c:380 find/print.c:1257
+#: find/print.c:380 find/print.c:1270
 #, c-format
 msgid "error: %s at end of format string"
 msgstr "ошибка: указано %s в конце строки формата"
@@ -666,7 +666,7 @@ msgstr "эхтыж — неверная вставка по умолчанию �
 msgid "Valid arguments for -D:\n"
 msgstr "Допустимые аргументы:"
 
-#: find/util.c:169 locate/frcode.c:151 locate/locate.c:1391 xargs/xargs.c:1644
+#: find/util.c:169 locate/frcode.c:151 locate/locate.c:1386 xargs/xargs.c:1660
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr ""
@@ -1047,16 +1047,7 @@ msgstr ""
 "уровень безопасности %c, который в данный момент GNU findutils не "
 "поддерживает"
 
-#: locate/locate.c:1092
-#, c-format
-msgid ""
-"%s is an slocate database.  Support for these is new, expect problems for "
-"now."
-msgstr ""
-"%s является базой данных slocate. Поддержка этого типа введена недавно, пока "
-"возникают проблемы."
-
-#: locate/locate.c:1106
+#: locate/locate.c:1101
 #, c-format
 msgid ""
 "%s is an slocate database of unsupported security level %d; skipping it."
@@ -1064,7 +1055,7 @@ msgstr ""
 "%s является базой данных slocate с неподдерживаемым уровнем безопасности%d; "
 "пропускаем."
 
-#: locate/locate.c:1123
+#: locate/locate.c:1118
 #, c-format
 msgid ""
 "You specified the -E option, but that option cannot be used with slocate-"
@@ -1075,37 +1066,37 @@ msgstr ""
 "slocate-формате с ненулевым уровнем безопасности. По этой базе не будут "
 "выданы результаты.\n"
 
-#: locate/locate.c:1134
+#: locate/locate.c:1129
 #, c-format
 msgid "%s is an slocate database.  Turning on the '-e' option."
 msgstr "%s является базой данных slocate. Используем параметр «-e»."
 
-#: locate/locate.c:1172
+#: locate/locate.c:1167
 #, c-format
 msgid "Old-format locate database %s is too short to be valid"
 msgstr ""
 "База данных %s в старом формате имеет слишком маленький размер, чтобы быть "
 "работоспособной"
 
-#: locate/locate.c:1324
+#: locate/locate.c:1319
 #, c-format
 msgid "Database %s is in the %s format.\n"
 msgstr "База данных %s имеет формат %s.\n"
 
-#: locate/locate.c:1351
+#: locate/locate.c:1346
 msgid "The database has little-endian machine-word encoding.\n"
 msgstr "В базе данных используется прямой порядок байт.\n"
 
-#: locate/locate.c:1353
+#: locate/locate.c:1348
 msgid "The database has big-endian machine-word encoding.\n"
 msgstr "В базе данных используется обратный порядок байт.\n"
 
-#: locate/locate.c:1366
+#: locate/locate.c:1361
 #, c-format
 msgid "The database machine-word encoding order is not obvious.\n"
 msgstr "Непонятно какой порядок байт используется в базы данных.\n"
 
-#: locate/locate.c:1395
+#: locate/locate.c:1390
 #, c-format
 msgid ""
 "Usage: %s [-d path | --database=path] [-e | -E | --[non-]existing]\n"
@@ -1124,42 +1115,42 @@ msgstr ""
 "      [--max-database-age D] [--version] [--help]\n"
 "      шаблон...\n"
 
-#: locate/locate.c:1461
+#: locate/locate.c:1456
 msgid "failed to drop group privileges"
 msgstr "не удалось понизить групповые права"
 
-#: locate/locate.c:1479
+#: locate/locate.c:1474
 msgid "failed to drop setuid privileges"
 msgstr "не удалось понизить setuid права"
 
-#: locate/locate.c:1493
+#: locate/locate.c:1488
 msgid "Failed to fully drop privileges"
 msgstr "Не удалось до конца понизить права"
 
-#: locate/locate.c:1511
+#: locate/locate.c:1506
 msgid "failed to drop setgid privileges"
 msgstr "не удалось понизить setgid права"
 
-#: locate/locate.c:1748
+#: locate/locate.c:1743
 #, c-format
 msgid "pattern argument expected"
 msgstr ""
 
-#: locate/locate.c:1789
+#: locate/locate.c:1784
 #, c-format
 msgid "warning: the locate database can only be read from stdin once."
 msgstr ""
 "предупреждение: база данных locate может быть прочитана со стандартного "
 "потока ввода только один раз."
 
-#: locate/locate.c:1862
+#: locate/locate.c:1857
 #, c-format
 msgid "time system call failed"
 msgstr "не удалось получить системное время"
 
-#: locate/locate.c:1873
-#, c-format
-msgid "warning: database %s is more than %d %s old (actual age is %.1f %s)"
+#: locate/locate.c:1868
+#, fuzzy, c-format
+msgid "warning: database %s is more than %u %s old (actual age is %.1f %s)"
 msgstr ""
 "предупреждение: база данных %s устарела более чем на %d %s (сейчас ей %.1f "
 "%s)"
@@ -1179,14 +1170,14 @@ msgstr "неожидаемый EOF в %s"
 msgid "error reading a word from %s"
 msgstr "ошибка чтения слова с %s"
 
-#: xargs/xargs.c:257
+#: xargs/xargs.c:261
 #, c-format
 msgid "Invalid escape sequence %s in input delimiter specification."
 msgstr ""
 "Неверная экранирующая последовательность %s в спецификации входного "
 "разделителя."
 
-#: xargs/xargs.c:275
+#: xargs/xargs.c:279
 #, c-format
 msgid ""
 "Invalid escape sequence %s in input delimiter specification; character "
@@ -1195,7 +1186,7 @@ msgstr ""
 "Неверная экранирующая последовательность %s в спецификации входного "
 "разделителя; символьные значения не должны превышать %lx."
 
-#: xargs/xargs.c:281
+#: xargs/xargs.c:285
 #, c-format
 msgid ""
 "Invalid escape sequence %s in input delimiter specification; character "
@@ -1204,7 +1195,7 @@ msgstr ""
 "Неверная экранирующая последовательность %s в спецификации входного "
 "разделителя; символьные значения не должны превышать %lo."
 
-#: xargs/xargs.c:290
+#: xargs/xargs.c:294
 #, c-format
 msgid ""
 "Invalid escape sequence %s in input delimiter specification; trailing "
@@ -1213,7 +1204,7 @@ msgstr ""
 "Неверная экранирующая последовательность %s в спецификации входного "
 "разделителя; не распознаны символы %s в конце."
 
-#: xargs/xargs.c:335
+#: xargs/xargs.c:339
 #, c-format
 msgid ""
 "Invalid input delimiter specification %s: the delimiter must be either a "
@@ -1222,60 +1213,60 @@ msgstr ""
 "Неверная спецификация входного разделителя %s; разделитель должен быть, или "
 "одиночным символом, или экранирующей последовательностью, начинающейся с \\."
 
-#: xargs/xargs.c:352
+#: xargs/xargs.c:356
 #, c-format
 msgid "environment is too large for exec"
 msgstr "окружение слишком велико для исполнения"
 
-#: xargs/xargs.c:590
+#: xargs/xargs.c:594
 #, c-format
 msgid "warning: value %ld for -s option is too large, using %ld instead"
 msgstr ""
 "предупреждение: значение %ld для параметра -s слишком большое; вместо него "
 "будет использовано %ld"
 
-#: xargs/xargs.c:637
+#: xargs/xargs.c:645
 #, c-format
 msgid "option --%s may not be set to a value which includes `='"
 msgstr "параметр --%s не может иметь значение, которое содержит «=»"
 
-#: xargs/xargs.c:649
+#: xargs/xargs.c:657
 #, c-format
 msgid "failed to unset environment variable %s"
 msgstr "не удалось удалить переменную окружения %s"
 
-#: xargs/xargs.c:662
+#: xargs/xargs.c:670
 #, c-format
 msgid "warning: the -E option has no effect if -0 or -d is used.\n"
 msgstr ""
 "предупреждение: параметр -E не действует, если используется -0 или -d.\n"
 
-#: xargs/xargs.c:684
+#: xargs/xargs.c:692
 #, c-format
 msgid "Cannot set SIGUSR1 signal handler"
 msgstr "Невозможно задать обработчик сигнала SIGUSR1"
 
-#: xargs/xargs.c:690
+#: xargs/xargs.c:698
 #, c-format
 msgid "Cannot set SIGUSR2 signal handler"
 msgstr "Невозможно задать обработчик сигнала SIGUSR2"
 
-#: xargs/xargs.c:706
+#: xargs/xargs.c:714
 #, c-format
 msgid "Cannot open input file %s"
 msgstr "Не удалось открыть входной файл %s"
 
-#: xargs/xargs.c:725
+#: xargs/xargs.c:733
 #, c-format
 msgid "Your environment variables take up %<PRIuMAX> bytes\n"
 msgstr "Ваши переменные окружения занимают %<PRIuMAX> байт\n"
 
-#: xargs/xargs.c:728
+#: xargs/xargs.c:736
 #, c-format
 msgid "POSIX upper limit on argument length (this system): %<PRIuMAX>\n"
 msgstr "Верхняя граница аргумента длины по POSIX (эта система): %<PRIuMAX>\n"
 
-#: xargs/xargs.c:731
+#: xargs/xargs.c:739
 #, c-format
 msgid ""
 "POSIX smallest allowable upper limit on argument length (all systems): "
@@ -1284,25 +1275,25 @@ msgstr ""
 "Самое маленькое разрешённое значение верхней границы аргумента длины по "
 "POSIX (все системы): %<PRIuMAX>\n"
 
-#: xargs/xargs.c:734
+#: xargs/xargs.c:742
 #, c-format
 msgid "Maximum length of command we could actually use: %<PRIuMAX>\n"
 msgstr ""
 "Максимальная длина команды, которую мы можем использовать: %<PRIuMAX>\n"
 
-#: xargs/xargs.c:737
+#: xargs/xargs.c:745
 #, c-format
 msgid "Size of command buffer we are actually using: %<PRIuMAX>\n"
 msgstr "Размер буфера команды, который мы используем: %<PRIuMAX>\n"
 
-#: xargs/xargs.c:740
+#: xargs/xargs.c:748
 #, c-format
 msgid "Maximum parallelism (--max-procs must be no greater): %<PRIuMAX>\n"
 msgstr ""
 "Максимальное количество параллельных работ\n"
 "       (--max-procs должен быть не больше): %<PRIuMAX>\n"
 
-#: xargs/xargs.c:746
+#: xargs/xargs.c:754
 #, c-format
 msgid ""
 "\n"
@@ -1315,7 +1306,7 @@ msgstr ""
 "входной поток и запустить команды; если это не то, что вы хотите, нажмите "
 "клавиатурную комбинацию, обозначающую конец файла.\n"
 
-#: xargs/xargs.c:754
+#: xargs/xargs.c:762
 #, c-format
 msgid ""
 "Warning: %s will be run at least once.  If you do not want that to happen, "
@@ -1324,7 +1315,7 @@ msgstr ""
 "Предупреждение: %s будет выполнена, по крайней мере, один раз. Если это не "
 "то, что вы хотите, нажмите клавиатурную комбинацию прерывания.\n"
 
-#: xargs/xargs.c:882 xargs/xargs.c:975
+#: xargs/xargs.c:890 xargs/xargs.c:983
 #, c-format
 msgid ""
 "unmatched %s quote; by default quotes are special to xargs unless you use "
@@ -1333,15 +1324,15 @@ msgstr ""
 "непарные кавычки %s; по умолчанию, кавычки являются спецсимволами для xargs, "
 "если вы не указали параметр -0"
 
-#: xargs/xargs.c:883 xargs/xargs.c:976
+#: xargs/xargs.c:891 xargs/xargs.c:984
 msgid "double"
 msgstr "двойная"
 
-#: xargs/xargs.c:883 xargs/xargs.c:976
+#: xargs/xargs.c:891 xargs/xargs.c:984
 msgid "single"
 msgstr "одинарная"
 
-#: xargs/xargs.c:995
+#: xargs/xargs.c:1003
 #, c-format
 msgid ""
 "WARNING: a NUL character occurred in the input.  It cannot be passed through "
@@ -1350,42 +1341,47 @@ msgstr ""
 "ПРЕДУПРЕЖДЕНИЕ: из входного потока получен символ NUL. Его невозможно "
 "передать в списке аргументов. Может стоит указать параметр --null?"
 
-#: xargs/xargs.c:1005 xargs/xargs.c:1070
+#: xargs/xargs.c:1013 xargs/xargs.c:1078
 #, c-format
 msgid "argument line too long"
 msgstr "строка аргументов слишком велика"
 
-#: xargs/xargs.c:1089 xargs/xargs.c:1106
+#: xargs/xargs.c:1097 xargs/xargs.c:1114
 #, c-format
 msgid "Failed to write to stderr"
 msgstr "Не удалось записать в stderr"
 
-#: xargs/xargs.c:1102
+#: xargs/xargs.c:1110
 #, c-format
 msgid "failed to open /dev/tty for reading"
 msgstr "не удалось открыть /dev/tty на чтение"
 
-#: xargs/xargs.c:1112
+#: xargs/xargs.c:1120
 #, c-format
 msgid "Failed to read from stdin"
 msgstr "Не удалось прочитать из stdin"
 
-#: xargs/xargs.c:1149
+#: xargs/xargs.c:1157
 #, c-format
 msgid "unable to allocate memory"
 msgstr "не удалось выделить память"
 
-#: xargs/xargs.c:1164
+#: xargs/xargs.c:1172
 #, c-format
 msgid "failed to set environment variable %s"
 msgstr "не удалось задать переменную окружения %s"
 
-#: xargs/xargs.c:1253
+#: xargs/xargs.c:1217
+#, c-format
+msgid "failed to redirect standard input of the child process"
+msgstr ""
+
+#: xargs/xargs.c:1269
 #, c-format
 msgid "could not create pipe before fork"
 msgstr "не удалось создать канал перед fork"
 
-#: xargs/xargs.c:1324
+#: xargs/xargs.c:1340
 #, c-format
 msgid ""
 "errno-buffer safe_read failed in xargs_do_exec (this is probably a bug, "
@@ -1394,59 +1390,59 @@ msgstr ""
 "выполнение safe_read для errno-buffer завершилось неудачно в xargs_do_exec "
 "(вероятно ошибка, сообщите об этом)"
 
-#: xargs/xargs.c:1377
+#: xargs/xargs.c:1393
 #, c-format
 msgid ""
 "read returned unexpected value %zu; this is probably a bug, please report it"
 msgstr ""
 "при чтении получено неожидаемое значение %zu; вероятно ошибка, сообщите"
 
-#: xargs/xargs.c:1470
+#: xargs/xargs.c:1486
 #, c-format
 msgid "error waiting for child process"
 msgstr "ошибка при ожидании дочернего процесса"
 
-#: xargs/xargs.c:1503
+#: xargs/xargs.c:1519
 #, c-format
 msgid "WARNING: Lost track of %lu child processes"
 msgstr "ПРЕДУПРЕЖДЕНИЕ: сбой слежения за %lu дочерними процессами"
 
-#: xargs/xargs.c:1522
+#: xargs/xargs.c:1538
 #, c-format
 msgid "%s: exited with status 255; aborting"
 msgstr "%s: завершен со статусом 255; прерываюсь"
 
-#: xargs/xargs.c:1525
+#: xargs/xargs.c:1541
 #, c-format
 msgid "%s: stopped by signal %d"
 msgstr "%s: остановлен по сигналу %d"
 
-#: xargs/xargs.c:1528
+#: xargs/xargs.c:1544
 #, c-format
 msgid "%s: terminated by signal %d"
 msgstr "%s: завершен по сигналу %d"
 
-#: xargs/xargs.c:1613
+#: xargs/xargs.c:1629
 #, fuzzy, c-format
 msgid "%s: invalid number \"%s\" for -%c option\n"
 msgstr "%s: неверное число для параметра -%c\n"
 
-#: xargs/xargs.c:1620
+#: xargs/xargs.c:1636
 #, fuzzy, c-format
 msgid "%s: value %s for -%c option should be >= %ld\n"
 msgstr "%s: значение для параметра -%c должно быть >= %ld\n"
 
-#: xargs/xargs.c:1629
+#: xargs/xargs.c:1645
 #, fuzzy, c-format
 msgid "%s: value %s for -%c option should be <= %ld\n"
 msgstr "%s: значение для параметра -%c должно быть <= %ld\n"
 
-#: xargs/xargs.c:1649
+#: xargs/xargs.c:1665
 #, c-format
 msgid "Usage: %s [OPTION]... COMMAND [INITIAL-ARGS]...\n"
 msgstr "Использование: %s [ПАРАМЕТР]… КОМАНДА [НАЧАЛЬНЫЕ-АРГУМЕНТЫ]…\n"
 
-#: xargs/xargs.c:1654
+#: xargs/xargs.c:1670
 msgid ""
 "Run COMMAND with arguments INITIAL-ARGS and more arguments read from input.\n"
 "\n"
@@ -1454,7 +1450,7 @@ msgstr ""
 "Выполняет КОМАНДУ с аргументами НАЧАЛЬНЫЕ-АРГУМЕНТЫ и дополнительными\n"
 "аргументами, прочитанными из стандартного ввода.\n"
 
-#: xargs/xargs.c:1656
+#: xargs/xargs.c:1672
 msgid ""
 "Mandatory and optional arguments to long options are also\n"
 "mandatory or optional for the corresponding short option.\n"
@@ -1462,7 +1458,7 @@ msgstr ""
 "Обязательность или необязательность аргументов для длинного параметра\n"
 "аналогична и для соответствующего короткого параметра.\n"
 
-#: xargs/xargs.c:1658
+#: xargs/xargs.c:1674
 msgid ""
 "  -0, --null                   items are separated by a null, not "
 "whitespace;\n"
@@ -1474,14 +1470,14 @@ msgstr ""
 "                               символом. Отключается обработка кавычек,\n"
 "                               обратной косой черты и логического EOF\n"
 
-#: xargs/xargs.c:1661
+#: xargs/xargs.c:1677
 msgid ""
 "  -a, --arg-file=FILE          read arguments from FILE, not standard input\n"
 msgstr ""
 "  -a, --arg-file=ФАЙЛ          Читать аргументы из ФАЙЛа, а не\n"
 "                               стандартного ввода\n"
 
-#: xargs/xargs.c:1662
+#: xargs/xargs.c:1678
 msgid ""
 "  -d, --delimiter=CHARACTER    items in input stream are separated by "
 "CHARACTER,\n"
@@ -1494,7 +1490,7 @@ msgstr ""
 "                               кавычек, обратной косой черты и логического "
 "EOF\n"
 
-#: xargs/xargs.c:1665
+#: xargs/xargs.c:1681
 msgid ""
 "  -E END                       set logical EOF string; if END occurs as a "
 "line\n"
@@ -1506,7 +1502,7 @@ msgstr ""
 "                               оставшиеся входные данные игнорируются\n"
 "                               (игнорируются, если указан -0 или -d)\n"
 
-#: xargs/xargs.c:1668
+#: xargs/xargs.c:1684
 msgid ""
 "  -e, --eof[=END]              equivalent to -E END if END is specified;\n"
 "                                 otherwise, there is no end-of-file string\n"
@@ -1514,11 +1510,11 @@ msgstr ""
 "  -e [END], --eof[=END]        Эквивалентно -E END, если указан END.\n"
 "                               Иначе, строка конец-файла отсутствует\n"
 
-#: xargs/xargs.c:1670
+#: xargs/xargs.c:1686
 msgid "  -I R                         same as --replace=R\n"
 msgstr "  -I R                         тоже, что и --replace=R\n"
 
-#: xargs/xargs.c:1671
+#: xargs/xargs.c:1687
 msgid ""
 "  -i, --replace[=R]            replace R in INITIAL-ARGS with names read\n"
 "                                 from standard input; if R is unspecified,\n"
@@ -1529,7 +1525,7 @@ msgstr ""
 "не\n"
 "                               не указан, то предполагается {}\n"
 
-#: xargs/xargs.c:1674
+#: xargs/xargs.c:1690
 msgid ""
 "  -L, --max-lines=MAX-LINES    use at most MAX-LINES non-blank input lines "
 "per\n"
@@ -1538,7 +1534,7 @@ msgstr ""
 "  -L,-l, --max-lines=MAX-LINES Использовать не более MAX-LINES непробельных\n"
 "                               входных строк на командную строку\n"
 
-#: xargs/xargs.c:1676
+#: xargs/xargs.c:1692
 msgid ""
 "  -l[MAX-LINES]                similar to -L but defaults to at most one "
 "non-\n"
@@ -1550,7 +1546,7 @@ msgstr ""
 "                               на командную строку, если не указан MAX-"
 "LINES\n"
 
-#: xargs/xargs.c:1678
+#: xargs/xargs.c:1694
 msgid ""
 "  -n, --max-args=MAX-ARGS      use at most MAX-ARGS arguments per command "
 "line\n"
@@ -1558,18 +1554,31 @@ msgstr ""
 "  -n, --max-args=MAX-ARGS      Использовать не более MAX-ARGS аргументов на\n"
 "                               на командую строку\n"
 
-#: xargs/xargs.c:1679
+#: xargs/xargs.c:1695
+#, fuzzy
+msgid ""
+"  -o, --open-tty               Reopen stdin as /dev/tty in the child "
+"process\n"
+"                                 before executing the command; useful to run "
+"an\n"
+"                                 interactive application.\n"
+msgstr ""
+"  -0, --null                   Элементы разделяются null, а не пробельным\n"
+"                               символом. Отключается обработка кавычек,\n"
+"                               обратной косой черты и логического EOF\n"
+
+#: xargs/xargs.c:1698
 msgid ""
 "  -P, --max-procs=MAX-PROCS    run at most MAX-PROCS processes at a time\n"
 msgstr ""
 "  -P, --max-procs=MAX-PROCS    Выполнять до MAX-PROCS процессов "
 "одновременно\n"
 
-#: xargs/xargs.c:1680
+#: xargs/xargs.c:1699
 msgid "  -p, --interactive            prompt before running commands\n"
 msgstr "  -p, --interactive            Спрашивать перед выполнением команд\n"
 
-#: xargs/xargs.c:1681
+#: xargs/xargs.c:1700
 msgid ""
 "      --process-slot-var=VAR   set environment variable VAR in child "
 "processes\n"
@@ -1577,7 +1586,7 @@ msgstr ""
 "      --process-slot-var=VAR   Добавлять переменную окружения VAR в\n"
 "                               процессы-потомки\n"
 
-#: xargs/xargs.c:1682
+#: xargs/xargs.c:1701
 msgid ""
 "  -r, --no-run-if-empty        if there are no arguments, then do not run "
 "COMMAND;\n"
@@ -1590,37 +1599,44 @@ msgstr ""
 "                               КОМАНДА будет выполнена не менее одного "
 "раза.\n"
 
-#: xargs/xargs.c:1685
+#: xargs/xargs.c:1704
 msgid ""
 "  -s, --max-chars=MAX-CHARS    limit length of command line to MAX-CHARS\n"
 msgstr ""
 "  -s, --max-chars=MAX-CHARS    Ограничить длину командной строки до MAX-"
 "CHARS\n"
 
-#: xargs/xargs.c:1686
+#: xargs/xargs.c:1705
 msgid "      --show-limits            show limits on command-line length\n"
 msgstr ""
 "      --show-limits            Показать ограничения на длину командной "
 "строки\n"
 
-#: xargs/xargs.c:1687
+#: xargs/xargs.c:1706
 msgid "  -t, --verbose                print commands before executing them\n"
 msgstr "  -t, --verbose                Выводить команды перед их выполнением\n"
 
-#: xargs/xargs.c:1688
+#: xargs/xargs.c:1707
 msgid "  -x, --exit                   exit if the size (see -s) is exceeded\n"
 msgstr "  -x, --exit                   Выйти, если превышен размер (см. -s)\n"
 
-#: xargs/xargs.c:1690
+#: xargs/xargs.c:1709
 msgid "      --help                   display this help and exit\n"
 msgstr "      --help                   Показать эту справку и выйти\n"
 
-#: xargs/xargs.c:1691
+#: xargs/xargs.c:1710
 #, fuzzy
 msgid ""
 "      --version                output version information and exit\n"
 "\n"
 msgstr "      --version                Показать номер версии и выйти\n"
+
+#~ msgid ""
+#~ "%s is an slocate database.  Support for these is new, expect problems for "
+#~ "now."
+#~ msgstr ""
+#~ "%s является базой данных slocate. Поддержка этого типа введена недавно, "
+#~ "пока возникают проблемы."
 
 #~ msgid "] [path...] [expression]\n"
 #~ msgstr "] [путь…] [выражение]\n"

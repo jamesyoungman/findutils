@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: findutils-4.4.0\n"
 "Report-Msgid-Bugs-To: bug-findutils@gnu.org\n"
-"POT-Creation-Date: 2016-11-02 23:33+0100\n"
+"POT-Creation-Date: 2017-07-29 12:19+0100\n"
 "PO-Revision-Date: 2008-07-09 13:00+0300\n"
 "Last-Translator: Gintautas Miliauskas <gintas@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -35,7 +35,7 @@ msgstr "Nepavyko užverti standartinio įvedimo"
 msgid "Failed to change directory%s%s"
 msgstr "Nepavyko pakeisti aplanko"
 
-#: find/exec.c:310 xargs/xargs.c:1264
+#: find/exec.c:310 xargs/xargs.c:1280
 #, c-format
 msgid "cannot fork"
 msgstr ""
@@ -50,16 +50,16 @@ msgstr "klaida laukiant %s"
 msgid "%s terminated by signal %d"
 msgstr "%s nutrauktas signalo %d"
 
-#: find/fstype.c:179
+#: find/fstype.c:248
 #, c-format
 msgid "Cannot read mounted file system list"
 msgstr ""
 
-#: find/fstype.c:238
+#: find/fstype.c:278
 msgid "unknown"
 msgstr "nežinomas"
 
-#: find/ftsfind.c:237 find/oldfind.c:1136
+#: find/ftsfind.c:237 find/oldfind.c:1124
 #, c-format
 msgid ""
 "Symbolic link %s is part of a loop in the directory hierarchy; we have "
@@ -87,62 +87,62 @@ msgstr "%s: nepavyko perskaityti: %s"
 msgid "failed to restore working directory after searching %s"
 msgstr "Nepavyko pakeisti aplanko"
 
-#: find/ftsfind.c:671 find/oldfind.c:202
+#: find/ftsfind.c:671 find/oldfind.c:190
 #, c-format
 msgid "Failed to initialize shared-file hash table"
 msgstr ""
 
-#: find/ftsfind.c:687 find/oldfind.c:218 locate/frcode.c:231
-#: locate/locate.c:1594 xargs/xargs.c:424
+#: find/ftsfind.c:687 find/oldfind.c:206 locate/frcode.c:231
+#: locate/locate.c:1589 xargs/xargs.c:428
 #, c-format
 msgid "The atexit library function failed"
 msgstr ""
 
-#: find/oldfind.c:261
+#: find/oldfind.c:249
 #, fuzzy, c-format
 msgid "cannot stat current directory"
 msgstr "<nėra esamo aplanko>"
 
-#: find/oldfind.c:352
+#: find/oldfind.c:340
 #, c-format
 msgid "Cannot read list of mounted devices."
 msgstr ""
 
-#: find/oldfind.c:441
+#: find/oldfind.c:429
 #, fuzzy, c-format
 msgid "WARNING: file system %s has recently been unmounted."
 msgstr "Įspėjimas: failų sistema %s neseniai atjungta."
 
-#: find/oldfind.c:451
+#: find/oldfind.c:439
 #, fuzzy, c-format
 msgid "WARNING: file system %s has recently been mounted."
 msgstr "Įspėjimas: failų sistema %s neseniai prijungta."
 
-#: find/oldfind.c:548
+#: find/oldfind.c:536
 #, c-format
 msgid ""
 "%s%s changed during execution of %s (old device number %ld, new device "
 "number %ld, file system type is %s) [ref %ld]"
 msgstr ""
 
-#: find/oldfind.c:585
+#: find/oldfind.c:573
 #, c-format
 msgid ""
 "%s%s changed during execution of %s (old inode number %<PRIuMAX>, new inode "
 "number %<PRIuMAX>, file system type is %s) [ref %ld]"
 msgstr ""
 
-#: find/oldfind.c:750
+#: find/oldfind.c:738
 #, fuzzy, c-format
 msgid "failed to return to parent directory"
 msgstr "Nepavyko pakeisti aplanko"
 
-#: find/oldfind.c:1036
+#: find/oldfind.c:1024
 #, c-format
 msgid "Failed to safely change directory into %s"
 msgstr ""
 
-#: find/oldfind.c:1155
+#: find/oldfind.c:1143
 #, c-format
 msgid ""
 "Filesystem loop detected; %s has the same device number and inode as a "
@@ -154,12 +154,12 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: find/oldfind.c:1407
+#: find/oldfind.c:1395
 #, c-format
 msgid "warning: not following the symbolic link %s"
 msgstr ""
 
-#: find/oldfind.c:1480
+#: find/oldfind.c:1467
 #, c-format
 msgid ""
 "WARNING: Hard link count is wrong for %s (saw only st_nlink=%<PRIuMAX> but "
@@ -193,29 +193,29 @@ msgid ""
 "latter is a POSIX-compliant feature."
 msgstr ""
 
-#: find/parser.c:1197
+#: find/parser.c:1167
 #, c-format
 msgid ""
 "%s is not the name of an existing group and it does not look like a numeric "
 "group ID because it has the unexpected suffix %s"
 msgstr ""
 
-#: find/parser.c:1212
+#: find/parser.c:1182
 #, c-format
 msgid "%s is not the name of an existing group"
 msgstr ""
 
-#: find/parser.c:1218
+#: find/parser.c:1188
 #, c-format
 msgid "argument to -group is empty, but should be a group name"
 msgstr ""
 
-#: find/parser.c:1291
+#: find/parser.c:1261
 #, c-format
 msgid "sanity check of the fnmatch() library function failed."
 msgstr ""
 
-#: find/parser.c:1305
+#: find/parser.c:1275
 #, c-format
 msgid ""
 "warning: Unix filenames usually don't contain slashes (though pathnames "
@@ -225,42 +225,42 @@ msgid ""
 "use 'find ... -print0 | grep -FzZ %s'."
 msgstr ""
 
-#: find/parser.c:1431
+#: find/parser.c:1401
 #, c-format
 msgid "Expected a positive decimal integer argument to %s, but got %s"
 msgstr "Tikėtasi teigiamo dešimtainio skaičiaus argumento %s, bet gauta %s"
 
-#: find/parser.c:1596
+#: find/parser.c:1566
 #, c-format
 msgid "This system does not provide a way to find the birth time of a file."
 msgstr ""
 
-#: find/parser.c:1617
+#: find/parser.c:1587
 #, fuzzy, c-format
 msgid "The %s test needs an argument"
 msgstr "%s: argumentas „%s“ reikalauja parametro"
 
-#: find/parser.c:1654
+#: find/parser.c:1624
 #, c-format
 msgid "I cannot figure out how to interpret %s as a date or time"
 msgstr ""
 
-#: find/parser.c:1671
+#: find/parser.c:1641
 #, c-format
 msgid "Cannot obtain birth time of file %s"
 msgstr ""
 
-#: find/parser.c:1815
+#: find/parser.c:1785
 #, c-format
 msgid "warning: -%s %s will not match anything because it ends with /."
 msgstr ""
 
-#: find/parser.c:1910
+#: find/parser.c:1880
 #, c-format
 msgid "invalid mode %s"
 msgstr ""
 
-#: find/parser.c:1928
+#: find/parser.c:1898
 #, c-format
 msgid ""
 "warning: you have specified a mode pattern %s (which is equivalent to /000). "
@@ -268,113 +268,113 @@ msgid ""
 "-000; that is, while it used to match no files, it now matches all files."
 msgstr ""
 
-#: find/parser.c:2101
+#: find/parser.c:2071
 #, fuzzy, c-format
 msgid "failed to compile regular expression '%s': %s"
 msgstr "Netaisyklinga reguliarioji išraiška"
 
-#: find/parser.c:2130
+#: find/parser.c:2100
 #, fuzzy, c-format
 msgid "invalid null argument to -size"
 msgstr "netaisyklingas parametras %s argumentui %s"
 
-#: find/parser.c:2180
+#: find/parser.c:2150
 #, c-format
 msgid "invalid -size type `%c'"
 msgstr "netaisyklingas -size tipas „%c“"
 
-#: find/parser.c:2190
+#: find/parser.c:2160
 #, fuzzy, c-format
 msgid "Invalid argument `%s%s' to -size"
 msgstr "Galimi argumentai:"
 
-#: find/parser.c:2372
+#: find/parser.c:2342
 msgid ""
 "The -show-control-chars option takes a single argument which must be "
 "'literal' or 'safe'"
 msgstr ""
 
-#: find/parser.c:2486
+#: find/parser.c:2456
 #, fuzzy, c-format
 msgid "Invalid argument %s to -used"
 msgstr "Galimi argumentai:"
 
-#: find/parser.c:2527
+#: find/parser.c:2497
 #, c-format
 msgid "%s is not the name of a known user"
 msgstr ""
 
-#: find/parser.c:2534
+#: find/parser.c:2504
 #, c-format
 msgid "The argument to -user should not be empty"
 msgstr ""
 
-#: find/parser.c:2559
+#: find/parser.c:2529
 #, c-format
 msgid "Features enabled: "
 msgstr ""
 
-#: find/parser.c:2628
+#: find/parser.c:2598
 #, c-format
 msgid "invalid predicate -context: SELinux is not enabled."
 msgstr ""
 
-#: find/parser.c:2692
+#: find/parser.c:2662
 #, c-format
 msgid "Arguments to %s should contain at least one letter"
 msgstr ""
 
-#: find/parser.c:2757
+#: find/parser.c:2727
 #, c-format
 msgid ""
 "%s %c is not supported because symbolic links are not supported on the "
 "platform find was compiled on."
 msgstr ""
 
-#: find/parser.c:2769
+#: find/parser.c:2739
 #, c-format
 msgid ""
 "%s %c is not supported because FIFOs are not supported on the platform find "
 "was compiled on."
 msgstr ""
 
-#: find/parser.c:2781
+#: find/parser.c:2751
 #, c-format
 msgid ""
 "%s %c is not supported because named sockets are not supported on the "
 "platform find was compiled on."
 msgstr ""
 
-#: find/parser.c:2797
+#: find/parser.c:2767
 #, c-format
 msgid ""
 "%s %c is not supported because Solaris doors are not supported on the "
 "platform find was compiled on."
 msgstr ""
 
-#: find/parser.c:2805
+#: find/parser.c:2775
 #, fuzzy, c-format
 msgid "Unknown argument to %s: %c"
 msgstr "„%s“ trūksta parametro"
 
-#: find/parser.c:2813
+#: find/parser.c:2783
 #, c-format
 msgid "Duplicate file type '%c' in the argument list to %s."
 msgstr ""
 
-#: find/parser.c:2829
+#: find/parser.c:2799
 #, c-format
 msgid "Must separate multiple arguments to %s using: ','"
 msgstr ""
 
-#: find/parser.c:2838
+#: find/parser.c:2808
 #, c-format
 msgid ""
 "Last file type in list argument to %s is missing, i.e., list is ending on: "
 "','"
 msgstr ""
 
-#: find/parser.c:2897
+#: find/parser.c:2867
 #, c-format
 msgid ""
 "The current directory is included in the PATH environment variable, which is "
@@ -383,7 +383,7 @@ msgid ""
 "leading or trailing colons)"
 msgstr ""
 
-#: find/parser.c:2909
+#: find/parser.c:2879
 #, c-format
 msgid ""
 "The relative path %s is included in the PATH environment variable, which is "
@@ -391,43 +391,43 @@ msgid ""
 "entry from $PATH"
 msgstr ""
 
-#: find/parser.c:3018
+#: find/parser.c:2988
 #, c-format
 msgid ""
 "You may not use {} within the utility name for -execdir and -okdir, because "
 "this is a potential security problem."
 msgstr ""
 
-#: find/parser.c:3044
+#: find/parser.c:3014
 #, c-format
 msgid "Only one instance of {} is supported with -exec%s ... +"
 msgstr ""
 
-#: find/parser.c:3054
+#: find/parser.c:3024
 #, c-format
 msgid "In %s the %s must appear by itself, but you specified %s"
 msgstr ""
 
-#: find/parser.c:3074
+#: find/parser.c:3044
 #, c-format
 msgid "The environment is too large for exec()."
 msgstr ""
 
-#: find/parser.c:3243
+#: find/parser.c:3213
 #, c-format
 msgid "arithmetic overflow while converting %s days to a number of seconds"
 msgstr ""
 
-#: find/parser.c:3267
+#: find/parser.c:3237
 #, c-format
 msgid "arithmetic overflow when trying to calculate the end of today"
 msgstr ""
 
-#: find/parser.c:3426
+#: find/parser.c:3396
 msgid "standard error"
 msgstr ""
 
-#: find/parser.c:3431
+#: find/parser.c:3401
 msgid "standard output"
 msgstr "standartinis išvedimas"
 
@@ -451,7 +451,7 @@ msgstr "< %s ... %s > ? "
 msgid "Failed to write prompt for -ok"
 msgstr "standartinis išvedimas"
 
-#: find/pred.c:1239 find/print.c:1235
+#: find/pred.c:1239 find/print.c:1248
 #, c-format
 msgid "getfilecon failed: %s"
 msgstr ""
@@ -466,7 +466,7 @@ msgstr ""
 msgid "warning: unrecognized escape `\\%c'"
 msgstr ""
 
-#: find/print.c:380 find/print.c:1257
+#: find/print.c:380 find/print.c:1270
 #, c-format
 msgid "error: %s at end of format string"
 msgstr ""
@@ -600,7 +600,7 @@ msgstr ""
 msgid "Valid arguments for -D:\n"
 msgstr "Galimi argumentai:"
 
-#: find/util.c:169 locate/frcode.c:151 locate/locate.c:1391 xargs/xargs.c:1644
+#: find/util.c:169 locate/frcode.c:151 locate/locate.c:1386 xargs/xargs.c:1660
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr ""
@@ -956,22 +956,13 @@ msgid ""
 "security level %c, which GNU findutils does not currently support"
 msgstr ""
 
-#: locate/locate.c:1092
-#, c-format
-msgid ""
-"%s is an slocate database.  Support for these is new, expect problems for "
-"now."
-msgstr ""
-"%s yra slocate duomenų bazė.  Jų palaikymas atsirado neseniai, galite "
-"tikėtis nesklandumų."
-
-#: locate/locate.c:1106
+#: locate/locate.c:1101
 #, c-format
 msgid ""
 "%s is an slocate database of unsupported security level %d; skipping it."
 msgstr ""
 
-#: locate/locate.c:1123
+#: locate/locate.c:1118
 #, c-format
 msgid ""
 "You specified the -E option, but that option cannot be used with slocate-"
@@ -979,35 +970,35 @@ msgid ""
 "generated for this database.\n"
 msgstr ""
 
-#: locate/locate.c:1134
+#: locate/locate.c:1129
 #, c-format
 msgid "%s is an slocate database.  Turning on the '-e' option."
 msgstr ""
 
-#: locate/locate.c:1172
+#: locate/locate.c:1167
 #, c-format
 msgid "Old-format locate database %s is too short to be valid"
 msgstr ""
 
-#: locate/locate.c:1324
+#: locate/locate.c:1319
 #, c-format
 msgid "Database %s is in the %s format.\n"
 msgstr "Duomenų bazės %s formatas yra %s.\n"
 
-#: locate/locate.c:1351
+#: locate/locate.c:1346
 msgid "The database has little-endian machine-word encoding.\n"
 msgstr ""
 
-#: locate/locate.c:1353
+#: locate/locate.c:1348
 msgid "The database has big-endian machine-word encoding.\n"
 msgstr ""
 
-#: locate/locate.c:1366
+#: locate/locate.c:1361
 #, c-format
 msgid "The database machine-word encoding order is not obvious.\n"
 msgstr ""
 
-#: locate/locate.c:1395
+#: locate/locate.c:1390
 #, c-format
 msgid ""
 "Usage: %s [-d path | --database=path] [-e | -E | --[non-]existing]\n"
@@ -1019,40 +1010,40 @@ msgid ""
 "      pattern...\n"
 msgstr ""
 
-#: locate/locate.c:1461
+#: locate/locate.c:1456
 msgid "failed to drop group privileges"
 msgstr ""
 
-#: locate/locate.c:1479
+#: locate/locate.c:1474
 msgid "failed to drop setuid privileges"
 msgstr ""
 
-#: locate/locate.c:1493
+#: locate/locate.c:1488
 msgid "Failed to fully drop privileges"
 msgstr ""
 
-#: locate/locate.c:1511
+#: locate/locate.c:1506
 msgid "failed to drop setgid privileges"
 msgstr ""
 
-#: locate/locate.c:1748
+#: locate/locate.c:1743
 #, fuzzy, c-format
 msgid "pattern argument expected"
 msgstr "tikėtasi argumento"
 
-#: locate/locate.c:1789
+#: locate/locate.c:1784
 #, c-format
 msgid "warning: the locate database can only be read from stdin once."
 msgstr ""
 
-#: locate/locate.c:1862
+#: locate/locate.c:1857
 #, c-format
 msgid "time system call failed"
 msgstr ""
 
-#: locate/locate.c:1873
+#: locate/locate.c:1868
 #, c-format
-msgid "warning: database %s is more than %d %s old (actual age is %.1f %s)"
+msgid "warning: database %s is more than %u %s old (actual age is %.1f %s)"
 msgstr ""
 
 #: locate/word_io.c:85
@@ -1070,112 +1061,112 @@ msgstr "netikėta failo pabaiga %s"
 msgid "error reading a word from %s"
 msgstr "klaida skaitant žodį iš %s"
 
-#: xargs/xargs.c:257
+#: xargs/xargs.c:261
 #, c-format
 msgid "Invalid escape sequence %s in input delimiter specification."
 msgstr ""
 
-#: xargs/xargs.c:275
+#: xargs/xargs.c:279
 #, c-format
 msgid ""
 "Invalid escape sequence %s in input delimiter specification; character "
 "values must not exceed %lx."
 msgstr ""
 
-#: xargs/xargs.c:281
+#: xargs/xargs.c:285
 #, c-format
 msgid ""
 "Invalid escape sequence %s in input delimiter specification; character "
 "values must not exceed %lo."
 msgstr ""
 
-#: xargs/xargs.c:290
+#: xargs/xargs.c:294
 #, c-format
 msgid ""
 "Invalid escape sequence %s in input delimiter specification; trailing "
 "characters %s not recognised."
 msgstr ""
 
-#: xargs/xargs.c:335
+#: xargs/xargs.c:339
 #, c-format
 msgid ""
 "Invalid input delimiter specification %s: the delimiter must be either a "
 "single character or an escape sequence starting with \\."
 msgstr ""
 
-#: xargs/xargs.c:352
+#: xargs/xargs.c:356
 #, c-format
 msgid "environment is too large for exec"
 msgstr ""
 
-#: xargs/xargs.c:590
+#: xargs/xargs.c:594
 #, c-format
 msgid "warning: value %ld for -s option is too large, using %ld instead"
 msgstr ""
 
-#: xargs/xargs.c:637
+#: xargs/xargs.c:645
 #, c-format
 msgid "option --%s may not be set to a value which includes `='"
 msgstr ""
 
-#: xargs/xargs.c:649
+#: xargs/xargs.c:657
 #, c-format
 msgid "failed to unset environment variable %s"
 msgstr ""
 
-#: xargs/xargs.c:662
+#: xargs/xargs.c:670
 #, fuzzy, c-format
 msgid "warning: the -E option has no effect if -0 or -d is used.\n"
 msgstr "įspėjimas: parametras -F gali neveikti taip, kaip tikitės"
 
-#: xargs/xargs.c:684
+#: xargs/xargs.c:692
 #, c-format
 msgid "Cannot set SIGUSR1 signal handler"
 msgstr ""
 
-#: xargs/xargs.c:690
+#: xargs/xargs.c:698
 #, c-format
 msgid "Cannot set SIGUSR2 signal handler"
 msgstr ""
 
-#: xargs/xargs.c:706
+#: xargs/xargs.c:714
 #, fuzzy, c-format
 msgid "Cannot open input file %s"
 msgstr "%s: nepavyko atverti laikinojo failo: %s"
 
-#: xargs/xargs.c:725
+#: xargs/xargs.c:733
 #, c-format
 msgid "Your environment variables take up %<PRIuMAX> bytes\n"
 msgstr ""
 
-#: xargs/xargs.c:728
+#: xargs/xargs.c:736
 #, c-format
 msgid "POSIX upper limit on argument length (this system): %<PRIuMAX>\n"
 msgstr ""
 
-#: xargs/xargs.c:731
+#: xargs/xargs.c:739
 #, c-format
 msgid ""
 "POSIX smallest allowable upper limit on argument length (all systems): "
 "%<PRIuMAX>\n"
 msgstr ""
 
-#: xargs/xargs.c:734
+#: xargs/xargs.c:742
 #, c-format
 msgid "Maximum length of command we could actually use: %<PRIuMAX>\n"
 msgstr ""
 
-#: xargs/xargs.c:737
+#: xargs/xargs.c:745
 #, c-format
 msgid "Size of command buffer we are actually using: %<PRIuMAX>\n"
 msgstr ""
 
-#: xargs/xargs.c:740
+#: xargs/xargs.c:748
 #, c-format
 msgid "Maximum parallelism (--max-procs must be no greater): %<PRIuMAX>\n"
 msgstr ""
 
-#: xargs/xargs.c:746
+#: xargs/xargs.c:754
 #, c-format
 msgid ""
 "\n"
@@ -1184,141 +1175,146 @@ msgid ""
 "of-file keystroke.\n"
 msgstr ""
 
-#: xargs/xargs.c:754
+#: xargs/xargs.c:762
 #, c-format
 msgid ""
 "Warning: %s will be run at least once.  If you do not want that to happen, "
 "then press the interrupt keystroke.\n"
 msgstr ""
 
-#: xargs/xargs.c:882 xargs/xargs.c:975
+#: xargs/xargs.c:890 xargs/xargs.c:983
 #, c-format
 msgid ""
 "unmatched %s quote; by default quotes are special to xargs unless you use "
 "the -0 option"
 msgstr ""
 
-#: xargs/xargs.c:883 xargs/xargs.c:976
+#: xargs/xargs.c:891 xargs/xargs.c:984
 msgid "double"
 msgstr ""
 
-#: xargs/xargs.c:883 xargs/xargs.c:976
+#: xargs/xargs.c:891 xargs/xargs.c:984
 msgid "single"
 msgstr ""
 
-#: xargs/xargs.c:995
+#: xargs/xargs.c:1003
 #, c-format
 msgid ""
 "WARNING: a NUL character occurred in the input.  It cannot be passed through "
 "in the argument list.  Did you mean to use the --null option?"
 msgstr ""
 
-#: xargs/xargs.c:1005 xargs/xargs.c:1070
+#: xargs/xargs.c:1013 xargs/xargs.c:1078
 #, c-format
 msgid "argument line too long"
 msgstr "argumentų eilutė per ilga"
 
-#: xargs/xargs.c:1089 xargs/xargs.c:1106
+#: xargs/xargs.c:1097 xargs/xargs.c:1114
 #, fuzzy, c-format
 msgid "Failed to write to stderr"
 msgstr "standartinis išvedimas"
 
-#: xargs/xargs.c:1102
+#: xargs/xargs.c:1110
 #, c-format
 msgid "failed to open /dev/tty for reading"
 msgstr ""
 
-#: xargs/xargs.c:1112
+#: xargs/xargs.c:1120
 #, fuzzy, c-format
 msgid "Failed to read from stdin"
 msgstr "standartinis išvedimas"
 
-#: xargs/xargs.c:1149
+#: xargs/xargs.c:1157
 #, c-format
 msgid "unable to allocate memory"
 msgstr ""
 
-#: xargs/xargs.c:1164
+#: xargs/xargs.c:1172
 #, c-format
 msgid "failed to set environment variable %s"
 msgstr ""
 
-#: xargs/xargs.c:1253
+#: xargs/xargs.c:1217
+#, c-format
+msgid "failed to redirect standard input of the child process"
+msgstr ""
+
+#: xargs/xargs.c:1269
 #, c-format
 msgid "could not create pipe before fork"
 msgstr ""
 
-#: xargs/xargs.c:1324
+#: xargs/xargs.c:1340
 #, c-format
 msgid ""
 "errno-buffer safe_read failed in xargs_do_exec (this is probably a bug, "
 "please report it)"
 msgstr ""
 
-#: xargs/xargs.c:1377
+#: xargs/xargs.c:1393
 #, c-format
 msgid ""
 "read returned unexpected value %zu; this is probably a bug, please report it"
 msgstr ""
 
-#: xargs/xargs.c:1470
+#: xargs/xargs.c:1486
 #, c-format
 msgid "error waiting for child process"
 msgstr ""
 
-#: xargs/xargs.c:1503
+#: xargs/xargs.c:1519
 #, c-format
 msgid "WARNING: Lost track of %lu child processes"
 msgstr ""
 
-#: xargs/xargs.c:1522
+#: xargs/xargs.c:1538
 #, c-format
 msgid "%s: exited with status 255; aborting"
 msgstr "%s: grąžino klaidos kodą 255; nutraukiama"
 
-#: xargs/xargs.c:1525
+#: xargs/xargs.c:1541
 #, c-format
 msgid "%s: stopped by signal %d"
 msgstr "%s: sustabdytas signalo %d"
 
-#: xargs/xargs.c:1528
+#: xargs/xargs.c:1544
 #, c-format
 msgid "%s: terminated by signal %d"
 msgstr "%s: nutrauktas signalo %d"
 
-#: xargs/xargs.c:1613
+#: xargs/xargs.c:1629
 #, fuzzy, c-format
 msgid "%s: invalid number \"%s\" for -%c option\n"
 msgstr "%s: netaisyklingas argumentas"
 
-#: xargs/xargs.c:1620
+#: xargs/xargs.c:1636
 #, fuzzy, c-format
 msgid "%s: value %s for -%c option should be >= %ld\n"
 msgstr "%s: netaisyklingas argumentas"
 
-#: xargs/xargs.c:1629
+#: xargs/xargs.c:1645
 #, fuzzy, c-format
 msgid "%s: value %s for -%c option should be <= %ld\n"
 msgstr "%s: netaisyklingas argumentas"
 
-#: xargs/xargs.c:1649
+#: xargs/xargs.c:1665
 #, c-format
 msgid "Usage: %s [OPTION]... COMMAND [INITIAL-ARGS]...\n"
 msgstr ""
 
-#: xargs/xargs.c:1654
+#: xargs/xargs.c:1670
 msgid ""
 "Run COMMAND with arguments INITIAL-ARGS and more arguments read from input.\n"
 "\n"
 msgstr ""
 
-#: xargs/xargs.c:1656
+#: xargs/xargs.c:1672
 msgid ""
 "Mandatory and optional arguments to long options are also\n"
 "mandatory or optional for the corresponding short option.\n"
 msgstr ""
 
-#: xargs/xargs.c:1658
+#: xargs/xargs.c:1674
 msgid ""
 "  -0, --null                   items are separated by a null, not "
 "whitespace;\n"
@@ -1327,12 +1323,12 @@ msgid ""
 "                                 logical EOF processing\n"
 msgstr ""
 
-#: xargs/xargs.c:1661
+#: xargs/xargs.c:1677
 msgid ""
 "  -a, --arg-file=FILE          read arguments from FILE, not standard input\n"
 msgstr ""
 
-#: xargs/xargs.c:1662
+#: xargs/xargs.c:1678
 msgid ""
 "  -d, --delimiter=CHARACTER    items in input stream are separated by "
 "CHARACTER,\n"
@@ -1341,7 +1337,7 @@ msgid ""
 "                                 processing and logical EOF processing\n"
 msgstr ""
 
-#: xargs/xargs.c:1665
+#: xargs/xargs.c:1681
 msgid ""
 "  -E END                       set logical EOF string; if END occurs as a "
 "line\n"
@@ -1349,31 +1345,31 @@ msgid ""
 "                                 (ignored if -0 or -d was specified)\n"
 msgstr ""
 
-#: xargs/xargs.c:1668
+#: xargs/xargs.c:1684
 msgid ""
 "  -e, --eof[=END]              equivalent to -E END if END is specified;\n"
 "                                 otherwise, there is no end-of-file string\n"
 msgstr ""
 
-#: xargs/xargs.c:1670
+#: xargs/xargs.c:1686
 msgid "  -I R                         same as --replace=R\n"
 msgstr ""
 
-#: xargs/xargs.c:1671
+#: xargs/xargs.c:1687
 msgid ""
 "  -i, --replace[=R]            replace R in INITIAL-ARGS with names read\n"
 "                                 from standard input; if R is unspecified,\n"
 "                                 assume {}\n"
 msgstr ""
 
-#: xargs/xargs.c:1674
+#: xargs/xargs.c:1690
 msgid ""
 "  -L, --max-lines=MAX-LINES    use at most MAX-LINES non-blank input lines "
 "per\n"
 "                                 command line\n"
 msgstr ""
 
-#: xargs/xargs.c:1676
+#: xargs/xargs.c:1692
 msgid ""
 "  -l[MAX-LINES]                similar to -L but defaults to at most one "
 "non-\n"
@@ -1381,28 +1377,37 @@ msgid ""
 "specified\n"
 msgstr ""
 
-#: xargs/xargs.c:1678
+#: xargs/xargs.c:1694
 msgid ""
 "  -n, --max-args=MAX-ARGS      use at most MAX-ARGS arguments per command "
 "line\n"
 msgstr ""
 
-#: xargs/xargs.c:1679
+#: xargs/xargs.c:1695
+msgid ""
+"  -o, --open-tty               Reopen stdin as /dev/tty in the child "
+"process\n"
+"                                 before executing the command; useful to run "
+"an\n"
+"                                 interactive application.\n"
+msgstr ""
+
+#: xargs/xargs.c:1698
 msgid ""
 "  -P, --max-procs=MAX-PROCS    run at most MAX-PROCS processes at a time\n"
 msgstr ""
 
-#: xargs/xargs.c:1680
+#: xargs/xargs.c:1699
 msgid "  -p, --interactive            prompt before running commands\n"
 msgstr ""
 
-#: xargs/xargs.c:1681
+#: xargs/xargs.c:1700
 msgid ""
 "      --process-slot-var=VAR   set environment variable VAR in child "
 "processes\n"
 msgstr ""
 
-#: xargs/xargs.c:1682
+#: xargs/xargs.c:1701
 msgid ""
 "  -r, --no-run-if-empty        if there are no arguments, then do not run "
 "COMMAND;\n"
@@ -1411,32 +1416,39 @@ msgid ""
 "                                 run at least once\n"
 msgstr ""
 
-#: xargs/xargs.c:1685
+#: xargs/xargs.c:1704
 msgid ""
 "  -s, --max-chars=MAX-CHARS    limit length of command line to MAX-CHARS\n"
 msgstr ""
 
-#: xargs/xargs.c:1686
+#: xargs/xargs.c:1705
 msgid "      --show-limits            show limits on command-line length\n"
 msgstr ""
 
-#: xargs/xargs.c:1687
+#: xargs/xargs.c:1706
 msgid "  -t, --verbose                print commands before executing them\n"
 msgstr ""
 
-#: xargs/xargs.c:1688
+#: xargs/xargs.c:1707
 msgid "  -x, --exit                   exit if the size (see -s) is exceeded\n"
 msgstr ""
 
-#: xargs/xargs.c:1690
+#: xargs/xargs.c:1709
 msgid "      --help                   display this help and exit\n"
 msgstr ""
 
-#: xargs/xargs.c:1691
+#: xargs/xargs.c:1710
 msgid ""
 "      --version                output version information and exit\n"
 "\n"
 msgstr ""
+
+#~ msgid ""
+#~ "%s is an slocate database.  Support for these is new, expect problems for "
+#~ "now."
+#~ msgstr ""
+#~ "%s yra slocate duomenų bazė.  Jų palaikymas atsirado neseniai, galite "
+#~ "tikėtis nesklandumų."
 
 #~ msgid "] [path...] [expression]\n"
 #~ msgstr "] [kelias...] [išraiška]\n"
