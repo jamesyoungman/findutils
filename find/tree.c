@@ -1275,18 +1275,14 @@ build_expression_tree (int argc, char *argv[], int end_of_leading_options)
     {
       state.already_issued_stat_error_msg = false;
       if (!looks_like_expression (argv[i], false))
-	{
-	  error (0, 0, _("paths must precede expression: %s"), argv[i]);
-	  usage (EXIT_FAILURE);
-	}
+	error (EXIT_FAILURE, 0, _("paths must precede expression: `%s'"), argv[i]);
 
       predicate_name = argv[i];
       parse_entry = find_parser (predicate_name);
       if (parse_entry == NULL)
 	{
 	  /* Command line option not recognized */
-	  error (0, 0, _("unknown predicate `%s'"), predicate_name);
-	  usage (EXIT_FAILURE);
+	  error (EXIT_FAILURE, 0, _("unknown predicate `%s'"), predicate_name);
 	}
 
       /* We have recognised a test of the form -foo.  Eat that,
@@ -1306,21 +1302,18 @@ build_expression_tree (int argc, char *argv[], int end_of_leading_options)
 		  /* The special parse function spat out the
 		   * predicate.  It must be invalid, or not tasty.
 		   */
-		  error (0, 0, _("invalid predicate `%s'"), predicate_name);
-		  usage (EXIT_FAILURE);
+		  error (EXIT_FAILURE, 0, _("invalid predicate `%s'"), predicate_name);
 		}
 	      else
 		{
-		  error (0, 0, _("invalid argument `%s' to `%s'"),
+		  error (EXIT_FAILURE, 0, _("invalid argument `%s' to `%s'"),
 			 argv[i], predicate_name);
-		  usage (EXIT_FAILURE);
 		}
 	    }
 	  else
 	    {
 	      /* Command line option requires an argument */
-	      error (0, 0, _("missing argument to `%s'"), predicate_name);
-	      usage (EXIT_FAILURE);
+	      error (EXIT_FAILURE, 0, _("missing argument to `%s'"), predicate_name);
 	    }
 	}
       else

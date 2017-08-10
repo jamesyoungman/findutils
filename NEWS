@@ -35,6 +35,9 @@ of the - yet more portable - '( -type l -o -type d )'.
 find now diagnoses failures returned by readdir().  This bug was inherent
 in the use of FTS.
 
+find now exits in more cases immediately after the error diagnostic, i.e.,
+without the following usage text, to make the former more eye-catching.
+
 xargs now supports the -o, --open-tty option to reopen stdin as /dev/tty
 in the child process before executing the command; useful to run an
 interactive application.  Added for compatibility with BSD.
