@@ -1275,7 +1275,13 @@ build_expression_tree (int argc, char *argv[], int end_of_leading_options)
     {
       state.already_issued_stat_error_msg = false;
       if (!looks_like_expression (argv[i], false))
-	error (EXIT_FAILURE, 0, _("paths must precede expression: `%s'"), argv[i]);
+        {
+          error (0, 0, _("paths must precede expression: `%s'"), argv[i]);
+          if (access(argv[i], F_OK)==0)
+            error (0, 0, _("possible unquoted pattern after predicate `%s'?"),
+                   last_pred->p_name);
+          exit (EXIT_FAILURE);
+        }
 
       predicate_name = argv[i];
       parse_entry = find_parser (predicate_name);
