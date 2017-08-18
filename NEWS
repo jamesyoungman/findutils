@@ -38,6 +38,10 @@ in the use of FTS.
 find now exits in more cases immediately after the error diagnostic, i.e.,
 without the following usage text, to make the former more eye-catching.
 
+find now outputs a better hint in case the user passed an unquoted shell-
+glob pattern to options like -name, i.e., when the offending argument is
+an existing file.
+
 xargs now supports the -o, --open-tty option to reopen stdin as /dev/tty
 in the child process before executing the command; useful to run an
 interactive application.  Added for compatibility with BSD.
