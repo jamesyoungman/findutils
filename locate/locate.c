@@ -1595,7 +1595,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
   print_quoted_filename = true;
 
   /* We cannot simultaneously trust $LOCATE_PATH and use the
-   * setuid-access-controlled database,, since that could cause a leak
+   * setuid-access-controlled database, since that could cause a leak
    * of private data.
    */
   user_selected_locate_path = getenv ("LOCATE_PATH");
