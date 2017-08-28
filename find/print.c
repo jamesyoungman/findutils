@@ -611,7 +611,7 @@ format_date (struct timespec ts, int kind)
   char ns_buf[NS_BUF_LEN]; /* -.9999999990 (- sign can happen!)*/
   int  charsprinted, need_ns_suffix;
   struct tm *tm;
-  char fmt[6];
+  char fmt[12];
 
   /* human_readable() assumes we pass a buffer which is at least as
    * long as LONGEST_HUMAN_READABLE.  We use an assertion here to
