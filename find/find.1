@@ -2228,22 +2228,28 @@ is assumed.
 .nf
 .B $ find . \-name *.c \-print
 find: paths must precede expression
-Usage: find [\-H] [\-L] [\-P] [\-Olevel] [\-D ... [path...] [expression]
+find: possible unquoted pattern after predicate `-name'?
 .fi
 .P
-This happens because
+This happens when the shell could expand the pattern
 .I *.c
-has been expanded by the shell
-resulting in
+to more than one file name existing in the current directory,
+and passing the resulting file names in the command line to
 .B find
-actually receiving a command line like this:
+like this:
 .nf
 .
 .B find . \-name frcode.c locate.c word_io.c \-print
 .
 .fi
-That command is of course not going to work.  Instead of doing things
-this way, you should enclose the pattern in quotes or escape the wildcard:
+That command is of course not going to work, because the
+.B \-name
+predicate allows exactly only one pattern as argument.  Instead of doing things
+this way, you should enclose the pattern in quotes or escape the wildcard, thus
+allowing
+.B find
+to use the pattern with the wildcard during the search for file name matching
+instead of file names expanded by the parent shell:
 .nf
 .B $ find . \-name \(aq*.c\(aq \-print
 .B $ find . \-name \e*.c \-print
