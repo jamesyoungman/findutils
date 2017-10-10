@@ -287,6 +287,38 @@ and exit.
 Print the version number of
 .B xargs
 and exit.
+.PP
+The options
+.B \-\-max-lines
+(\fB\-L\fP, \fB\-l\fP),
+.B \-\-replace
+(\fB\-I\fP, \fB\-i\fP)
+and
+.B \-\-max-args
+(\fB\-n\fP)
+are mutually exclusive. If some of them are specified at the same
+time, then
+.B xargs
+will generally use the option specified last on the command line,
+i.e., it will reset the value of the offending option (given before)
+to its default value.
+Additionally,
+.B xargs
+will issue a warning diagnostic on
+.IR stderr .
+The exception to this rule is that the special
+.I max-args
+value
+.I 1
+('\fB\-n\fP\fI1\fP')
+is ignored after the
+.B \-\-replace
+option and its aliases
+.B \-I
+and
+.BR \-i ,
+because it would not actually conflict.
+
 .
 .SH "EXAMPLES"
 .nf
@@ -383,12 +415,6 @@ option can be used to discover the actual limits in force on the
 current system.
 .
 .SH "BUGS"
-The
-.B \-L
-option is incompatible with the
-.B \-I
-option, but perhaps should not be.
-.P
 It is not possible for
 .B xargs
 to be used securely, since there will always be a time gap between the

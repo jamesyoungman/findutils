@@ -157,6 +157,7 @@ proc xargs_start { passfail options {infile ""} {errh ""} {command ""} } {
     # if stderr check is enabled,
     if {$errfile != ""} then {
 	if {[file exists $errfile]} then {
+            catch "exec sed -i s/^.*xargs:/xargs:/ xargs.err" tmp
 	    set cmp_cmd "cmp xargs.err $errfile"
 	    send_log "$cmp_cmd\n"
 	    catch "exec $cmp_cmd" cmperr

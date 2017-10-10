@@ -386,6 +386,14 @@ static FILE* fopen_cloexec_for_read_only (const char *file_name)
 }
 
 
+static void warn_mutually_exclusive (const char *option, const char *offending)
+{
+  error (0, 0, _("warning: options %s and %s are mutually exclusive, "
+	 "ignoring previous %s value"),
+	 offending, option, offending);
+}
+
+
 int
 main (int argc, char **argv)
 {
@@ -544,15 +552,31 @@ main (int argc, char **argv)
 	  else
 	    bc_ctl.replace_pat = "{}";
 	  /* -i excludes -n -l.  */
-	  bc_ctl.args_per_exec = 0;
-	  bc_ctl.lines_per_exec = 0;
+	  if (bc_ctl.args_per_exec != 0)
+	    {
+	      warn_mutually_exclusive ("--replace/-I/-i", "--max-args");
+	      bc_ctl.args_per_exec = 0;
+	    }
+	  if (bc_ctl.lines_per_exec != 0)
+	    {
+	      warn_mutually_exclusive ("--replace/-I/-i", "--max-lines");
+	      bc_ctl.lines_per_exec = 0;
+	    }
 	  break;
 
 	case 'L':		/* POSIX */
 	  bc_ctl.lines_per_exec = parse_num (optarg, 'L', 1L, -1L, 1);
 	  /* -L excludes -i -n.  */
-	  bc_ctl.args_per_exec = 0;
-	  bc_ctl.replace_pat = NULL;
+	  if (bc_ctl.args_per_exec != 0)
+	    {
+	      warn_mutually_exclusive ("-L", "--max-args");
+	      bc_ctl.args_per_exec = 0;
+	    }
+	  if (bc_ctl.replace_pat != NULL)
+	    {
+	      warn_mutually_exclusive ("-L", "--replace");
+	      bc_ctl.replace_pat = NULL;
+	    }
 	  break;
 
 	case 'l':		/* deprecated */
@@ -561,19 +585,39 @@ main (int argc, char **argv)
 	  else
 	    bc_ctl.lines_per_exec = 1;
 	  /* -l excludes -i -n.  */
-	  bc_ctl.args_per_exec = 0;
-	  bc_ctl.replace_pat = NULL;
+	  if (bc_ctl.args_per_exec != 0)
+	    {
+	      warn_mutually_exclusive ("--max-lines/-l", "--max-args");
+	      bc_ctl.args_per_exec = 0;
+	    }
+	  if (bc_ctl.replace_pat != NULL)
+	    {
+	      warn_mutually_exclusive ("--max-lines/-l", "--replace");
+	      bc_ctl.replace_pat = NULL;
+	    }
 	  break;
 
 	case 'n':
 	  bc_ctl.args_per_exec = parse_num (optarg, 'n', 1L, -1L, 1);
 	  /* -n excludes -i -l.  */
-	  bc_ctl.lines_per_exec = 0;
-	  if (bc_ctl.args_per_exec == 1 && bc_ctl.replace_pat)
-	    /* ignore -n1 in '-i -n1' */
-	    bc_ctl.args_per_exec = 0;
-	  else
-	    bc_ctl.replace_pat = NULL;
+	  if (bc_ctl.lines_per_exec != 0)
+	    {
+	      warn_mutually_exclusive ("--max-args/-n", "--max-lines");
+	      bc_ctl.lines_per_exec = 0;
+	    }
+	  if (bc_ctl.replace_pat != NULL)
+	    {
+	      if (bc_ctl.args_per_exec == 1)
+		{
+		  /* ignore -n1 in '-i -n1' - https://sv.gnu.org/patch/?1500 */
+		  bc_ctl.args_per_exec = 0;
+		}
+	      else
+		{
+		  warn_mutually_exclusive ("--max-args/-n", "--replace");
+		  bc_ctl.replace_pat = NULL;
+		}
+	    }
 	  break;
 
 	  /* The POSIX standard specifies that it is not an error

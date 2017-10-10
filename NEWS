@@ -4,6 +4,10 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 ** Changes in xargs
 
+xargs now warns when more than one of the conflicting options --max-lines (-L,
+-l), --replace (-i/-I) and --max-args (-n) are specified on the command line.
+[#52137]
+
 'xargs -t' no longer outputs a trailing blank to stderr after the last argument
 of each constructed command line to be executed.  [#57291]
 

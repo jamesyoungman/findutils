@@ -3742,6 +3742,7 @@ a program died due to a fatal signal.
 
 @menu
 * xargs options::
+* Conflicting xargs options::
 * Invoking the shell from xargs::
 @end menu
 
@@ -3890,6 +3891,33 @@ unique value in each running child process.  Each value is a decimal
 integer.  Values are reused once child processes exit.  This can be
 used in a rudimentary load distribution scheme, for example.
 @end table
+
+@node Conflicting xargs options
+@subsection Conflicting options
+The options @samp{--max-lines} (@samp{-L}, @samp{-l}), @samp{--replace}
+(@samp{-I}, @samp{-i}) and @samp{--max-args} (@samp{-n}) are mutually exclusive.
+
+If some of them are specified at the same time, then @code{xargs} will
+generally use the option specified last on the command line, i.e., it will
+reset the value of the offending option (given before) to its default value.
+Additionally, @code{xargs} will issue a warning diagnostic on @file{stderr}.
+
+@example
+$ seq 4 | xargs -l2 -n3
+xargs: warning: options --max-lines and --max-args/-n are \
+  mutually exclusive, ignoring previous --max-lines value
+1 2 3
+4
+@end example
+
+The exception to this rule is that the special @var{max-args} value @var{1} is
+ignored after the @samp{--replace} option and its short-option aliases @samp{-I}
+and @samp{-i}, because it would not actually conflict.
+@example
+$ seq 2 | xargs --replace -n1 echo a-@{@}-b
+a-1-b
+a-2-b
+@end example
 
 @node Invoking the shell from xargs
 @subsection Invoking the shell from xargs

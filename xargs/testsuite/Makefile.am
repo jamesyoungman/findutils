@@ -213,9 +213,13 @@ xargs.sysv/trace.xo
 
 
 EXTRA_DIST_XE = \
+xargs.gnu/P3-n1-IARG.xe \
 xargs.gnu/space-t-0.xe \
+xargs.posix/L2-n2.xe \
+xargs.posix/rc-123.xe \
 xargs.sysv/empty_def-t.xe \
 xargs.sysv/empty-t.xe \
+xargs.sysv/l1n4.xe \
 xargs.sysv/s25-t.xe \
 xargs.sysv/space-t.xe \
 xargs.sysv/trace.xe

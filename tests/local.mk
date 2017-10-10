@@ -117,6 +117,7 @@ all_tests = \
   tests/find/refuse-noop.sh \
   tests/find/debug-missing-arg.sh \
   tests/find/used.sh \
+  tests/xargs/conflicting_opts.sh \
   tests/xargs/verbose-quote.sh \
   $(all_root_tests)
 
