@@ -429,7 +429,7 @@ main (int argc, char **argv)
     }
 
   /* xargs is required by POSIX to allow 2048 bytes of headroom
-   * for extra environment variables (that perhaps the utliity might
+   * for extra environment variables (that perhaps the utility might
    * want to set before execing something else).
    */
   bcstatus = bc_init_controlinfo (&bc_ctl, XARGS_POSIX_HEADROOM);

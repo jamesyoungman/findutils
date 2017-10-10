@@ -117,7 +117,7 @@ in_afs (char *path)
 
 /* Read the mount list into a static cache, and return it.
    This is a wrapper around gnulib's read_file_system_list ()
-   to avoid unneccessary reading of the mount list.  */
+   to avoid unnecessary reading of the mount list.  */
 static struct mount_entry *
 get_file_system_list (bool need_fs_type)
 {
