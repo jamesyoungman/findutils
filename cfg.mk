@@ -1,5 +1,5 @@
 # cfg.mk -- configuration file for the maintainer makefile provided by gnulib.
-# Copyright (C) 2010, 2016 Free Software Foundation, Inc.
+# Copyright (C) 2010-2017 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -61,10 +61,12 @@ exclude_file_name_regexp--sc_texinfo_acronym = doc/perm\.texi
 # cases where neither argument is a string literal.
 local-checks-to-skip += sc_prohibit_strcmp
 
-# During 'make update-copyright', collapse consecutive years into intervals.
+# During 'make update-copyright', convert a sequence with gaps to the minimal
+# containing range.
 update-copyright-env = \
   UPDATE_COPYRIGHT_FORCE=1 \
-  UPDATE_COPYRIGHT_USE_INTERVALS=1
+  UPDATE_COPYRIGHT_USE_INTERVALS=2 \
+  UPDATE_COPYRIGHT_MAX_LINE_LENGTH=79
 
 # NEWS hash.  We use this to detect unintended edits to bits of the NEWS file
 # other than the most recent section.   If you do need to retrospectively update

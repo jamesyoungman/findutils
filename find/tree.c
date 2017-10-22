@@ -1,6 +1,5 @@
 /* tree.c -- helper functions to build and evaluate the expression tree.
-   Copyright (C) 1990-1994, 2000, 2003-2007, 2010-2011, 2016 Free
-   Software Foundation, Inc.
+   Copyright (C) 1990-2017 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by

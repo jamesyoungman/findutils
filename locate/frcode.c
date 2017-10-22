@@ -1,6 +1,5 @@
 /* frcode -- front-compress a sorted list
-   Copyright (C) 1994, 2005-2007, 2010-2011, 2016 Free Software
-   Foundation, Inc.
+   Copyright (C) 1994-2017 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
