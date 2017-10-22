@@ -52,6 +52,9 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
 
+#52220: 'find -D' without any further argument no longer crashes.
+        Bug present since the implementation of -D in FINDUTILS_4_3_1-1.
+
 #51304: doc: use correct IEC unit prefixes in the documentation of 'find -size'.
         find(1) uses binary-based units for the suffixes 'k', 'M', and 'G' of
         the argument of the '-size' option: 1024, 1024*1024 and 1024^3.

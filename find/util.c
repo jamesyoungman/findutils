@@ -970,6 +970,11 @@ process_leading_options (int argc, char *argv[])
 	}
       else if (0 == strcmp ("-D", argv[i]))
 	{
+	  if (argc <= i+1)
+	    {
+	      error (0, 0, _("Missing argument after the -D option."));
+	      usage (EXIT_FAILURE);
+	    }
 	  process_debug_options (argv[i+1]);
 	  ++i;			/* skip the argument too. */
 	}
