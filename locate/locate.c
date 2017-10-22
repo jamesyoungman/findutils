@@ -12,7 +12,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 /* Usage: locate [options] pattern...
@@ -117,7 +117,7 @@
 /* We used to use (String) instead of just String, but apparently ISO C
  * doesn't allow this (at least, that's what HP said when someone reported
  * this as a compiler bug).  This is HP case number 1205608192.  See
- * also http://gcc.gnu.org/bugzilla/show_bug.cgi?id=11250 (which references
+ * also https://gcc.gnu.org/bugzilla/show_bug.cgi?id=11250 (which references
  * ANSI 3.5.7p14-15).  The Intel icc compiler also rejects constructs
  * like: static const char buf[] = ("string");
  */

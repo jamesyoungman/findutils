@@ -107,7 +107,7 @@ fixes, small improvements, and helpful suggestions.  Thanks!
 
 To report a bug in GNU findutils, please use the form on the Savannah
 web site at
-@code{http://savannah.gnu.org/bugs/?group=findutils}.  Reporting bugs
+@code{https://savannah.gnu.org/bugs/?group=findutils}.  Reporting bugs
 this way means that you will then be able to track progress in fixing
 the problem.
 
@@ -5169,7 +5169,7 @@ For example, if I run this on my system now, this gives:
 @example
 find (GNU findutils) 4.5.11-git
 Copyright (C) 2012 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 
@@ -5404,18 +5404,18 @@ useful articles on the web that touch on the issues described above:
 @c https://www.securecoding.cert.org/confluence/display/seccode/MSC09-C.+Character+Encoding+-+Use+Subset+of+ASCII+for+Safety
 This article describes some of the unfortunate effects of allowing
 free choice of file names.
-@item http://cwe.mitre.org/data/definitions/78.html
+@item https://cwe.mitre.org/data/definitions/78.html
 Describes OS Command Injection
 @item https://cwe.mitre.org/data/definitions/73.html
 Describes problems arising from allowing remote computers to send
 requests which specify file names of their choice
-@item http://cwe.mitre.org/data/definitions/116.html
+@item https://cwe.mitre.org/data/definitions/116.html
 Describes problems relating to encoding file names and escaping
 characters.  This article is relevant to findutils because for command
 lines processed via the shell, the encoding and escaping rules are
 already set by the shell.   For example command lines like @code{find
 ... -print | some-shell-script} require specific care.
-@item http://xkcd.com/327/
+@item https://xkcd.com/327/
 A humorous and pithy summary of the broader problem.
 @end table
 

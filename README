@@ -14,7 +14,7 @@ ftp://ftp.gnu.org/gnu/gnu-keyring.gpg.  Alternatively, you could query
 a PGP keyserver, but you will need to use one that can cope with
 subkeys containing photos.  Many older key servers cannot do this.  I
 use subkeys.pgp.net.  I think that one works.  See also the
-"Downloading" section of http://www.gnu.org/software/findutils/.
+"Downloading" section of https://www.gnu.org/software/findutils/.
 
 Special configure options:
 
@@ -72,10 +72,10 @@ Discussion of the findutils package and ways to improve it takes place
 on the "bug-findutils" mailing list, which you can join by sending
 mail to bug-findutils-request@gnu.org.  An archive of patches to the
 bug-findutils mailing list is available at
-http://lists.gnu.org/archive/html/bug-findutils/.
+https://lists.gnu.org/archive/html/bug-findutils/.
 
 Bug reports, suggested patches and enhancement requests for findutils
-should be logged at http://savannah.gnu.org/bugs/?group=findutils.
+should be logged at https://savannah.gnu.org/bugs/?group=findutils.
 
 Changes to the findutils code are sent to the findutils-patches
 mailing list.  To join, please send email to
@@ -83,7 +83,7 @@ findutils-patches@gnu.org.  You are also welcome to send patches to
 that list, but unless you are a list subscriber, you won't be able to
 follow any resulting discussion.  An archive of posts to the
 findutils-patches mailing list is available at
-http://lists.gnu.org/archive/html/findutils-patches/.
+https://lists.gnu.org/archive/html/findutils-patches/.
 
 Mail suggestions and bug reports for these programs to
 bug-findutils@gnu.org.

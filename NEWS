@@ -1970,7 +1970,7 @@ New Vietnamese message translation.
 ** Bug Fixes
 *** 'find -name \*bar now matches .foobar, because the POSIX standard
      requires it, as explained at
-     http://standards.ieee.org/reading/ieee/interp/1003-2-92_int/pasc-1003.2-126.html
+     https://standards.ieee.org/reading/ieee/interp/1003-2-92_int/pasc-1003.2-126.html
 
 * Major changes in release 4.2.1, 2004-10-17
 ** Bug Fixes

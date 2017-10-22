@@ -1,4 +1,4 @@
-# tests for the bug reported at http://lists.gnu.org/archive/html/bug-findutils/2005-02/msg00077.html
+# tests for the bug reported at https://lists.gnu.org/archive/html/bug-findutils/2005-02/msg00077.html
 exec rm -rf tmp
 exec mkdir tmp
 exec mkdir tmp/1 tmp/1/2 tmp/1/2/3 tmp/1/2/20 tmp/1/2/37 tmp/1/2/54 tmp/1/2/55 tmp/1/2/55/56 tmp/1/2/55/57 tmp/1/2/55/58 tmp/1/2/55/59

@@ -12,7 +12,7 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 /* config.h always comes first. */
@@ -546,7 +546,7 @@ pred_name_common (const char *pathname, const char *str, int flags)
   strip_trailing_slashes (base);
 
   /* FNM_PERIOD is not used here because POSIX requires that it not be.
-   * See http://standards.ieee.org/reading/ieee/interp/1003-2-92_int/pasc-1003.2-126.html
+   * See https://standards.ieee.org/reading/ieee/interp/1003-2-92_int/pasc-1003.2-126.html
    */
   b = fnmatch (str, base, flags) == 0;
   free (base);

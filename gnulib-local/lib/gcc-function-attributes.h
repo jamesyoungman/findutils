@@ -13,13 +13,13 @@
    GNU General Public License for more details.
 
    You should have received a copy of the GNU General Public License
-   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+   along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 /*
  Be aware that some function attributes do not work with function
  pointers.  See
- http://lists.gnu.org/archive/html/bug-gnulib/2011-04/msg00007.html
+ https://lists.gnu.org/archive/html/bug-gnulib/2011-04/msg00007.html
  for details.
 */
 #ifndef _GCC_FUNCTION_ATTRIBUTES_H

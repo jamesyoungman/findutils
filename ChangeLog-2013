@@ -211,7 +211,7 @@
 	More removal of support for -perm +MODE.
 	* find/parser.c (parse_perm): Remove no-longer-needed local var
 	and associated code.  Reported by Eric Blake in
-	<http://savannah.gnu.org/bugs/?38474#comment9>.
+	<https://savannah.gnu.org/bugs/?38474#comment9>.
 
 2013-04-21  Paul Eggert  <eggert@cs.ucla.edu>
 
@@ -532,7 +532,7 @@
 	When reallocating buf, be sure to update its buf_size.
 	Also free "altbuf".
 	Reported by Nemo Maelstrom Thorx in http://bugs.debian.org/687358
-	via Andreas Metzler in http://savannah.gnu.org/bugs/?37356
+	via Andreas Metzler in https://savannah.gnu.org/bugs/?37356
 
 	find: minor tweaks
 	* find/print.c (do_time_format): Use memcpy in place of sprintf.

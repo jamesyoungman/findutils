@@ -483,7 +483,7 @@ information.
 
 @node Using the GNU Portability Library
 @chapter Using the GNU Portability Library
-The Gnulib library (@url{http://www.gnu.org/software/gnulib/}) makes a
+The Gnulib library (@url{https://www.gnu.org/software/gnulib/}) makes a
 variety of systems look more like a GNU/Linux system and also applies
 a bunch of automatic bug fixes and workarounds.  Some of these also
 apply to GNU/Linux systems too.  For example, the Gnulib regex
@@ -651,7 +651,7 @@ the DejaGnu documentation.
 @chapter Bugs
 
 Bugs are logged in the Savannah bug tracker
-@url{http://savannah.gnu.org/bugs/?group=findutils}.  The tracker
+@url{https://savannah.gnu.org/bugs/?group=findutils}.  The tracker
 offers several fields but their use is largely obvious.  The
 life-cycle of a bug is like this:
 
@@ -718,7 +718,7 @@ Translation is essentially automated from the maintainer's point of
 view.  The TP mails the maintainer when a new PO file is available,
 and we just download it and check it in.  We copy the @file{.po} files
 into the git repository.  For more information, please see
-@url{http://translationproject.org/domain/findutils.html}.
+@url{https://translationproject.org/domain/findutils.html}.
 
 
 @node Security
@@ -765,7 +765,7 @@ I. BACKGROUND
 GNU findutils is a set of programs which search for files on Unix-like
 systems.  It is maintained by the GNU Project of the Free Software
 Foundation.  For more information, see
-@url{http://www.gnu.org/software/findutils}.
+@url{https://www.gnu.org/software/findutils}.
 
 
 II. DESCRIPTION
@@ -1053,7 +1053,7 @@ signature, of course, but that has been omitted from the example.
 Once a fixed release is available, announce the new release using the
 normal channels.  Any CVE number assigned for the problem should be
 included in the @file{ChangeLog} and @file{NEWS} entries. See
-@url{http://cve.mitre.org/} for an explanation of CVE numbers.
+@url{https://cve.mitre.org/} for an explanation of CVE numbers.
 
 
 
