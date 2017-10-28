@@ -34,6 +34,33 @@ exclude_file_name_regexp--sc_space_tab = \
 # any case we don't use help2man at all.
 local-checks-to-skip += sc_two_space_separator_in_usage
 
+# Comparing tarball sizes compressed using different xz presets, we see that
+# an -7e-compressed tarball has the same size as the -9e-compressed one.
+# Using -7e is preferred, since that lets the decompression process use less
+# memory (19MiB rather than 67MiB).
+# $ pkg=x; out=x.out; \
+#     printf "%3s %8s %6s %s\n" OPT PKGSIZE RESMEM TIME; \
+#     for i in {5..9}{e,}; do \
+#       xz -$i < findutils-4.7.0-git.tar > $pkg; \
+#       s=$(wc -c < $pkg); \
+#       env time -v xz -d - < $pkg >/dev/null 2> $out; \
+#       m=$(sed -n '/Maximum resident set size/{s/^.*: //;p;q}' < $out); \
+#       t=$(sed -n '/User time/{s/^.*: //;p;q}' < $out); \
+#       printf "%3s %8d %6d %s\n" "$i" "$s" "$m" "$t"; \
+#     done | sort -k2,2nr
+#OPT  PKGSIZE RESMEM TIME
+#  5  1994080  10484 0.12
+#  6  1956672  10564 0.11
+# 5e  1935660  10456 0.11
+# 6e  1930628  10396 0.11
+#  8  1881520  34880 0.11
+#  9  1881520  67732 0.12
+#  7  1881496  18564 0.11
+# 7e  1855268  18584 0.11
+# 8e  1855268  35016 0.11
+# 9e  1855268  67844 0.11
+export XZ_OPT = -7e
+
 # Some test inputs/outputs have trailing blanks.
 exclude_file_name_regexp--sc_trailing_blank = \
  ^COPYING|(po/.*\.po)|(find/testsuite/(test_escapechars\.golden|find.gnu/printf\.xo))|(xargs/testsuite/(inputs/.*\.xi|xargs\.(gnu|posix|sysv)/.*\.(x[oe])))$$
