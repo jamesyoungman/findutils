@@ -1,6 +1,6 @@
 GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
-* Major changes in release 4.7.0-git, YYYY-MM-DD
+* Major changes in release ?.?.?, YYYY-MM-DD
 
 ** Changes to locate / updatedb
 
@@ -112,6 +112,13 @@ Use --disable-silent-rules or "make V=1" to get verbose build output.
 "make dist" no longer builds .tar.gz files.
 xz is portable enough and in wide-enough use that distributing
 only .tar.xz files is enough.
+
+Maintainer builds from the Git repository now derive the version string from
+the version control system instead of using a fixed string (changed after each
+release manually).  As a result, the inter-release builds can now be
+distinguished: e.g. "4.6.0.152-fe9c" is the 152th commit after the tag "v4.6.0"
+and has the Git short hash "fe9c".  Builds from an unclean tree are marked with
+the suffix "-dirty".
 
 * Major changes in release 4.6.0, 2015-12-28
 

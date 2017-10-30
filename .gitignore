@@ -24,5 +24,6 @@ Makefile
 Makefile.in
 patches
 stamp-h1
+.tarball-version
 tests
 /tool-versions.txt

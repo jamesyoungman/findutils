@@ -1069,14 +1069,14 @@ uncommitted changes.
 that the tests pass.  Verify this with @code{make distcheck}.
 @item Bugs; make sure all Savannah bug entries fixed in this release
 are fixed.
-@item NEWS; make sure that the NEWS and configure.in file are updated
-with the new release number (and checked in).
-@item Build the release tarball; do this with @code{make distcheck}.
-Copy the tarball somewhere safe.
+@item NEWS; make sure that the NEWS file is updated with the new release
+number (and checked in).
 @item Tag the release; findutils releases are tagged like this for
 example: v4.5.5.  Previously a different format was in use:
 FINDUTILS_4_3_8-1.  You can create a tag with the a command like this:
 @code{git tag -s -m "Findutils release v4.5.7" v4.5.7}.
+@item Build the release tarball; do this with @code{make distcheck}.
+Copy the tarball somewhere safe.
 @item Prepare the upload and upload it.
 @xref{Automated FTP Uploads, ,Automated FTP
 Uploads, maintain, Information for Maintainers of GNU Software},
@@ -1085,12 +1085,13 @@ for detailed upload instructions.
 file which explains what's changed.  Announcements for test releases
 should just go to @email{bug-findutils@@gnu.org}.  Announcements for
 stable releases should go to @email{info-gnu@@gnu.org} as well.
-@item Bump the release numbers in git; edit the @file{configure.in}
-and @file{NEWS} files to advance the release numbers.   For example,
-if you have just released @samp{4.6.2}, bump the release number to
-@samp{4.6.3-git}.  The point of the @samp{-git} suffix here is that a
-findutils binary built from git will bear a release number indicating
-it's not built from the ``official'' source release.
+@item Post-release administrativa: add a new dummy release header in NEWS:
+
+@code{* Major changes in release ?.?.?, YYYY-MM-DD}
+
+and update the @code{old_NEWS_hash} in @file{cfg.mk} with
+@code{make update-NEWS-hash}.
+Commit both changes.
 @item Close bugs; any bugs recorded on Savannah which were fixed in this
 release should now be marked as closed.   Update the @samp{Fixed
 Release} field of these bugs appropriately and make sure the

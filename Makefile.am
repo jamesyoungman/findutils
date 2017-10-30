@@ -15,13 +15,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-AUTOMAKE_OPTIONS=gnits
-# readme-alpha
+AUTOMAKE_OPTIONS = gnu std-options readme-alpha
+
 AM_CFLAGS = $(WARN_CFLAGS)
 
-EXTRA_DIST = COPYING ChangeLog TODO config.h.in stamp-h.in \
-		THANKS \
-		tool-versions.txt README-hacking
+EXTRA_DIST = \
+	COPYING \
+	ChangeLog \
+	README-hacking \
+	THANKS \
+	TODO \
+	build-aux/git-version-gen \
+	config.h.in \
+	stamp-h.in \
+	tool-versions.txt
+
 DISTCLEANFILES = tool-versions.txt
 
 
@@ -41,8 +49,9 @@ tool-versions.txt: Makefile
 	runtest --version ; echo ; \
 	makeinfo --version ) > $@
 
-
+# Have .tarball-version based versions only in tarball builds.
 dist-hook: gen-ChangeLog findutils-check-pofiles findutils-check-testfiles
+	$(AM_V_GEN)echo $(VERSION) > $(distdir)/.tarball-version
 
 # gen-Changelog must still work when $(top_srcdir)/.git does not exist
 # because "make distcheck" verifies that you can "make dist" from the

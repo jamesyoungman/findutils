@@ -19,7 +19,12 @@
 dnl Written by James Youngman.
 
 dnl Process this file with autoconf to produce a configure script.
-AC_INIT([GNU findutils], 4.7.0-git, [bug-findutils@gnu.org])
+# Make inter-release version strings look like, e.g., v4.6-131-gda920ee, which
+# indicates that it is built from the 131st delta (in _some_ repository)
+# following the v4.6 tag, and that da920ee is a prefix of the commit SHA1.
+AC_INIT([GNU findutils],
+        m4_esyscmd([build-aux/git-version-gen .tarball-version]),
+        [bug-findutils@gnu.org])
 
 dnl Set the bug-report URL
 dnl
