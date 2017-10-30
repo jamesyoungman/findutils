@@ -22,7 +22,7 @@
 
 version='
 updatedb (@PACKAGE_NAME@) @VERSION@
-Copyright (C) 2007,2008,2009,2010 Free Software Foundation, Inc.
+@COPYRIGHT@
 License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.

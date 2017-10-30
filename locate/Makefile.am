@@ -46,6 +46,8 @@ updatedb: updatedb.sh Makefile
 	rm -f $@
 	find=`echo find|sed '$(transform)'`; \
 	frcode=`echo frcode|sed '$(transform)'`; \
+	copyright=`sed -n '/^# Copyright /{s/^..//;p;q}' $(srcdir)/updatedb.sh \
+	  grep .` || exit 1; \
 	sed \
 	-e "s,@""bindir""@,$(bindir)," \
 	-e "s,@""libexecdir""@,$(libexecdir)," \
@@ -59,6 +61,7 @@ updatedb: updatedb.sh Makefile
 	-e "s,@""frcode""@,$${frcode}," \
 	-e "s,@""SORT""@,$(SORT)," \
 	-e "s,@""SORT_SUPPORTS_Z""@,$(SORT_SUPPORTS_Z)," \
+	-e "s/@""COPYRIGHT""@/$${copyright}/" \
 	$(srcdir)/updatedb.sh > $@
 	chmod +x $@
 
