@@ -56,6 +56,7 @@ for exe in "${ftsfind}" "${oldfind}"; do
   returns_ 1 "$exe" -D >/dev/null 2> "$err" || fail=1
   grep -F "find: Missing argument after the -D option." "$err" \
     || { cat "$err"; fail=1; }
+  rm -f "$err" || die "cleanup failed"
 done
 
 exit $fail
