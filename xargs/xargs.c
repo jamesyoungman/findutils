@@ -67,6 +67,7 @@
 #include "bugreports.h"
 #include "findutils-version.h"
 #include "gcc-function-attributes.h"
+#include "system.h"
 
 #if ENABLE_NLS
 # include <libintl.h>
@@ -904,7 +905,7 @@ read_line (void)
 	  if (ISSPACE (c))
 	    continue;
 	  state = NORM;
-	  /* aaahhhh....  */
+	  FALLTHROUGH;  /* aaahhhh....  */
 
 	case NORM:
 	  if (c == '\n')
@@ -1277,6 +1278,9 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc, char *
 	{
 	case -1:
 	  error (EXIT_FAILURE, errno, _("cannot fork"));
+	  /* error(EXIT_FAILURE, ...) does not return, but tell GCC 7 that
+	     we don't fall through here; fixed with another commit.  */
+	  abort();
 
 	case 0:		/* Child.  */
 	  {

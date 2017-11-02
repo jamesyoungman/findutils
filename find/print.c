@@ -44,6 +44,7 @@
 #include "xalloc.h"
 
 /* find-specific headers. */
+#include "system.h"
 #include "defs.h"
 #include "print.h"
 
@@ -951,13 +952,8 @@ do_fprintf (struct format_val *dest,
                 checked_fprintf (dest, segment->text, g->gr_name);
                 break;
               }
-            else
-              {
-                /* Do nothing. */
-                /*FALLTHROUGH*/
-              }
           }
-          /*FALLTHROUGH*/ /*...sometimes, so 'G' case.*/
+          FALLTHROUGH; /*...sometimes, so 'G' case.*/
 
         case 'G':               /* GID number */
           /* UNTRUSTED, probably unexploitable */
@@ -1165,9 +1161,8 @@ do_fprintf (struct format_val *dest,
                 checked_fprintf (dest, segment->text, p->pw_name);
                 break;
               }
-            /* else fallthru */
           }
-          /* FALLTHROUGH*/ /* .. to case U */
+          FALLTHROUGH; /* .. to case U */
 
         case 'U':               /* UID number */
           /* UNTRUSTED, probably unexploitable */

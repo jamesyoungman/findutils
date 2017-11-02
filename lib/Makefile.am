@@ -56,7 +56,8 @@ libfind_a_SOURCES = \
 	splitstring.c \
 	splitstring.h \
 	bugreports.c \
-	bugreports.h
+	bugreports.h \
+	system.h
 
 EXTRA_DIST = unused-result.h check-regexprops.sh
 SUFFIXES =
