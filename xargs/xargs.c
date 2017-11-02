@@ -63,8 +63,9 @@
 
 /* find headers. */
 #include "buildcmd.h"
-#include "fdleak.h"
+#include "die.h"
 #include "bugreports.h"
+#include "fdleak.h"
 #include "findutils-version.h"
 #include "gcc-function-attributes.h"
 #include "system.h"
@@ -1277,10 +1278,7 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc, char *
       switch (child)
 	{
 	case -1:
-	  error (EXIT_FAILURE, errno, _("cannot fork"));
-	  /* error(EXIT_FAILURE, ...) does not return, but tell GCC 7 that
-	     we don't fall through here; fixed with another commit.  */
-	  abort();
+	  die (EXIT_FAILURE, errno, _("cannot fork"));
 
 	case 0:		/* Child.  */
 	  {
