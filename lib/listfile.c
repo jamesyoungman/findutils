@@ -49,21 +49,16 @@
 /* Since major is a function on SVR4, we can't use `ifndef major'.  */
 #ifdef MAJOR_IN_MKDEV
 #include <sys/mkdev.h>
-#define HAVE_MAJOR
+#else
+#  ifdef MAJOR_IN_SYSMACROS
+#    include <sys/sysmacros.h>
+#  else
+#    ifndef major                    /* Might be defined in sys/types.h.  */
+#      define major(dev)  (((dev) >> 8) & 0xff)
+#      define minor(dev)  ((dev) & 0xff)
+#    endif
+#  endif
 #endif
-#ifdef MAJOR_IN_SYSMACROS
-#include <sys/sysmacros.h>
-#define HAVE_MAJOR
-#endif
-
-#ifdef major                    /* Might be defined in sys/types.h.  */
-#define HAVE_MAJOR
-#endif
-#ifndef HAVE_MAJOR
-#define major(dev)  (((dev) >> 8) & 0xff)
-#define minor(dev)  ((dev) & 0xff)
-#endif
-#undef HAVE_MAJOR
 
 #if ENABLE_NLS
 # include <libintl.h>
