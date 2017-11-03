@@ -478,12 +478,12 @@ ignore (int ix, const unsigned int context)
 static void
 menu (unsigned int context)
 {
-  int i, options;
+  int i;
   const char *name;
 
   output ("@menu\n", 0);
   for (i=0;
-       options = get_regex_type_flags (i),
+       get_regex_type_flags (i),
 	 name=get_regex_type_name (i);
        ++i)
     {

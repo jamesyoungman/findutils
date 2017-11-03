@@ -196,6 +196,9 @@ static void test_consecutive_empty (void)
 
 int main (int argc, char *argv[])
 {
+  (void) argc; /* pacify -Werror=unused-parameter */
+  (void) argv; /* pacify -Werror=unused-parameter */
+
   test_empty ();
   test_onefield ();
   test_not_colon ();
