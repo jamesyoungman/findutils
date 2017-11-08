@@ -48,6 +48,8 @@ interactive application.  Added for compatibility with BSD.
 
 ** Documentation Changes
 
+Prefer https:// over http:// links where possible, e.g. for '*.gnu.org' servers.
+
 Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
