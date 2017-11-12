@@ -51,6 +51,7 @@
 
 /* find headers. */
 #include "defs.h"
+#include "die.h"
 #include "dircallback.h"
 #include "fdleak.h"
 #include "unused-result.h"
@@ -666,8 +667,8 @@ main (int argc, char **argv)
   state.shared_files = sharefile_init ("w");
   if (NULL == state.shared_files)
     {
-      error (EXIT_FAILURE, errno,
-	     _("Failed to initialize shared-file hash table"));
+      die (EXIT_FAILURE, errno,
+	   _("Failed to initialize shared-file hash table"));
     }
 
   /* Set the option defaults before we do the locale initialisation as
@@ -683,7 +684,7 @@ main (int argc, char **argv)
   textdomain (PACKAGE);
   if (atexit (close_stdout))
     {
-      error (EXIT_FAILURE, errno, _("The atexit library function failed"));
+      die (EXIT_FAILURE, errno, _("The atexit library function failed"));
     }
 
   /* Check for -P, -H or -L options.  Also -D and -O, which are

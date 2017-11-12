@@ -47,6 +47,7 @@
 
 /* find headers. */
 #include "defs.h"
+#include "die.h"
 #include "dircallback.h"
 #include "listfile.h"
 #include "printquoted.h"
@@ -766,7 +767,7 @@ is_ok (const char *program, const char *arg)
   /* XXX: printing UNTRUSTED data here. */
   if (fprintf (stderr, _("< %s ... %s > ? "), program, arg) < 0)
     {
-      error (EXIT_FAILURE, errno, _("Failed to write prompt for -ok"));
+      die (EXIT_FAILURE, errno, _("Failed to write prompt for -ok"));
     }
   fflush (stderr);
   return yesno ();

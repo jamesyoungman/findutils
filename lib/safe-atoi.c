@@ -23,11 +23,11 @@
 #include <stdlib.h>
 
 /* gnulib headers. */
-#include "error.h"
 #include "gettext.h"
 #include "quotearg.h"
 
 /* find headers. */
+#include "die.h"
 #include "safe-atoi.h"
 
 #if ENABLE_NLS
@@ -52,12 +52,12 @@ safe_atoi (const char *s, enum quoting_style style)
       if (errno == ERANGE)
 	{
 	  /* too big, or too small. */
-	  error (EXIT_FAILURE, errno, "%s", s);
+	  die (EXIT_FAILURE, errno, "%s", s);
 	}
       else
 	{
 	  /* not a valid number */
-	  error (EXIT_FAILURE, errno, "%s", s);
+	  die (EXIT_FAILURE, errno, "%s", s);
 	}
       /* Otherwise, we do a range chack against INT_MAX and INT_MIN
        * below.
@@ -68,18 +68,18 @@ safe_atoi (const char *s, enum quoting_style style)
     {
       /* The number was in range for long, but not int. */
       errno = ERANGE;
-      error (EXIT_FAILURE, errno, "%s", s);
+      die (EXIT_FAILURE, errno, "%s", s);
     }
   else if (*end)
     {
-      error (EXIT_FAILURE, errno, _("Unexpected suffix %s on %s"),
-	     quotearg_n_style (0, style, end),
-	     quotearg_n_style (1, style, s));
+      die (EXIT_FAILURE, errno, _("Unexpected suffix %s on %s"),
+	   quotearg_n_style (0, style, end),
+	   quotearg_n_style (1, style, s));
     }
   else if (end == s)
     {
-      error (EXIT_FAILURE, errno, _("Expected an integer: %s"),
-	     quotearg_n_style (0, style, s));
+      die (EXIT_FAILURE, errno, _("Expected an integer: %s"),
+	   quotearg_n_style (0, style, s));
     }
   return (int)lval;
 }

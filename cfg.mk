@@ -88,6 +88,16 @@ exclude_file_name_regexp--sc_texinfo_acronym = doc/perm\.texi
 # cases where neither argument is a string literal.
 local-checks-to-skip += sc_prohibit_strcmp
 
+# Usage of error() with an exit constant, should instead use die(),
+# as that avoids warnings and may generate better code, due to being apparent
+# to the compiler that it doesn't return.
+sc_die_EXIT_FAILURE:
+	@GIT_PAGER= git grep -E 'error \(.*_(FAILURE|INVALID)' \
+	  -- find lib locate xargs \
+	  && { echo '$(ME): '"Use die() instead of error" 1>&2; \
+	       exit 1; }  \
+	  || :
+
 # During 'make update-copyright', convert a sequence with gaps to the minimal
 # containing range.
 update-copyright-env = \

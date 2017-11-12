@@ -28,12 +28,14 @@
 #include <string.h>
 
 /* gnulib headers. */
-#include "error.h"
 #include "gettext.h"
 #include "quote.h"
 #include "regex.h"
 #include "regextype.h"
 #include "xalloc.h"
+
+/* findutils headers */
+#include "die.h"
 
 
 #if ENABLE_NLS
@@ -100,10 +102,10 @@ get_regex_type (const char *s)
       p += sprintf (p, "%s", quote (regex_map[i].name));
     }
 
-  error (EXIT_FAILURE, 0,
-	 _("Unknown regular expression type %s; valid types are %s."),
-	 quote (s),
-	 buf);
+  die (EXIT_FAILURE, 0,
+       _("Unknown regular expression type %s; valid types are %s."),
+       quote (s),
+       buf);
   /*NOTREACHED*/
   return -1;
 }

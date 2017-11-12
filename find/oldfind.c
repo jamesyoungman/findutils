@@ -51,6 +51,7 @@
 /* find headers. */
 #include "buildcmd.h"
 #include "defs.h"
+#include "die.h"
 #include "fdleak.h"
 
 #undef  STAT_MOUNTPOINTS
@@ -185,8 +186,8 @@ main (int argc, char **argv)
   state.shared_files = sharefile_init ("w");
   if (NULL == state.shared_files)
     {
-      error (EXIT_FAILURE, errno,
-	     _("Failed to initialize shared-file hash table"));
+      die (EXIT_FAILURE, errno,
+	   _("Failed to initialize shared-file hash table"));
     }
 
   /* Set the option defaults before we do the locale
@@ -202,7 +203,7 @@ main (int argc, char **argv)
   textdomain (PACKAGE);
   if (atexit (close_stdin))
     {
-      error (EXIT_FAILURE, errno, _("The atexit library function failed"));
+      die (EXIT_FAILURE, errno, _("The atexit library function failed"));
     }
 
   /* Check for -P, -H or -L options. */
@@ -245,7 +246,7 @@ main (int argc, char **argv)
 
   set_stat_placeholders (&starting_stat_buf);
   if ((*options.xstat) (".", &starting_stat_buf) != 0)
-    error (EXIT_FAILURE, errno, _("cannot stat current directory"));
+    die (EXIT_FAILURE, errno, _("cannot stat current directory"));
 
   /* If no paths are given, default to ".".  */
   for (i = end_of_leading_options; i < argc && !looks_like_expression (argv[i], true); i++)
@@ -336,7 +337,7 @@ init_mounted_dev_list (int mandatory)
   mounted_devices = get_mounted_devices (&num_mounted_devices);
   if (mandatory && (NULL == mounted_devices))
     {
-      error (EXIT_FAILURE, 0, _("Cannot read list of mounted devices."));
+      die (EXIT_FAILURE, 0, _("Cannot read list of mounted devices."));
     }
 }
 
@@ -531,15 +532,15 @@ wd_sanity_check (const char *thing_to_stat,
 	case FATAL_IF_SANITY_CHECK_FAILS:
 	  {
 	    fstype = filesystem_type (newinfo, current_dir);
-	    error (EXIT_FAILURE, 0,
-		   _("%s%s changed during execution of %s (old device number %ld, new device number %ld, file system type is %s) [ref %ld]"),
-		   safely_quote_err_filename (0, specific_what),
-		   parent ? "/.." : "",
-		   safely_quote_err_filename (1, progname),
-		   (long) old_dev,
-		   (long) newinfo->st_dev,
-		   fstype,
-		   (long)line_no);
+	    die (EXIT_FAILURE, 0,
+		 _("%s%s changed during execution of %s (old device number %ld, new device number %ld, file system type is %s) [ref %ld]"),
+		 safely_quote_err_filename (0, specific_what),
+		 parent ? "/.." : "",
+		 safely_quote_err_filename (1, progname),
+		 (long) old_dev,
+		 (long) newinfo->st_dev,
+		 fstype,
+		 (long)line_no);
 	    /*NOTREACHED*/
 	    return false;
 	  }
@@ -733,8 +734,8 @@ safely_chdir_lstat (const char *dest,
 			   * can't recover from this and so this error
 			   * is fatal.
 			   */
-			  error (EXIT_FAILURE, errno,
-				 _("failed to return to parent directory"));
+			  die (EXIT_FAILURE, errno,
+			       _("failed to return to parent directory"));
 			}
 		    }
 		  else
@@ -1535,7 +1536,7 @@ process_dir (const char *pathname, const char *name, int pathlen, const struct s
 	      break;
 
 	    case SafeChdirFailWouldBeUnableToReturn:
-	      error (EXIT_FAILURE, errno, ".");
+	      die (EXIT_FAILURE, errno, ".");
 	      return;
 
 	    case SafeChdirFailNonexistent:
@@ -1544,8 +1545,8 @@ process_dir (const char *pathname, const char *name, int pathlen, const struct s
 	    case SafeChdirFailSymlink:
 	    case SafeChdirFailNotDir:
 	    case SafeChdirFailChdirFailed:
-	      error (EXIT_FAILURE, errno,
-		     "%s", safely_quote_err_filename (0, pathname));
+	      die (EXIT_FAILURE, errno,
+		   "%s", safely_quote_err_filename (0, pathname));
 	      return;
 	    }
 	}

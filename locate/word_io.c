@@ -32,6 +32,7 @@
 #include "quotearg.h"
 
 /* find headers. */
+#include "die.h"
 #include "locatedb.h"
 
 #if ENABLE_NLS
@@ -128,10 +129,10 @@ getword (FILE *fp,
        * Either condition is fatal.
        */
       if (feof (fp))
-	error (EXIT_FAILURE, 0, _("unexpected EOF in %s"), quoted_name);
+	die (EXIT_FAILURE, 0, _("unexpected EOF in %s"), quoted_name);
       else
-	error (EXIT_FAILURE, errno,
-	       _("error reading a word from %s"), quoted_name);
+	die (EXIT_FAILURE, errno,
+	     _("error reading a word from %s"), quoted_name);
       abort ();
     }
   else

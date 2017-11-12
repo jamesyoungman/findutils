@@ -258,9 +258,9 @@ get_char_oct_or_hex_escape (const char *s)
   else
     {
       p = NULL;			/* Silence compiler warning. */
-      error (EXIT_FAILURE, 0,
-	     _("Invalid escape sequence %s in input delimiter specification."),
-	     s);
+      die (EXIT_FAILURE, 0,
+	   _("Invalid escape sequence %s in input delimiter specification."),
+	   s);
     }
   errno = 0;
   endp = NULL;
@@ -276,24 +276,27 @@ get_char_oct_or_hex_escape (const char *s)
     {
       if (16 == base)
 	{
-	  error (EXIT_FAILURE, 0,
-		 _("Invalid escape sequence %s in input delimiter specification; character values must not exceed %lx."),
-		 s, (unsigned long)UCHAR_MAX);
+	  die (EXIT_FAILURE, 0,
+	       _("Invalid escape sequence %s in input delimiter specification; "
+		 "character values must not exceed %lx."),
+	       s, (unsigned long)UCHAR_MAX);
 	}
       else
 	{
-	  error (EXIT_FAILURE, 0,
-		 _("Invalid escape sequence %s in input delimiter specification; character values must not exceed %lo."),
-		 s, (unsigned long)UCHAR_MAX);
+	  die (EXIT_FAILURE, 0,
+	       _("Invalid escape sequence %s in input delimiter specification; "
+		 "character values must not exceed %lo."),
+	       s, (unsigned long)UCHAR_MAX);
 	}
     }
 
   /* check for trailing garbage */
   if (0 != *endp)
     {
-      error (EXIT_FAILURE, 0,
-	     _("Invalid escape sequence %s in input delimiter specification; trailing characters %s not recognised."),
-	     s, endp);
+      die (EXIT_FAILURE, 0,
+	   _("Invalid escape sequence %s in input delimiter specification; "
+	     "trailing characters %s not recognised."),
+	   s, endp);
     }
 
   return (char) val;
@@ -336,9 +339,11 @@ get_input_delimiter (const char *s)
 	}
       else
 	{
-	  error (EXIT_FAILURE, 0,
-		 _("Invalid input delimiter specification %s: the delimiter must be either a single character or an escape sequence starting with \\."),
-		 s);
+	  die (EXIT_FAILURE, 0,
+	       _("Invalid input delimiter specification %s: the delimiter must "
+		 "be either a single character or an escape sequence starting "
+		 "with \\."),
+	       s);
 	  /*NOTREACHED*/
 	  return 0;
 	}
@@ -354,7 +359,7 @@ noop (void)
 static void
 fail_due_to_env_size (void)
 {
-  error (EXIT_FAILURE, 0, _("environment is too large for exec"));
+  die (EXIT_FAILURE, 0, _("environment is too large for exec"));
 }
 
 static size_t
@@ -426,7 +431,7 @@ main (int argc, char **argv)
 
   if (atexit (close_stdin) || atexit (wait_for_proc_all))
     {
-      error (EXIT_FAILURE, errno, _("The atexit library function failed"));
+      die (EXIT_FAILURE, errno, _("The atexit library function failed"));
     }
 
   /* xargs is required by POSIX to allow 2048 bytes of headroom
@@ -642,9 +647,9 @@ main (int argc, char **argv)
 	case PROCESS_SLOT_VAR:
 	  if (strchr (optarg, '='))
 	    {
-	      error (EXIT_FAILURE, 0,
-		     _("option --%s may not be set to a value which includes `='"),
-		     longopts[option_index].name);
+	      die (EXIT_FAILURE, 0,
+		   _("option --%s may not be set to a value which includes `='"),
+		   longopts[option_index].name);
 	    }
 	  slot_var_name = optarg;
 	  if (0 != unsetenv (slot_var_name))
@@ -654,9 +659,9 @@ main (int argc, char **argv)
 		 have the same value for this variable; see
 		 set_slot_var.
 	      */
-	      error (EXIT_FAILURE, errno,
-		     _("failed to unset environment variable %s"),
-		     slot_var_name);
+	      die (EXIT_FAILURE, errno,
+		   _("failed to unset environment variable %s"),
+		   slot_var_name);
 	    }
 	  break;
 
@@ -711,9 +716,9 @@ main (int argc, char **argv)
       input_stream = fopen_cloexec_for_read_only (input_file);
       if (NULL == input_stream)
 	{
-	  error (EXIT_FAILURE, errno,
-		 _("Cannot open input file %s"),
-		 quotearg_n_style (0, locale_quoting_style, input_file));
+	  die (EXIT_FAILURE, errno,
+	       _("Cannot open input file %s"),
+	       quotearg_n_style (0, locale_quoting_style, input_file));
 	}
     }
 
@@ -888,8 +893,10 @@ read_line (void)
 	  if (state == QUOTE)
 	    {
 	      exec_if_possible ();
-	      error (EXIT_FAILURE, 0, _("unmatched %s quote; by default quotes are special to xargs unless you use the -0 option"),
-		     quotc == '"' ? _("double") : _("single"));
+	      die (EXIT_FAILURE, 0,
+		   _("unmatched %s quote; by default quotes are special to "
+		     "xargs unless you use the -0 option"),
+		   quotc == '"' ? _("double") : _("single"));
 	    }
 	  if (first && EOF_STR (linebuf))
 	    return -1;
@@ -981,8 +988,10 @@ read_line (void)
 	  if (c == '\n')
 	    {
 	      exec_if_possible ();
-	      error (EXIT_FAILURE, 0, _("unmatched %s quote; by default quotes are special to xargs unless you use the -0 option"),
-		     quotc == '"' ? _("double") : _("single"));
+	      die (EXIT_FAILURE, 0,
+		   _("unmatched %s quote; by default quotes are special to "
+		     "xargs unless you use the -0 option"),
+		   quotc == '"' ? _("double") : _("single"));
 	    }
 	  if (c == quotc)
 	    {
@@ -1011,7 +1020,7 @@ read_line (void)
       if (p >= endbuf)
         {
 	  exec_if_possible ();
-	  error (EXIT_FAILURE, 0, _("argument line too long"));
+	  die (EXIT_FAILURE, 0, _("argument line too long"));
 	}
       *p++ = c;
 #else
@@ -1076,7 +1085,7 @@ read_string (void)
       if (p >= endbuf)
         {
 	  exec_if_possible ();
-	  error (EXIT_FAILURE, 0, _("argument line too long"));
+	  die (EXIT_FAILURE, 0, _("argument line too long"));
 	}
       *p++ = c;
     }
@@ -1095,7 +1104,7 @@ print_args (bool ask)
   for (i = 0; i < bc_state.cmd_argc - 1; i++)
     {
       if (fprintf (stderr, "%s ", bc_state.cmd_argv[i]) < 0)
-	error (EXIT_FAILURE, errno, _("Failed to write to stderr"));
+	die (EXIT_FAILURE, errno, _("Failed to write to stderr"));
     }
 
   if (ask)
@@ -1107,18 +1116,18 @@ print_args (bool ask)
 	{
 	  tty_stream = fopen_cloexec_for_read_only ("/dev/tty");
 	  if (!tty_stream)
-	    error (EXIT_FAILURE, errno,
-		   _("failed to open /dev/tty for reading"));
+	    die (EXIT_FAILURE, errno,
+		 _("failed to open /dev/tty for reading"));
 	}
       fputs ("?...", stderr);
       if (fflush (stderr) != 0)
-	error (EXIT_FAILURE, errno, _("Failed to write to stderr"));
+	die (EXIT_FAILURE, errno, _("Failed to write to stderr"));
 
       c = savec = getc (tty_stream);
       while (c != EOF && c != '\n')
 	c = getc (tty_stream);
       if (EOF == c)
-	error (EXIT_FAILURE, errno, _("Failed to read from stdin"));
+	die (EXIT_FAILURE, errno, _("Failed to read from stdin"));
       if (savec == 'y' || savec == 'Y')
 	return true;
     }
@@ -1208,14 +1217,22 @@ prep_child_for_exec (void)
 	   * stdin is almost as good as executing it
 	   * with its stdin attached to /dev/null.
 	   */
-	  error (open_tty ? EXIT_FAILURE : 0, errno, "%s",
-		 quotearg_n_style (0, locale_quoting_style, inputfile));
+	  if (open_tty)
+	    {
+	      die (EXIT_FAILURE, errno, "%s",
+		   quotearg_n_style (0, locale_quoting_style, inputfile));
+	    }
+	  else
+	    {
+	      error (0, errno, "%s",
+		     quotearg_n_style (0, locale_quoting_style, inputfile));
+	    }
 	}
       if (STDIN_FILENO < fd)
 	{
 	  if (dup2(fd, STDIN_FILENO) != 0)
-	    error (EXIT_FAILURE, errno,
-	           _("failed to redirect standard input of the child process"));
+	    die (EXIT_FAILURE, errno,
+	         _("failed to redirect standard input of the child process"));
 	  close(fd);
 	}
     }
@@ -1267,7 +1284,7 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc, char *
       wait_for_proc (false, 0u);
 
       if (pipe (fd))
-	error (EXIT_FAILURE, errno, _("could not create pipe before fork"));
+	die (EXIT_FAILURE, errno, _("could not create pipe before fork"));
       fcntl (fd[1], F_SETFD, FD_CLOEXEC);
 
       /* If we run out of processes, wait for a child to return and
@@ -1390,9 +1407,9 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc, char *
 	  }
 	default:
 	  {
-	    error (EXIT_FAILURE, errno,
-		   _("read returned unexpected value %zu; "
-		     "this is probably a bug, please report it"), r);
+	    die (EXIT_FAILURE, errno,
+		 _("read returned unexpected value %zu; "
+		   "this is probably a bug, please report it"), r);
 	  }
 	} /* switch on bytes read */
       close (fd[0]);
@@ -1483,8 +1500,8 @@ wait_for_proc (bool all, unsigned int minreap)
 	  while ((pid = waitpid (-1, &status, wflags)) == (pid_t) -1)
 	    {
 	      if (errno != EINTR)
-		error (EXIT_FAILURE, errno,
-		       _("error waiting for child process"));
+		die (EXIT_FAILURE, errno,
+		     _("error waiting for child process"));
 
 	      if (stop_waiting && !all)
 		{

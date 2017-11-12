@@ -37,6 +37,7 @@
 /* findutils headers */
 #include "buildcmd.h"
 #include "defs.h"
+#include "die.h"
 #include "fdleak.h"
 
 #if ENABLE_NLS
@@ -124,9 +125,9 @@ impl_pred_exec (const char *pathname,
       */
       if (!record_exec_dir (execp))
         {
-          error (EXIT_FAILURE, errno,
-                 _("Failed to save working directory in order to "
-                   "run a command on %s"),
+          die (EXIT_FAILURE, errno,
+               _("Failed to save working directory in order to "
+                 "run a command on %s"),
                  safely_quote_err_filename (0, pathname));
           /*NOTREACHED*/
         }
@@ -306,7 +307,7 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
 
   child_pid = fork ();
   if (child_pid == -1)
-    error (EXIT_FAILURE, errno, _("cannot fork"));
+    die (EXIT_FAILURE, errno, _("cannot fork"));
   if (child_pid == 0)
     {
       /* We are the child. */
