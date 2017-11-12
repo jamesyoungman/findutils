@@ -19,7 +19,7 @@
 /*
  Be aware that some function attributes do not work with function
  pointers.  See
- https://lists.gnu.org/archive/html/bug-gnulib/2011-04/msg00007.html
+ https://lists.gnu.org/r/bug-gnulib/2011-04/msg00007.html
  for details.
 */
 #ifndef _GCC_FUNCTION_ATTRIBUTES_H
