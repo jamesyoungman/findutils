@@ -879,8 +879,8 @@ on the whole path, not a search.  For example, to match a file named
 `./fubar3', you can use the regular expression `.*bar.' or `.*b.*3',
 but not `f.*r3'.  The regular expressions understood by
 .B find
-are by default Emacs Regular Expressions, but this can be
-changed with the
+are by default Emacs Regular Expressions (except that `.' matches
+newline), but this can be changed with the
 .B \-regextype
 option.
 

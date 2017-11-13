@@ -3917,8 +3917,11 @@ your locale setup affects the interpretation of regular expressions.
 
 There are also several different types of regular expression, and
 these are interpreted differently.  Normally, the type of regular
-expression used by @code{find} and @code{locate} is the same as is
-used in GNU Emacs.  Both programs provide an option which allows you
+expression used by @code{find} and @code{locate} is almost identical to
+that used in GNU Emacs.  The single difference is that in @code{find}
+and @code{locate}, a @samp{.} will match a newline character.
+
+Both @code{find} and @code{locate} provide an option which allows you
 to select an alternative regular expression syntax; for @code{find}
 this is the @samp{-regextype} option, and for @code{locate} this is
 the @samp{--regextype} option.

@@ -78,8 +78,12 @@ directive (const char *s)
 static void
 comment (const char *s)
 {
-  directive ("@c ");
-  literal (s);
+  directive ("@c");
+  if (s[0])
+    {
+      literal (" ");
+      literal (s);
+    }
   newline ();
 }
 
@@ -175,7 +179,7 @@ describe_regex_syntax (int options)
 
       content (" the null character");
     }
-  content (".  ");
+  content (".");
   newpara ();
 
   if (!(options & RE_LIMITED_OPS))
@@ -185,25 +189,25 @@ describe_regex_syntax (int options)
 	{
 	  enum_item ("\\+");
 	  content ("indicates that the regular expression should match one"
-		   " or more occurrences of the previous atom or regexp.  ");
+		   " or more occurrences of the previous atom or regexp.");
 	  enum_item ("\\?");
 	  content ("indicates that the regular expression should match zero"
-		   " or one occurrence of the previous atom or regexp.  ");
-	  enum_item ("+ and ? ");
-	  content ("match themselves.  ");
+		   " or one occurrence of the previous atom or regexp.");
+	  enum_item ("+ and ?");
+	  content ("match themselves.\n");
 	}
       else
 	{
 	  enum_item ("+");
 	  content ("indicates that the regular expression should match one"
-		   " or more occurrences of the previous atom or regexp.  ");
+		   " or more occurrences of the previous atom or regexp.");
 	  enum_item ("?");
 	  content ("indicates that the regular expression should match zero"
-		   " or one occurrence of the previous atom or regexp.  ");
+		   " or one occurrence of the previous atom or regexp.");
 	  enum_item ("\\+");
 	  literal ("matches a @samp{+}");
 	  enum_item ("\\?");
-	  literal ("matches a @samp{?}.  ");
+	  literal ("matches a @samp{?}.");
 	}
       endtable ();
     }
@@ -226,15 +230,15 @@ describe_regex_syntax (int options)
 
   if (options & RE_CHAR_CLASSES)
     content ("Character classes are supported; for example "
-	     "@samp{[[:digit:]]} will match a single decimal digit.  ");
+	     "@samp{[[:digit:]]} will match a single decimal digit.\n");
   else
     literal ("Character classes are not supported, so for example "
 	     "you would need to use @samp{[0-9]} "
-	     "instead of @samp{[[:digit:]]}.  ");
+	     "instead of @samp{[[:digit:]]}.\n");
 
   if (options & RE_HAT_LISTS_NOT_NEWLINE)
     {
-      literal ("Non-matching lists @samp{[^@dots{}]} do not ever match newline.  ");
+      literal ("Non-matching lists @samp{[^@dots{}]} do not ever match newline.\n");
     }
   newpara ();
   if (options & RE_NO_GNU_OPS)
@@ -242,7 +246,7 @@ describe_regex_syntax (int options)
       content ("GNU extensions are not supported and so "
 	       "@samp{\\w}, @samp{\\W}, @samp{\\<}, @samp{\\>}, @samp{\\b}, @samp{\\B}, @samp{\\`}, and @samp{\\'} "
 	       "match "
-	       "@samp{w}, @samp{W}, @samp{<}, @samp{>}, @samp{b}, @samp{B}, @samp{`}, and @samp{'} respectively.  ");
+	       "@samp{w}, @samp{W}, @samp{<}, @samp{>}, @samp{b}, @samp{B}, @samp{`}, and @samp{'} respectively.\n");
     }
   else
     {
@@ -276,7 +280,7 @@ describe_regex_syntax (int options)
 
   if (options & RE_NO_BK_REFS)
     {
-      content ("A backslash followed by a digit matches that digit.  ");
+      content ("A backslash followed by a digit matches that digit.");
     }
   else
     {
@@ -285,7 +289,7 @@ describe_regex_syntax (int options)
 	literal ("@samp{(}");
       else
 	literal ("@samp{\\(}");
-      content (".  ");
+      content (".");
     }
 
 
@@ -293,29 +297,28 @@ describe_regex_syntax (int options)
   if (!(options & RE_LIMITED_OPS))
     {
       if (options & RE_NO_BK_VBAR)
-	literal ("The alternation operator is @samp{|}.  ");
+	literal ("The alternation operator is @samp{|}.");
       else
-	literal ("The alternation operator is @samp{\\|}. ");
+	literal ("The alternation operator is @samp{\\|}.");
     }
   newpara ();
 
   if (options & RE_CONTEXT_INDEP_ANCHORS)
     {
-      literal ("The characters @samp{^} and @samp{$} always represent the beginning and end of a string respectively, except within square brackets.  Within brackets, @samp{^} can be used to invert the membership of the character class being specified.  ");
+      literal ("The characters @samp{^} and @samp{$} always represent the beginning and end of a string respectively, except within square brackets.  Within brackets, @samp{^} can be used to invert the membership of the character class being specified.\n");
     }
   else
     {
       literal ("The character @samp{^} only represents the beginning of a string when it appears:");
       beginenum ();
-      enum_item ("\nAt the beginning of a regular expression");
-      enum_item ("After an open-group, signified by ");
+      enum_item ("At the beginning of a regular expression");
       if (options & RE_NO_BK_PARENS)
 	{
-	  literal ("@samp{(}");
+	  enum_item ("After an open-group, signified by @samp{(}");
 	}
       else
 	{
-	  literal ("@samp{\\(}");
+	  enum_item ("After an open-group, signified by @samp{\\(}");
 	}
       newline ();
       if (!(options & RE_LIMITED_OPS))
@@ -334,14 +337,13 @@ describe_regex_syntax (int options)
       literal ("The character @samp{$} only represents the end of a string when it appears:");
       beginenum ();
       enum_item ("At the end of a regular expression");
-      enum_item ("Before a close-group, signified by ");
       if (options & RE_NO_BK_PARENS)
 	{
-	  literal ("@samp{)}");
+	  enum_item ("Before a close-group, signified by @samp{)}");
 	}
       else
 	{
-	  literal ("@samp{\\)}");
+	  enum_item ("Before a close-group, signified by @samp{\\)}");
 	}
       if (!(options & RE_LIMITED_OPS))
 	{
@@ -361,7 +363,7 @@ describe_regex_syntax (int options)
       if ((options & RE_CONTEXT_INDEP_OPS)
 	  && !(options & RE_CONTEXT_INVALID_OPS))
 	{
-	  literal ("The characters @samp{*}, @samp{+} and @samp{?} are special anywhere in a regular expression.  ");
+	  literal ("The characters @samp{*}, @samp{+} and @samp{?} are special anywhere in a regular expression.\n");
 	}
       else
 	{
@@ -381,14 +383,13 @@ describe_regex_syntax (int options)
 
 	  beginenum ();
 	  enum_item ("At the beginning of a regular expression");
-	  enum_item ("After an open-group, signified by ");
 	  if (options & RE_NO_BK_PARENS)
 	    {
-	      literal ("@samp{(}");
+	      enum_item ("After an open-group, signified by @samp{(}");
 	    }
 	  else
 	    {
-	      literal ("@samp{\\(}");
+	      enum_item ("After an open-group, signified by @samp{\\(}");
 	    }
 	  if (!(options & RE_LIMITED_OPS))
 	    {
@@ -410,39 +411,38 @@ describe_regex_syntax (int options)
     {
       if (options & RE_NO_BK_BRACES)
 	{
-	  literal ("Intervals are specified by @samp{@{} and @samp{@}}.  ");
+	  literal ("Intervals are specified by @samp{@{} and @samp{@}}.\n");
 	  if (options & RE_INVALID_INTERVAL_ORD)
 	    {
 	      literal ("Invalid intervals are treated as literals, for example @samp{a@{1} is treated as @samp{a\\@{1}");
 	    }
 	  else
 	    {
-	      literal ("Invalid intervals such as @samp{a@{1z} are not accepted.  ");
+	      literal ("Invalid intervals such as @samp{a@{1z} are not accepted.\n");
 	    }
 	}
       else
 	{
-	  literal ("Intervals are specified by @samp{\\@{} and @samp{\\@}}.  ");
+	  literal ("Intervals are specified by @samp{\\@{} and @samp{\\@}}.\n");
 	  if (options & RE_INVALID_INTERVAL_ORD)
 	    {
 	      literal ("Invalid intervals are treated as literals, for example @samp{a\\@{1} is treated as @samp{a@{1}");
 	    }
 	  else
 	    {
-	      literal ("Invalid intervals such as @samp{a\\@{1z} are not accepted.  ");
+	      literal ("Invalid intervals such as @samp{a\\@{1z} are not accepted.\n");
 	    }
 	}
-
     }
 
   newpara ();
   if (options & RE_NO_POSIX_BACKTRACKING)
     {
-      content ("Matching succeeds as soon as the whole pattern is matched, meaning that the result may not be the longest possible match.  ");
+      content ("Matching succeeds as soon as the whole pattern is matched, meaning that the result may not be the longest possible match.");
     }
   else
     {
-      content ("The longest possible match is returned; this applies to the regular expression as a whole and (subject to this constraint) to subexpressions within groups.  ");
+      content ("The longest possible match is returned; this applies to the regular expression as a whole and (subject to this constraint) to subexpressions within groups.");
     }
   newpara ();
 }

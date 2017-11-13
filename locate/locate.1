@@ -13,6 +13,7 @@ locate \- list files in databases that match a pattern
 [\-l N | \-\-limit=N]
 [\-S | \-\-statistics]
 [\-r | \-\-regex ]
+[\-\-regextype R]
 [\-\-max-database-age D]
 [\-P | \-H | \-\-nofollow]
 [\-L | \-\-follow]
@@ -168,14 +169,21 @@ The pattern specified on the command line is understood to be a
 regular expression, as opposed to a glob pattern.  The Regular
 expressions work in the same was as in
 .B emacs
-and
-.BR find ,
-except for the fact that "." will match a newline.
+except for the fact that "." will match a newline.  GNU
+.B find
+uses the same regular expressions.
 Filenames whose full paths match the specified regular expression are
 printed (or, in the case of the \-c option, counted).  If you wish to
 anchor your regular expression at the ends of the full path name, then
 as is usual with regular expressions, you should use the characters ^
 and $ to signify this.
+.TP
+.I "\-\-regextype R"
+Use regular expression dialect R.  Supported dialects
+include `findutils-default', `posix-awk', `posix-basic',
+`posix-egrep', `posix-extended', `posix-minimal-basic', `awk', `ed',
+`egrep', `emacs', `gnu-awk', `grep' and `sed'.  See the Texinfo
+documentation for a detailed explanation of these dialects.
 .TP
 .I "\-s, \-\-stdio"
 Accepted but does nothing, for compatibility with BSD
