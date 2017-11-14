@@ -44,10 +44,11 @@ const char * get_regex_type_name(unsigned int ix);
  */
 int get_regex_type_flags(unsigned int ix);
 
-/* If regular expression type IX (which is a regular expression type index) has
- * one or more synonyms, return the index of one of them.  Otherwise, return -1.
+/* If regular expression type IX (which is a regular expression type
+ * index) has one or more synonyms which is interesting in context
+ * CONTEXT, return the index of one of them.  Otherwise, return -1.
  */
-int get_regex_type_synonym(unsigned int ix);
+int get_regex_type_synonym(unsigned int ix, unsigned int context);
 
 /* Returns one of CONTEXT_FINDUTILS, CONTEXT_GENERIC or CONTEXT_ALL.
  * This identifies whether this regular expression type index is relevant for,

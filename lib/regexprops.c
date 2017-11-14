@@ -558,7 +558,7 @@ describe_all (const char *contextname,
       if (NULL == next)
 	next = "";
       begin_subsection (name, next, previous, up);
-      parent = get_regex_type_synonym (i);
+      parent = get_regex_type_synonym (i, context);
       if (parent >= 0)
 	{
 	  content ("This is a synonym for ");

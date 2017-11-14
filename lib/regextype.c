@@ -56,19 +56,17 @@ struct tagRegexTypeMap
 struct tagRegexTypeMap regex_map[] =
   {
    { "findutils-default",     CONTEXT_FINDUTILS, RE_SYNTAX_EMACS|RE_DOT_NEWLINE  },
-
-   { "posix-awk",             CONTEXT_ALL,       RE_SYNTAX_POSIX_AWK             },
-   { "posix-basic",           CONTEXT_ALL,       RE_SYNTAX_POSIX_BASIC           },
-   { "posix-egrep",           CONTEXT_ALL,       RE_SYNTAX_POSIX_EGREP           },
-   { "posix-extended",        CONTEXT_ALL,       RE_SYNTAX_POSIX_EXTENDED        },
-   { "posix-minimal-basic",   CONTEXT_GENERIC,   RE_SYNTAX_POSIX_MINIMAL_BASIC   },
-
-   { "awk",                   CONTEXT_ALL,       RE_SYNTAX_AWK                   },
    { "ed",                    CONTEXT_GENERIC,   RE_SYNTAX_ED                    },
-   { "egrep",                 CONTEXT_ALL,       RE_SYNTAX_EGREP                 },
    { "emacs",                 CONTEXT_ALL,       RE_SYNTAX_EMACS                 },
    { "gnu-awk",               CONTEXT_ALL,       RE_SYNTAX_GNU_AWK               },
    { "grep",                  CONTEXT_ALL,       RE_SYNTAX_GREP                  },
+   { "posix-awk",             CONTEXT_ALL,       RE_SYNTAX_POSIX_AWK             },
+   { "awk",                   CONTEXT_ALL,       RE_SYNTAX_AWK                   },
+   { "posix-basic",           CONTEXT_ALL,       RE_SYNTAX_POSIX_BASIC           },
+   { "posix-egrep",           CONTEXT_ALL,       RE_SYNTAX_POSIX_EGREP           },
+   { "egrep",                 CONTEXT_ALL,       RE_SYNTAX_EGREP                 },
+   { "posix-extended",        CONTEXT_ALL,       RE_SYNTAX_POSIX_EXTENDED        },
+   { "posix-minimal-basic",   CONTEXT_GENERIC,   RE_SYNTAX_POSIX_MINIMAL_BASIC   },
    { "sed",                   CONTEXT_GENERIC,   RE_SYNTAX_SED                   },
    /*    ,{ "posix-common",   CONTEXT_GENERIC,  _RE_SYNTAX_POSIX_COMMON   } */
   };
@@ -140,18 +138,26 @@ unsigned int get_regex_type_context (unsigned int ix)
 }
 
 int
-get_regex_type_synonym (unsigned int ix)
+get_regex_type_synonym (unsigned int ix, unsigned int context)
 {
   unsigned i;
   int flags;
 
   if (ix >= N_REGEX_MAP_ENTRIES)
     return -1;
-
   flags = regex_map[ix].option_val;
+  /* Terminate the loop before we get to IX, so that we always
+     consistently choose the same entry as a synonym (rather than
+     stating that x and y are synonyms of each other). */
   for (i=0u; i<ix; ++i)
     {
-      if (flags == regex_map[i].option_val)
+      if ((regex_map[i].context & context) == 0)
+	{
+	  /* It is pointless to state that "x is a synonym of y" if we
+	     are not in fact going to include y. */
+	  continue;
+	}
+      else if (flags == regex_map[i].option_val)
 	{
 	  return i;
 	}
