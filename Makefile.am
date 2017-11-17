@@ -20,7 +20,7 @@ AUTOMAKE_OPTIONS=gnits
 AM_CFLAGS = $(WARN_CFLAGS)
 
 EXTRA_DIST = COPYING ChangeLog TODO config.h.in stamp-h.in \
-		THANKS bootstrap \
+		THANKS \
 		tool-versions.txt README-hacking
 DISTCLEANFILES = tool-versions.txt
 
