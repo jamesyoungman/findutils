@@ -106,6 +106,9 @@ a no-op since findnutils-4.5.15.
 The configure option --enable-debug has been removed.  Debugging in
 find is now controlled by its -D option only.
 
+The configure option --enable-silent-rules is the default now.
+Use --disable-silent-rules or "make V=1" to get verbose build output.
+
 "make dist" no longer builds .tar.gz files.
 xz is portable enough and in wide-enough use that distributing
 only .tar.xz files is enough.
