@@ -128,7 +128,6 @@ AC_ARG_ENABLE(compiler-warnings,
   findutils_marginal="$findutils_marginal -Wpadded"
   findutils_marginal="$findutils_marginal -Wformat-nonliteral"
   findutils_marginal="$findutils_marginal -Wunreachable-code"
-  findutils_marginal="$findutils_marginal -Wunused-parameter"
   # -Wdouble-promotion generates many warnings when printing values with fprintf.
   findutils_marginal="$findutils_marginal -Wdouble-promotion"
   findutils_marginal="$findutils_marginal -Woverlength-strings"
@@ -155,6 +154,8 @@ AC_ARG_ENABLE(compiler-warnings,
   # tricky as they're comparisons between a type we choose and a type the implementation
   # chooses without stating whether or not it is signed (e.g. time_t).
   WARN_CFLAGS="$WARN_CFLAGS  -Wno-sign-compare"
+  # Likewise for -Wunused-parameter: it is implied by -Wunused and -Wextra.
+  gl_WARN_ADD([-Wno-unused-parameter])
   ])
 
 dnl For --enable-compiler-warnings-are-errors, any GCC compiler
