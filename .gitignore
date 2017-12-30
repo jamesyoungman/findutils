@@ -15,6 +15,7 @@ config.status
 config.sub
 configure
 /gl/
+/gnulib-tests/
 /GNUmakefile
 INSTALL
 install-sh
@@ -25,5 +26,4 @@ Makefile.in
 patches
 stamp-h1
 .tarball-version
-tests
 /tool-versions.txt

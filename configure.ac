@@ -323,7 +323,7 @@ locate/testsuite/Makefile
 m4/Makefile
 po/Makefile.in
 po/Makefile
-tests/Makefile
+gnulib-tests/Makefile
 xargs/Makefile
 xargs/testsuite/Makefile
 ])
