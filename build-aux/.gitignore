@@ -9,6 +9,7 @@
 /config.sub
 /depcomp
 /gitlog-to-changelog
+/gnupload
 /install-sh
 /link-warning.h
 /Makefile.in
