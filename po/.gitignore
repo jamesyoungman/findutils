@@ -5,4 +5,5 @@
 /Makefile.in.in
 /Makevars
 /POTFILES
+/remove-potcdate.sed
 /stamp-po
