@@ -608,8 +608,9 @@ File is empty and is either a regular file or a directory.
 
 .IP \-executable
 Matches files which are executable and directories which are
-searchable (in a file name resolution sense).  This takes into account
-access control lists and other permissions artefacts which the
+searchable (in a file name resolution sense) by the current user.
+This takes into account access control lists and other permissions
+artefacts which the
 .B \-perm
 test ignores.  This test makes use of the
 .BR access (2)
@@ -862,8 +863,8 @@ This is no longer supported (and has been deprecated since 2005).  Use
 instead.
 
 .IP \-readable
-Matches files which are readable.  This takes into account access
-control lists and other permissions artefacts which the
+Matches files which are readable by the current user.  This takes into
+account access control lists and other permissions artefacts which the
 .B \-perm
 test ignores.  This test makes use of the
 .BR access (2)
@@ -972,8 +973,8 @@ See \-path.  This alternative is less portable than
 .BR \-path .
 
 .IP "\-writable"
-Matches files which are writable.  This takes into account access
-control lists and other permissions artefacts which the
+Matches files which are writable by the current user.  This takes into
+account access control lists and other permissions artefacts which the
 .B \-perm
 test ignores.  This test makes use of the
 .BR access (2)
