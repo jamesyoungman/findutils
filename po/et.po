@@ -1,6 +1,6 @@
 # This file is distributed under the same license as the findutils package.
 # Estonian translations for findutils
-# Copyright (C) 2000-2017 Free Software Foundation, Inc.
+# Copyright (C) 2000-2018 Free Software Foundation, Inc.
 # Toomas Soome <tsoome@me.com>, 2015.
 #
 msgid ""

@@ -1,6 +1,6 @@
 # Brazilian Portuguese translations for findutils package
 # Traduções em português brasileiro para o pacote findutils
-# Copyright (C) 2017 Free Software Foundation, Inc.
+# Copyright (C) 2017-2018 Free Software Foundation, Inc.
 # This file is distributed under the same license as the findutils package.
 # Rodrigo Parra Novo <rodrigo.novo@corp.terralycos.com>, 1999, 2000.
 # Alexandre Folle de Menezes <afmenez@terra.com.br>, 2002, 2004.

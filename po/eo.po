@@ -1,5 +1,5 @@
 # Esperanto translations for findutils messages
-# Copyright (C) 2002-2017 Free Software Foundation, Inc.
+# Copyright (C) 2002-2018 Free Software Foundation, Inc.
 # This file is distributed under the same license as the findutils package.
 # D. Dale Gulledge <dsplat@rochester.rr.com>, 2004.
 # Felipe Castro <fefcas@gmail.com>, 2013, 2014.
