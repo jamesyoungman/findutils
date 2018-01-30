@@ -316,6 +316,12 @@ pred_delete (const char *pathname, struct stat *stat_buf, struct predicate *pred
 	}
       else
 	{
+	  if (ENOENT == errno && options.ignore_readdir_race)
+	    {
+	      /* Ignore unlink() error for vanished files.  */
+	      errno = 0;
+	      return true;
+	    }
 	  if (EISDIR == errno)
 	    {
 	      if ((flags & AT_REMOVEDIR) == 0)

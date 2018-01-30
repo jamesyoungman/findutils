@@ -495,6 +495,17 @@ this option on and part of it with this option off
 (if you need to do that, you will need to issue two \fBfind\fR commands
 instead, one with the option and one without it).
 
+Furthermore,
+.B find
+with the
+.B \-ignore_readdir_race
+option will ignore errors of the
+.B \-delete
+action in the case the file has disappeared since the parent directory was read:
+it will not output an error diagnostic, and the return code of the
+.B \-delete
+action will be true.
+
 .IP "\-maxdepth \fIlevels\fR"
 Descend at most \fIlevels\fR (a non-negative integer) levels of
 directories below the starting-points.
@@ -1086,6 +1097,17 @@ you cannot usefully use
 and
 .B \-delete
 together.
+
+Together with the
+.B \-ignore_readdir_race
+option,
+.B find
+will ignore errors of the
+.B \-delete
+action in the case the file has disappeared since the parent directory was
+read: it will not output an error diagnostic, and the return code of the
+.B \-delete
+action will be true.
 
 .IP "\-exec \fIcommand\fR ;"
 Execute

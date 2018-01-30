@@ -54,6 +54,10 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
 
+#52981: find: the '-delete' action no longer complains about disappeared files
+        when the '-ignore_readdir_race' option is given, too.  That action will
+        also returns true in such a case now.
+
 #52220: 'find -D' without any further argument no longer crashes.
         Bug present since the implementation of -D in FINDUTILS_4_3_1-1.
 

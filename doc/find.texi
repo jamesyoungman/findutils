@@ -1424,7 +1424,15 @@ gives a significant increase in search speed.
 If a file disappears after its name has been read from a directory but
 before @code{find} gets around to examining the file with @code{stat},
 don't issue an error message.  If you don't specify this option, an
-error message will be issued.  This option can be useful in system
+error message will be issued.
+
+Furthermore, @code{find} with the @samp{-ignore_readdir_race} option
+will ignore errors of the @samp{-delete} action in the case the file
+has disappeared since the parent directory was read: it will not output
+an error diagnostic, and the return code of the @samp{-delete} action
+will be true.
+
+This option can be useful in system
 scripts (cron scripts, for example) that examine areas of the
 filesystem that change frequently (mail queues, temporary directories,
 and so forth), because this scenario is common for those sorts of
@@ -2787,6 +2795,11 @@ explicitly.
 
 If @samp{-delete} fails, @code{find}'s exit status will be nonzero
 (when it eventually exits).
+
+Together with the @samp{-ignore_readdir_race} option, @code{find} will
+ignore errors of the @samp{-delete} action in the case the file has disappeared
+since the parent directory was read: it will not output an error diagnostic, and
+the return code of the @samp{-delete} action will be true.
 @end deffn
 
 @node Adding Tests
