@@ -14,6 +14,9 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+#ifndef PRINT_H
+#define PRINT_H
+
 #include "defs.h"
 
 struct format_val;
@@ -30,3 +33,5 @@ bool
 insert_fprintf (struct format_val *vec,
 		const struct parser_table *entry,
 		char *format);
+
+#endif /* PRINT_H */

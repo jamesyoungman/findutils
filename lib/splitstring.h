@@ -17,6 +17,8 @@
 /*
  * Written by James Youngman.
  */
+#ifndef SPLITSTRING_H
+#define SPLITSTRING_H
 
 /* Split a string into fields.   The string is never modified.
  *
@@ -38,3 +40,5 @@
 
 bool splitstring(const char *s, const char *separators,
 		 bool first, size_t *pos, size_t *len);
+
+#endif

@@ -17,6 +17,8 @@
 */
 /* Written by James Youngman <jay@gnu.org>.
  */
+#ifndef REGEXTPE_H
+#define REGEXTPE_H
 
 /* Translate a regular expression type name into an option mask.
  * This could convert "grep" into RE_SYNTAX_GREP, for example.
@@ -55,3 +57,5 @@ int get_regex_type_synonym(unsigned int ix, unsigned int context);
  * respectively, findutils, general callers, or all callers.
  */
 unsigned int get_regex_type_context(unsigned int ix);
+
+#endif

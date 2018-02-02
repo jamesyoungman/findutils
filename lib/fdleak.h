@@ -14,9 +14,13 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+#ifndef FDLEAK_H
+#define FDLEAK_H
 
 void remember_non_cloexec_fds (void);
 void forget_non_cloexec_fds (void);
 void complain_about_leaky_fds (void);
 
 int open_cloexec(const char *path, int flags, ...);
+
+#endif
