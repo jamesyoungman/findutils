@@ -51,19 +51,12 @@
 #include "xalloc.h"
 #include "xstrtol.h"
 #include "mountlist.h"
-#include "gettext.h"
 
 /* find headers. */
 #include "defs.h"
 #include "die.h"
 #include "extendbuf.h"
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
+#include "system.h"
 
 static char *file_system_type_uncached (const struct stat *statp,
                                         const char *path,

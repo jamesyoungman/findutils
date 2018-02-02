@@ -23,19 +23,12 @@
 #include <stdlib.h>
 
 /* gnulib headers. */
-#include "gettext.h"
 #include "quotearg.h"
 
 /* find headers. */
+#include "system.h"
 #include "die.h"
 #include "safe-atoi.h"
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
 
 
 int

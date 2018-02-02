@@ -35,7 +35,6 @@
 #include "error.h"
 #include "fnmatch.h"
 #include "fts_.h"
-#include "gettext.h"
 #include "modechange.h"
 #include "mountlist.h"
 #include "parse-datetime.h"
@@ -66,15 +65,8 @@
 #include "die.h"
 #include "fdleak.h"
 #include "findutils-version.h"
+#include "system.h"
 
-
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
 
 #ifndef HAVE_ENDGRENT
 #define endgrent ()

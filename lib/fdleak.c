@@ -37,19 +37,13 @@
 #include "dirent-safer.h"
 #include "error.h"
 #include "fcntl--.h"
-#include "gettext.h"
 
 /* find headers. */
+#include "system.h"
 #include "extendbuf.h"
 #include "fdleak.h"
 #include "safe-atoi.h"
 
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
 
 /* In order to detect FD leaks, we take a snapshot of the open
  * file descriptors which are not FD_CLOEXEC when the program starts.

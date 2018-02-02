@@ -41,7 +41,6 @@
 #include <getopt.h>
 #include <inttypes.h>
 #include <limits.h>
-#include <locale.h>
 #include <signal.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -55,7 +54,6 @@
 /* gnulib headers. */
 #include "closein.h"
 #include "error.h"
-#include "gettext.h"
 #include "progname.h"
 #include "quotearg.h"
 #include "safe-read.h"
@@ -70,14 +68,6 @@
 #include "gcc-function-attributes.h"
 #include "system.h"
 
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#define textdomain(Domain)
-#define bindtextdomain(Package, Directory)
-#endif
 
 #ifndef LONG_MAX
 #define LONG_MAX (~(1 << (sizeof (long) * 8 - 1)))

@@ -18,6 +18,21 @@
 #if !defined SYSTEM_H
 # define SYSTEM_H
 
+#include <locale.h>
+
+/* Take care of NLS matters.  */
+
+#include "gettext.h"
+#if ! ENABLE_NLS
+# undef textdomain
+# define textdomain(Domainname) /* empty */
+# undef bindtextdomain
+# define bindtextdomain(Domainname, Dirname) /* empty */
+#endif
+
+#define _(msgid) gettext (msgid)
+#define N_(msgid) msgid
+
 /* FALLTHROUGH
  * Since GCC7, the "-Werror=implicit-fallthrough=" option requires
  * fallthrough cases to be marked as such via:

@@ -34,7 +34,6 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <inttypes.h>
-#include <locale.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -43,7 +42,6 @@
 #include "closeout.h"
 #include "error.h"
 #include "fts_.h"
-#include "gettext.h"
 #include "progname.h"
 #include "quotearg.h"
 #include "save-cwd.h"
@@ -55,18 +53,10 @@
 #include "dircallback.h"
 #include "fdleak.h"
 #include "unused-result.h"
+#include "system.h"
+
 
 #undef  STAT_MOUNTPOINTS
-
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#define textdomain(Domain)
-#define bindtextdomain(Package, Directory)
-#endif
 
 
 /* FTS_TIGHT_CYCLE_CHECK tries to work around Savannah bug #17877

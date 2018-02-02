@@ -32,7 +32,6 @@
 /* gnulib headers. */
 #include "error.h"
 #include "fdleak.h"
-#include "gettext.h"
 #include "progname.h"
 #include "quotearg.h"
 #include "save-cwd.h"
@@ -44,14 +43,7 @@
 #include "die.h"
 #include "dircallback.h"
 #include "bugreports.h"
-
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
+#include "system.h"
 
 
 struct debug_option_assoc

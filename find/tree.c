@@ -25,20 +25,12 @@
 /* gnulib headers. */
 #include "error.h"
 #include "fnmatch.h"
-#include "gettext.h"
 #include "xalloc.h"
 
 /* find headers. */
 #include "defs.h"
 #include "die.h"
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
-
+#include "system.h"
 
 
 /* All predicates for each path to process. */

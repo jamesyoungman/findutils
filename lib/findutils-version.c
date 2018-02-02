@@ -21,18 +21,12 @@
 /* system headers would go here if we needed any. */
 
 /* gnulib headers. */
-#include "gettext.h"
 #include "version-etc.h"
 
 /* find headers. */
+#include "system.h"
 #include "findutils-version.h"
 
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
 
 #ifdef _LIBC
 /* In the GNU C library, there is a predefined variable for this.  */

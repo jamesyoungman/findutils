@@ -22,7 +22,6 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <grp.h>
-#include <locale.h>
 #include <pwd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,9 +40,9 @@
 #include "idcache.h"
 #include "pathmax.h"
 #include "stat-size.h"
-#include "gettext.h"
 
 /* find headers. */
+#include "system.h"
 #include "die.h"
 #include "listfile.h"
 
@@ -61,12 +60,6 @@
 #  endif
 #endif
 
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
 
 static bool print_name (register const char *p, FILE *stream, int literal_control_chars);
 

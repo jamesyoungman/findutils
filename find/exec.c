@@ -30,7 +30,6 @@
 #include "cloexec.h"
 #include "dirname.h"
 #include "error.h"
-#include "gettext.h"
 #include "save-cwd.h"
 #include "xalloc.h"
 
@@ -39,13 +38,7 @@
 #include "defs.h"
 #include "die.h"
 #include "fdleak.h"
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
+#include "system.h"
 
 
 /* Initialize exec->wd_for_exec.

@@ -30,7 +30,6 @@
 #include <assert.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <locale.h>
 #include <sys/stat.h>
 
 /* gnulib headers. */
@@ -40,7 +39,6 @@
 #include "dirname.h"
 #include "error.h"
 #include "fcntl--.h"
-#include "gettext.h"
 #include "human.h"
 #include "progname.h"
 #include "save-cwd.h"
@@ -53,6 +51,7 @@
 #include "defs.h"
 #include "die.h"
 #include "fdleak.h"
+#include "system.h"
 
 #undef  STAT_MOUNTPOINTS
 
@@ -73,16 +72,6 @@ enum
 #else
 /* Some systems don't have inodes, so fake them to avoid lots of ifdefs.  */
 # define D_INO(dp) NOT_AN_INODE_NUMBER
-#endif
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#define textdomain(Domain)
-#define bindtextdomain(Package, Directory)
-#define ngettext(singular,plural,n) ((1==n) ? singular : plural)
 #endif
 
 #ifdef STAT_MOUNTPOINTS

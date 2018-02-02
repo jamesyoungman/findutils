@@ -21,7 +21,6 @@
 #include <assert.h>
 #include <errno.h>
 #include <limits.h>
-#include <locale.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
@@ -33,21 +32,13 @@
 #include <xalloc.h>
 
 /* gnulib headers. */
-#include "gettext.h"
 #include "xstrtol.h"
 
 /* find headers. */
+#include "system.h"
 #include "buildcmd.h"
 #include "die.h"
 
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#define textdomain(Domain)
-#define bindtextdomain(Package, Directory)
-#endif
 
 /* COMPAT:  SYSV version defaults size (and has a max value of) to 470.
    We try to make it as large as possible.  See bc_get_arg_max() below. */

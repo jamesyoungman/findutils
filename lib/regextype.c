@@ -28,22 +28,14 @@
 #include <string.h>
 
 /* gnulib headers. */
-#include "gettext.h"
 #include "quote.h"
 #include "regex.h"
 #include "regextype.h"
 #include "xalloc.h"
 
 /* findutils headers */
+#include "system.h"
 #include "die.h"
-
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
 
 
 struct tagRegexTypeMap

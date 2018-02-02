@@ -25,7 +25,6 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <grp.h>
-#include <locale.h>
 #include <math.h>
 #include <pwd.h>
 #include <selinux/selinux.h>
@@ -40,7 +39,6 @@
 #include "dirname.h"
 #include "error.h"
 #include "fnmatch.h"
-#include "gettext.h"
 #include "stat-size.h"
 #include "stat-time.h"
 #include "yesno.h"
@@ -51,15 +49,9 @@
 #include "dircallback.h"
 #include "listfile.h"
 #include "printquoted.h"
+#include "system.h"
 
 
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
 
 #ifdef CLOSEDIR_VOID
 /* Fake a return value. */

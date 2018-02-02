@@ -23,7 +23,6 @@
 #include <ctype.h>
 #include <errno.h>
 #include <grp.h>
-#include <locale.h>
 #include <math.h>
 #include <pwd.h>
 #include <stdarg.h>
@@ -35,7 +34,6 @@
 #include "dirname.h"
 #include "error.h"
 #include "filemode.h"
-#include "gettext.h"
 #include "human.h"
 #include "printquoted.h"
 #include "stat-size.h"
@@ -49,12 +47,6 @@
 #include "die.h"
 #include "print.h"
 
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
 
 #if defined STDC_HEADERS
 # define ISDIGIT(c) isdigit ((unsigned char)c)

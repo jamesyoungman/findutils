@@ -23,7 +23,6 @@
 
 /* system headers. */
 #include <errno.h>
-#include <locale.h>
 #include <stdarg.h>
 #include <sys/stat.h>
 

@@ -28,21 +28,12 @@
 /* gnulib headers. */
 #include "byteswap.h"
 #include "error.h"
-#include "gettext.h"
 #include "quotearg.h"
 
 /* find headers. */
+#include "system.h"
 #include "die.h"
 #include "locatedb.h"
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#define textdomain(Domain)
-#define bindtextdomain(Package, Directory)
-#endif
 
 
 enum { WORDBYTES=4 };

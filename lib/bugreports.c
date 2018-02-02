@@ -18,14 +18,9 @@
  */
 #include <config.h>
 #include <stdio.h>
-#include "bugreports.h"
 
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#endif
+#include "bugreports.h"
+#include "system.h"
 
 int
 explain_how_to_report_bugs (FILE *f, const char *program_name)

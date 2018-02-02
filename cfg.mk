@@ -84,6 +84,10 @@ exclude_file_name_regexp--sc_prohibit_strncpy = ^(find/print.c|lib/buildcmd.c)$$
 # sc_texinfo_acronym: perms.texi from coreutils uses @acronym{GNU}.
 exclude_file_name_regexp--sc_texinfo_acronym = doc/perm\.texi
 
+# List syntax-check exemptions.
+exclude_file_name_regexp--sc_bindtextdomain = \
+  ^(locate/frcode|lib/regexprops|lib/test_splitstring)\.c$$
+
 # sc_prohibit_strcmp is broken because it gives false positives for
 # cases where neither argument is a string literal.
 local-checks-to-skip += sc_prohibit_strcmp

@@ -79,25 +79,16 @@
 /* gnulib headers. */
 #include "closeout.h"
 #include "error.h"
-#include "gettext.h"
 #include "progname.h"
 #include "xalloc.h"
 
 /* find headers. */
+#include "system.h"
 #include "bugreports.h"
 #include "die.h"
 #include "findutils-version.h"
 #include "gcc-function-attributes.h"
 #include "locatedb.h"
-
-#if ENABLE_NLS
-# include <libintl.h>
-# define _(Text) gettext (Text)
-#else
-# define _(Text) Text
-#define textdomain(Domain)
-#define bindtextdomain(Package, Directory)
-#endif
 
 
 /* Write out a 16-bit int, high byte first (network byte order).
