@@ -738,14 +738,11 @@ collect_arg_stat_info (char **argv, int *arg_ptr, struct stat *p,
   if (collect_arg (argv, arg_ptr, &filename))
     {
       *argument = filename;
-      if (0 == (options.xstat)(filename, p))
-	{
-	  return true;
-	}
-      else
+      if (0 != (options.xstat)(filename, p))
 	{
 	  fatal_target_file_error (errno, filename);
 	}
+      return true;
     }
   else
     {
