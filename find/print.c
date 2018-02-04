@@ -803,6 +803,7 @@ checked_fprintf (struct format_val *dest, const char *fmt, ...)
 
   va_start (ap, fmt);
   rv = vfprintf (dest->stream, fmt, ap);
+  va_end (ap);
   if (rv < 0)
     nonfatal_nontarget_file_error (errno, dest->filename);
 }
