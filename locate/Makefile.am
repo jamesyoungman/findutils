@@ -46,7 +46,7 @@ updatedb: updatedb.sh Makefile
 	rm -f $@
 	find=`echo find|sed '$(transform)'`; \
 	frcode=`echo frcode|sed '$(transform)'`; \
-	copyright=`sed -n '/^# Copyright /{s/^..//;p;q}' $(srcdir)/updatedb.sh \
+	copyright=`sed -n '/^# Copyright /{s/^..//;p;q;}' $(srcdir)/updatedb.sh \
 	  grep .` || exit 1; \
 	sed \
 	-e "s,@""bindir""@,$(bindir)," \
