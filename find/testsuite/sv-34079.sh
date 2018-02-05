@@ -23,6 +23,11 @@ testname="$(basename $0)"
 
 . "${srcdir}"/binary_locations.sh
 
+# Require seq(1) for this test - which may not be available
+# on some systems, e.g on some *BSDs.
+seq 2 >/dev/null 2>&1 \
+  || { echo "$testname: required utility 'seq' missing" >&2; exit 77; }
+
 make_test_data() {
     d="$1"
     (
