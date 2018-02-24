@@ -716,8 +716,9 @@ which provides a replacement @code{locate}.
 @chapter Internationalisation
 Translation is essentially automated from the maintainer's point of
 view.  The TP mails the maintainer when a new PO file is available,
-and we just download it and check it in.  We copy the @file{.po} files
-into the git repository.  For more information, please see
+and we just download it and check it in.  The @file{bootstrap} script
+copies @file{.po} files into the working tree.  For more information,
+please see
 @url{https://translationproject.org/domain/findutils.html}.
 
 

@@ -93,15 +93,6 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 #46784: frcode drops last char if no final newline
 
-** Translations
-
-Updated translations: Belarusian, Brazilian Portuguese, Bulgarian, Catalan,
-Chinese (simplified), Chinese (traditional), Croatian, Czech, Danish, Dutch,
-Esperanto, Estonian, Finnish, French, Galician, German, Greek, Hungarian,
-Indonesian, Irish, Italian, Japanese, Korean, Lithuanian, Luganda, Malay,
-Norwegian Bokmaal, Polish, Portuguese, Romanian, Russian, Serbian, Slovak,
-Slovenian, Spanish, Swedish, Turkish, Ukrainian, Vietnamese.
-
 ** Changes to the build process
 
 The configure option --enable-id-cache has been removed.  It has been
@@ -123,6 +114,10 @@ release manually).  As a result, the inter-release builds can now be
 distinguished: e.g. "4.6.0.152-fe9c" is the 152th commit after the tag "v4.6.0"
 and has the Git short hash "fe9c".  Builds from an unclean tree are marked with
 the suffix "-dirty".
+
+The translation files in the PO directory are no longer version controlled;
+instead bootstrap auto-updates them from "translationproject.org" during a
+maintainer build.
 
 * Major changes in release 4.6.0, 2015-12-28
 
