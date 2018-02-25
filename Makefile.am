@@ -50,7 +50,7 @@ tool-versions.txt: Makefile
 	makeinfo --version ) > $@
 
 # Have .tarball-version based versions only in tarball builds.
-dist-hook: gen-ChangeLog findutils-check-pofiles findutils-check-testfiles
+dist-hook: gen-ChangeLog findutils-check-testfiles
 	$(AM_V_GEN)echo $(VERSION) > $(distdir)/.tarball-version
 
 # gen-Changelog must still work when $(top_srcdir)/.git does not exist
@@ -66,20 +66,6 @@ gen-ChangeLog:
 	  echo "WARNING: $@: cannot generate ChangeLog since" >&2 && \
 	  echo "$(top_srcdir) has no .git subdirectory" >&2 ;      \
 	fi
-
-## Check that we actually shipped all the .po files.  If this rule fails,
-## check ALL_LINGUAS in configure.ac against the po files in the source
-## directory (their names, not their contents)
-findutils-check-pofiles:
-	@echo ; echo Checking to see if we distributed the full set of .po files
-	distcount=`ls $(distdir)/po/*.po | wc -l` ;                      \
-	  srccount=`ls $(srcdir)/po/*.po | wc -l` ;                      \
-	  test $$distcount -eq $$srccount                                \
-	    || { echo 'FAILED: Please check the value of ALL_LINGUAS in' \
-		   'configure.ac against the actual set of ".po" files'  \
-		   >&2 ;                                                 \
-		 false; }
-	@echo All .po files distributed OK.
 
 ## Check that we actually shipped all the test files that exist in the source.
 ## runtest will run all the .exp files it finds, and so if we don't ship all
