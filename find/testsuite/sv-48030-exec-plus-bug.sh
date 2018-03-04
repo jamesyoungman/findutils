@@ -109,10 +109,10 @@ CMD='tstcmd'
 make_test_data() {
   # Create the CMD script and check that it works.
   mkdir "$DIR" 'bin' \
-    && echo 'printf "%s\n" "$@"' > "bin/$CMD" \
+    && printf '%s\n' '#!/bin/sh' 'printf "%s\n" "$@"' > "bin/$CMD" \
     && chmod +x "bin/$CMD" \
     && PATH="$PWD/bin:$PATH" \
-    && [ $( "${ftsfind}" bin -maxdepth 0 -exec "$CMD" '{}' + ) = 'bin' ] \
+    && [ "$( "${ftsfind}" bin -maxdepth 0 -exec "$CMD" '{}' + )" = 'bin' ] \
     || return 1
 
   # Create expected output file - also used for creating the test data.
