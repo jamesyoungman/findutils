@@ -1131,48 +1131,30 @@ print_args (bool ask)
 static void
 set_slot_var (unsigned int n)
 {
-  static const char *fmt = "%u";
-  int size;
-  char *buf;
-
-
-  /* Determine the length of the buffer we need.
-
+  /* Print N into a buffer ... guessing a size which should be safe.
      If the result would be zero-length or have length (not value) >
      INT_MAX, the assumptions we made about how snprintf behaves (or
      what UINT_MAX is) are wrong.  Hence we have a design error (not
      an environmental error).
   */
-  size = snprintf (NULL, 0u, fmt, n);
-  assert (size > 0);
-
+  char buf[20];
+  assert (snprintf (buf, sizeof buf - 1, "%u", n) <= sizeof buf - 1);
 
   /* Failures here are undesirable but not fatal, since we can still
      guarantee that this child does not have a duplicate value of the
      indicated environment variable set (since the parent unset it on
      startup).
+     If the user doesn't want us to set the variable, there is
+     nothing to do.  However, we defer the bail-out until this
+     point in order to get better test coverage.
   */
-  if (NULL == (buf = malloc (size+1)))
+  if (slot_var_name)
     {
-      error (0, errno, _("unable to allocate memory"));
-    }
-  else
-    {
-      snprintf (buf, size+1, fmt, n);
-
-      /* If the user doesn't want us to set the variable, there is
-	 nothing to do.  However, we defer the bail-out until this
-	 point in order to get better test coverage.
-      */
-      if (slot_var_name)
+      if (setenv (slot_var_name, buf, 1) < 0)
 	{
-	  if (setenv (slot_var_name, buf, 1) < 0)
-	    {
-	      error (0, errno,
-		     _("failed to set environment variable %s"), slot_var_name);
-	    }
+	  error (0, errno,
+	         _("failed to set environment variable %s"), slot_var_name);
 	}
-      free (buf);
     }
 }
 
