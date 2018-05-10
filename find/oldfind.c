@@ -274,6 +274,8 @@ bool is_fts_enabled (int *ftsoptions)
 
 
 static char *
+specific_dirname (const char *dir) _GL_ATTRIBUTE_MALLOC;
+static char *
 specific_dirname (const char *dir)
 {
   char dirbuf[1024];
