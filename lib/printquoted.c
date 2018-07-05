@@ -62,6 +62,7 @@ print_quoted (FILE *fp,
 
       /* Replace any remaining funny characters with '?'. */
       len = qmark_chars (buf, len);
+      buf[len] = 0;
 
       rv = fprintf (fp, format, buf);	/* Print the quoted version */
       if (buf != smallbuf)
