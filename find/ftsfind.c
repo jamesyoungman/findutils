@@ -143,7 +143,7 @@ static void init_mounted_dev_list (void);
 static const char *
 get_fts_info_name (int info)
 {
-  static char buf[10];
+  static char buf[14];
   switch (info)
     {
       HANDLECASE(FTS_D);
