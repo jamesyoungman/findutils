@@ -342,11 +342,22 @@ consider_visiting (FTS *p, FTSENT *ent)
   statbuf.st_ino = ent->fts_statp->st_ino;
 
   /* Cope with various error conditions. */
-  if (ent->fts_info == FTS_ERR
-      || ent->fts_info == FTS_DNR)
+  if (ent->fts_info == FTS_ERR)
     {
       nonfatal_target_file_error (ent->fts_errno, ent->fts_path);
       return;
+    }
+  if (ent->fts_info == FTS_DNR)
+    {
+      nonfatal_target_file_error (ent->fts_errno, ent->fts_path);
+      if (options.do_dir_first)
+	{
+	  /* Return for unreadable directories without -depth.
+	   * With -depth, the directory itself has to be processed, yet the
+	   * error message above has to be output.
+	   */
+	  return;
+	}
     }
   else if (ent->fts_info == FTS_DC)
     {

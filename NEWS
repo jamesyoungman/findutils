@@ -54,6 +54,10 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
 
+#54171: 'find -depth' now outputs the name of unreadable directories.
+        Previously, FTS-based find missed to output those entries.
+        Bug present since the FTS implementation in FINDUTILS_4_3_0-1.
+
 #52981: find: the '-delete' action no longer complains about disappeared files
         when the '-ignore_readdir_race' option is given, too.  That action will
         also returns true in such a case now.
