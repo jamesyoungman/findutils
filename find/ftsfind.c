@@ -42,6 +42,7 @@
 #include "closeout.h"
 #include "error.h"
 #include "fts_.h"
+#include "intprops.h"
 #include "progname.h"
 #include "quotearg.h"
 #include "save-cwd.h"
@@ -143,7 +144,7 @@ static void init_mounted_dev_list (void);
 static const char *
 get_fts_info_name (int info)
 {
-  static char buf[14];
+  static char buf[1 + INT_BUFSIZE_BOUND (info) + 1];
   switch (info)
     {
       HANDLECASE(FTS_D);
