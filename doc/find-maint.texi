@@ -263,9 +263,9 @@ relating to problems with the program's execution environment should
 be diagnosed with a user-oriented error message.  An assertion failure
 should always denote a bug in the program.
 
-Don't use @code{assert} to catch not-fuly-implemented features of your
-code.  Finish the implementation, disable the code, or leave the
-unfinished version on a local branch.
+Avoid using @code{assert} to mark not-fully-implemented features of
+your code as such.  Finish the implementation, disable the code, or
+leave the unfinished version on a local branch.
 
 Several programs in the findutils suite perform self-checks.  See for
 example the function @code{pred_sanity_check} in @file{find/pred.c}.
@@ -357,9 +357,9 @@ to be fixed.  It's all to easy to miss some out when trying to fix the
 bug.  Equally, it's quite possible that when pasting the code into
 some function, the pasted code was not quite adapted correctly to its
 new environment.  To pick a contrived example, perhaps it modifies a
-global variable which it that code shouldn't be touching in its new
-home.  Worse, perhaps it makes some unstated assumption about the
-nature of the input arguments which is in fact not true for the
+global variable which it (that [original] code) shouldn't be touching
+in its new home.  Worse, perhaps it makes some unstated assumption about
+the nature of the input arguments which is in fact not true for the
 context of the now duplicated code.
 
 A good example of the use of refactoring in findutils is the
@@ -435,7 +435,7 @@ file is deleted from the one directory you are interested in, but if
 less helpful.
 
 Bear in mind also that it is possible for the directory @code{find} is
-currently searching could be moved to another point in the filesystem,
+searching to be concurrently moved elsewhere in the file system,
 and that the directory in which @code{find} was started could be
 deleted.
 
