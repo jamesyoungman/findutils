@@ -548,7 +548,9 @@ enum DebugOption
     DebugHelp             = 1 << 4,
     DebugExec             = 1 << 5,
     DebugSuccessRates     = 1 << 6,
-    DebugTime             = 1 << 7
+    DebugTime             = 1 << 7,
+
+    DebugAll              = ~DebugNone & ~DebugHelp, /* all but help */
   };
 
 struct options

@@ -219,8 +219,6 @@ Valid debug options include
 .RS
 .IP exec
 Show diagnostic information relating to \-exec, \-execdir, \-ok and \-okdir
-.IP help
-Explain the debugging options.
 .IP opt
 Prints diagnostic information relating to the optimisation of the
 expression tree; see the \-O option.
@@ -239,6 +237,11 @@ system calls.  The
 program tries to minimise such calls.
 .IP tree
 Show the expression tree in its original and optimised form.
+.IP all
+Enable all of the other debug options (but
+.BR help ).
+.IP help
+Explain the debugging options.
 .RE
 .IP \-Olevel
 Enables query optimisation.

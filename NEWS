@@ -42,6 +42,9 @@ find now outputs a better hint in case the user passed an unquoted shell-
 glob pattern to options like -name, i.e., when the offending argument is
 an existing file.
 
+find now supports the debug option '-D all' to include all of the other
+debug options at once.
+
 xargs now supports the -o, --open-tty option to reopen stdin as /dev/tty
 in the child process before executing the command; useful to run an
 interactive application.  Added for compatibility with BSD.

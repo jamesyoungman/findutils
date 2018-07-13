@@ -3384,10 +3384,10 @@ most people will not find this option helpful.
 The list of debug options should be comma separated.  Compatibility of
 the debug options is not guaranteed between releases of findutils.
 For a complete list of valid debug options, see the output of
-@code{find -D help}.  Valid debug options include:
+@code{find -D help}.
+
+Valid debug options include:
 @table @samp
-@item help
-Explain the debugging options.
 @item tree
 Show the expression tree in its original and optimised form.
 @item stat
@@ -3399,6 +3399,10 @@ expression tree; see the @samp{-O} option.
 @item rates
 Prints a summary indicating how often each predicate succeeded or
 failed.
+@item all
+Enable all of the other debug options (but @samp{help}).
+@item help
+Explain the debugging options.
 @end table
 
 @node Find Expressions

@@ -55,13 +55,15 @@ struct debug_option_assoc
 static struct debug_option_assoc debugassoc[] =
   {
     { "exec", DebugExec, "Show diagnostic information relating to -exec, -execdir, -ok and -okdir" },
-    { "help", DebugHelp, "Explain the various -D options" },
     { "opt",  DebugExpressionTree|DebugTreeOpt, "Show diagnostic information relating to optimisation" },
     { "rates", DebugSuccessRates, "Indicate how often each predicate succeeded" },
     { "search",DebugSearch, "Navigate the directory tree verbosely" },
     { "stat", DebugStat, "Trace calls to stat(2) and lstat(2)" },
     { "time", DebugTime, "Show diagnostic information relating to time-of-day and timestamp comparisons" },
-    { "tree", DebugExpressionTree, "Display the expression tree" }
+    { "tree", DebugExpressionTree, "Display the expression tree" },
+
+    { "all", DebugAll, "Set all of the debug flags (but help)" },
+    { "help", DebugHelp, "Explain the various -D options" },
   };
 #define N_DEBUGASSOC (sizeof(debugassoc)/sizeof(debugassoc[0]))
 
