@@ -554,6 +554,23 @@ local diffs to be patched into gnulib beneath the
 @file{gnulib-local}.  Normally however, there is no need for this,
 since gnulib updates are very prompt.
 
+@section How to update Gnulib to latest
+With a non-dirty working tree, the command @code{make update-gnulib-to-latest}
+(or the shorter alias @code{make gnulib-sync} allows, well, to update the
+gnulib submodule.  In detail, that is:
+@enumerate
+@item Fetching the latest upstream gnulib reference.
+@item Copying the files which should stay in sync like
+@file{bootstrap} from gnulib into the findutils working tree.
+@item And finally showing the @code{git status} for the gnulib submodule
+and the above copied files.
+@end enumerate
+After that, the maintainer compares if all is correct, if the findutils build
+and run correct, and finally commits with the new gnulib version, e.g. via
+@code{git gui}.
+
+The @code{gnulib-sync} target can be run any time - after a @code{configure}
+run -, and only rejects to run if the working tree is dirty.
 
 @node Documentation
 @chapter Documentation
