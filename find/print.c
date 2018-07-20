@@ -1175,11 +1175,12 @@ do_fprintf (struct format_val *dest,
             if (S_ISLNK (stat_buf->st_mode))
               {
                 struct stat sbuf;
-                /* If we would normally follow links, do not do so.
-                 * If we would normally not follow links, do so.
+                /* %Y needs to stat the symlink target regardless of
+                 * whether we would normally follow symbolic links or not.
+                 * (Actually we do not even come here when following_links()
+                 *  other than the ENOENT case.)
                  */
-                if ((following_links () ? optionp_stat : optionl_stat)
-                    (state.rel_pathname, &sbuf) != 0)
+                if (fstatat (state.cwd_dir_fd, state.rel_pathname, &sbuf, 0) != 0)
                   {
                     if ( errno == ENOENT )
                       {

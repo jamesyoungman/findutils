@@ -54,6 +54,10 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
 
+#54262: 'find -printf "%Y"' now correctly outputs 'N' for broken symlinks.
+        Previously, it output 'l' in such a case.
+        Bug introduced while attempting to fix #29460 in version v4.5.8.
+
 #54171: 'find -depth' now outputs the name of unreadable directories.
         Previously, FTS-based find missed to output those entries.
         Bug present since the FTS implementation in FINDUTILS_4_3_0-1.
