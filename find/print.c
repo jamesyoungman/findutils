@@ -1205,8 +1205,8 @@ do_fprintf (struct format_val *dest,
                 checked_fprintf (dest, segment->text,
                                  mode_to_filetype (sbuf.st_mode & S_IFMT));
               }
-#endif /* S_ISLNK */
             else
+#endif /* S_ISLNK */
               {
                 checked_fprintf (dest, segment->text,
                                  mode_to_filetype (stat_buf->st_mode & S_IFMT));
