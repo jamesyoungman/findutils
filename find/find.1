@@ -1540,7 +1540,8 @@ File's type (like in
 .BR "ls \-l" ),
 U=unknown type (shouldn't happen)
 .IP %Y
-File's type (like %y), plus follow symlinks: L=loop, N=nonexistent
+File's type (like %y), plus follow symlinks: `L'=loop, `N'=nonexistent, `?' for
+any other error when determining the type of the symlink target.
 .IP %Z
 (SELinux only) file's security context.
 .IP "%{ %[ %("

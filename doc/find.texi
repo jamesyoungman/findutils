@@ -1926,6 +1926,9 @@ link, @samp{l} will be printed.
 Type of the file as used with @samp{-type}.  If the file is a symbolic
 link, it is dereferenced.  If the file is a broken symbolic link,
 @samp{N} is printed.
+When determining the type of the symlink target, and a loop is encountered,
+then @samp{L} is printed (e.g. for a symlink to itself);
+@samp{?} is printed for any other error (like e.g. @samp{permission denied}).
 
 @end table
 

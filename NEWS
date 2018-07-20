@@ -50,6 +50,10 @@ interactive application.  Added for compatibility with BSD.
 
 Prefer https:// over http:// links where possible, e.g. for '*.gnu.org' servers.
 
+Both find.1 and the find texinfo manual now consistently document all of the
+'N', 'L' and '?' possibilities in '-printf %Y' output when the determination of
+the type of a symlink target fails.
+
 Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
