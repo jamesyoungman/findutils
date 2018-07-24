@@ -1182,7 +1182,7 @@ do_fprintf (struct format_val *dest,
                  */
                 if (fstatat (state.cwd_dir_fd, state.rel_pathname, &sbuf, 0) != 0)
                   {
-                    if ( errno == ENOENT )
+                    if ( (errno == ENOENT) || (errno == ENOTDIR) )
                       {
                         checked_fprintf (dest, segment->text, "N");
                         break;

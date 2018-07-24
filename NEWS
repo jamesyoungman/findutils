@@ -58,8 +58,8 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
 
-#54262: 'find -printf "%Y"' now correctly outputs 'N' for broken symlinks.
-        Previously, it output 'l' in such a case.
+#54262: 'find -printf "%Y"' now correctly outputs 'N' for broken symlinks
+        (ENOENT or ENOTDIR).  Previously, it output 'l' in such a case.
         Bug introduced while attempting to fix #29460 in version v4.5.8.
 
 #54171: 'find -depth' now outputs the name of unreadable directories.
