@@ -109,7 +109,6 @@ get_proc_max_fd (void)
 static int
 get_max_fd (void)
 {
-  struct rlimit fd_limit;
   long open_max;
 
   open_max = get_proc_max_fd ();
@@ -122,13 +121,16 @@ get_max_fd (void)
 
   /* We assume if RLIMIT_NOFILE is defined, all the related macros are, too. */
 #if defined HAVE_GETRLIMIT && defined RLIMIT_NOFILE
-  if (0 == getrlimit (RLIMIT_NOFILE, &fd_limit))
-    {
-      if (fd_limit.rlim_cur == RLIM_INFINITY)
-	return open_max;
-      else
-	return (int) fd_limit.rlim_cur;
-    }
+  {
+    struct rlimit fd_limit;
+    if (0 == getrlimit (RLIMIT_NOFILE, &fd_limit))
+      {
+	if (fd_limit.rlim_cur == RLIM_INFINITY)
+	  return open_max;
+	else
+	  return (int) fd_limit.rlim_cur;
+      }
+  }
 #endif
   /* cannot determine the limit's value */
   return open_max;
