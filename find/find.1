@@ -1151,7 +1151,7 @@ the command, and (when
 is being invoked from a shell) it should be quoted (for
 example, \(aq{}\(aq) to protect it from interpretation by shells.  The
 command is executed in the starting directory.  If any invocation
-returns a non-zero value as exit status, then
+with the `+' form returns a non-zero value as exit status, then
 .B find
 returns a non-zero exit status.  If
 .B find
@@ -1191,7 +1191,8 @@ appropriately-named file in a directory in which you will run
 The same applies to having entries in
 .B $PATH
 which are empty or which are not absolute directory names.  If
-any invocation returns a non-zero value as exit status, then
+any invocation with the `+' form returns a non-zero value as exit status,
+then
 .B find
 returns a non-zero exit status.  If
 .B find
