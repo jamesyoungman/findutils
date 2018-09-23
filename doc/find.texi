@@ -1040,9 +1040,9 @@ the next unit. Therefore @samp{-size -1M} is not equivalent to
 matches files from 0 to 1,048,575 bytes.  There is no `=' prefix, because
 that's the default anyway.
 
-The size does not count indirect blocks, but it does count blocks in
-sparse files that are not actually allocated.  In other words, it's
-consistent with the result you get for @samp{ls -l} or @samp{wc -c}.
+The size is simply the st_size member of the struct stat populated by
+the lstat (or stat) system call, rounded up as shown above.  In other words, it's
+consistent with the result you get for @samp{ls -l}.
 This handling of sparse files differs from the output of the @samp{%k}
 and @samp{%b} format specifiers for the @samp{-printf} predicate.
 
