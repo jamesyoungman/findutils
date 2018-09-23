@@ -8,6 +8,13 @@ See the file NEWS for a list of major changes in the current release.
 
 See the file INSTALL for compilation and installation instructions.
 
+If there is no file INSTALL, you must be looking at the checked-out
+source code instead of at an unpacked source tarball ("release").  In
+that case, you should first please read and follow the instructions in
+the file README-hacking.  Those instructions explain how to generate
+the auto-generated files needed to build findutils, and this includes
+generating the INSTALL file.
+
 To verify the GPG signature of the release, you will need the public
 key of the findutils maintainer.  You can download this from
 ftp://ftp.gnu.org/gnu/gnu-keyring.gpg.  Alternatively, you could query
