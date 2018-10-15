@@ -1252,6 +1252,9 @@ As above.
 @item -perm -022
 Match files that are writable by both their group and everyone else.
 
+@item -perm -g+w,o+w
+As above.
+
 @item -perm -444 -perm /222 ! -perm /111
 Match files that are readable for everybody, have at least one
 write bit set (i.e., somebody can write to them), but that cannot be
@@ -1261,9 +1264,6 @@ escaped.
 @item -perm -a+r -perm /a+w ! -perm /a+x
 As above.
 
-
-@item -perm -g+w,o+w
-As above.
 @end table
 
 @quotation Warning
