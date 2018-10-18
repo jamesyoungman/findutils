@@ -2576,7 +2576,7 @@ work that it takes significant time to run, even on a single image.
 You could run:
 
 @example
-find originals -name '*.jpg' | xargs -1 makeallsizes
+find originals -name '*.jpg' | xargs -l makeallsizes
 @end example
 
 This will run @code{makeallsizes @var{filename}} once for each @code{.jpg}
@@ -2585,7 +2585,7 @@ two central processors, this script will only keep one of them busy.
 Instead, you could probably finish in about half the time by running:
 
 @example
-find originals -name '*.jpg' | xargs -1 -P 2 makeallsizes
+find originals -name '*.jpg' | xargs -l -P 2 makeallsizes
 @end example
 
 @code{xargs} will run the first two commands in parallel, and then
@@ -2626,7 +2626,7 @@ If you send it the signal @code{SIGUSR1}, it will run one more command
 in parallel.  For example:
 
 @example
-shell$ xargs <allimages -1 -P 4 makeallsizes &
+shell$ xargs <allimages -l -P 4 makeallsizes &
 [4] 27643
    ... at some later point ...
 shell$ kill -USR2 27643

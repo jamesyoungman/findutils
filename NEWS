@@ -58,6 +58,9 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
 
+#54859: doc: fix typo in 'xargs -l' examples in texinfo manual.
+        Change from 'xargs -1' (minus one) to 'xargs -l' (minus El) in 3 places.
+
 #54838: doc: fix the examples of the -perm option in the texinfo documentation.
         The example '-perm -g+w,o+w' was misplaced.
         Bug present since FINDUTILS_4_2_27-1.
