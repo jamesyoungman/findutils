@@ -271,7 +271,7 @@ dnl #11710) (Sun Sep  4 20:15:11 2005: gl_INCLUDED_REGEX no longer seems
 dnl to be available in gnulib CVS)
 gl_REGEX
 
-AC_PREREQ(2.59)
+AC_PREREQ([2.69])
 
 jy_SORTZ
 
