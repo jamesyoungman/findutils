@@ -52,7 +52,7 @@ safe_atoi (const char *s, enum quoting_style style)
 	  /* not a valid number */
 	  die (EXIT_FAILURE, errno, "%s", s);
 	}
-      /* Otherwise, we do a range chack against INT_MAX and INT_MIN
+      /* Otherwise, we do a range check against INT_MAX and INT_MIN
        * below.
        */
     }
