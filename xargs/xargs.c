@@ -1380,7 +1380,7 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc, char *
 	default:
 	  {
 	    die (EXIT_FAILURE, errno,
-		 _("read returned unexpected value %zu; "
+		 _("read returned unexpected value %"PRIuMAX"; "
 		   "this is probably a bug, please report it"), r);
 	  }
 	} /* switch on bytes read */

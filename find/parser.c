@@ -3254,13 +3254,13 @@ parse_time (const struct parser_table* entry, char *argv[], int *arg_ptr)
 	       (tval.kind == COMP_GT) ? " >" :
 	       ((tval.kind == COMP_LT) ? " <" : ((tval.kind == COMP_EQ) ? ">=" : " ?")));
       t = our_pred->args.reftime.ts.tv_sec;
-      fprintf (stderr, "%ju %s",
+      fprintf (stderr, "%"PRIuMAX" %s",
 	       (uintmax_t) our_pred->args.reftime.ts.tv_sec,
 	       ctime (&t));
       if (tval.kind == COMP_EQ)
 	{
 	  t = our_pred->args.reftime.ts.tv_sec + DAYSECS;
-	  fprintf (stderr, "                 <  %ju %s",
+	  fprintf (stderr, "                 <  %"PRIuMAX" %s",
 		   (uintmax_t) t, ctime (&t));
 	}
     }
@@ -3364,7 +3364,7 @@ insert_num (char **argv, int *arg_ptr, const struct parser_table *entry)
 		     ((c_type == COMP_LT) ? "lt" : ((c_type == COMP_EQ) ? "eq" : "?")),
 		     (c_type == COMP_GT) ? " >" :
 		     ((c_type == COMP_LT) ? " <" : ((c_type == COMP_EQ) ? " =" : " ?")));
-	    fprintf (stderr, "%ju\n", our_pred->args.numinfo.l_val);
+	    fprintf (stderr, "%"PRIuMAX"\n", our_pred->args.numinfo.l_val);
 	  }
 	return our_pred;
       }

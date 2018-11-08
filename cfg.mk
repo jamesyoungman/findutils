@@ -102,6 +102,18 @@ sc_die_EXIT_FAILURE:
 	       exit 1; }  \
 	  || :
 
+# Disallow the C99 printf size specifiers %z and %j as they're not portable.
+# The gnulib printf replacement does support them, however the printf
+# replacement is not currently explicitly depended on by the gnulib error()
+# module for example.  Also we use fprintf() in a few places to output simple
+# formats but don't use the gnulib module as it is seen as overkill at present.
+# We'd have to adjust the above gnulib items before disabling this.
+sc_prohibit-c99-printf-format:
+	@cd $(srcdir) \
+	  && GIT_PAGER= git grep -n '%[0*]*[jz][udx]' -- "*/*.c" \
+	  && { echo '$(ME): Use PRI*MAX instead of %j or %z' 1>&2; exit 1; } \
+	  || :
+
 # Exempt the contents of any usage function from the following.
 _continued_string_col_1 = \
 s/^usage .*?\n}//ms;/\\\n\w/ and print ("$$ARGV\n"),$$e=1;END{$$e||=0;exit $$e}
