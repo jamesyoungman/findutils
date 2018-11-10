@@ -37,12 +37,6 @@ getpwuid or getgrgid when needed.  Speeds up -nouser and -nogroup
 unless you are running NIS or Hesiod, which make password and group
 calls very expensive.
 
---enable-debug
-  Produce output on the standard error output indicating what find is
-doing.  This information includes details about how the command line
-has been parsed and what files have been stat()ed.  This output is
-normally interesting only to the maintainer, and so is off by default.
-
 DEFAULT_ARG_SIZE=<value>
   If this environment variable is defined to a numeric expression
 during configure, it determines the default argument size limits used
