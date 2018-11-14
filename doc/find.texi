@@ -5221,7 +5221,7 @@ to move to, issues the @code{chdir()} system call, and then checks
 that it has ended up in the subdirectory it expected.  If all is as
 expected, processing continues as normal.  However, there are two main
 reasons why the directory might change: the use of an automounter and
-the someone removing the old directory and replacing it with something
+someone removing the old directory and replacing it with something
 else while @code{find} is trying to descend into it.
 
 Where a filesystem ``automounter'' is in use it can be the case that
