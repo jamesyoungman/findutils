@@ -23,16 +23,16 @@
  for details.
 */
 #ifndef _GCC_FUNCTION_ATTRIBUTES_H
-#define _GCC_FUNCTION_ATTRIBUTES_H
+# define _GCC_FUNCTION_ATTRIBUTES_H
 
-#ifndef __GNUC_PREREQ
-# if defined __GNUC__ && defined __GNUC_MINOR__
-#  define __GNUC_PREREQ(maj, min) \
+# ifndef __GNUC_PREREQ
+#  if defined __GNUC__ && defined __GNUC_MINOR__
+#   define __GNUC_PREREQ(maj, min) \
          ((__GNUC__ << 16) + __GNUC_MINOR__ >= ((maj) << 16) + (min))
-# else
-#  define __GNUC_PREREQ(maj, min) 0
+#  else
+#   define __GNUC_PREREQ(maj, min) 0
+#  endif
 # endif
-#endif
 
 /*
 The following attributes are currently (GCC-4.4.5) defined for
@@ -98,116 +98,116 @@ visibility    "default"
 */
 
 
-#ifndef _GL_ATTRIBUTE_ALLOC_SIZE
-# if __GNUC_PREREQ(4,3)
-#  define _GL_ATTRIBUTE_ALLOC_SIZE(args) __attribute__ ((__alloc_size__ args))
-# else
-#  define _GL_ATTRIBUTE_ALLOC_SIZE(args) /* unsupported */
+# ifndef _GL_ATTRIBUTE_ALLOC_SIZE
+#  if __GNUC_PREREQ(4,3)
+#   define _GL_ATTRIBUTE_ALLOC_SIZE(args) __attribute__ ((__alloc_size__ args))
+#  else
+#   define _GL_ATTRIBUTE_ALLOC_SIZE(args) /* unsupported */
+#  endif
 # endif
-#endif
 
-#ifndef _GL_ATTRIBUTE_DEPRECATED
-# if __GNUC_PREREQ(3,1)
-#  define _GL_ATTRIBUTE_DEPRECATED __attribute__ ((__deprecated__))
-# else
-#  define _GL_ATTRIBUTE_DEPRECATED /* empty */
+# ifndef _GL_ATTRIBUTE_DEPRECATED
+#  if __GNUC_PREREQ(3,1)
+#   define _GL_ATTRIBUTE_DEPRECATED __attribute__ ((__deprecated__))
+#  else
+#   define _GL_ATTRIBUTE_DEPRECATED /* empty */
+#  endif
 # endif
-#endif
 
-#ifndef _GL_ATTRIBUTE_FORMAT
-# if __GNUC_PREREQ(2,7)
-#  define _GL_ATTRIBUTE_FORMAT(spec)  __attribute__ ((__format__ spec))
-# else
-#  define _GL_ATTRIBUTE_FORMAT(spec) /* unsupported */
+# ifndef _GL_ATTRIBUTE_FORMAT
+#  if __GNUC_PREREQ(2,7)
+#   define _GL_ATTRIBUTE_FORMAT(spec)  __attribute__ ((__format__ spec))
+#  else
+#   define _GL_ATTRIBUTE_FORMAT(spec) /* unsupported */
+#  endif
 # endif
-#endif
 
-#ifndef _GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM
-# if __GNUC_PREREQ(2,7)
-#  define _GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(formatstring_parameter, first_argument) \
+# ifndef _GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM
+#  if __GNUC_PREREQ(2,7)
+#   define _GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(formatstring_parameter, first_argument) \
     _GL_ATTRIBUTE_FORMAT ((__printf__, formatstring_parameter, first_argument))
-# else
-#  define _GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(spec) /* unsupported */
+#  else
+#   define _GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(spec) /* unsupported */
+#  endif
 # endif
-#endif
 
-#ifndef _GL_ATTRIBUTE_FORMAT_PRINTF
-# if __GNUC_PREREQ(2,7)
-#  if __GNUC_PREREQ(4,4)
-#   define _GL_ATTRIBUTE_FORMAT_PRINTF(formatstring_parameter, first_argument) \
+# ifndef _GL_ATTRIBUTE_FORMAT_PRINTF
+#  if __GNUC_PREREQ(2,7)
+#   if __GNUC_PREREQ(4,4)
+#    define _GL_ATTRIBUTE_FORMAT_PRINTF(formatstring_parameter, first_argument) \
      _GL_ATTRIBUTE_FORMAT ((__gnu_printf__, formatstring_parameter, first_argument))
-#  else
-#   define _GL_ATTRIBUTE_FORMAT_PRINTF(formatstring_parameter, first_argument) \
+#   else
+#    define _GL_ATTRIBUTE_FORMAT_PRINTF(formatstring_parameter, first_argument) \
      _GL_ATTRIBUTE_FORMAT ((__printf__, formatstring_parameter, first_argument))
-#  endif
-# else
-#  define _GL_ATTRIBUTE_FORMAT_PRINTF(spec) /* unsupported */
-# endif
-#endif
-
-#ifndef _GL_ATTRIBUTE_FORMAT_SCANF_SYSTEM
-# if __GNUC_PREREQ(2,7)
-#  define _GL_ATTRIBUTE_FORMAT_SCANF_SYSTEM(formatstring_parameter, first_argument) \
-    _GL_ATTRIBUTE_FORMAT ((__scanf__, formatstring_parameter, first_argument))
-# else
-#  define _GL_ATTRIBUTE_FORMAT_SCANF_SYSTEM(spec) /* unsupported */
-# endif
-#endif
-
-#ifndef _GL_ATTRIBUTE_FORMAT_SCANF
-# if __GNUC_PREREQ(2,7)
-#  if __GNUC_PREREQ(4,4)
-#   define _GL_ATTRIBUTE_FORMAT_SCANF(formatstring_parameter, first_argument) \
-     _GL_ATTRIBUTE_FORMAT ((__gnu_scanf__, formatstring_parameter, first_argument))
+#   endif
 #  else
-#   define _GL_ATTRIBUTE_FORMAT_SCANF(formatstring_parameter, first_argument) \
-     _GL_ATTRIBUTE_FORMAT ((__scanf__, formatstring_parameter, first_argument))
+#   define _GL_ATTRIBUTE_FORMAT_PRINTF(spec) /* unsupported */
 #  endif
-# else
-#  define _GL_ATTRIBUTE_FORMAT_SCANF(spec) /* unsupported */
 # endif
-#endif
 
-#ifndef _GL_ATTRIBUTE_MALLOC
-# if __GNUC_PREREQ(3,0)
-#  define _GL_ATTRIBUTE_MALLOC __attribute__ ((__malloc__))
-# else
-#  define _GL_ATTRIBUTE_MALLOC /* unsupported */
+# ifndef _GL_ATTRIBUTE_FORMAT_SCANF_SYSTEM
+#  if __GNUC_PREREQ(2,7)
+#   define _GL_ATTRIBUTE_FORMAT_SCANF_SYSTEM(formatstring_parameter, first_argument) \
+    _GL_ATTRIBUTE_FORMAT ((__scanf__, formatstring_parameter, first_argument))
+#  else
+#   define _GL_ATTRIBUTE_FORMAT_SCANF_SYSTEM(spec) /* unsupported */
+#  endif
 # endif
-#endif
+
+# ifndef _GL_ATTRIBUTE_FORMAT_SCANF
+#  if __GNUC_PREREQ(2,7)
+#   if __GNUC_PREREQ(4,4)
+#    define _GL_ATTRIBUTE_FORMAT_SCANF(formatstring_parameter, first_argument) \
+     _GL_ATTRIBUTE_FORMAT ((__gnu_scanf__, formatstring_parameter, first_argument))
+#   else
+#    define _GL_ATTRIBUTE_FORMAT_SCANF(formatstring_parameter, first_argument) \
+     _GL_ATTRIBUTE_FORMAT ((__scanf__, formatstring_parameter, first_argument))
+#   endif
+#  else
+#   define _GL_ATTRIBUTE_FORMAT_SCANF(spec) /* unsupported */
+#  endif
+# endif
+
+# ifndef _GL_ATTRIBUTE_MALLOC
+#  if __GNUC_PREREQ(3,0)
+#   define _GL_ATTRIBUTE_MALLOC __attribute__ ((__malloc__))
+#  else
+#   define _GL_ATTRIBUTE_MALLOC /* unsupported */
+#  endif
+# endif
 
 
-#ifndef _GL_ATTRIBUTE_NONNULL
-# if __GNUC_PREREQ(3,3)
+# ifndef _GL_ATTRIBUTE_NONNULL
+#  if __GNUC_PREREQ(3,3)
 #   define _GL_ATTRIBUTE_NONNULL(m) __attribute__ ((__nonnull__ (m)))
 #  else
 #   define _GL_ATTRIBUTE_NONNULL(m) /* unsupported */
+#  endif
 # endif
-#endif
-#ifndef _GL_ARG_NONNULL
+# ifndef _GL_ARG_NONNULL
 /* alternative spelling used in gnulib's stdio.h */
-# define _GL_ARG_NONNULL(m) _GL_ATTRIBUTE_NONNULL(m)
-#endif
+#  define _GL_ARG_NONNULL(m) _GL_ATTRIBUTE_NONNULL(m)
+# endif
 
 
-#ifndef _GL_ATTRIBUTE_NORETURN
-# if __GNUC_PREREQ(2,8)
+# ifndef _GL_ATTRIBUTE_NORETURN
+#  if __GNUC_PREREQ(2,8)
 #   define _GL_ATTRIBUTE_NORETURN __attribute__ ((__noreturn__))
 #  else
 #   define _GL_ATTRIBUTE_NORETURN /* unsupported */
+#  endif
 # endif
-#endif
 
-#ifndef _GL_ATTRIBUTE_PURE
-# if __GNUC_PREREQ(2,96)
+# ifndef _GL_ATTRIBUTE_PURE
+#  if __GNUC_PREREQ(2,96)
 #   define _GL_ATTRIBUTE_PURE __attribute__ ((__pure__))
 #  else
 #   define _GL_ATTRIBUTE_PURE /* unsupported */
+#  endif
 # endif
-#endif
 
-#ifndef _GL_ATTRIBUTE_SENTINEL
-# if __GNUC_PREREQ(4,0)
+# ifndef _GL_ATTRIBUTE_SENTINEL
+#  if __GNUC_PREREQ(4,0)
   /* gnulib uses the __attribute__((__sentinel__)) variant, for which the
     argument number 0 is assumed.  Arguments are counted backwards, the last
     being 0.
@@ -215,19 +215,19 @@ visibility    "default"
 #   define _GL_ATTRIBUTE_SENTINEL(backward_arg_num) __attribute__ ((__sentinel__(backward_arg_num)))
 #  else
 #   define _GL_ATTRIBUTE_SENTINEL(backward_arg_num) /* unsupported */
+#  endif
 # endif
-#endif
 
-#ifndef _GL_ATTRIBUTE_WUR
-# if __GNUC_PREREQ(3,4)
-#  define _GL_ATTRIBUTE_WUR __attribute__ ((__warn__unused_result__))
-# else
-#  define _GL_ATTRIBUTE_WUR /* unsupported */
+# ifndef _GL_ATTRIBUTE_WUR
+#  if __GNUC_PREREQ(3,4)
+#   define _GL_ATTRIBUTE_WUR __attribute__ ((__warn__unused_result__))
+#  else
+#   define _GL_ATTRIBUTE_WUR /* unsupported */
+#  endif
 # endif
-#endif
-#ifndef _GL_ATTRIBUTE_RETURN_CHECK
+# ifndef _GL_ATTRIBUTE_RETURN_CHECK
 /* gnulib is inconsistent in which macro it uses; support both for now. */
-# define _GL_ATTRIBUTE_RETURN_CHECK _GL_ATTRIBUTE_WUR
-#endif
+#  define _GL_ATTRIBUTE_RETURN_CHECK _GL_ATTRIBUTE_WUR
+# endif
 
 #endif /* _GCC_FUNCTION_ATTRIBUTES_H */

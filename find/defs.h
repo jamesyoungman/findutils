@@ -17,9 +17,9 @@
 
 
 #ifndef INC_DEFS_H
-#define INC_DEFS_H 1
+# define INC_DEFS_H 1
 
-#if !defined ALREADY_INCLUDED_CONFIG_H
+# if !defined ALREADY_INCLUDED_CONFIG_H
 /*
  * Savannah bug #20128: if we include some system header and it
  * includes some other second system header, the second system header
@@ -29,40 +29,40 @@
  * configure script fragments.  So <config.h> should be the first
  * thing included.
  */
-#error "<config.h> should be #included before defs.h, and indeed before any other header"
+#  error "<config.h> should be #included before defs.h, and indeed before any other header"
 Please stop compiling the program now
-#endif
+# endif
 
 
-#include <sys/types.h>
+# include <sys/types.h>
 
 /* XXX: some of these includes probably don't belong in a common header file */
-#include <sys/stat.h>
-#include <stdio.h>		/* for FILE* */
-#include <string.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <time.h>
-#include <limits.h>		/* for CHAR_BIT */
-#include <stdbool.h>		/* for bool */
-#include <stdint.h>		/* for uintmax_t */
-#include <sys/stat.h> /* S_ISUID etc. */
-#include <selinux/selinux.h>
+# include <sys/stat.h>
+# include <stdio.h>		/* for FILE* */
+# include <string.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <time.h>
+# include <limits.h>		/* for CHAR_BIT */
+# include <stdbool.h>		/* for bool */
+# include <stdint.h>		/* for uintmax_t */
+# include <sys/stat.h> /* S_ISUID etc. */
+# include <selinux/selinux.h>
 
 
 
-#ifndef CHAR_BIT
-# define CHAR_BIT 8
-#endif
+# ifndef CHAR_BIT
+#  define CHAR_BIT 8
+# endif
 
 # include <inttypes.h>
 
-#include "regex.h"
-#include "timespec.h"
-#include "buildcmd.h"
-#include "quotearg.h"
-#include "sharefile.h"
-#include "gcc-function-attributes.h"
+# include "regex.h"
+# include "timespec.h"
+# include "buildcmd.h"
+# include "quotearg.h"
+# include "sharefile.h"
+# include "gcc-function-attributes.h"
 
 int optionl_stat (const char *name, struct stat *p);
 int optionp_stat (const char *name, struct stat *p);
@@ -73,11 +73,11 @@ void set_stat_placeholders (struct stat *p);
 int get_statinfo (const char *pathname, const char *name, struct stat *p);
 
 
-#define MODE_WXUSR	(S_IWUSR | S_IXUSR)
-#define MODE_R		(S_IRUSR | S_IRGRP | S_IROTH)
-#define MODE_RW		(S_IWUSR | S_IWGRP | S_IWOTH | MODE_R)
-#define MODE_RWX	(S_IXUSR | S_IXGRP | S_IXOTH | MODE_RW)
-#define MODE_ALL	(S_ISUID | S_ISGID | S_ISVTX | MODE_RWX)
+# define MODE_WXUSR	(S_IWUSR | S_IXUSR)
+# define MODE_R		(S_IRUSR | S_IRGRP | S_IROTH)
+# define MODE_RW		(S_IWUSR | S_IWGRP | S_IWOTH | MODE_R)
+# define MODE_RWX	(S_IXUSR | S_IXGRP | S_IXOTH | MODE_RW)
+# define MODE_ALL	(S_ISUID | S_ISGID | S_ISVTX | MODE_RWX)
 
 
 struct predicate;
@@ -87,7 +87,7 @@ struct options;
 typedef bool (*PRED_FUNC)(const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr);
 
 /* The number of seconds in a day. */
-#define		DAYSECS	    86400
+# define DAYSECS	    86400
 
 /* Argument structures for predicates. */
 
@@ -169,18 +169,18 @@ enum file_type
     FTYPE_CHR,
     FTYPE_DIR,
     FTYPE_REG,
-#ifdef S_IFLNK
+# ifdef S_IFLNK
     FTYPE_LNK,
-#endif
-#ifdef S_IFIFO
+# endif
+# ifdef S_IFIFO
     FTYPE_FIFO,
-#endif
-#ifdef S_IFSOCK
+# endif
+# ifdef S_IFSOCK
     FTYPE_SOCK,
-#endif
-#ifdef S_IFDOOR
+# endif
+# ifdef S_IFDOOR
     FTYPE_DOOR,
-#endif
+# endif
     FTYPE_COUNT
   };
 
@@ -520,14 +520,14 @@ int process_leading_options (int argc, char *argv[]);
 void set_option_defaults (struct options *p);
 void error_severity (int level);
 
-#if 0
-#define apply_predicate(pathname, stat_buf_ptr, node)	\
+# if 0
+#  define apply_predicate(pathname, stat_buf_ptr, node)	\
   (*(node)->pred_func)((pathname), (stat_buf_ptr), (node))
-#else
+# else
 bool apply_predicate(const char *pathname, struct stat *stat_buf, struct predicate *p);
-#endif
+# endif
 
-#define pred_is(node, fn) ( ((node)->pred_func) == (fn) )
+# define pred_is(node, fn) ( ((node)->pred_func) == (fn) )
 
 
 /* oldfind.c. */

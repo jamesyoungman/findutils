@@ -15,9 +15,9 @@
    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #ifndef PRINT_H
-#define PRINT_H
+# define PRINT_H
 
-#include "defs.h"
+# include "defs.h"
 
 struct format_val;
 struct parser_table;

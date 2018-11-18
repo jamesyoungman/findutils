@@ -17,10 +17,10 @@
 
 
 #ifndef INC_SHAREFILE_H
-#define INC_SHAREFILE_H 1
+# define INC_SHAREFILE_H 1
 
-#include <stdlib.h>
-#include <stdio.h>
+# include <stdlib.h>
+# include <stdio.h>
 
 typedef void * sharefile_handle;
 

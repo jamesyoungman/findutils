@@ -78,17 +78,17 @@ free_file_system_list (struct mount_entry *p)
 
 
 #ifdef AFS
-#include <netinet/in.h>
-#include <afs/venus.h>
-#if __STDC__
+# include <netinet/in.h>
+# include <afs/venus.h>
+# if __STDC__
 /* On SunOS 4, afs/vice.h defines this to rely on a pre-ANSI cpp.  */
-#undef _VICEIOCTL
-#define _VICEIOCTL(id)  ((unsigned int ) _IOW('V', id, struct ViceIoctl))
-#endif
-#ifndef _IOW
+#  undef _VICEIOCTL
+#  define _VICEIOCTL(id)  ((unsigned int ) _IOW('V', id, struct ViceIoctl))
+# endif
+# ifndef _IOW
 /* AFS on Solaris 2.3 doesn't get this definition.  */
-#include <sys/ioccom.h>
-#endif
+#  include <sys/ioccom.h>
+# endif
 
 static int
 in_afs (char *path)

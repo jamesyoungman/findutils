@@ -18,7 +18,7 @@
  */
 #if !defined BUGREPORTS_H
 # define BUGREPORTS_H
-#include <stdio.h>
+# include <stdio.h>
 
 /* Interpreetation of the return code is as for fprintf. */
 int explain_how_to_report_bugs (FILE *f, const char *program_name);

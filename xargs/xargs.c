@@ -70,7 +70,7 @@
 
 
 #ifndef LONG_MAX
-#define LONG_MAX (~(1 << (sizeof (long) * 8 - 1)))
+# define LONG_MAX (~(1 << (sizeof (long) * 8 - 1)))
 #endif
 
 #define ISBLANK(c) (isascii (c) && isblank (c))
@@ -677,7 +677,7 @@ main (int argc, char **argv)
   assert (BC_INIT_OK == bcstatus);
 
 #ifdef SIGUSR1
-#ifdef SIGUSR2
+# ifdef SIGUSR2
   /* Accept signals to increase or decrease the number of running
      child processes.  Do this as early as possible after setting
      proc_max.  */
@@ -692,7 +692,7 @@ main (int argc, char **argv)
   sigact.sa_flags = 0;
   if (0 != sigaction (SIGUSR2, &sigact, (struct sigaction *)NULL))
 	  error (0, errno, _("Cannot set SIGUSR2 signal handler"));
-#endif /* SIGUSR2 */
+# endif /* SIGUSR2 */
 #endif /* SIGUSR1 */
 
 

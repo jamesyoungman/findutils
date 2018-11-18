@@ -18,9 +18,9 @@
  * Written by James Youngman.
  */
 #ifndef INC_BUILDCMD_H
-#define INC_BUILDCMD_H 1
+# define INC_BUILDCMD_H 1
 
-#include <stdbool.h>
+# include <stdbool.h>
 
 struct buildcmd_state
 {

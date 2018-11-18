@@ -18,20 +18,20 @@
 #if !defined SYSTEM_H
 # define SYSTEM_H
 
-#include <locale.h>
+# include <locale.h>
 
 /* Take care of NLS matters.  */
 
-#include "gettext.h"
-#if ! ENABLE_NLS
-# undef textdomain
-# define textdomain(Domainname) /* empty */
-# undef bindtextdomain
-# define bindtextdomain(Domainname, Dirname) /* empty */
-#endif
+# include "gettext.h"
+# if ! ENABLE_NLS
+#  undef textdomain
+#  define textdomain(Domainname) /* empty */
+#  undef bindtextdomain
+#  define bindtextdomain(Domainname, Dirname) /* empty */
+# endif
 
-#define _(msgid) gettext (msgid)
-#define N_(msgid) msgid
+# define _(msgid) gettext (msgid)
+# define N_(msgid) msgid
 
 /* FALLTHROUGH
  * Since GCC7, the "-Werror=implicit-fallthrough=" option requires
@@ -47,12 +47,12 @@
  *     ...
  *     }
  */
-#ifndef FALLTHROUGH
-# if __GNUC__ < 7
-#  define FALLTHROUGH ((void) 0)
-# else
-#  define FALLTHROUGH __attribute__ ((__fallthrough__))
+# ifndef FALLTHROUGH
+#  if __GNUC__ < 7
+#   define FALLTHROUGH ((void) 0)
+#  else
+#   define FALLTHROUGH __attribute__ ((__fallthrough__))
+#  endif
 # endif
-#endif
 
 #endif /* SYSTEM_H */

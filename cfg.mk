@@ -102,6 +102,16 @@ sc_die_EXIT_FAILURE:
 	       exit 1; }  \
 	  || :
 
+# Enforce recommended preprocessor indentation style.
+sc_preprocessor_indentation:
+	@if cppi --version >/dev/null 2>&1; then			\
+	  $(VC_LIST_EXCEPT) | grep '\.[ch]$$' | xargs cppi -a -c	\
+	    || { echo '$(ME): incorrect preprocessor indentation' 1>&2;	\
+		exit 1; };						\
+	else								\
+	  echo '$(ME): skipping test $@: cppi not installed' 1>&2;	\
+	fi
+
 # During 'make update-copyright', convert a sequence with gaps to the minimal
 # containing range.
 update-copyright-env = \

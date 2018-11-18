@@ -17,7 +17,7 @@
 */
 
 #ifndef INC_EXTENDBUF_H
-#define INC_EXTENDBUF_H 1
+# define INC_EXTENDBUF_H 1
 
 void *extendbuf(void* existing, size_t wanted, size_t *allocated);
 void *xextendbuf(void* existing, size_t wanted, size_t *allocated);

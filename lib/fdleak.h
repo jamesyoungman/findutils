@@ -15,7 +15,7 @@
    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #ifndef FDLEAK_H
-#define FDLEAK_H
+# define FDLEAK_H
 
 void remember_non_cloexec_fds (void);
 void forget_non_cloexec_fds (void);

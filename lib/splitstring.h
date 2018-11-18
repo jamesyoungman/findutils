@@ -18,7 +18,7 @@
  * Written by James Youngman.
  */
 #ifndef SPLITSTRING_H
-#define SPLITSTRING_H
+# define SPLITSTRING_H
 
 /* Split a string into fields.   The string is never modified.
  *
@@ -35,8 +35,8 @@
  * Consecutive field separators are taken to indicate the presence of
  * an empty field.
  */
-#include <stdbool.h>
-#include <stddef.h>
+# include <stdbool.h>
+# include <stddef.h>
 
 bool splitstring(const char *s, const char *separators,
 		 bool first, size_t *pos, size_t *len);

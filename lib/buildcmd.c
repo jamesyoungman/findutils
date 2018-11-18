@@ -44,8 +44,8 @@
    We try to make it as large as possible.  See bc_get_arg_max() below. */
 #if defined NCARGS && !defined ARG_MAX
 /* We include sys/param.h in order to detect this case. */
-#error "You have an unusual system.  Once you remove this error message from buildcmd.c, it should work, but please make sure that DejaGnu is installed on your system and that 'make check' passes before using the findutils programs.  Please mail bug-findutils@gnu.org to tell us about your system."
-#define ARG_MAX NCARGS
+# error "You have an unusual system.  Once you remove this error message from buildcmd.c, it should work, but please make sure that DejaGnu is installed on your system and that 'make check' passes before using the findutils programs.  Please mail bug-findutils@gnu.org to tell us about your system."
+# define ARG_MAX NCARGS
 #endif
 
 

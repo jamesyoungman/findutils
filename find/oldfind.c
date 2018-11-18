@@ -120,27 +120,27 @@ type_to_mode (unsigned type)
 {
   switch (type)
     {
-#ifdef DT_FIFO
+# ifdef DT_FIFO
     case DT_FIFO: return S_IFIFO;
-#endif
-#ifdef DT_CHR
+# endif
+# ifdef DT_CHR
     case DT_CHR:  return S_IFCHR;
-#endif
-#ifdef DT_DIR
+# endif
+# ifdef DT_DIR
     case DT_DIR:  return S_IFDIR;
-#endif
-#ifdef DT_BLK
+# endif
+# ifdef DT_BLK
     case DT_BLK:  return S_IFBLK;
-#endif
-#ifdef DT_REG
+# endif
+# ifdef DT_REG
     case DT_REG:  return S_IFREG;
-#endif
-#ifdef DT_LNK
+# endif
+# ifdef DT_LNK
     case DT_LNK:  return S_IFLNK;
-#endif
-#ifdef DT_SOCK
+# endif
+# ifdef DT_SOCK
     case DT_SOCK: return S_IFSOCK;
-#endif
+# endif
     default:
       return 0;			/* Unknown. */
     }

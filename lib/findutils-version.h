@@ -15,7 +15,7 @@
    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 #ifndef FINDUTILS_VERSION_H
-#define FINDUTILS_VERSION_H
+# define FINDUTILS_VERSION_H
 /*
  * display_findutils_version displays GNU coding standard compliant
  * version information.

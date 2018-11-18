@@ -55,9 +55,9 @@
 
 #ifdef CLOSEDIR_VOID
 /* Fake a return value. */
-#define CLOSEDIR(d) (closedir (d), 0)
+# define CLOSEDIR(d) (closedir (d), 0)
 #else
-#define CLOSEDIR(d) closedir (d)
+# define CLOSEDIR(d) closedir (d)
 #endif
 
 static bool match_lname (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr, bool ignore_case);
@@ -1067,26 +1067,26 @@ pred_type (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
      type = FTYPE_REG;
   else if (S_ISDIR (mode))
      type = FTYPE_DIR;
-#ifdef S_IFLNK
+# ifdef S_IFLNK
   else if (S_ISLNK (mode))
      type = FTYPE_LNK;
-#endif
+# endif
   else if (S_ISBLK (mode))
      type = FTYPE_BLK;
   else if (S_ISCHR (mode))
      type = FTYPE_CHR;
-#ifdef S_IFSOCK
+# ifdef S_IFSOCK
   else if (S_ISSOCK (mode))
      type = FTYPE_SOCK;
-#endif
-#ifdef S_IFIFO
+# endif
+# ifdef S_IFIFO
   else if (S_ISFIFO (mode))
      type = FTYPE_FIFO;
-#endif
-#ifdef S_IFDOOR
+# endif
+# ifdef S_IFDOOR
   else if (S_ISDOOR (mode))
     type = FTYPE_DOOR;
-#endif
+# endif
 #else /* S_IFMT */
   /* Unix system; check `mode' the fast way. */
   switch (mode & S_IFMT)
@@ -1097,32 +1097,32 @@ pred_type (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
     case S_IFDIR:
       type = FTYPE_DIR;
       break;
-#ifdef S_IFLNK
+# ifdef S_IFLNK
     case S_IFLNK:
       type = FTYPE_LNK;
       break;
-#endif
+# endif
     case S_IFBLK:
       type = FTYPE_BLK;
       break;
     case S_IFCHR:
       type = FTYPE_CHR;
       break;
-#ifdef S_IFSOCK
+# ifdef S_IFSOCK
     case S_IFSOCK:
       type = FTYPE_SOCK;
       break;
-#endif
-#ifdef S_IFIFO
+# endif
+# ifdef S_IFIFO
     case S_IFIFO:
       type = FTYPE_FIFO;
       break;
-#endif
-#ifdef S_IFDOOR
+# endif
+# ifdef S_IFDOOR
     case S_IFDOOR:
       type = FTYPE_DOOR;
       break;
-#endif
+# endif
     }
 #endif /* S_IFMT */
 

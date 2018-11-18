@@ -69,10 +69,10 @@
 
 
 #ifndef HAVE_ENDGRENT
-#define endgrent ()
+# define endgrent ()
 #endif
 #ifndef HAVE_ENDPWENT
-#define endpwent ()
+# define endpwent ()
 #endif
 
 static bool parse_accesscheck   (const struct parser_table*, char *argv[], int *arg_ptr);

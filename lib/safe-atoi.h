@@ -16,9 +16,9 @@
 */
 
 #ifndef SAFE_ATOI_H
-#define SAFE_ATOI_H 1
+# define SAFE_ATOI_H 1
 
-#include "quotearg.h"
+# include "quotearg.h"
 
 int safe_atoi (const char *s, enum quoting_style style);
 
