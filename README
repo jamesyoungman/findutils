@@ -31,12 +31,6 @@ Special configure options:
 automatically because it adds considerably to find's size, and the
 AFS libraries need -lucb on Solaris, which breaks find.
 
---enable-id-cache
-  Make tables of used UIDs and GIDs at startup instead of using
-getpwuid or getgrgid when needed.  Speeds up -nouser and -nogroup
-unless you are running NIS or Hesiod, which make password and group
-calls very expensive.
-
 DEFAULT_ARG_SIZE=<value>
   If this environment variable is defined to a numeric expression
 during configure, it determines the default argument size limits used
