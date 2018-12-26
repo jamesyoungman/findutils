@@ -1257,20 +1257,18 @@ fnmatch_sanitycheck (void)
 
 
 static bool
-check_name_arg (const char *pred, const char *arg)
+check_name_arg (const char *pred, const char *alt, const char *arg)
 {
   if (should_issue_warnings () && strchr (arg, '/'))
     {
-      error (0, 0,_("warning: Unix filenames usually don't contain slashes "
-		    "(though pathnames do).  That means that '%s %s' will "
-		    "probably evaluate to false all the time on this system.  "
-		    "You might find the '-wholename' test more useful, or "
-		    "perhaps '-samefile'.  Alternatively, if you are using "
-		    "GNU grep, you could "
-		    "use 'find ... -print0 | grep -FzZ %s'."),
-	    pred,
-	    safely_quote_err_filename (0, arg),
-	    safely_quote_err_filename (1, arg));
+      error (0, 0,
+	     _("warning: %s matches against basenames only, "
+	       "but the given pattern contains a directory separator (%s), "
+	       "thus the expression will evaluate to false all the time.  "
+	       "Did you mean %s?"),
+	    safely_quote_err_filename (0, pred),
+	    safely_quote_err_filename (1, "/"),
+	    safely_quote_err_filename (2, alt));
     }
   return true;			/* allow it anyway */
 }
@@ -1284,7 +1282,7 @@ parse_iname (const struct parser_table* entry, char **argv, int *arg_ptr)
   fnmatch_sanitycheck ();
   if (collect_arg (argv, arg_ptr, &name))
     {
-      if (check_name_arg ("-iname", name))
+      if (check_name_arg ("-iname", "-iwholename", name))
 	{
 	  struct predicate *our_pred = insert_primary (entry, name);
 	  our_pred->need_stat = our_pred->need_type = false;
@@ -1471,7 +1469,7 @@ parse_name (const struct parser_table* entry, char **argv, int *arg_ptr)
   if (collect_arg (argv, arg_ptr, &name))
     {
       fnmatch_sanitycheck ();
-      if (check_name_arg ("-name", name))
+      if (check_name_arg ("-name", "-wholename", name))
 	{
 	  struct predicate *our_pred = insert_primary (entry, name);
 	  our_pred->need_stat = our_pred->need_type = false;
