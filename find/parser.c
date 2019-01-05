@@ -571,7 +571,7 @@ should_issue_warnings (void)
 }
 
 
-/* Check that it is legal to fid the given primary in its
+/* Check that it is legal to find the given primary in its
  * position and return it.
  */
 static const struct parser_table*
