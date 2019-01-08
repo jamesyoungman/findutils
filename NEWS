@@ -61,6 +61,10 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
 
+#55272: find: improve diagnostic when -name or -iname is used with a pattern
+        containing a directory separator ('/'), suggesting to use -wholename
+        or -iwholename respectively.
+
 #54859: doc: fix typo in 'xargs -l' examples in texinfo manual.
         Change from 'xargs -1' (minus one) to 'xargs -l' (minus El) in 3 places.
 
