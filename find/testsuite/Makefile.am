@@ -251,17 +251,13 @@ find.posix/typesize.exp \
 find.posix/user-empty.exp \
 find.posix/user-missing.exp
 
-test_shell_progs =
-
 EXTRA_DIST = $(EXTRA_DIST_EXP) $(EXTRA_DIST_XO) \
-	$(test_shell_progs) binary_locations.sh checklists.py
+	checklists.py
 
 CLEANFILES = *.log *.sum site.exp site.bak configured-testfiles.txt
 
 #DIST_SUBDIRS = config
 
-
-TESTS = $(test_shell_progs)
 TEST_EXTENSIONS = .sh .py
 
 check-local: checklists
