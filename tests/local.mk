@@ -106,6 +106,7 @@ all_tests = \
   tests/misc/help-version.sh \
   tests/find/many-dir-entries-vs-OOM.sh \
   tests/find/name-lbracket-literal.sh \
+  tests/find/printf_escapechars.sh \
   $(all_root_tests)
 
 $(TEST_LOGS): $(PROGRAMS)

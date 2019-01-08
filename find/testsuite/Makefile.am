@@ -251,11 +251,7 @@ find.posix/typesize.exp \
 find.posix/user-empty.exp \
 find.posix/user-missing.exp
 
-EXTRA_DIST_GOLDEN = \
-	test_escapechars.golden
-
 test_shell_progs = \
-test_escapechars.sh \
 test_escape_c.sh \
 test_inode.sh \
 test_type-list.sh \
@@ -264,7 +260,7 @@ sv-48030-exec-plus-bug.sh \
 sv-48180-refuse-noop.sh \
 sv-52220.sh
 
-EXTRA_DIST = $(EXTRA_DIST_EXP) $(EXTRA_DIST_XO) $(EXTRA_DIST_GOLDEN) \
+EXTRA_DIST = $(EXTRA_DIST_EXP) $(EXTRA_DIST_XO) \
 	$(test_shell_progs) binary_locations.sh checklists.py
 
 CLEANFILES = *.log *.sum site.exp site.bak configured-testfiles.txt
