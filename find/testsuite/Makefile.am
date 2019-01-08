@@ -255,7 +255,6 @@ EXTRA_DIST_GOLDEN = \
 	test_escapechars.golden
 
 test_shell_progs = \
-sv-bug-32043.sh \
 test_escapechars.sh \
 test_escape_c.sh \
 test_inode.sh \
