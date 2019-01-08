@@ -109,6 +109,7 @@ all_tests = \
   tests/find/printf_escapechars.sh \
   tests/find/printf_escape_c.sh \
   tests/find/printf_inode.sh \
+  tests/find/execdir-fd-leak.sh \
   $(all_root_tests)
 
 $(TEST_LOGS): $(PROGRAMS)
