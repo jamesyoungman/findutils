@@ -108,6 +108,7 @@ all_tests = \
   tests/find/name-lbracket-literal.sh \
   tests/find/printf_escapechars.sh \
   tests/find/printf_escape_c.sh \
+  tests/find/printf_inode.sh \
   $(all_root_tests)
 
 $(TEST_LOGS): $(PROGRAMS)
