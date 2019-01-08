@@ -260,7 +260,6 @@ test_escapechars.sh \
 test_escape_c.sh \
 test_inode.sh \
 test_type-list.sh \
-sv-34079.sh \
 sv-34976-execdir-fd-leak.sh \
 sv-48030-exec-plus-bug.sh \
 sv-48180-refuse-noop.sh \

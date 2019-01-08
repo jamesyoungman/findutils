@@ -104,6 +104,7 @@ check-root:
 
 all_tests = \
   tests/misc/help-version.sh \
+  tests/find/many-dir-entries-vs-OOM.sh \
   $(all_root_tests)
 
 $(TEST_LOGS): $(PROGRAMS)
