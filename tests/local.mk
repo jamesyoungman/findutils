@@ -79,7 +79,9 @@ EXTRA_DIST += \
   tests/other-fs-tmpdir \
   tests/sample-test
 
-all_root_tests =
+all_root_tests = \
+  tests/find/type_list.sh
+
 
 ALL_RECURSIVE_TARGETS += check-root
 .PHONY: check-root
