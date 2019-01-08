@@ -92,15 +92,61 @@ exclude_file_name_regexp--sc_bindtextdomain = \
 # cases where neither argument is a string literal.
 local-checks-to-skip += sc_prohibit_strcmp
 
+# Ensure that each root-requiring test is run via the "check-root" rule.
+sc_root_tests:
+	@t1=sc-root.expected; t2=sc-root.actual;			\
+	grep -nl '^ *require_root_$$' `$(VC_LIST) tests` |		\
+	  sed 's|.*/tests/|tests/|' | sort > $$t1;			\
+	for t in $(all_root_tests); do echo $$t; done | sort > $$t2;	\
+	st=0; diff -u $$t1 $$t2 || st=1;				\
+	rm -f $$t1 $$t2;						\
+	exit $$st
+
+# Ensure that all version-controlled test cases are listed in $(all_tests).
+sc_tests_list_consistency:
+	@bs="\\";							\
+	test_extensions_rx=`echo $(TEST_EXTENSIONS)			\
+	  | sed -e "s/ /|/g" -e "s/$$bs./$$bs$$bs./g"`;			\
+	{								\
+	  for t in $(all_tests); do echo $$t; done;			\
+	  cd $(top_srcdir);						\
+	  $(SHELL) build-aux/vc-list-files tests			\
+	    | grep -Ev '^tests/init\.sh$$'				\
+	    | $(EGREP) "$$test_extensions_rx\$$";			\
+	} | sort | uniq -u | grep . && exit 1; :
+
+# Ensure that all version-controlled test scripts are executable.
+sc_tests_executable:
+	@set -o noglob 2>/dev/null || set -f;				   \
+	find_ext="-name '' "`printf -- "-o -name *%s " $(TEST_EXTENSIONS)`;\
+	find $(srcdir)/tests \( $$find_ext \) \! -perm -u+x -print	   \
+	  | { sed "s|^$(srcdir)/||"; git ls-files $(srcdir)/tests/; }	   \
+	  | sort | uniq -d						   \
+	  | sed -e "s/^/$(ME): Please make test executable: /" | grep .	   \
+	    && exit 1; :
+
+# Avoid :>file which doesn't propagate errors
+sc_prohibit_colon_redirection:
+	@cd $(srcdir)/tests && GIT_PAGER= git grep -n ': *>.*||' \
+	  && { echo '$(ME): '"The leading colon in :> will hide errors" 1>&2; \
+	       exit 1; }  \
+	  || :
+
 # Usage of error() with an exit constant, should instead use die(),
 # as that avoids warnings and may generate better code, due to being apparent
 # to the compiler that it doesn't return.
 sc_die_EXIT_FAILURE:
-	@GIT_PAGER= git grep -E 'error \(.*_(FAILURE|INVALID)' \
-	  -- find lib locate xargs \
+	@cd $(srcdir) \
+	  && GIT_PAGER= git grep -E 'error \(.*_(FAILURE|INVALID)' \
+	       -- find lib locate xargs \
 	  && { echo '$(ME): '"Use die() instead of error" 1>&2; \
 	       exit 1; }  \
 	  || :
+
+sc_prohibit-skip:
+	@prohibit='\|\| skip ' \
+	halt='Use skip_ not skip' \
+	  $(_sc_search_regexp)
 
 # Disallow the C99 printf size specifiers %z and %j as they're not portable.
 # The gnulib printf replacement does support them, however the printf
@@ -113,6 +159,79 @@ sc_prohibit-c99-printf-format:
 	  && GIT_PAGER= git grep -n '%[0*]*[jz][udx]' -- "*/*.c" \
 	  && { echo '$(ME): Use PRI*MAX instead of %j or %z' 1>&2; exit 1; } \
 	  || :
+
+# Ensure that tests don't use `cmd ... && fail=1` as that hides crashes.
+# The "exclude" expression allows common idioms like `test ... && fail=1`
+# and the 2>... portion allows commands that redirect stderr and so probably
+# independently check its contents and thus detect any crash messages.
+sc_prohibit_and_fail_1:
+	@prohibit='&& fail=1'						\
+	exclude='(returns_|stat|kill|test |EGREP|grep|compare|2> *[^/])' \
+	halt='&& fail=1 detected. Please use: returns_ 1 ... || fail=1'	\
+	in_vc_files='^tests/'						\
+	  $(_sc_search_regexp)
+
+# Ensure that env vars are not passed through returns_ as
+# that was seen to fail on FreeBSD /bin/sh at least
+sc_prohibit_env_returns:
+	@prohibit='=[^ ]* returns_ '					\
+	exclude='_ returns_ '						\
+	halt='Passing env vars to returns_ is non portable'		\
+	in_vc_files='^tests/'						\
+	  $(_sc_search_regexp)
+
+# Use framework_failure_, not the old name without the trailing underscore.
+sc_prohibit_framework_failure:
+	@prohibit='\<framework_''failure\>'				\
+	halt='use framework_failure_ instead'				\
+	  $(_sc_search_regexp)
+
+# Prohibit the use of `...` in tests/.  Use $(...) instead.
+sc_prohibit_test_backticks:
+	@prohibit='`' in_vc_files='^tests/'				\
+	halt='use $$(...), not `...` in tests/'				\
+	  $(_sc_search_regexp)
+
+# Ensure that compare is used to check empty files
+# so that the unexpected contents are displayed
+sc_prohibit_test_empty:
+	@prohibit='test -s.*&&' in_vc_files='^tests/'			\
+	halt='use `compare /dev/null ...`, not `test -s ...` in tests/'	\
+	  $(_sc_search_regexp)
+
+# Ensure that tests call the get_min_ulimit_v_ function if using ulimit -v
+sc_prohibit_test_ulimit_without_require_:
+	@cd $(srcdir) \
+	  && (GIT_PAGER= git grep -l get_min_ulimit_v_ -- tests;	\
+	      GIT_PAGER= git grep -l 'ulimit -v' -- tests)		\
+	      | sort | uniq -u | grep . && { echo "$(ME): the above test(s)"\
+	  " should match get_min_ulimit_v_ with ulimit -v" 1>&2; exit 1; } || :
+
+# Ensure that tests call the cleanup_ function if using background processes
+sc_prohibit_test_background_without_cleanup_:
+	@cd $(srcdir) \
+	  && (GIT_PAGER= git grep -El '( &$$|&[^&]*=\$$!)' -- tests; \
+	      GIT_PAGER= git grep -l 'cleanup_()' -- tests | sed p)  \
+	      | sort | uniq -u | grep . && { echo "$(ME): the above test(s)"\
+	  " should use cleanup_ for background processes" 1>&2; exit 1; } || :
+
+# Ensure that tests call the print_ver_ function for programs which are
+# actually used in that test.
+sc_prohibit_test_calls_print_ver_with_irrelevant_argument:
+	@cd $(srcdir) \
+	  && GIT_PAGER= git grep -w print_ver_ -- tests			\
+	  | sed 's#:print_ver_##'					\
+	  | { fail=0;							\
+	      while read file name; do					\
+		for i in $$name; do					\
+		  grep -w "$$i" $$file|grep -vw print_ver_|grep -q .	\
+		    || { fail=1;					\
+			 echo "*** Test: $$file, offending: $$i." 1>&2; };\
+		done;							\
+	      done;							\
+	      test $$fail = 0 || exit 1;				\
+	    } || { echo "$(ME): the above test(s) call print_ver_ for"	\
+		    "program(s) they don't use" 1>&2; exit 1; }
 
 # Exempt the contents of any usage function from the following.
 _continued_string_col_1 = \
@@ -142,6 +261,12 @@ sc_preprocessor_indentation:
 	else								\
 	  echo '$(ME): skipping test $@: cppi not installed' 1>&2;	\
 	fi
+
+exclude_file_name_regexp--sc_prohibit_test_backticks = \
+  ^tests/(local\.mk|init\.sh)$$
+
+# Now that we have better tests, make this the default.
+export VERBOSE = yes
 
 # During 'make update-copyright', convert a sequence with gaps to the minimal
 # containing range.

@@ -28,13 +28,16 @@ EXTRA_DIST = \
 	build-aux/git-version-gen \
 	config.h.in \
 	stamp-h.in \
+	tests/GNUmakefile \
 	tool-versions.txt
 
 DISTCLEANFILES = tool-versions.txt
 
 
 # "gnulib-tests" is the gnulib unit test dir.
-SUBDIRS = gl gnulib-tests build-aux lib find xargs locate doc po m4
+SUBDIRS = gl build-aux lib find xargs locate doc po m4 gnulib-tests
+
+ALL_RECURSIVE_TARGETS =
 
 ACLOCAL_AMFLAGS = -I gl/m4 -I m4
 
@@ -107,6 +110,7 @@ gnulib-sync update-gnulib-to-latest:
 	    && git submodule foreach git pull origin master \
 	    && cp -v gnulib/doc/COPYINGv3 COPYING \
 	    && cp -v gnulib/build-aux/bootstrap bootstrap \
+	    && cp -v gnulib/tests/init.sh tests/init.sh \
 	    && git status --short -- gnulib COPYING bootstrap \
 	)
 
@@ -123,3 +127,5 @@ coverage-clean:
 	done
 
 clean-local: coverage-clean
+
+include $(top_srcdir)/tests/local.mk

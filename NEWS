@@ -145,6 +145,12 @@ The translation files in the PO directory are no longer version controlled;
 instead bootstrap auto-updates them from "translationproject.org" during a
 maintainer build.
 
+A shell-style test framework borrowed from GNU coreutils has been added.
+This allows better tests with more control over stdin, stdout, stderr,
+signals, preparatory steps, cleanup, return code verification, root-only
+tests, etc.
+
+
 * Major changes in release 4.6.0, 2015-12-28
 
 ** Stable Release
