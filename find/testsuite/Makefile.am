@@ -253,7 +253,6 @@ find.posix/user-missing.exp
 
 test_shell_progs = \
 test_type-list.sh \
-sv-48030-exec-plus-bug.sh \
 sv-48180-refuse-noop.sh \
 sv-52220.sh
 
