@@ -111,6 +111,7 @@ all_tests = \
   tests/find/printf_inode.sh \
   tests/find/execdir-fd-leak.sh \
   tests/find/exec-plus-last-file.sh \
+  tests/find/refuse-noop.sh \
   $(all_root_tests)
 
 $(TEST_LOGS): $(PROGRAMS)
