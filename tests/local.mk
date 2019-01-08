@@ -107,6 +107,7 @@ all_tests = \
   tests/find/many-dir-entries-vs-OOM.sh \
   tests/find/name-lbracket-literal.sh \
   tests/find/printf_escapechars.sh \
+  tests/find/printf_escape_c.sh \
   $(all_root_tests)
 
 $(TEST_LOGS): $(PROGRAMS)

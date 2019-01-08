@@ -252,7 +252,6 @@ find.posix/user-empty.exp \
 find.posix/user-missing.exp
 
 test_shell_progs = \
-test_escape_c.sh \
 test_inode.sh \
 test_type-list.sh \
 sv-34976-execdir-fd-leak.sh \
