@@ -253,7 +253,6 @@ find.posix/user-missing.exp
 
 test_shell_progs = \
 test_type-list.sh \
-sv-52220.sh
 
 EXTRA_DIST = $(EXTRA_DIST_EXP) $(EXTRA_DIST_XO) \
 	$(test_shell_progs) binary_locations.sh checklists.py

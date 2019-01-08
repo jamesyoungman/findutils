@@ -112,6 +112,7 @@ all_tests = \
   tests/find/execdir-fd-leak.sh \
   tests/find/exec-plus-last-file.sh \
   tests/find/refuse-noop.sh \
+  tests/find/debug-missing-arg.sh \
   $(all_root_tests)
 
 $(TEST_LOGS): $(PROGRAMS)
