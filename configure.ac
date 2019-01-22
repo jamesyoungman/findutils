@@ -111,6 +111,10 @@ AC_ARG_ENABLE(compiler-warnings,
   dnl Enable various GCC warnings.
   gl_MANYWARN_ALL_GCC([warnings])
 
+  # Ensure VLAs are not used.
+  # Note -Wvla is implicitly added by gl_MANYWARN_ALL_GCC
+  AC_DEFINE([GNULIB_NO_VLA], [1], [Define to 1 to disable use of VLAs])
+
   # Set up the list of the pointless, undesired warnings.
   findutils_nw=
   findutils_nw="$findutils_nw -Wsystem-headers"	 # Don't let system headers trigger warnings
@@ -120,9 +124,6 @@ AC_ARG_ENABLE(compiler-warnings,
   findutils_nw="$findutils_nw -Wsign-conversion" # Likewise.
   findutils_nw="$findutils_nw -Wc++-compat"      # malloc returns void* and a cast would be ugly.
   findutils_nw="$findutils_nw -Wswitch-default"  # A switch on an enum value needs no default.
-  # gettext.h and gnulib use variable length arrays and we don't want warnings for that.
-  findutils_gnulib_noise_warnings=
-  findutils_gnulib_noise_warnings="$findutils_gnulib_noise_warnings -Wvla"
 
   # Warnings we might enable in the future, but not yet (because they generate a
   # lot of noise).
@@ -146,7 +147,7 @@ AC_ARG_ENABLE(compiler-warnings,
   # Enable all GCC warnings not in our list of excluded warnings.
   gl_MANYWARN_COMPLEMENT(
 	[warnings], [$warnings],
-	[$findutils_nw $findutils_marginal $findutils_tmp_nowarning $findutils_gnulib_noise_warnings])
+	[$findutils_nw $findutils_marginal $findutils_tmp_nowarning])
   for w in $warnings
   do
     gl_WARN_ADD([$w])
@@ -174,13 +175,6 @@ AC_ARG_ENABLE(compiler-warnings-are-errors,
     if test -n "$GCC"; then
       CFLAGS="$CFLAGS -Werror"
       AC_MSG_RESULT([yes])
-      # Turn off warnings that would fire for code in gnulib, which we still want to be able
-      # to compile without error.
-      unwanted="vla"
-      AC_MSG_NOTICE([Turning off otherwise-fatal warnings in order to compile gnulib successfully: $unwanted])
-      for w in $unwanted; do
-        WARN_CFLAGS="${WARN_CFLAGS} -Wno-${w}"
-      done
     else
       AC_MSG_RESULT([no, because $CC is not GCC])
     fi
