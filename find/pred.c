@@ -363,9 +363,9 @@ pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_
       errno = 0;
       if ((fd = openat (state.cwd_dir_fd, state.rel_pathname, O_RDONLY
 #if defined O_LARGEFILE
-			|O_LARGEFILE
+			| O_LARGEFILE
 #endif
-		       )) < 0)
+			| O_CLOEXEC | O_DIRECTORY | O_NOCTTY | O_NONBLOCK)) < 0)
 	{
 	  error (0, errno, "%s", safely_quote_err_filename (0, pathname));
 	  state.exit_status = 1;
@@ -376,6 +376,7 @@ pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 	{
 	  error (0, errno, "%s", safely_quote_err_filename (0, pathname));
 	  state.exit_status = 1;
+	  close (fd);
 	  return false;
 	}
       /* errno is not touched in the loop body, so initializing it here
@@ -396,6 +397,7 @@ pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 	  /* Handle errors from readdir(3). */
 	  error (0, errno, "%s", safely_quote_err_filename (0, pathname));
 	  state.exit_status = 1;
+	  CLOSEDIR (d);
 	  return false;
 	}
       if (CLOSEDIR (d))
