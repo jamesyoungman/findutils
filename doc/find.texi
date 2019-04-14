@@ -979,14 +979,22 @@ find /usr -newer /tmp/stamp$$
 rm -f /tmp/stamp$$
 @end example
 
-@deffn Test -anewer file
-@deffnx Test -cnewer file
-@deffnx Test -newer file
-True if the file was last accessed (or its status changed, or it was
-modified) more recently than @var{file} was modified.  These tests are
-affected by @samp{-follow} only if @samp{-follow} comes before them on
-the command line.  @xref{Symbolic Links}, for more information on
-@samp{-follow}.  As an example, to list any files modified since
+@deffn Test -anewer reference
+@deffnx Test -cnewer reference
+@deffnx Test -newer reference
+True if the time of the last access (or status change or data modification)
+of the current file is more recent than that of the last data modification
+of the @var{reference} file.
+
+If @var{reference} is a symbolic link and the @samp{-H} option or the @samp{-L}
+option is in effect, then the time of the last data modification of the file
+it points to is always used.
+
+These tests are affected by @samp{-follow} only if @samp{-follow} comes before
+them on the command line.  @xref{Symbolic Links}, for more information on
+@samp{-follow}.
+
+As an example, to list any files modified since
 @file{/bin/sh} was last modified:
 
 @example

@@ -591,14 +591,15 @@ for exactly
 .IP "\-amin \fIn\fR"
 File was last accessed \fIn\fR minutes ago.
 
-.IP "\-anewer \fIfile\fR"
-File was last accessed more recently than \fIfile\fR was modified.  If
-\fIfile\fR is a symbolic link and the
+.IP "\-anewer \fIreference\fR"
+Time of the last access of the current file is more recent than that
+of the last data modification of the \fIreference\fR file.
+If \fIreference\fR is a symbolic link and the
 .B \-H
 option or the
 .B \-L
-option is in effect, the access time of the file it points to is
-always used.
+option is in effect, then the time of the last data modification of the file
+it points to is always used.
 
 .IP "\-atime \fIn\fR"
 File was last accessed
@@ -615,14 +616,15 @@ days ago.
 .IP "\-cmin \fIn\fR"
 File's status was last changed \fIn\fR minutes ago.
 
-.IP "\-cnewer \fIfile\fR"
-File's status was last changed more recently than \fIfile\fR was
-modified.  If \fIfile\fR is a symbolic link and the
+.IP "\-cnewer \fIreference\fR"
+Time of the last status change of the current file is more recent than that
+of the last data modification of the \fIreference\fR file.
+If \fIreference\fR is a symbolic link and the
 .B \-H
 option or the
 .B \-L
-option is in effect, the status-change time of the file it points
-to is always used.
+option is in effect, then the time of the last data modification of the file
+it points to is always used.
 
 .IP "\-ctime \fIn\fR"
 File's status was last changed
@@ -771,15 +773,15 @@ library function.
 Don't forget to enclose the pattern in quotes in order to protect it
 from expansion by the shell.
 
-.IP "\-newer \fIfile\fR"
-File was modified more recently than
-.IR file .
-If \fIfile\fR is a symbolic link and the
+.IP "\-newer \fIreference\fR"
+Time of the last data modification of the current file is more recent than that
+of the last data modification of the \fIreference\fR file.
+If \fIreference\fR is a symbolic link and the
 .B \-H
 option or the
 .B \-L
-option is in effect, the
-modification time of the file it points to is always used.
+option is in effect, then the time of the last data modification of the file
+it points to is always used.
 
 .IP "\-newerXY \fIreference\fR"
 Succeeds if timestamp \fIX\fR of the file being considered is newer
