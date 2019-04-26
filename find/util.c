@@ -545,18 +545,6 @@ undangle_file_pointers (struct predicate *p)
     }
 }
 
-/* Return nonzero if file descriptor leak-checking is enabled.
- */
-bool
-fd_leak_check_is_enabled (void)
-{
-  if (getenv ("GNU_FINDUTILS_FD_LEAK_CHECK"))
-    return true;
-  else
-    return false;
-
-}
-
 /* Complete any outstanding commands.
  * Flush and close any open files.
  */

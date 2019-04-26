@@ -1165,7 +1165,10 @@ set_slot_var (unsigned int n)
 static void
 prep_child_for_exec (void)
 {
-  complain_about_leaky_fds ();
+  if (fd_leak_check_is_enabled ())
+    {
+      complain_about_leaky_fds ();
+    }
 
   /* The parent will call add_proc to allocate a slot.  We do the same in the
      child to make sure we get the same value.

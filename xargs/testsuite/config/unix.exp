@@ -21,6 +21,8 @@
 
 verbose "base_dir is $base_dir" 2
 
+set env(GNU_FINDUTILS_FD_LEAK_CHECK) "1"
+
 set objfile "xargs.o"
 set dir "$base_dir/.."
 set path "$dir/$objfile"

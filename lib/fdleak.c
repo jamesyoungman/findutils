@@ -366,6 +366,17 @@ forget_non_cloexec_fds (void)
   num_cloexec_fds = 0;
 }
 
+/* Return nonzero if file descriptor leak-checking is enabled.
+ */
+bool
+fd_leak_check_is_enabled (void)
+{
+  if (getenv ("GNU_FINDUTILS_FD_LEAK_CHECK"))
+    return true;
+  else
+    return false;
+
+}
 
 void
 complain_about_leaky_fds (void)
