@@ -306,10 +306,15 @@ evaluated.
 
 You can omit the operator between two primaries; it defaults to
 @samp{-and}.  @xref{Combining Primaries With Operators}, for ways to
-connect primaries into more complex expressions.  If the expression
-contains no actions other than @samp{-prune}, @samp{-print} is
-performed on all files for which the entire expression is true
-(@pxref{Print File Name}).
+connect primaries into more complex expressions.
+
+The @samp{-print} action is performed on all files for which the
+entire expression is true (@pxref{Print File Name}), unless the
+expression contains an action other than @samp{-prune} or
+@samp{-quit}. Actions which inhibit the default @samp{-print} are
+@samp{-delete}, @samp{-exec}, @samp{-execdir}, @samp{-ok},
+@samp{-okdir}, @samp{-fls}, @samp{-fprint}, @samp{-fprintf},
+@samp{-ls}, @samp{-print} and @samp{-printf}.
 
 Options take effect immediately, rather than being evaluated for each
 file when their place in the expression is reached.  Therefore, for

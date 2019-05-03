@@ -358,12 +358,29 @@ include for example
 is assumed.
 
 .P
-If the whole expression contains no actions other than
-.B \-prune
-or
-.BR \-print ,
+The
 .B \-print
-is performed on all files for which the whole expression is true.
+action is performed on all files for which the whole expression is
+true, unless it contains an action other than
+.BR \-prune
+or
+.BR \-quit .
+Actions which inhibit the default
+.B \-print
+are
+.BR \-delete ,
+.BR \-exec ,
+.BR \-execdir ,
+.BR \-ok ,
+.BR \-okdir ,
+.BR \-fls ,
+.BR \-fprint ,
+.BR \-fprintf ,
+.BR \-ls ,
+.BR \-print
+and
+.BR \-printf .
+
 
 The
 .B \-delete

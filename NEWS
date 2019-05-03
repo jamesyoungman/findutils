@@ -61,6 +61,9 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
 
+#56142: doc: fix bug #56142 by specifying which actions inhibit the
+        default -print.
+
 #55272: find: improve diagnostic when -name or -iname is used with a pattern
         containing a directory separator ('/'), suggesting to use -wholename
         or -iwholename respectively.
