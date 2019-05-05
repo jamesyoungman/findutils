@@ -30,8 +30,8 @@ usage: $0 location-of-${PACKAGE}-build-directory
 EOF
 }
 
-checkfiles="CVS dvi ${TEXIBASE}.html html_node html_mono info ps texi text"
-targets="dvi html info ${TEXIBASE}.ps ${TEXIBASE}.txt ${PACKAGE}.texi_html_node.tar.gz ${TEXIBASE}_mono.html ${TEXIBASE}.texi.tar.gz ${TEXIBASE}-info.tar.gz"
+checkfiles="CVS dvi ${TEXIBASE}.html html_node html_mono info ps texi text ${TEXIBASE}.pdf"
+targets="dvi html info pdf ${TEXIBASE}.ps ${TEXIBASE}.txt ${PACKAGE}.texi_html_node.tar.gz ${TEXIBASE}_mono.html ${TEXIBASE}.texi.tar.gz ${TEXIBASE}-info.tar.gz"
 
 if [ $# -ne 1 ]; then
 	usage >&2
@@ -110,6 +110,8 @@ then
     rm dvi/${TEXIBASE}.dvi.gz
     gzip -9 dvi/${TEXIBASE}.dvi
 
+    echo Collecting the PDF file...
+    cp  $BUILDDIR/${TEXIBASE}.pdf .
 
     echo "Collecting the text files (compressed and uncompressed)..."
     rm -f text/${TEXIBASE}.txt text/${TEXIBASE}.txt.gz
@@ -170,35 +172,38 @@ This manual is available in the following formats:
   <LI>
       $(linkfor html_mono/${TEXIBASE}.html "characters" HTML)
       entirely on one web page.
-  <P>
+  </LI>
   <LI>
       $(linkfor html_mono/${TEXIBASE}.html.gz "gzipped characters" HTML)
       entirely on one web page.
-  <P>
+  </LI>
   <LI> <a href="html_node/${TEXIBASE}_html/index.html">HTML (total size $(size html_node/${TEXIBASE}_html))</a>
     with one web page per node.
-  <p>
+  </LI>
   <LI> $(linkfor "html_node/${PACKAGE}.texi_html_node.tar.gz" "gzipped tar file" HTML)
     with one web page per node.
-  <p>
+  </LI>
   <LI>
       $(linkfor "info/${TEXIBASE}-info.tar.gz" "gzipped tar file" "Info document")
-  <P>
+  </LI>
   <LI>
       $(linkfor "text/${TEXIBASE}.txt" "characters" "ASCII text")
-  <P>
+  </LI>
   <LI>
       $(linkfor "text/${TEXIBASE}.txt.gz" "gzipped characters" "ASCII text")
-  <P>
+  </LI>
   <LI>
       $(linkfor "dvi/${TEXIBASE}.dvi.gz" "gzipped" "a TeX dvi file")
-  <P>
-  <li>
+  </LI>
+  <LI>
       $(linkfor "ps/${TEXIBASE}.ps.gz" "gzipped characters" "a PostScript file")
-  <p>
+  </LI>
+  <LI>
+      $(linkfor "${TEXIBASE}.pdf" "PDF file" PDF)
+  </LI>
   <LI>the original
       $(linkfor "texi/${TEXIBASE}.texi.tar.gz" "character gzipped tar file" "Texinfo source")
-  <P>
+  </LI>
 </UL>
 
 </div><!-- for id="content", starts in the include above -->
