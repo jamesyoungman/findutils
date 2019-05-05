@@ -609,6 +609,19 @@ Texinfo documentation.  The manual pages are suitable for reference
 use, but the Texinfo manual should also include introductory and
 tutorial material.
 
+We make the user documentation available on the web, on the GNU
+project web site.  These web pages are source-controlled via CVS
+(still!).  If you are a member of the @samp{findutils} project on
+Savannah you should be able to check the web pages out like this
+(@samp{$USER} is a placeholder for your Savannah username):
+
+@smallexample
+cvs -d  :ext:$USER@@cvs.savannah.gnu.org:/web/findutils checkout findutils/manual
+@end smallexample
+
+You can automatically update the documentation in this repository
+using the script @samp{build-aux/update-online-manual.sh} in the
+findutils Git repository.
 
 @section Build Guidance
 
