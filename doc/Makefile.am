@@ -92,5 +92,3 @@ find.texi.tar.gz: $(TEXINFOS) $(find_TEXINFOS) $(nodist_find_TEXINFOS) $(info_TE
 	( cd tmp-doc-install/texi/ && tar -c -f - *.texi ) | GZIP=$(GZIP_ENV) gzip -c >| $@
 	rm -rf tmp-doc-install/texi
 	rmdir tmp-doc-install
-
-
