@@ -777,10 +777,9 @@ The metacharacters (`*', `?',
 and `[]') match a `.\&' at the start of the base name (this is a change
 in findutils-4.2.2; see section STANDARDS CONFORMANCE below).  To ignore a
 directory and the files under it, use
-.BR \-prune ;
-see an example in the
-description of
-.BR \-path .
+.B \-prune
+rather than checking every file in the tree;
+see an example in the description of that action.
 Braces are not recognised as being
 special, despite the fact that some shells including Bash imbue braces
 with a special meaning in shell patterns.  The filename matching is
@@ -858,14 +857,7 @@ will print an entry for a directory called `./src/misc' (if one
 exists).  To ignore a whole directory tree, use
 .B \-prune
 rather than
-checking every file in the tree.  For example, to skip the
-directory `src/emacs' and all files and directories under it, and
-print the names of the other files found, do something like this:
-.br
-.in +1i
-find . \-path ./src/emacs \-prune \-o \-print
-.br
-.in -1i
+checking every file in the tree.
 Note that the pattern match test applies to the whole file name,
 starting from one of the start points named on the command line.  It
 would only make sense to use an absolute path name here if the
@@ -1609,7 +1601,9 @@ section for information about how unusual characters in filenames are handled.
 .IP \-prune
 True; if the file is a directory, do not descend into it.  If
 .B \-depth
-is given, false; no effect.  Because
+is given, then
+.B \-prune
+has no effect.  Because
 .B \-delete
 implies
 .BR \-depth ,
@@ -1618,6 +1612,15 @@ you cannot usefully use
 and
 .B \-delete
 together.
+  For example, to skip the
+directory `src/emacs' and all files and directories under it, and
+print the names of the other files found, do something like this:
+.br
+.in +1i
+find . \-path ./src/emacs \-prune \-o \-print
+.br
+.in -1i
+
 
 .IP "\-quit"
 Exit immediately.  No child processes will be left running, but no more

@@ -60,6 +60,9 @@ Both find.1 and the find texinfo manual now consistently document all of the
 'N', 'L' and '?' possibilities in '-printf %Y' output when the determination of
 the type of a symlink target fails.
 
+find.1 now correctly states the -prune has no effect when the -depth option is
+given.  Before, it wrongly stated that -prune would return false in that case.
+
 Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
