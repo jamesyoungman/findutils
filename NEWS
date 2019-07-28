@@ -52,6 +52,9 @@ interactive application.  Added for compatibility with BSD.
 xargs now supports GNU_FINDUTILS_FD_LEAK_CHECK environment variable to
 enable/disable fd leak check.
 
+'xargs -t' (--verbose) now properly quotes each part of the command to the
+executed if needed when printing it to stderr; likewise -p (--interactive).
+
 ** Documentation Changes
 
 Prefer https:// over http:// links where possible, e.g. for '*.gnu.org' servers.
