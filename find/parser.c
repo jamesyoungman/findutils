@@ -606,12 +606,11 @@ found_parser (const char *original_arg, const struct parser_table *entry)
 	    {
 	      /* option which follows a non-option */
 	      error (0, 0,
-		     _("warning: you have specified the %s "
-		       "option after a non-option argument %s, "
-		       "but options are not positional (%s affects "
-		       "tests specified before it as well as those "
-		       "specified after it).  Please specify options "
-		       "before other arguments.\n"),
+		     _("warning: you have specified the global option %s "
+		       "after the argument %s, but global options are not "
+		       "positional, i.e., %s affects tests specified before it "
+		       "as well as those specified after it.  "
+		       "Please specify global options before other arguments."),
 		     original_arg,
 		     first_nonoption_arg,
 		     original_arg);

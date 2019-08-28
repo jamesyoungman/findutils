@@ -70,6 +70,10 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Bug Fixes
 
+#56820: find: improve diagnostic when a global option like -maxdepth is
+        specified after another argument like a test, thus hopefully avoiding
+        translation issues (at least French, German).
+
 #56142: doc: fix bug #56142 by specifying which actions inhibit the
         default -print.
 
