@@ -1099,19 +1099,23 @@ uncommitted changes.
 @item Test; make sure that all changes you have made have tests, and
 that the tests pass.  Verify this with @code{make distcheck}.
 @item Bugs; make sure all Savannah bug entries fixed in this release
-are fixed.
-@item NEWS; make sure that the NEWS file is updated with the new release
-number (and checked in).
+are marked as fixed in Savannah.
+@item Updare version; make sure that the NEWS and configure.ac files
+are updated with the new release number (and checked in).
 @item Tag the release; findutils releases are tagged like this for
 example: v4.5.5.  Previously a different format was in use:
 FINDUTILS_4_3_8-1.  You can create a tag with the a command like this:
 @code{git tag -s -m "Findutils release v4.5.7" v4.5.7}.
 @item Build the release tarball; do this with @code{make distcheck}.
 Copy the tarball somewhere safe.
+@item Merge and push; if the release (and signed tag) were made on a
+local branch, merge the branch.  Push your master to origin/master.
 @item Prepare the upload and upload it.
 @xref{Automated FTP Uploads, ,Automated FTP
 Uploads, maintain, Information for Maintainers of GNU Software},
 for detailed upload instructions.
+@item Check the FTP upload worked; you can look for an email from the
+robot or check the contents of the actual FTP site.
 @item Make a release announcement; include an extract from the NEWS
 file which explains what's changed.  Announcements for test releases
 should just go to @email{bug-findutils@@gnu.org}.  Announcements for
