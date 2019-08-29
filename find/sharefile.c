@@ -156,7 +156,7 @@ sharefile_fopen (sharefile_handle h, const char *filename)
 
   if (NULL == (new_entry->fp = fopen_safer (filename, p->mode)))
     {
-      free (new_entry);
+      entry_free (new_entry);
       return NULL;
     }
   else
