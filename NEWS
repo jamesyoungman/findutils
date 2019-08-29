@@ -49,8 +49,8 @@ xargs now supports the -o, --open-tty option to reopen stdin as /dev/tty
 in the child process before executing the command; useful to run an
 interactive application.  Added for compatibility with BSD.
 
-xargs now supports GNU_FINDUTILS_FD_LEAK_CHECK environment variable to
-enable/disable fd leak check.
+xargs now supports the GNU_FINDUTILS_FD_LEAK_CHECK environment
+variable to enable/disable fd leak check.
 
 'xargs -t' (--verbose) now properly quotes each part of the command to the
 executed if needed when printing it to stderr; likewise -p (--interactive).
