@@ -80,6 +80,9 @@ follow any resulting discussion.  An archive of posts to the
 findutils-patches mailing list is available at
 https://lists.gnu.org/r/findutils-patches/.
 
+See https://savannah.gnu.org/git/?group=findutils for instructions on
+how to use git to access the findutils source code.
+
 Mail suggestions and bug reports for these programs to
 bug-findutils@gnu.org.
 
