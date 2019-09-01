@@ -4,6 +4,8 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 ** Bug Fixes
 
+#54730: Add additional valuable example of find -quit
+
 #48135: Fix testsuite error on Hurd and BSD related to ln
 
 * Major changes in release 4.7.0, 2019-08-29

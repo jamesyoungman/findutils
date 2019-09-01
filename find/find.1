@@ -1174,7 +1174,11 @@ returns a non-zero exit status.  If
 .B find
 encounters an error, this can sometimes cause an
 immediate exit, so some pending commands may not be run
-at all.  This variant of
+at all.  For this reason
+.B \-exec my-command ... {} \e+ \-quit
+may not result in
+.B my-command
+actually being run.  This variant of
 .B \-exec
 always returns true.
 
@@ -1623,18 +1627,38 @@ find . \-path ./src/emacs \-prune \-o \-print
 
 
 .IP "\-quit"
-Exit immediately.  No child processes will be left running, but no more
-paths specified on the command line will be processed.  For example,
-.B find /tmp/foo /tmp/bar \-print \-quit
-will print only
-.BR /tmp/foo .
-Any command lines which have been built up with
-.B \-execdir \&...\& {} +
-will be invoked before
+Exit immediately (with return value zero if no errors have occurred).
+This is different to
+.B \-prune
+because
+.B \-prune
+only applies to the contents of pruned directories, while
+.B \-quit
+simply makes
 .B find
-exits.
-The exit status may or may not be zero,
-depending on whether an error has already occurred.
+stop immediately.  No child processes will be left
+running.  Any command lines which have been built by
+.B \-exec ... \e+
+or
+.B \-execdir ... \e+
+are invoked before the program is
+exited.  After
+.B \-quit
+is executed, no more files specified onthe command line will be
+processed.  For example,
+.RB ` find
+.B /tmp/foo /tmp/bar -print
+.BR -quit `
+will print only `/tmp/foo`.  One common use of
+.B \-quit
+is to stop searching the file system once we have
+found what we want.  For example, if we want to find just a single
+file we can do this:
+.br
+.in +1i
+find / -name needle -print -quit
+.br
+.in -1i
 
 .SS OPERATORS
 .P
@@ -2232,6 +2256,13 @@ which is otherwise equivalent to the longer, yet more portable:
 
 .nf
 .B find /tmp \e( \-type f \-o \-type d \-o \-type l \e)
+.fi
+
+Search for files with a particular name and stop immediately when we
+find the first one:
+
+.nf
+.B find / -name needle -print -quit
 .fi
 
 .SH EXIT STATUS
