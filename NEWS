@@ -8,6 +8,8 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 #48135: Fix testsuite error on Hurd and BSD related to ln
 
+#35253: Clarify descriptions of -printf %f, %h.
+
 * Major changes in release 4.7.0, 2019-08-29
 
 ** Changes to locate / updatedb

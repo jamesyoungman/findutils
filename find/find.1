@@ -1489,7 +1489,15 @@ File's depth in the directory tree; 0 means the file is a starting-point.
 The device number on which the file exists (the st_dev field of struct
 stat), in decimal.
 .IP %f
-File's name with any leading directories removed (only the last element).
+Print the basename; the file's name with any leading directories
+removed (only the last element).  For
+.BR /,
+the result is
+.BR /.
+See the
+.B EXAMPLES
+section for an example.
+
 .IP %F
 Type of the filesystem the file is on; this value can be used for
 \-fstype.
@@ -1498,9 +1506,14 @@ File's group name, or numeric group ID if the group has no name.
 .IP %G
 File's numeric group ID.
 .IP %h
-Leading directories of file's name (all but the last element).
-If the file name contains no slashes (since it is in the current
-directory) the %h specifier expands to `.'.
+Dirname; the Leading directories of the file's name (all but the last
+element).  If the file name contains no slashes (since it is in the
+current directory) the %h specifier expands to `.'.  For files which
+are themselves directories and contain a slash (including
+.BR /,
+), %h expands to the empty string.  See the
+.B EXAMPLES
+section for an example.
 .IP %H
 Starting-point under which file was found.
 .IP %i
@@ -2263,6 +2276,25 @@ find the first one:
 
 .nf
 .B find / -name needle -print -quit
+.fi
+
+For some corner-cases, the interpretation of the
+.B %f
+and
+.B %h
+format directives of
+.B \-printf
+is not obvious.  Here is an eample including some output.
+
+.nf
+.B $ find . .. / /tmp /tmp/TRACE compile compile/64/tests/find -maxdepth 0 -printf '[%h][%f]\en'
+.B [.][.]
+.B [.][..]
+.B [][/]
+.B [][tmp]
+.B [/tmp][TRACE]
+.B [.][compile]
+.B [compile/64/tests][find]
 .fi
 
 .SH EXIT STATUS
