@@ -30,10 +30,10 @@ dnl Set the bug-report URL
 dnl
 dnl The call to AC_INIT causes AC_PACKAGE_BUGREPORT to be defined
 dnl and we've used an email address.  However, we would also like to
-dnl specify at URL at which to report bugs (and in fact we prefer
+dnl specify an URL at which to report bugs (and in fact we prefer
 dnl people to use that).  Se we define that here, too.
 bugreport_url='https://savannah.gnu.org/bugs/?group=findutils'
-dnl Ensure that PACKAGE_BUGREPORT_URL shows up n config.h so that
+dnl Ensure that PACKAGE_BUGREPORT_URL shows up in config.h so that
 dnl it can be picked up by bugreport.c.
 AC_DEFINE_UNQUOTED([PACKAGE_BUGREPORT_URL], ["$bugreport_url"],
                    [URL at which bugs should be reported])
