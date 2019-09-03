@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-. "${srcdir=.}/tests/init.sh"
+. "${srcdir=.}/tests/init.sh"; fu_path_prepend_
 print_ver_ find oldfind
 
 make_canonical() {
