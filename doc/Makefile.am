@@ -52,7 +52,7 @@ find.txt: find.texi $(srcdir)/version.texi $(find_TEXINFOS)
 find_mono.html: find.texi
 	rm -rf $(@:.html=.htp)
 	if $(MAKEINFOHTML) --no-split $(AM_MAKEINFOHTMLFLAGS) $(MAKEINFOFLAGS) -I $(srcdir) \
-	 -o $(@:.html=.htp) $<; \
+	 -o $(@:.html=.htp) find.texi; \
 	then \
 	  rm -rf $@; \
 	  if test ! -d $(@:.html=.htp) && test -d $(@:.html=); then \
@@ -70,7 +70,7 @@ find_mono.html: find.texi
 # by the maintainer, and we don't need to build the file
 # for "make all" or "make install" (or even "make check").
 findutils.texi_html_node.tar.gz: find.html
-	tar zcf $@ $<
+	tar zcf $@ find.html
 
 
 dblocation.texi: ../locate/dblocation.texi
