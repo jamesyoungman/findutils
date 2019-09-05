@@ -1130,7 +1130,11 @@ Copy the tarball somewhere safe.
 @item Merge; if the release (and signed tag) were made on a
 local branch, merge the branch to your local master.
 @item Push; push your master to origin/master.
-@item Push the new release tag; @code{git push --tags the-tag-name}
+@item Push the new release tag; assuming that the name of your remote is
+@samp{origin}, this is:
+@example
+git push origin tag @value{RELTAG}
+@end example
 @item Prepare the upload and upload it.
 You can do this with
 @c we use @example here because @value will not work within @code or @samp.
