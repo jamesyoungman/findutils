@@ -21,6 +21,8 @@ FINDUTILS_4_3_3-1 back in 2007.
 
 #58205: find.1: clarify double dash '--' option
 
+#57025: doc: enhance description of tests accepting numeric arguments in find.1
+
 #54730: Add additional valuable example of find -quit
 
 #48135: Fix testsuite error on Hurd and BSD related to ln

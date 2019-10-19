@@ -144,7 +144,6 @@ check the GNU FTP site.
 @menu
 * Scope::
 * Overview::
-* find Expressions::
 @end menu
 
 @node Scope
@@ -278,6 +277,29 @@ word @samp{typedef}.
 xargs grep typedef < file-list
 @end example
 
+@node Finding Files
+@chapter Finding Files
+
+By default, @code{find} prints to the standard output the names of the
+files that match the given criteria.  @xref{Actions}, for how to get
+more information about the matching files.
+
+
+@menu
+* find Expressions::
+* Name::
+* Links::
+* Time::
+* Size::
+* Type::
+* Owner::
+* Mode Bits::
+* Contents::
+* Directories::
+* Filesystems::
+* Combining Primaries With Operators::
+@end menu
+
 @node find Expressions
 @section @code{find} Expressions
 
@@ -334,27 +356,6 @@ for less than @var{n},
 for exactly @var{n}.
 @end table
 
-@node Finding Files
-@chapter Finding Files
-
-By default, @code{find} prints to the standard output the names of the
-files that match the given criteria.  @xref{Actions}, for how to get
-more information about the matching files.
-
-
-@menu
-* Name::
-* Links::
-* Time::
-* Size::
-* Type::
-* Owner::
-* Mode Bits::
-* Contents::
-* Directories::
-* Filesystems::
-* Combining Primaries With Operators::
-@end menu
 
 @node Name
 @section Name

@@ -601,7 +601,17 @@ system call fails for it), an error message is issued, and
 .B find
 exits with a nonzero status.
 .P
-Numeric arguments can be specified as
+A numeric argument \fIn\fR can be specified to tests (like
+.BR \-amin ,
+.BR \-mtime ,
+.BR \-gid ,
+.BR \-inum ,
+.BR \-links ,
+.BR \-size ,
+.BR \-uid
+and
+.BR \-used )
+as
 .IP \fI+n\fP
 for greater than
 .IR n ,
@@ -612,8 +622,11 @@ for less than
 for exactly
 .IR n .
 .
+.P
+Supported tests:
+
 .IP "\-amin \fIn\fR"
-File was last accessed \fIn\fR minutes ago.
+File was last accessed less than, more than or exactly \fIn\fR minutes ago.
 
 .IP "\-anewer \fIreference\fR"
 Time of the last access of the current file is more recent than that
@@ -626,7 +639,7 @@ option is in effect, then the time of the last data modification of the file
 it points to is always used.
 
 .IP "\-atime \fIn\fR"
-File was last accessed
+File was last accessed less than, more than or exactly
 .IR n *24
 hours ago.
 When find figures out how many 24-hour periods ago the file
@@ -638,7 +651,8 @@ a file has to have been accessed at least
 days ago.
 
 .IP "\-cmin \fIn\fR"
-File's status was last changed \fIn\fR minutes ago.
+File's status was last changed less than, more than or exactly \fIn\fR minutes
+ago.
 
 .IP "\-cnewer \fIreference\fR"
 Time of the last status change of the current file is more recent than that
@@ -651,7 +665,7 @@ option is in effect, then the time of the last data modification of the file
 it points to is always used.
 
 .IP "\-ctime \fIn\fR"
-File's status was last changed
+File's status was last changed less than, more than or exactly
 .IR n *24
 hours ago.
 See the comments for
@@ -694,7 +708,7 @@ is: ufs, 4.2, 4.3, nfs, tmp, mfs, S51K, S52K.  You can use
 with the %F directive to see the types of your filesystems.
 
 .IP "\-gid \fIn\fR"
-File's numeric group ID is
+File's numeric group ID is less than, more than or exactly
 .IR n .
 
 .IP "\-group \fIgname\fR"
@@ -721,7 +735,7 @@ patterns `fo*' and `F??' match the file names `Foo', `FOO', `foo',
 The pattern `*foo*` will also match a file called '.foobar'.
 
 .IP "\-inum \fIn\fR"
-File has inode number
+File has inode number smaller than, greater than or exactly
 .IR n .
 It is normally easier to use the
 .B \-samefile
@@ -742,7 +756,7 @@ See \-ipath.  This alternative is less portable than
 .BR \-ipath .
 
 .IP "\-links \fIn\fR"
-File has \fIn\fR hard links.
+File has less than, more than or exactly \fIn\fR hard links.
 
 .IP "\-lname \fIpattern\fR"
 File is a symbolic link whose contents match shell pattern
@@ -756,10 +770,11 @@ option is in effect, this test returns false unless the symbolic link
 is broken.
 
 .IP "\-mmin \fIn\fR"
-File's data was last modified \fIn\fR minutes ago.
+File's data was last modified less than, more than or exactly \fIn\fR minutes
+ago.
 
 .IP "\-mtime \fIn\fR"
-File's data was last modified
+File's data was last modified less than, more than or exactly
 .IR n *24
 hours ago.
 See the comments for
@@ -961,8 +976,8 @@ When
 is in effect, this can include symbolic links.
 
 .IP "\-size \fIn\fR[cwbkMG]"
-File uses \fIn\fP units of space, rounding up.  The following suffixes
-can be used:
+File uses less than, more than or exactly \fIn\fP units of space, rounding up.
+The following suffixes can be used:
 .RS
 .IP `b'
 for 512-byte blocks (this is the default if no suffix is used)
@@ -1035,11 +1050,12 @@ door (Solaris)
 To search for more than one type at once, you can supply the combined list of
 type letters separated by a comma `,' (GNU extension).
 .IP "\-uid \fIn\fR"
-File's numeric user ID is
+File's numeric user ID is less than, more than or exactly
 .IR n .
 
 .IP "\-used \fIn\fR"
-File was last accessed \fIn\fR days after its status was last changed.
+File was last accessed less than, more than or exactly \fIn\fR days after its
+status was last changed.
 
 .IP "\-user \fIuname\fR"
 File is owned by user \fIuname\fR (numeric user ID allowed).
