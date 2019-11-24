@@ -38,8 +38,7 @@ printf '%s\0' \
   || fail=1
 
 # Verify stderr.
-# Add trailing blank with sed to avoid FP from sc_trailing_blank.
-sed 's/world/& /' <<\EOF > experr || framework_failure_
+cat <<\EOF > experr || framework_failure_
 './my command' 'hel lo' 000 world
 './my command' 'hel lo' '10 0' world
 './my command' 'hel lo' '20"0' world

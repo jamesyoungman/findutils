@@ -1093,7 +1093,8 @@ print_args (bool ask)
 
   for (i = 0; i < bc_state.cmd_argc - 1; i++)
     {
-      if (fprintf (stderr, "%s ",
+      if (fprintf (stderr, "%s%s",
+	           (i == 0 ? "" : " "),
 	           quotearg_n_style (0, shell_escape_quoting_style,
 		                     bc_state.cmd_argv[i])) < 0)
 	die (EXIT_FAILURE, errno, _("Failed to write to stderr"));

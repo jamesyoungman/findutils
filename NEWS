@@ -2,6 +2,11 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 * Major changes in release ?.?.?, YYYY-MM-DD
 
+** Changes in xargs
+
+'xargs -t' no longer outputs a trailing blank to stderr after the last argument
+of each constructed command line to be executed.  [#57291]
+
 ** Bug Fixes
 
 #54730: Add additional valuable example of find -quit
