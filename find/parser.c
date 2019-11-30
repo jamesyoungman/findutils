@@ -2540,19 +2540,11 @@ parse_version (const struct parser_table* entry, char **argv, int *arg_ptr)
   flags = 0;
   if (is_fts_enabled (&flags))
     {
-      int nflags = 0;
       printf ("FTS(");
       has_features = true;
 
       if (flags & FTS_CWDFD)
-	{
-	  if (nflags)
-	    {
-	      printf (",");
-	    }
-	  printf ("FTS_CWDFD");
-	  has_features = true;
-	}
+	printf ("FTS_CWDFD");
       printf (") ");
     }
 
