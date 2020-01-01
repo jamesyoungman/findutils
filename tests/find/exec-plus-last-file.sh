@@ -5,7 +5,7 @@
 # if there was only one last single file argument.
 # See Savannah bug #48030.
 
-# Copyright (C) 2016-2019 Free Software Foundation, Inc.
+# Copyright (C) 2016-2020 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
