@@ -90,6 +90,7 @@
 #include "quotearg.h"
 #include "regextype.h"
 #include "stat-time.h"
+#include "xstrtol-error.h"
 
 /* find headers. */
 #include "system.h"
