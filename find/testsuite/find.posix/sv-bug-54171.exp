@@ -1,5 +1,0 @@
-exec rm -rf tmp
-exec mkdir tmp tmp/dir
-exec chmod 0311 tmp/dir
-find_start f {tmp -depth -name dir }
-exec rm -rf tmp
