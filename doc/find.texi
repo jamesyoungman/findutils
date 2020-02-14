@@ -1857,7 +1857,7 @@ Command line argument under which file was found.
 @end table
 
 For some corner-cases, the interpretation of the @samp{%f} and
-@samp{%h} format directives is not obvious.  Here is an eample
+@samp{%h} format directives is not obvious.  Here is an example
 including some output:
 
 @example
