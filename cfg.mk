@@ -127,8 +127,8 @@ sc_tests_executable:
 
 # Avoid :>file which doesn't propagate errors
 sc_prohibit_colon_redirection:
-	@cd $(srcdir)/tests && GIT_PAGER= git grep -n ': *>.*||' \
-	  && { echo '$(ME): '"The leading colon in :> will hide errors" 1>&2; \
+	@cd $(srcdir)/tests && GIT_PAGER= git grep -En ': *>.*\|\|'	\
+	  && { echo '$(ME): '"The leading colon in :> will hide errors" >&2; \
 	       exit 1; }  \
 	  || :
 
