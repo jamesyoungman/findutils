@@ -486,7 +486,7 @@ bc_init_controlinfo (struct buildcmd_control *ctl,
 
   /* POSIX requires that _POSIX_ARG_MAX is 4096.  That is the lowest
    * possible value for ARG_MAX on a POSIX compliant system.  See
-   * http://www.opengroup.org/onlinepubs/009695399/basedefs/limits.h.html
+   * https://www.opengroup.org/onlinepubs/009695399/basedefs/limits.h.html
    */
   ctl->posix_arg_size_min = _POSIX_ARG_MAX;
   ctl->posix_arg_size_max = bc_get_arg_max ();

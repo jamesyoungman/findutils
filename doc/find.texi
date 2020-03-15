@@ -5460,7 +5460,7 @@ While there are a number of books on computer security, there are also
 useful articles on the web that touch on the issues described above:
 
 @table @url
-@item http://goo.gl/DAvh
+@item https://goo.gl/DAvh
 @c https://www.securecoding.cert.org/confluence/display/seccode/MSC09-C.+Character+Encoding+-+Use+Subset+of+ASCII+for+Safety
 This article describes some of the unfortunate effects of allowing
 free choice of file names.

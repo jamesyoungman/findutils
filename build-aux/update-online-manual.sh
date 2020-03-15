@@ -161,7 +161,7 @@ cat >${TEXIBASE}.html <<EOF
 <LINK REV="made" HREF="mailto:webmasters@www.gnu.org">
 <META NAME="keywords" CONTENT="GNU, findutils, xargs, find, locate, finding files, file search, disk search, file name database, expand arguments, free software">
 <meta http-equiv="Description" content="Tools for searching file systems" />
-<BASE HREF="http://www.gnu.org/software/findutils/manual/find.html">
+<BASE HREF="https://www.gnu.org/software/findutils/manual/find.html">
 <!--#include virtual="/server/banner.html" -->
 <H2>Findutils: Table of Contents</H2>
 <P>
@@ -216,7 +216,7 @@ Return to <A HREF="/home.html">GNU's home page</A>.
 <P>
 Please send FSF &amp; GNU inquiries &amp; questions to
 <A HREF="mailto:gnu@gnu.org"><EM>gnu@gnu.org</EM></A>.
-Other <A HREF="http://www.fsf.org/about/contact.html">ways to contact</A> the FSF.
+Other <A HREF="https://www.fsf.org/about/contact.html">ways to contact</A> the FSF.
 
 <P>
 Please send comments on these web pages to
