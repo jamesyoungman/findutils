@@ -1,7 +1,6 @@
 /*.log
 /*.o
 /*.trs
-/.deps/
 /Makefile
 /Makefile.in
 /check-regexprops
