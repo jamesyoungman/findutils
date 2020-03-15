@@ -22,7 +22,7 @@ find_maint_TEXINFOS = fdl.texi
 MOSTLYCLEANFILES = find.cps
 CLEANFILES = find.txt find_mono.html findutils.texi_html_node.tar.gz dblocation.texi \
 	find_mono.html findutils.texi_html_node.tar.gz \
-	find-info.tar.gz find.texi find.texi.tar.gz \
+	find-info.tar.gz find.texi.tar.gz \
 	find.txt  tmp-doc-install find_mono.html.gz
 MAKEINFOTXT = $(MAKEINFO) --plaintext
 
