@@ -52,8 +52,6 @@ AC_CANONICAL_HOST
 AC_CONFIG_MACRO_DIR(gl/m4)
 
 AC_SUBST(AUXDIR,$ac_aux_dir)
-dnl check for --with-fts
-FIND_WITH_FTS
 
 AC_ARG_ENABLE(leaf-optimisation,
 	AS_HELP_STRING(--enable-leaf-optimisation,Enable an optimisation which saves lstat calls to identify subdirectories on filesystems having traditional Unix semantics),

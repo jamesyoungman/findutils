@@ -15,6 +15,12 @@ of each constructed command line to be executed.  [#57291]
 
 #35253: Clarify descriptions of -printf %f, %h.
 
+** Changes to the build process
+
+The configure option --without-fts has been removed.  The attempt to use
+it stopped configure with an error message since 4.5.18 (2015) anyway.
+
+
 * Major changes in release 4.7.0, 2019-08-29
 
 ** Changes to locate / updatedb
