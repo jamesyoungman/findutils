@@ -9,6 +9,9 @@ of each constructed command line to be executed.  [#57291]
 
 ** Bug Fixes
 
+find no longer crashes when an XFS filesystem is heavily changed during the run.
+Discussed at: <https://lists.gnu.org/r/bug-gnulib/2020-04/msg00068.html>
+
 #54730: Add additional valuable example of find -quit
 
 #48135: Fix testsuite error on Hurd and BSD related to ln
