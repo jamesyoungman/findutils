@@ -12,6 +12,10 @@ of each constructed command line to be executed.  [#57291]
 find no longer crashes when an XFS filesystem is heavily changed during the run.
 Discussed at: <https://lists.gnu.org/r/bug-gnulib/2020-04/msg00068.html>
 
+find -used works again.  This predicate was not working properly since adding
+the support for sub-second timestamp resolution for various predicates in
+FINDUTILS_4_3_3-1 back in 2007.
+
 #54730: Add additional valuable example of find -quit
 
 #48135: Fix testsuite error on Hurd and BSD related to ln

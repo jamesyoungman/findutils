@@ -1163,11 +1163,15 @@ pred_used (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
 
   (void) pathname;
 
-  /* TODO: this needs to be retested carefully (manually, if necessary) */
   at = get_stat_atime (stat_buf);
   ct = get_stat_ctime (stat_buf);
-  delta.tv_sec  = at.tv_sec  - ct.tv_sec;
-  delta.tv_nsec = at.tv_nsec - ct.tv_nsec;
+
+  /* Always evaluate to false if atime < ctime.  */
+  if (compare_ts (at, ct) < 0)
+    return false;
+
+  delta.tv_sec  = ct.tv_sec  - at.tv_sec;
+  delta.tv_nsec = ct.tv_nsec - at.tv_nsec;
   if (delta.tv_nsec < 0)
     {
       delta.tv_nsec += 1000000000;

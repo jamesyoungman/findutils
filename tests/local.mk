@@ -116,6 +116,7 @@ all_tests = \
   tests/find/exec-plus-last-file.sh \
   tests/find/refuse-noop.sh \
   tests/find/debug-missing-arg.sh \
+  tests/find/used.sh \
   tests/xargs/verbose-quote.sh \
   $(all_root_tests)
 
