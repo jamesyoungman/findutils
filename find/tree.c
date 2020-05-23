@@ -661,7 +661,7 @@ do_arm_swaps (struct predicate *p)
      occurs according to the p_cost member of each predicate (which
      reflects the performance cost of the test).  The ordering also
      bears in mind whether these operations are more likely to succeed
-     or fail.  When evauating a chain of OR conditions, we prefer
+     or fail.  When evaluating a chain of OR conditions, we prefer
      tests likely to succeed at the front of the list.  For AND, we
      prefer tests likely to fail at the front of the list.
 
