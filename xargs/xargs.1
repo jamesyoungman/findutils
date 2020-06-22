@@ -313,7 +313,6 @@ any filenames containing newlines or spaces.
 .P
 .B find /tmp \-name core \-type f \-print0 | xargs \-0 /bin/rm \-f
 
-.fi
 Find files named
 .B core
 in or below the directory
@@ -324,7 +323,6 @@ directory names containing spaces or newlines are correctly handled.
 .P
 .B find /tmp \-depth \-name core \-type f \-delete
 
-.fi
 Find files named
 .B core
 in or below the directory

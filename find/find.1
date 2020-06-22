@@ -310,7 +310,6 @@ level 1) will not be changed in the 4.3.x release series.  The
 findutils test suite runs all the tests on
 .B find
 at each optimisation level and ensures that the result is the same.
-.P
 .SH EXPRESSION
 The part of the command line after the list of starting points is the
 .IR expression .
@@ -603,8 +602,7 @@ for less than
 .IP \fIn\fP
 for exactly
 .IR n .
-.P
-
+.
 .IP "\-amin \fIn\fR"
 File was last accessed \fIn\fR minutes ago.
 
@@ -1675,7 +1673,6 @@ find / -name needle -print -quit
 .in -1i
 
 .SS OPERATORS
-.P
 Listed in order of decreasing precedence:
 
 .IP "( \fIexpr\fR )"
@@ -2060,7 +2057,6 @@ any filenames containing newlines, single or double quotes, or spaces.
 .P
 .B find /tmp \-name core \-type f \-print0 | xargs \-0 /bin/rm \-f
 
-.fi
 Find files named
 .B core
 in or below the directory
@@ -2299,7 +2295,6 @@ is not obvious.  Here is an example including some output.
 .fi
 
 .SH EXIT STATUS
-.PP
 .B find
 exits with status 0 if all files are processed successfully, greater
 than 0 if errors occur.
@@ -2397,7 +2392,6 @@ The
 .B +MODE
 syntax had been deprecated since findutils-4.2.21
 which was released in 2005.
-.P
 .SH "NON-BUGS"
 .SS Operator precedence surprises
 The command
@@ -2452,7 +2446,6 @@ This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 
 .SH "BUGS"
-.P
 There are security problems inherent in the behaviour that the POSIX
 standard specifies for
 .BR find ,
