@@ -362,7 +362,7 @@ The
 .B \-print
 action is performed on all files for which the whole expression is
 true, unless it contains an action other than
-.BR \-prune
+.B \-prune
 or
 .BR \-quit .
 Actions which inhibit the default
@@ -377,7 +377,7 @@ are
 .BR \-fprint ,
 .BR \-fprintf ,
 .BR \-ls ,
-.BR \-print
+.B \-print
 and
 .BR \-printf .
 
@@ -1491,9 +1491,9 @@ stat), in decimal.
 .IP %f
 Print the basename; the file's name with any leading directories
 removed (only the last element).  For
-.BR /,
+.B /,
 the result is
-.BR /.
+.B /.
 See the
 .B EXAMPLES
 section for an example.
@@ -1510,7 +1510,7 @@ Dirname; the Leading directories of the file's name (all but the last
 element).  If the file name contains no slashes (since it is in the
 current directory) the %h specifier expands to `.'.  For files which
 are themselves directories and contain a slash (including
-.BR /,
+.B /,
 ), %h expands to the empty string.  See the
 .B EXAMPLES
 section for an example.
