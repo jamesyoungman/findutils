@@ -126,7 +126,7 @@ inside_dir (int dir_fd)
   else
     {
       /* FTS_CWDFD is not in use.  We can always assume that
-       * AT_FDCWD refers to the directory we are currentl searching.
+       * AT_FDCWD refers to the directory we are currently searching.
        *
        * Therefore there is nothing to do.
        */
