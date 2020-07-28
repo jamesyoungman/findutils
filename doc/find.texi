@@ -1512,7 +1512,7 @@ filesystem types vary among different versions of Unix; an incomplete
 list of filesystem types that are accepted on some version of Unix or
 another is:
 @example
-ext2 ext3 proc sysfs ufs 4.2 4.3 nfs tmp mfs S51K S52K
+autofs ext3 ext4 fuse.sshfs nfs proc sshfs sysfs ufs tmpfs xfs
 @end example
 You can use @samp{-printf} with the @samp{%F} directive to see the
 types of your filesystems.  The @samp{%D} directive shows the device
