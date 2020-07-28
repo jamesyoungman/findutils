@@ -803,7 +803,7 @@ Therefore, @samp{find -L -samefile NAME} will find both hard links and
 symbolic links pointing to the file referenced by @var{name}.
 @end deffn
 
-@command{find} also allows to search for files by inode number.
+@command{find} also allows searching for files by inode number.
 
 This can occasionally be useful in diagnosing problems with file systems;
 for example, @command{fsck} and @command{lsof} tend to print inode numbers.
@@ -835,7 +835,7 @@ Therefore, it is much of the time easier to use @samp{-samefile} rather than
 this option.
 @end deffn
 
-@command{find} also allows to search for files that have a certain number of
+@command{find} also allows searching for files that have a certain number of
 links, with @samp{-links}.
 
 A directory normally has at least two hard links: the entry named in its parent
@@ -2661,7 +2661,7 @@ reduce performance.  If you don't want to tolerate the performance
 difference, simply arrange for each process to produce a separate output
 file (or otherwise use separate resources).
 
-@code{xargs} also allows you to ``turn up'' or ``turn down'' its parallelism
+@code{xargs} also allows ``turning up'' or ``turning down'' its parallelism
 in the middle of a run.  Suppose you are keeping your four-processor
 system busy for hours, processing thousands of images using @code{-P 4}.
 Now, in the middle of the run, you or someone else wants you to reduce
@@ -3155,8 +3155,8 @@ When the new database format is being used, the compression technique
 used to generate the database though relies on the ability to sort the
 list of files before they are presented to @code{frcode}.
 
-If the system's sort command allows its input list of files to be
-separated with null characters via the @samp{-z} option, this option
+If the system's sort command allows separating its input list of
+files with null characters via the @samp{-z} option, this option
 is used and therefore @code{updatedb} and @code{locate} will both
 correctly handle file names containing newlines.  If the @code{sort}
 command lacks support for this, the list of files is delimited with
@@ -3198,7 +3198,7 @@ and a @file{.} entry which functions as a link to the directory itself.
 The @file{..} entry of the root directory also points to the root.
 This means that @code{find} can deduce the number of subdirectories a
 directory has, simply by subtracting 2 from the directory's link
-count.  This allows @file{find} the calls to @code{stat} which would
+count.  This allows @file{find} saving @code{stat} calls which would
 otherwise be needed to discover which directory entries are
 subdirectories.
 
@@ -3892,8 +3892,8 @@ at the end of the command line, while the destination directory would
 need to be specified last.  We also can't use @code{xargs} in the
 obvious way for the same reason.  One way of working around this
 problem is to make use of the special properties of GNU @code{mv}; it
-has a @code{-t} option that allows the target directory to be
-specified before the list of files to be moved.  However, while this
+has a @code{-t} option that allows specifying the target directory
+before the list of files to be moved.  However, while this
 technique works for GNU @code{mv}, it doesn't solve the more general
 problem.
 
@@ -3977,8 +3977,8 @@ expression used by @code{find} and @code{locate} is almost identical to
 that used in GNU Emacs.  The single difference is that in @code{find}
 and @code{locate}, a @samp{.} will match a newline character.
 
-Both @code{find} and @code{locate} provide an option which allows you
-to select an alternative regular expression syntax; for @code{find}
+Both @code{find} and @code{locate} provide an option which allows
+selecting an alternative regular expression syntax; for @code{find}
 this is the @samp{-regextype} option, and for @code{locate} this is
 the @samp{--regextype} option.
 
@@ -4542,9 +4542,9 @@ find /var/tmp/stuff -mtime +90 -exec /bin/rm @{@} \+
 
 The above use of @samp{-exec} causes @code{find} to build up a long
 command line and then issue it.  This can be less efficient than some
-uses of @code{xargs}; for example @code{xargs} allows new command
-lines to be built up while the previous command is still executing, and
-allows you to specify a number of commands to run in parallel.
+uses of @code{xargs}; for example @code{xargs} allows building up
+new command lines while the previous command is still executing, and
+allows specifying a number of commands to run in parallel.
 However, the @code{find @dots{} -exec @dots{} +} construct has the advantage
 of wide portability.  GNU findutils did not support @samp{-exec @dots{} +}
 until version 4.2.12; one of the reasons for this is that it already
