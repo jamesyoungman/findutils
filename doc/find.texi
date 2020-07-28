@@ -1358,12 +1358,31 @@ slice of a directory tree.
 Descend at most @var{levels} (a non-negative integer) levels of
 directories below the command line arguments.  @samp{-maxdepth 0}
 means only apply the tests and actions to the command line arguments.
+
+@example
+$ mkdir -p dir/d1/d2/d3/d4/d5/d6
+
+$ find dir -maxdepth 1
+dir
+dir/d1
+
+$ find dir -mindepth 5
+dir/d1/d2/d3/d4/d5
+dir/d1/d2/d3/d4/d5/d6
+
+$ find dir -mindepth 2 -maxdepth 4
+dir/d1/d2
+dir/d1/d2/d3
+dir/d1/d2/d3/d4
+@end example
 @end deffn
 
 @deffn Option -mindepth levels
 Do not apply any tests or actions at levels less than @var{levels} (a
 non-negative integer).  @samp{-mindepth 1} means process all files
 except the command line arguments.
+
+See @samp{-maxdepth} for examples.
 @end deffn
 
 @deffn Option -depth
