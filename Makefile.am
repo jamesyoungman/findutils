@@ -109,7 +109,7 @@ gnulib-sync update-gnulib-to-latest:
 			&& { echo "error: tree is dirty" >&2; exit 1; } || : \
 	    && git submodule foreach git pull origin master \
 	    && cp -v gnulib/doc/COPYINGv3 COPYING \
-	    && cp -v gnulib/doc/fdl.texi doc/fdl.texi \
+	    && cp -v gnulib/doc/fdl-1.3.texi doc/fdl.texi \
 	    && cp -v gnulib/build-aux/bootstrap bootstrap \
 	    && cp -v gnulib/tests/init.sh tests/init.sh \
 	    && git status --short -- gnulib COPYING doc/fdl.texi bootstrap \
