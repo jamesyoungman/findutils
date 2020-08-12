@@ -1222,6 +1222,10 @@ True if the file's mode bits match @var{pmode}, which can be
 either a symbolic or numeric @var{mode} (@pxref{File Permissions})
 optionally prefixed by @samp{-} or @samp{/}.
 
+Note that @var{pmode} starts with all file mode bits cleared, i.e.,
+does not relate to the process's file creation bit mask (also known
+as @command{umask}).
+
 A @var{pmode} that starts with neither @samp{-} nor @samp{/} matches
 if @var{mode} exactly matches the file mode bits.
 (To avoid confusion with an obsolete GNU extension, @var{mode}
