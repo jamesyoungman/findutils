@@ -64,10 +64,19 @@ and
 must appear before
 the first path name, if at all.  A double dash
 .B \-\-
-can also be used
-to signal that any remaining arguments are not options (though
-ensuring that all start points begin with either `./' or `/' is
-generally safer if you use wildcards in the list of start points).
+could theoretically be used to signal that any remaining arguments
+are not options, but this does not really work due to the way
+.B find
+determines the end of the following path arguments: it does that by reading
+until an expression argument comes (which also starts with a `-').
+Now, if a path argument would start with a `-', then
+.B find
+would treat it as expression argument instead.
+Thus, to ensure that all start points are taken as such, and especially to
+prevent that wildcard patterns expanded by the calling shell are not mistakenly
+treated as expression arguments, it is generally safer to prefix wildcards or
+dubious path names with either `./' or to use absolute path names starting
+with '/'.
 .IP \-P
 Never follow symbolic links.  This is the default behaviour.  When
 .B find
