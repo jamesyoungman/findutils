@@ -82,7 +82,7 @@ static struct debug_option_assoc debugassoc[] =
    p_prec	    NO_PREC
 
    Other cells that need to be filled in are defaulted by
-   get_new_pred_chk_op, which is used to insure that the prior node is
+   get_new_pred_chk_op, which is used to ensure that the prior node is
    either not there at all (we are the very first node) or is an
    operator. */
 
