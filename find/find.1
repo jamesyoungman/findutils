@@ -2255,9 +2255,10 @@ what is going on.
 
 .P
 .nf
-.B find repo/ \e( \-exec test \-d \(aq{}\(aq/.svn \e; \-or \e
-.B \-exec test \-d {}/.git \e; \-or \-exec test \-d {}/CVS \e; \e) \e
-.B \-print \-prune
+.B find repo/ \e( \-exec test \-d \(aq{}/.svn\(aq \e; \e
+.B \t        \-or \-exec test \-d \(aq{}/.git\(aq \e; \e
+.B \t        \-or \-exec test \-d \(aq{}/CVS\(aq \e; \e
+.B \t \e) \-print \-prune
 .fi
 
 Given the following directory of projects and their associated SCM
