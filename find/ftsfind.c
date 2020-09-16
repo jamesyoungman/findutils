@@ -265,53 +265,6 @@ symlink_loop (const char *name)
 
 
 static void
-show_outstanding_execdirs (FILE *fp)
-{
-  if (options.debug_options & DebugExec)
-    {
-      bool seen = false;
-      struct predicate *p;
-      p = get_eval_tree ();
-      fprintf (fp, "Outstanding execdirs:");
-
-      while (p)
-	{
-	  const char *pfx;
-
-	  if (pred_is (p, pred_execdir))
-	    pfx = "-execdir";
-	  else if (pred_is (p, pred_okdir))
-	    pfx = "-okdir";
-	  else
-	    pfx = NULL;
-	  if (pfx)
-	    {
-	      size_t i;
-	      const struct exec_val *execp = &p->args.exec_vec;
-	      seen = true;
-
-	      fprintf (fp, "%s ", pfx);
-	      if (execp->multiple)
-		fprintf (fp, "multiple ");
-	      fprintf (fp, "%" PRIuMAX " args: ", (uintmax_t) execp->state.cmd_argc);
-	      for (i=0; i<execp->state.cmd_argc; ++i)
-		{
-		  fprintf (fp, "%s ", execp->state.cmd_argv[i]);
-		}
-	      fprintf (fp, "\n");
-	    }
-	  p = p->pred_next;
-	}
-      if (!seen)
-	fprintf (fp, " none\n");
-    }
-  else
-    {
-      /* No debug output is wanted. */
-    }
-}
-
-static void
 consider_visiting (FTS *p, FTSENT *ent)
 {
   struct stat statbuf;
@@ -560,7 +513,7 @@ find (char *arg)
 
       while ( (errno=0, ent=fts_read (p)) != NULL )
 	{
-	  if (state.execdirs_outstanding)
+	  if (state.execdirs_outstanding && ((int)ent->fts_level != level))
 	    {
 	      /* If we changed level, perform any outstanding
 	       * execdirs.  If we see a sequence of directory entries
@@ -569,11 +522,7 @@ find (char *arg)
 	       * builds a command line for only 3 files at a time
 	       * (since fts descends into the directories).
 	       */
-	      if ((int)ent->fts_level != level)
-		{
-		  show_outstanding_execdirs (stderr);
-		  complete_pending_execdirs ();
-		}
+	      complete_pending_execdirs ();
 	    }
 	  level = (int)ent->fts_level;
 

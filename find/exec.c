@@ -287,6 +287,19 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
   (void) ctl;			/* silence compiler warning */
   (void) argc;			/* silence compiler warning */
 
+  if (options.debug_options & DebugExec)
+    {
+      int i;
+      fprintf (stderr, "DebugExec: launching process (argc=%" PRIuMAX "):",
+               (uintmax_t) execp->state.cmd_argc - 1);
+      for (i=0; i<execp->state.cmd_argc -1; ++i)
+	{
+	  fprintf (stderr, " %s",
+	           safely_quote_err_filename (0, execp->state.cmd_argv[i]));
+	}
+      fprintf (stderr, "\n");
+    }
+
   /* Make sure output of command doesn't get mixed with find output. */
   fflush (stdout);
   fflush (stderr);
@@ -356,7 +369,15 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
       return 1;			/* OK */
     }
 
-  if (0 == WEXITSTATUS (execp->last_child_status))
+  int ex = WEXITSTATUS (execp->last_child_status);
+  if (options.debug_options & DebugExec)
+    {
+      fprintf (stderr,
+               "DebugExec: process (PID=%d) terminated with exit status: %d\n",
+               child_pid, ex);
+    }
+
+  if (0 == ex)
     {
       return 1;			/* OK */
     }

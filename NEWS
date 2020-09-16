@@ -16,6 +16,9 @@ find -used works again.  This predicate was not working properly since adding
 the support for sub-second timestamp resolution for various predicates in
 FINDUTILS_4_3_3-1 back in 2007.
 
+#59083: 'find -D exec' now diagnoses all -exec, -execdir, -ok and -okdir runs
+including the call arguments and the exit code of the launched process.
+
 #58654: doc: clarify that 'find -perm +MODE' is unrelated to umask
 
 #58458: doc: improve section 'Hard links', especially fix the description
