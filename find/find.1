@@ -1420,9 +1420,10 @@ File's last access time in the format returned by the C `ctime' function.
 File's last access time in the format specified by
 .IR k ,
 which is either `@' or a directive for the C `strftime' function.
-The possible values for \fIk\fR are listed below;
-some of them might not be available on all systems,
-due to differences in `strftime' between systems.
+The following shows an incomplete list of possible values for \fIk\fR.
+Please refer to the documentation of `strftime' for the full list.
+Some of the conversion specification characters might not be available on all systems,
+due to differences in the implementation of the `strftime' library function.
 .RS
 .IP @
 seconds since Jan.\& 1, 1970, 00:00 GMT, with fractional part.
@@ -1476,6 +1477,8 @@ in the seconds field.
 day of month (01..31)
 .IP D
 date (mm/dd/yy)
+.IP F
+date (yyyy-mm-dd)
 .IP h
 same as b
 .IP j

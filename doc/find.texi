@@ -2063,10 +2063,11 @@ behaviour, because other directives may be added in the future.
 @node Time Formats
 @subsection Time Formats
 
-Below are the formats for the directives @samp{%A}, @samp{%C}, and
-@samp{%T}, which print the file's timestamps.  Some of these formats
-might not be available on all systems, due to differences in the C
-@code{strftime} function between systems.
+Below is an incomplete list of formats for the directives @samp{%A}, @samp{%C},
+and @samp{%T}, which print the file's timestamps.
+Please refer to the documentation of @code{strftime} for the full list.
+Some of these formats might not be available on all systems, due to differences
+in the implementation of the C @code{strftime} function.
 
 @menu
 * Time Components::
@@ -2162,6 +2163,8 @@ locale's date and time in ctime format (Sat Nov 04 12:02:33 EST
 seconds field.
 @item D
 date (mm/dd/yy)
+@item F
+date (yyyy-mm-dd)
 @item x
 locale's date representation (mm/dd/yy)
 @item +

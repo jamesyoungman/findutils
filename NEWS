@@ -16,6 +16,10 @@ find -used works again.  This predicate was not working properly since adding
 the support for sub-second timestamp resolution for various predicates in
 FINDUTILS_4_3_3-1 back in 2007.
 
+The documentation of 'find -printf %Ak' has been improved: it now refers to the
+strftime(3) documentation for a complete list of supported conversion
+specifiers, and documents the 'F' conversion specifier ('yyyy-mm-dd').
+
 #59083: 'find -D exec' now diagnoses all -exec, -execdir, -ok and -okdir runs
 including the call arguments and the exit code of the launched process.
 
