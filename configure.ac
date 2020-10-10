@@ -158,6 +158,8 @@ AC_ARG_ENABLE(compiler-warnings,
   WARN_CFLAGS="$WARN_CFLAGS  -Wno-sign-compare"
   # Likewise for -Wunused-parameter: it is implied by -Wunused and -Wextra.
   gl_WARN_ADD([-Wno-unused-parameter])
+  # Likewise for -Wformat-nonliteral: it is implied by -Wformat.
+  gl_WARN_ADD([-Wno-format-nonliteral])
   ])
 
 dnl For --enable-compiler-warnings-are-errors, any GCC compiler
