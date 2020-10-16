@@ -958,7 +958,7 @@ do_fprintf (struct format_val *dest,
         case 'h':               /* leading directories part of path */
           /* sanitised */
           {
-            char *pname = strdup (pathname);
+            char *pname = xstrdup (pathname);
 
             /* Remove trailing slashes - unless it's the root '/' directory.  */
             char *s = pname + strlen (pname) -1;
