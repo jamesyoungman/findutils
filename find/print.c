@@ -1224,7 +1224,7 @@ do_fprintf (struct format_val *dest,
 
         case 'Z':               /* SELinux security context */
           {
-            security_context_t scontext;
+            char *scontext;
             int rv = (*options.x_getfilecon) (state.cwd_dir_fd, state.rel_pathname,
                                               &scontext);
             if (rv < 0)

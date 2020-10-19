@@ -327,7 +327,7 @@ struct predicate
     struct samefile_file_id samefileid; /* samefile */
     bool types[FTYPE_COUNT];	/* file type(s) */
     struct format_val printf_vec; /* printf fprintf fprint ls fls print0 fprint0 print */
-    security_context_t scontext; /* security context */
+    char *scontext; /* security context */
   } args;
 
   /* The next predicate in the user input sequence,
@@ -626,7 +626,7 @@ struct options
   int regex_options;
 
   /* function used to get file context */
-  int (*x_getfilecon) (int, const char *, security_context_t *);
+  int (*x_getfilecon) (int, const char *, char **);
 
   /* Optimisation level.  One is the default.
    */

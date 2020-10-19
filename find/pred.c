@@ -1233,7 +1233,7 @@ bool
 pred_context (const char *pathname, struct stat *stat_buf,
 	      struct predicate *pred_ptr)
 {
-  security_context_t scontext;
+  char *scontext;
   int rv = (*options.x_getfilecon) (state.cwd_dir_fd, state.rel_pathname,
 				    &scontext);
   (void) stat_buf;
