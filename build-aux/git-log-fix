@@ -2,6 +2,11 @@
 # option.  It specifies what changes to make to each given SHA1's commit
 # log and metadata, using Perl-eval'able expressions.
 
+# Fix bug reference URL:
+# https://debbugs.gnu.org/?57291 -> https://sv.gnu.org/bugs/?57291
+6e55ad98b1d8c66b524fb415f08cd2a599c7e654
+s,bugs.gnu.org,sv.gnu.org/bugs,
+
 # Suppress a merge log message.
 3e94355b192ffd647ec22031c61c5df61b27f334
 s,Merge branch 'master'.*,IGNORE_THIS,
