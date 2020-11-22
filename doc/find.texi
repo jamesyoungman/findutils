@@ -1002,6 +1002,8 @@ rm -f /tmp/stamp$$
 True if the time of the last access (or status change or data modification)
 of the current file is more recent than that of the last data modification
 of the @var{reference} file.
+As such, @samp{-anewer} is equivalent to @samp{-neweram},
+@samp{-cnewer} to @samp{-newercm}, and @samp{-newer} to @samp{-newermm}.
 
 If @var{reference} is a symbolic link and the @samp{-H} option or the @samp{-L}
 option is in effect, then the time of the last data modification of the file
