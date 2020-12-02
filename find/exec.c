@@ -30,6 +30,7 @@
 #include "cloexec.h"
 #include "dirname.h"
 #include "error.h"
+#include "fcntl--.h"
 #include "save-cwd.h"
 #include "xalloc.h"
 

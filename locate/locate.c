@@ -84,6 +84,7 @@
 #include "progname.h"
 #include "xalloc.h"
 #include "error.h"
+#include "fcntl--.h"
 #include "human.h"
 #include "dirname.h"
 #include "closeout.h"
