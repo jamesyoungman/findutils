@@ -35,7 +35,7 @@
 /* gnulib headers. */
 #include "canonicalize.h"
 #include "closein.h"
-#include "dirent-safer.h"
+#include "dirent--.h"
 #include "dirname.h"
 #include "error.h"
 #include "fcntl--.h"
@@ -1304,7 +1304,7 @@ process_dir (const char *pathname, const char *name, int pathlen, const struct s
     }
 
   errno = 0;
-  dirp = opendir_safer (name);
+  dirp = opendir (name);
 
   if (dirp == NULL)
     {

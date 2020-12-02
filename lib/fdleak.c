@@ -34,7 +34,7 @@
 
 /* gnulib headers. */
 #include "cloexec.h"
-#include "dirent-safer.h"
+#include "dirent--.h"
 #include "error.h"
 #include "fcntl--.h"
 
@@ -66,7 +66,7 @@ get_proc_max_fd (void)
    * a given directory (the manpage for readdir_r claims this
    * is the approved method, but the manpage for pathconf indicates
    * that _PC_NAME_MAX is not an upper limit). */
-  DIR *dir = opendir_safer (path);
+  DIR *dir = opendir (path);
   if (dir)
     {
       int good = 0;

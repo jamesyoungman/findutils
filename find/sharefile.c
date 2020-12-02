@@ -29,7 +29,7 @@
 /* gnulib headers. */
 #include "cloexec.h"
 #include "hash.h"
-#include "stdio-safer.h"
+#include "stdio--.h"
 
 /* find headers. */
 #include "sharefile.h"
@@ -154,7 +154,7 @@ sharefile_fopen (sharefile_handle h, const char *filename)
       return NULL;
     }
 
-  if (NULL == (new_entry->fp = fopen_safer (filename, p->mode)))
+  if (NULL == (new_entry->fp = fopen (filename, p->mode)))
     {
       entry_free (new_entry);
       return NULL;
