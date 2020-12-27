@@ -1,6 +1,7 @@
 .TH LOCATEDB 5 \" -*- nroff -*-
 .SH NAME
 locatedb \- front-compressed file name database
+.
 .SH DESCRIPTION
 This manual page documents the format of file name databases for the
 GNU version of
@@ -16,7 +17,7 @@ databases are updated, and the directories for which they contain
 entries.  Normally, file name databases are updated by running the
 \fBupdatedb\fP program periodically, typically nightly; see
 \fBupdatedb\fP(1).
-
+.
 .SH GNU LOCATE02 database format
 This is the default format of databases produced by
 .BR updatedb .
@@ -58,6 +59,7 @@ in any particular order.  To obtain sorted results, pipe the output of
 .B locate
 through
 .BR "sort -f" .
+.
 .SH slocate database format
 The
 .B slocate
@@ -80,7 +82,7 @@ the differential count for the first item is assumed to be zero.
 .P
 Starting with the second entry (if any) in the database, data is
 interpreted as for the GNU LOCATE02 format.
-
+.
 .SH Old Locate Database format
 There is also an old database format, used by Unix
 .B locate
@@ -110,6 +112,7 @@ than the new format, but makes them not 8-bit clean.  Any byte in a
 file name that is in the ranges used for the special codes is replaced
 in the database by a question mark, which not coincidentally is the
 shell wildcard to match a single character.
+.
 .SH EXAMPLE
 .nf
 
@@ -138,23 +141,37 @@ and count bytes made printable:
 
 (6 = 14 - 8, and -9 = 5 - 14)
 .fi
-
+.
+.SH "REPORTING BUGS"
+GNU findutils online help: <https://www.gnu.org/software/findutils/#get-help>
+.br
+Report any translation bugs to <https://translationproject.org/team/>
+.PP
+Report any other issue via the form at the GNU Savannah bug tracker:
+.RS
+<https://savannah.gnu.org/bugs/?group=findutils>
+.RE
+General topics about the GNU findutils package are discussed at the
+.I bug\-findutils
+mailing list:
+.RS
+<https://lists.gnu.org/mailman/listinfo/bug-findutils>
+.RE
+.
 .SH COPYRIGHT
 Copyright \(co 1994-2020 Free Software Foundation, Inc.
 License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
 .br
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
-
+.
 .SH "SEE ALSO"
-\fBfind\fP(1), \fBlocate\fP(1), \fBlocatedb\fP(5), \fBxargs\fP(1),
-\fBFinding Files\fP (on-line in Info, or printed)
-.SH "BUGS"
-The best way to report a bug is to use the form at
-https://savannah.gnu.org/bugs/?group=findutils.
-The reason for this is that you will then be able to track progress in
-fixing the problem.   Other comments about \fBlocate\fP(1) and about
-the findutils package in general can be sent to the
-.I bug-findutils
-mailing list.  To join the list, send email to
-.IR bug-findutils-request@gnu.org .
+.BR find (1),
+.BR locate (1),
+.BR xargs (1),
+.BR locatedb (5)
+.PP
+Full documentation <https://www.gnu.org/software/findutils/locatedb>
+.br
+or available locally via:
+.B info locatedb

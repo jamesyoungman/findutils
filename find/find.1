@@ -5,6 +5,7 @@ find \- search for files in a directory hierarchy
 .SH SYNOPSIS
 .B find
 [\-H] [\-L] [\-P] [\-D debugopts] [\-Olevel] [starting-point...\&] [expression]
+.
 .SH DESCRIPTION
 This manual page
 documents the GNU version of
@@ -31,6 +32,7 @@ findutils.
 That document also includes a lot more detail
 and discussion than this manual page, so you may find it a more useful
 source of information.
+.
 .SH OPTIONS
 The
 .BR \-H ,
@@ -319,6 +321,7 @@ level 1) will not be changed in the 4.3.x release series.  The
 findutils test suite runs all the tests on
 .B find
 at each optimisation level and ensures that the result is the same.
+.
 .SH EXPRESSION
 The part of the command line after the list of starting points is the
 .IR expression .
@@ -1763,8 +1766,7 @@ This means that
 .B find . \-name afile \-o \-name bfile \-print
 will never print
 .IR afile .
-
-
+.
 .SH UNUSUAL FILENAMES
 Many of the actions of
 .B find
@@ -1831,7 +1833,7 @@ The
 and
 .B \-okdir
 actions print the current filename as-is.  This may change in a future release.
-
+.
 .SH "STANDARDS CONFORMANCE"
 For closest compliance to the POSIX standard, you should set the
 POSIXLY_CORRECT environment variable.  The following options are
@@ -1969,6 +1971,7 @@ of the
 or
 .B \-iregex
 tests because those tests aren't specified in the POSIX standard.
+.
 .SH "ENVIRONMENT VARIABLES"
 
 .IP LANG
@@ -2071,6 +2074,7 @@ directives of
 .B \-printf
 and
 .BR \-fprintf .
+.
 .SH "EXAMPLES"
 .nf
 .B find /tmp \-name core \-type f \-print | xargs /bin/rm \-f
@@ -2322,7 +2326,7 @@ is not obvious.  Here is an example including some output.
 .B [.][compile]
 .B [compile/64/tests][find]
 .fi
-
+.
 .SH EXIT STATUS
 .B find
 exits with status 0 if all files are processed successfully, greater
@@ -2341,24 +2345,7 @@ pending program invocations for
 or
 .B \-execdir \&...\& {} +
 may not have been performed.
-
-
-.SH "SEE ALSO"
-\fBlocate\fP(1), \fBlocatedb\fP(5), \fBupdatedb\fP(1), \fBxargs\fP(1),
-\fBchmod\fP(1), \fBfnmatch\fP(3), \fBregex\fP(7), \fBstat\fP(2),
-\fBlstat\fP(2), \fBls\fP(1), \fBprintf\fP(3), \fBstrftime\fP(3),
-\fBctime\fP(3)
-
-The full documentation for
-.B find
-is maintained as a Texinfo manual.  If the
-.B info
-and
-.B find
-programs are properly installed at your site, the command
-.B info find
-should give you access to the complete manual.
-
+.
 .SH "HISTORY"
 As of findutils-4.2.2, shell metacharacters (`*', `?' or `[]' for
 example) used in filename patterns will match a leading `.', because
@@ -2421,6 +2408,7 @@ The
 .B +MODE
 syntax had been deprecated since findutils-4.2.21
 which was released in 2005.
+.
 .SH "NON-BUGS"
 .SS Operator precedence surprises
 The command
@@ -2466,14 +2454,7 @@ instead of file names expanded by the parent shell:
 .B $ find . \-name \(aq*.c\(aq \-print
 .B $ find . \-name \e*.c \-print
 .fi
-
-.SH COPYRIGHT
-Copyright \(co 1990-2020 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
-.br
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
+.
 .SH "BUGS"
 There are security problems inherent in the behaviour that the POSIX
 standard specifies for
@@ -2492,13 +2473,46 @@ has no effect on the
 .B \-ok
 action.
 .P
-The best way to report a bug is to use the form at
-https://savannah.gnu.org/bugs/?group=findutils.
-The reason for this is that you will then be able to track progress in
-fixing the problem.
-Other comments about \fBfind\fP(1) and about the findutils package in
-general can be sent to the
+.
+.SH "REPORTING BUGS"
+GNU findutils online help: <https://www.gnu.org/software/findutils/#get-help>
+.br
+Report any translation bugs to <https://translationproject.org/team/>
+.PP
+Report any other issue via the form at the GNU Savannah bug tracker:
+.RS
+<https://savannah.gnu.org/bugs/?group=findutils>
+.RE
+General topics about the GNU findutils package are discussed at the
 .I bug\-findutils
-mailing list.
-To join the list, send email to
-.IR bug\-findutils\-request@gnu.org .
+mailing list:
+.RS
+<https://lists.gnu.org/mailman/listinfo/bug-findutils>
+.RE
+.
+.SH COPYRIGHT
+Copyright \(co 1990-2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.
+.SH "SEE ALSO"
+.BR chmod (1),
+.BR locate (1),
+.BR ls (1),
+.BR updatedb (1),
+.BR xargs (1),
+.BR lstat (2),
+.BR stat (2),
+.BR ctime (3)
+.BR fnmatch (3),
+.BR printf (3),
+.BR strftime (3),
+.BR locatedb (5),
+.BR regex (7)
+.PP
+Full documentation <https://www.gnu.org/software/findutils/find>
+.br
+or available locally via:
+.B info find

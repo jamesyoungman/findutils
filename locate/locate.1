@@ -1,6 +1,7 @@
 .TH LOCATE 1 \" -*- nroff -*-
 .SH NAME
 locate \- list files in databases that match a pattern
+.
 .SH SYNOPSIS
 .B locate
 [\-d path | \-\-database=path]
@@ -61,7 +62,7 @@ escaped in the same way as for the \-print action of the
 .B find
 command.  If the output is not going to a terminal, file names are
 printed exactly as-is.
-
+.
 .SH OPTIONS
 .TP
 .I "\-0, \-\-null"
@@ -213,22 +214,7 @@ Colon-separated list of databases to search.  If the value has a
 leading or trailing colon, or has two colons in a row, you may get
 results that vary between different versions of
 .BR locate .
-
-.SH "SEE ALSO"
-\fBfind\fP(1), \fBlocatedb\fP(5), \fBupdatedb\fP(1), \fBxargs\fP(1),
-\fBglob\fP(3)
-
-The full documentation for
-.B locate
-is maintained as a Texinfo manual.  If the
-.B info
-and
-.B locate
-programs are properly installed at your site, the command
-.B info locate
-should give you access to the complete manual.
-
-
+.
 .SH "HISTORY"
 The
 .B locate
@@ -270,14 +256,7 @@ LL.
 4.0   | Introduced the LOCATE02 database format
 3.7   | Locate can search multiple databases
 .TE
-
-.SH COPYRIGHT
-Copyright \(co 1994-2020 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
-.br
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
+.
 .SH "BUGS"
 The locate database correctly handles filenames containing newlines,
 but only if the system's sort command has a working
@@ -287,12 +266,38 @@ option.  If you suspect that
 may need to return filenames containing newlines, consider using its
 .I \-\-null
 option.
-.P
-The best way to report a bug is to use the form at
-https://savannah.gnu.org/bugs/?group=findutils.
-The reason for this is that you will then be able to track progress in
-fixing the problem.   Other comments about \fBlocate\fP(1) and about
-the findutils package in general can be sent to the
-.I bug-findutils
-mailing list.  To join the list, send email to
-.IR bug-findutils-request@gnu.org .
+.
+.SH "REPORTING BUGS"
+GNU findutils online help: <https://www.gnu.org/software/findutils/#get-help>
+.br
+Report any translation bugs to <https://translationproject.org/team/>
+.PP
+Report any other issue via the form at the GNU Savannah bug tracker:
+.RS
+<https://savannah.gnu.org/bugs/?group=findutils>
+.RE
+General topics about the GNU findutils package are discussed at the
+.I bug\-findutils
+mailing list:
+.RS
+<https://lists.gnu.org/mailman/listinfo/bug-findutils>
+.RE
+.
+.SH COPYRIGHT
+Copyright \(co 1994-2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.
+.SH "SEE ALSO"
+.BR find (1),
+.BR updatedb (1),
+.BR xargs (1),
+.BR glob (3),
+.BR locatedb (5)
+.PP
+Full documentation <https://www.gnu.org/software/findutils/locate>
+.br
+or available locally via:
+.B info locate

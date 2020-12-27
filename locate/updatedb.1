@@ -3,6 +3,7 @@
 updatedb \- update a file name database
 .SH SYNOPSIS
 .B updatedb [\fIoptions\fP]
+.
 .SH DESCRIPTION
 This manual page
 documents the GNU version of
@@ -36,7 +37,7 @@ can read both the old and
 .B LOCATE02
 database formats, though
 support for the old pre-4.0 database format will be removed shortly.
-
+.
 .SH OPTIONS
 .TP
 .B \-\-findoptions='\fI\-option1 \-option2...\fP'
@@ -108,26 +109,7 @@ and exit.
 Print a summary of the options to
 .B updatedb
 and exit.
-.SH "SEE ALSO"
-\fBfind\fP(1), \fBlocate\fP(1), \fBlocatedb\fP(5), \fBxargs\fP(1)
-
-The full documentation for
-.B updatedb
-is maintained as a Texinfo manual.  If the
-.B info
-and
-.B updatedb
-programs are properly installed at your site, the command
-.B info updatedb
-should give you access to the complete manual.
-
-.SH COPYRIGHT
-Copyright \(co 1994-2020 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
-.br
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
+.
 .SH "BUGS"
 The
 .B updatedb
@@ -139,12 +121,37 @@ option.  If you suspect that
 may need to return filenames containing newlines, consider using its
 .I \-\-null
 option.
-.P
-The best way to report a bug is to use the form at
-https://savannah.gnu.org/bugs/?group=findutils.
-The reason for this is that you will then be able to track progress in
-fixing the problem.   Other comments about \fBupdatedb\fP(1) and about
-the findutils package in general can be sent to the
-.I bug-findutils
-mailing list.  To join the list, send email to
-.IR bug-findutils-request@gnu.org .
+.
+.SH "REPORTING BUGS"
+GNU findutils online help: <https://www.gnu.org/software/findutils/#get-help>
+.br
+Report any translation bugs to <https://translationproject.org/team/>
+.PP
+Report any other issue via the form at the GNU Savannah bug tracker:
+.RS
+<https://savannah.gnu.org/bugs/?group=findutils>
+.RE
+General topics about the GNU findutils package are discussed at the
+.I bug\-findutils
+mailing list:
+.RS
+<https://lists.gnu.org/mailman/listinfo/bug-findutils>
+.RE
+.
+.SH COPYRIGHT
+Copyright \(co 1994-2020 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+.br
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+.
+.SH "SEE ALSO"
+.BR find (1),
+.BR locate (1),
+.BR xargs (1),
+.BR locatedb (5)
+.PP
+Full documentation <https://www.gnu.org/software/findutils/updatedb>
+.br
+or available locally via:
+.B info updatedb
