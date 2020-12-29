@@ -1358,7 +1358,7 @@ slice of a directory tree.
 
 @deffn Option -maxdepth levels
 Descend at most @var{levels} (a non-negative integer) levels of
-directories below the command line arguments.  @samp{-maxdepth 0}
+directories below the command line arguments.  Using @samp{-maxdepth 0}
 means only apply the tests and actions to the command line arguments.
 
 @example
@@ -1381,7 +1381,7 @@ dir/d1/d2/d3/d4
 
 @deffn Option -mindepth levels
 Do not apply any tests or actions at levels less than @var{levels} (a
-non-negative integer).  @samp{-mindepth 1} means process all files
+non-negative integer).  Using @samp{-mindepth 1} means process all files
 except the command line arguments.
 
 See @samp{-maxdepth} for examples.
