@@ -961,7 +961,8 @@ information held on the server.
 File name matches regular expression
 .IR pattern .
 This is a match on the whole path, not a search.
-For example, to match a file named `./fubar3',
+For example, to match a file named
+.IR ./fubar3,
 you can use the regular expression `.*bar.\&' or `.*b.*3',
 but not `f.*r3'.
 The regular expressions understood by
@@ -1201,9 +1202,9 @@ returns a non-zero exit status.  If
 encounters an error, this can sometimes cause an
 immediate exit, so some pending commands may not be run
 at all.  For this reason
-.B \-exec my-command ... {} \e+ \-quit
+.B \-exec\ \fImy-command\fP\ ...\ {}\ +\ \-quit
 may not result in
-.B my-command
+.I my-command
 actually being run.  This variant of
 .B \-exec
 always returns true.
@@ -1251,13 +1252,9 @@ The result of the action depends on whether the
 or the
 .B ;
 variant is being used;
-.B \-execdir
-.I command
-.B {} +
+.B \-execdir\ \fIcommand\fP\ {}\ +
 always returns true, while
-.B \-execdir
-.I command
-.B {} ;
+.B \-execdir\ \fIcommand\fP\ {}\ ;
 returns true only if
 .I command
 returns 0.
@@ -1279,8 +1276,11 @@ True; print the full file name into file
 .IR file .
 If \fIfile\fR
 does not exist when \fBfind\fR is run, it is created; if it does
-exist, it is truncated.  The file names `/dev/stdout' and
-`/dev/stderr' are handled specially; they refer to the standard
+exist, it is truncated.  The file names
+.I /dev/stdout
+and
+.I /dev/stderr
+are handled specially; they refer to the standard
 output and standard error output, respectively.
 The output file is always created, even if the predicate is never matched.
 See the
@@ -1323,7 +1323,7 @@ Like
 but ask the user first.  If the user agrees, run the command.  Otherwise
 just return false.  If the command is run, its standard input is redirected
 from
-.BR /dev/null .
+.IR /dev/null .
 
 .IP
 The response to the prompt is matched against a pair of regular
@@ -1349,7 +1349,7 @@ but ask the user first in the same way as for
 .BR \-ok .
 If the user does not agree, just return false.
 If the command is run, its standard input is redirected from
-.BR /dev/null .
+.IR /dev/null .
 
 .IP \-print
 True; print the full file name on the standard output, followed by a
