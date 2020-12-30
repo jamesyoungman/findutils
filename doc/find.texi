@@ -400,8 +400,8 @@ Notice that the wildcard must be enclosed in quotes in order to
 protect it from expansion by the shell.
 
 As of findutils version 4.2.2, patterns for @samp{-name} and
-@samp{-iname} will match a file name with a leading @samp{.}.  For
-example the command @samp{find /tmp -name \*bar} will match the file
+@samp{-iname} match a file name with a leading @samp{.}.  For
+example the command @samp{find /tmp -name \*bar} match the file
 @file{/tmp/.foobar}.  Braces within the pattern (@samp{@{@}}) are not
 considered to be special (that is, @code{find . -name 'foo@{1,2@}'}
 matches a file named @file{foo@{1,2@}}, not the files @file{foo1} and
