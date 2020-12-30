@@ -147,7 +147,8 @@ If
 is in effect and one of the
 paths specified on the command line is a symbolic link to a directory,
 the contents of that directory will be examined (though of course
-\-maxdepth 0 would prevent this).
+.B \-maxdepth\ 0
+would prevent this).
 .P
 If more than one of
 .BR \-H ,
@@ -224,8 +225,7 @@ is not doing what you want.  The list of debug options should be comma
 separated.  Compatibility of the debug options is not guaranteed
 between releases of findutils.  For a complete list of valid debug
 options, see the output of
-.B find \-D
-.BR help .
+.BR "find \-D\ help" .
 Valid debug options include
 .RS
 .IP exec
@@ -285,8 +285,7 @@ modern versions of Unix, file types are returned by
 and so these predicates are faster to evaluate than predicates which
 need to stat the file first.
 If you use the
-.B \-fstype
-.I FOO
+.B "\-fstype\ \fIFOO\fR"
 predicate and specify a filesystem type
 .I FOO
 which is not known (that is, present in `/etc/mtab') at the time
@@ -308,9 +307,9 @@ predicates which are likely to fail are evaluated earlier.
 The cost-based optimiser has a fixed idea of how likely any given test
 is to succeed.  In some cases the probability takes account of the
 specific nature of the test (for example,
-.B \-type f
+.B \-type\ f
 is assumed to be more likely to succeed than
-.BR "\-type c" ).
+.BR "\-type\ c" ).
 The cost-based optimiser is currently being evaluated.
 If it does not actually improve the performance of
 .BR find ,
@@ -458,8 +457,7 @@ and
 .B \-iregex
 tests which occur later on the command line.  To see which regular
 expression types are known, use
-.B \-regextype
-.BR help .
+.BR "\-regextype\ help" .
 The Texinfo documentation (see
 .B SEE
 .BR ALSO )
@@ -647,8 +645,7 @@ File was last accessed less than, more than or exactly
 hours ago.
 When find figures out how many 24-hour periods ago the file
 was last accessed, any fractional part is ignored, so to match
-.B \-atime
-.BR +1 ,
+.BR "\-atime\ +1" ,
 a file has to have been accessed at least
 .I two
 days ago.
@@ -873,13 +870,14 @@ File name matches shell pattern
 .IR pattern .
 The metacharacters do not treat `/' or `.\&' specially;
 so, for example,
-.br
-.in +1i
+.in +4m
+.nf
 find . \-path \(dq./sr*sc\(dq
-.br
-.in -1i
-will print an entry for a directory called `./src/misc' (if one
-exists).  To ignore a whole directory tree, use
+.fi
+.in
+will print an entry for a directory called
+.I ./src/misc
+(if one exists).  To ignore a whole directory tree, use
 .B \-prune
 rather than
 checking every file in the tree.
@@ -889,10 +887,11 @@ would only make sense to use an absolute path name here if the
 relevant start point is also an absolute path.  This means that this
 command will never match anything:
 .br
-.in +1i
+.in +4m
+.nf
 find bar \-path /foo/bar/myfile \-print
-.br
-.in -1i
+.fi
+.in
 Find compares the
 .B \-path
 argument with the concatenation of a directory name and the base name
@@ -937,8 +936,7 @@ section for some illustrative examples.  If no permission bits in
 .I mode
 are set, this test matches any file (the idea here is to be consistent
 with the behaviour of
-.B \-perm
-.BR \-000 ).
+.BR "\-perm\ \-000" ).
 
 .IP "\-perm +\fImode\fR"
 This is no longer supported (and has been deprecated since 2005).  Use
@@ -1000,7 +998,7 @@ for gibibytes (GiB, units of 1024 * 1024 * 1024 = 1\|073\|741\|824 bytes)
 The size is simply the st_size member of the struct stat populated by
 the lstat (or stat) system call, rounded up as shown above.
 In other words, it's consistent with the result you get for
-.BR "ls -l" .
+.BR "ls\ \-l" .
 Bear in
 mind that the `%k' and `%b' format specifiers of
 .B \-printf
@@ -1013,9 +1011,9 @@ The + and - prefixes signify greater than and less than, as usual;
 i.e., an exact size of \fIn\fR units does not match.
 Bear in mind that the size is rounded up to the next unit.
 Therefore
-.B \-size \-1M
+.B \-size\ \-1M
 is not equivalent to
-.BR "\-size \-1\|048\|576c".
+.BR "\-size\ \-1\|048\|576c" .
 The former only matches empty files, the latter matches files from 0 to
 1,048,575 bytes.
 .IP \-true
@@ -1659,14 +1657,15 @@ you cannot usefully use
 and
 .B \-delete
 together.
-  For example, to skip the
-directory `src/emacs' and all files and directories under it, and
-print the names of the other files found, do something like this:
-.br
-.in +1i
+For example, to skip the directory
+.I src/emacs
+and all files and directories under it, and print the names of the other files
+found, do something like this:
+.in +4m
+.nf
 find . \-path ./src/emacs \-prune \-o \-print
-.br
-.in -1i
+.fi
+.in
 
 
 .IP "\-quit"
@@ -1681,27 +1680,27 @@ simply makes
 .B find
 stop immediately.  No child processes will be left
 running.  Any command lines which have been built by
-.B \-exec ... \e+
+.B \-exec\ ...\ +
 or
-.B \-execdir ... \e+
+.B \-execdir\ ...\ +
 are invoked before the program is
 exited.  After
 .B \-quit
 is executed, no more files specified on the command line will be
 processed.  For example,
-.RB ` find
-.B /tmp/foo /tmp/bar -print
-.BR -quit `
-will print only `/tmp/foo`.  One common use of
+.RB ` "find\ \fI/tmp/foo\fP\ \fI/tmp/bar\fP\ \-print\ \-quit" `
+will print only `/tmp/foo`.
+.br
+One common use of
 .B \-quit
 is to stop searching the file system once we have
 found what we want.  For example, if we want to find just a single
 file we can do this:
-.br
-.in +1i
+.in +4m
+.nf
 find / -name needle -print -quit
-.br
-.in -1i
+.fi
+.in
 
 .SS OPERATORS
 Listed in order of decreasing precedence:
@@ -2052,13 +2051,11 @@ all messages printed on stderr are diagnostics and must result in a
 non-zero exit status.
 .IP
 When POSIXLY_CORRECT is not set,
-.B \-perm
-+zzz
+.B "\-perm \fI+zzz\fR"
 is treated just like
-.B \-perm
-/zzz
+.B "\-perm \fI/zzz\fR"
 if
-+zzz is not a valid symbolic mode.  When POSIXLY_CORRECT is set, such
+\fI+zzz\fR is not a valid symbolic mode.  When POSIXLY_CORRECT is set, such
 constructs are treated as an error.
 .IP
 When POSIXLY_CORRECT is set, the response to the prompt made by the
@@ -2341,9 +2338,9 @@ When some error occurs,
 may stop immediately, without completing all the actions specified.
 For example, some starting points may not have been examined or some
 pending program invocations for
-.B \-exec \&...\& {} +
+.B \-exec\ \&...\&\ {}\ +
 or
-.B \-execdir \&...\& {} +
+.B "\-execdir\ \&...\&\ {}\ +
 may not have been performed.
 .
 .SH "HISTORY"
@@ -2352,7 +2349,7 @@ example) used in filename patterns will match a leading `.', because
 IEEE POSIX interpretation 126 requires this.
 .P
 As of findutils-4.3.3,
-.B \-perm /000
+.B \-perm\ /000
 now matches all files instead of none.
 .P
 Nanosecond-resolution
