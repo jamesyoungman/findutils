@@ -1378,7 +1378,9 @@ option of
 .IP "\-printf \fIformat\fR"
 True; print \fIformat\fR on the standard output, interpreting `\e'
 escapes and `%' directives.  Field widths and precisions can be
-specified as with the `printf' C function.  Please note that many of
+specified as with the
+.BR printf (3)
+C function.  Please note that many of
 the fields are printed as %s rather than %d, and this may mean that
 flags don't work as you might expect.  This also means that the `\-'
 flag does work (it forces fields to be left-aligned).  Unlike
@@ -1415,15 +1417,23 @@ ordinary character, so they both are printed.
 .IP %%
 A literal percent sign.
 .IP %a
-File's last access time in the format returned by the C `ctime' function.
+File's last access time in the format returned by the C
+.BR ctime (3)
+function.
 .IP %A\fIk\fP
 File's last access time in the format specified by
 .IR k ,
-which is either `@' or a directive for the C `strftime' function.
+which is either `@' or a directive for the C
+.BR strftime (3)
+function.
 The following shows an incomplete list of possible values for \fIk\fR.
-Please refer to the documentation of `strftime' for the full list.
+Please refer to the documentation of
+.BR strftime (3)
+for the full list.
 Some of the conversion specification characters might not be available on all systems,
-due to differences in the implementation of the `strftime' library function.
+due to differences in the implementation of the
+.BR strftime (3)
+library function.
 .RS
 .IP @
 seconds since Jan.\& 1, 1970, 00:00 GMT, with fractional part.
@@ -1503,7 +1513,8 @@ The amount of disk space used for this file in 512-byte blocks.  Since disk
 space is allocated in multiples of the filesystem block size this is usually
 greater than %s/512, but it can also be smaller if the file is a sparse file.
 .IP %c
-File's last status change time in the format returned by the C `ctime'
+File's last status change time in the format returned by the C
+.BR ctime (3)
 function.
 .IP %C\fIk\fP
 File's last status change time in the format specified by
@@ -1517,9 +1528,8 @@ stat), in decimal.
 .IP %f
 Print the basename; the file's name with any leading directories
 removed (only the last element).  For
-.B /,
-the result is
-.B /.
+.BR / ,
+the result is `/'.
 See the
 .B EXAMPLES
 section for an example.
@@ -1536,8 +1546,8 @@ Dirname; the Leading directories of the file's name (all but the last
 element).  If the file name contains no slashes (since it is in the
 current directory) the %h specifier expands to `.'.  For files which
 are themselves directories and contain a slash (including
-.B /,
-), %h expands to the empty string.  See the
+.BR / ),
+%h expands to the empty string.  See the
 .B EXAMPLES
 section for an example.
 .IP %H
@@ -1587,7 +1597,8 @@ If the file size is zero, the value printed is undefined.
 On systems which lack support for st_blocks,
 a file's sparseness is assumed to be 1.0.
 .IP %t
-File's last modification time in the format returned by the C `ctime'
+File's last modification time in the format returned by the C
+.BR ctime (3)
 function.
 .IP %T\fIk\fP
 File's last modification time in the format specified by
@@ -1618,8 +1629,7 @@ character.  In some locales, it may hide your door keys, while in
 others it may remove the final page from the novel you are reading.
 
 The %m and %d directives support the
-.B #
-,
+.BR # ,
 .B 0
 and
 .B +
@@ -1866,8 +1876,9 @@ patterns selected by setting the `LC_MESSAGES' environment variable.
 When the `POSIXLY_CORRECT' environment variable is set, these patterns
 are taken system's definition of a positive (yes) or negative (no)
 response.  See the system's
-documentation for \fBnl_langinfo\fP(3), in particular YESEXPR and
-NOEXPR.
+documentation for
+.BR nl_langinfo (3),
+in particular YESEXPR and NOEXPR.
 When `POSIXLY_CORRECT' is not set, the patterns are instead taken from
 .BR find 's
 own message catalogue.
@@ -1906,9 +1917,10 @@ are all supported.
 
 .P
 The POSIX standard specifies parentheses `(', `)', negation `!' and the
-`and' and `or' operators (
-.BR \-a ,
-.BR \-o ).
+logical AND/OR operators
+.B \-a
+and
+.BR \-o .
 .P
 All other options, predicates, expressions and so forth are extensions
 beyond the POSIX standard.  Many of these extensions are not unique to
