@@ -2073,169 +2073,251 @@ and
 .BR \-fprintf .
 .
 .SH "EXAMPLES"
+.\" A bulleted \[bu] list of examples.
+.SS Simple `find|xargs` approach
+.IP \[bu]
+Find files named
+.I core
+in or below the directory
+.I /tmp
+and delete them.
 .nf
-.B find /tmp \-name core \-type f \-print | xargs /bin/rm \-f
-
+\&
+.in +4m
+.B $ find /tmp \-name core \-type f \-print | xargs /bin/rm \-f
+.in
+\&
 .fi
-Find files named
-.B core
-in or below the directory
-.B /tmp
-and delete them.  Note that this will work incorrectly if there are
+Note that this will work incorrectly if there are
 any filenames containing newlines, single or double quotes, or spaces.
-.P
-.B find /tmp \-name core \-type f \-print0 | xargs \-0 /bin/rm \-f
-
-Find files named
-.B core
-in or below the directory
-.B /tmp
+.
+.SS Safer `find -print0 | xargs -0` approach
+.IP \[bu]
+Find files named \fIcore\fP in or below the directory \fI/tmp\fP
 and delete them, processing filenames in such a way that file or
 directory names containing single or double quotes, spaces or newlines
-are correctly handled.  The
+are correctly handled.
+.nf
+\&
+.in +4m
+.B $ find /tmp \-name core \-type f \-print0 | xargs \-0 /bin/rm \-f
+.in
+\&
+.fi
+The
 .B \-name
 test comes before the
 .B \-type
 test in order to avoid having to call
 .B stat(2)
 on every file.
+.PP
+Note that there is still a race between the time
+.B find
+traverses the hierarchy printing the matching filenames, and the time the
+process executed by
+.B xargs
+works with that file.
 
-.P
+.SS
+Executing a command for each file
+.IP \[bu]
+Run
+.I file
+on every file in or below the current directory.
 .nf
-.B find . \-type f \-exec file \(aq{}\(aq \e;
-
+\&
+.in +4m
+.B $ find . \-type f \-exec file \(aq{}\(aq \e;
+.in
+\&
 .fi
-Runs `file' on every file in or below the current directory.  Notice
-that the braces are enclosed in single quote marks to protect them
+Notice that the braces are enclosed in single quote marks to protect them
 from interpretation as shell script punctuation.  The semicolon is
 similarly protected by the use of a backslash, though single quotes
 could have been used in that case also.
-
-.P
-.nf
-.B find / \e( \-perm \-4000 \-fprintf /root/suid.txt \
-\(aq%#m %u %p\en\(aq \e) , \e
-.B  \e( \-size +100M \-fprintf /root/big.txt  \(aq%\-10s %p\en\(aq \e)
-
-.fi
-Traverse the filesystem just once, listing setuid files and
+.PP
+In many cases, one might prefer the
+.B `\-exec\ \&...\&\ +`
+or better the
+.B `\-execdir\ \&...\&\ +`
+syntax for performance and security reasons.
+.
+.SS Traversing the filesystem just once - for 2 different actions
+.IP \[bu]
+Traverse the filesystem just once, listing set-user-ID files and
 directories into
-.B /root/suid.txt
+.I /root/suid.txt
 and large files into
-.BR /root/big.txt .
-
-.P
+.IR /root/big.txt .
 .nf
-.B find $HOME  \-mtime 0
-
+\&
+.in +4m
+.B $ find / \e
+.in +4m
+.B \e( \-perm \-4000 \-fprintf /root/suid.txt \(aq%#m %u %p\en\(aq \e) , \e
+.br
+.B \e( \-size +100M \-fprintf /root/big.txt  \(aq%\-10s %p\en\(aq \e)
+.in -4m
+.in -4m
+\&
 .fi
+This example uses the line-continuation character \(aq\e\(aq on the first two
+lines to instruct the shell to continue reading the command on the next line.
+.
+.SS
+Searching files by age
+.IP \[bu]
 Search for files in your home directory which have been modified in
-the last twenty-four hours.  This command works this way because the
+the last twenty-four hours.
+.nf
+\&
+.in +4m
+.B $ find $HOME  \-mtime 0
+.in
+\&
+.fi
+This command works this way because the
 time since each file was last modified is divided by 24 hours and any
 remainder is discarded.  That means that to match
 .B \-mtime
 .BR 0 ,
 a file will have to have a modification in the past which is less than
 24 hours ago.
-
-.P
-.nf
-.B find /sbin /usr/sbin \-executable \e! \-readable \-print
-
-.fi
+.
+.SS
+Searching files by permissions
+.IP \[bu]
 Search for files which are executable but not readable.
-
-.P
 .nf
-.B find . \-perm 664
-
+\&
+.in +4m
+.B $ find /sbin /usr/sbin \-executable \e! \-readable \-print
+.in
+\&
 .fi
+.
+.IP \[bu]
 Search for files which have read and write permission for their owner,
-and group, but which other users can read but not write to.  Files
-which meet these criteria but have other permissions bits set (for
-example if someone can execute the file) will not be matched.
-
-.P
+and group, but which other users can read but not write to.
 .nf
-.B find . \-perm \-664
-
+\&
+.in +4m
+.B $ find . \-perm 664
+.in
+\&
 .fi
+Files which meet these criteria but have other permissions bits set
+(for example if someone can execute the file) will not be matched.
+.
+.IP \[bu]
 Search for files which have read and write permission for their owner
 and group, and which other users can read, without regard to the
 presence of any extra permission bits (for example the executable
-bit).  This will match a file which has mode 0777, for example.
-
-.P
+bit).
 .nf
-.B find . \-perm /222
-
+\&
+.in +4m
+.B $ find . \-perm \-664
+.in
+\&
 .fi
+This will match a file which has mode
+.IR 0777 ,
+for example.
+.
+.IP \[bu]
 Search for files which are writable by somebody (their owner, or
 their group, or anybody else).
-
-.P
 .nf
-.B find . \-perm /220
-.B find . \-perm /u+w,g+w
-.B find . \-perm /u=w,g=w
-
+\&
+.in +4m
+.B $ find . \-perm /222
+.in
+\&
+.fi
+.
+.IP \[bu]
+Search for files which are writable by either their owner or their group.
+.nf
+\&
+.in +4m
+.B $ find . \-perm /220
+.B $ find . \-perm /u+w,g+w
+.B $ find . \-perm /u=w,g=w
+.in
+\&
 .fi
 All three of these commands do the same thing, but the first one uses
 the octal representation of the file mode, and the other two use the
-symbolic form.  These commands all search for files which are
-writable by either their owner or their group.  The files don't have
-to be writable by both the owner and group to be matched; either will
-do.
-
-.P
+symbolic form.
+The files don't have to be writable by both the owner and group to be matched;
+either will do.
+.
+.IP \[bu]
+Search for files which are writable by both their owner and their group.
 .nf
-.B find . \-perm \-220
-.B find . \-perm \-g+w,u+w
-
+\&
+.in +4m
+.B $ find . \-perm \-220
+.B $ find . \-perm \-g+w,u+w
+.in
+\&
 .fi
-Both these commands do the same thing; search for files which are
-writable by both their owner and their group.
-
-.P
+Both these commands do the same thing.
+.
+.IP \[bu]
+A more elaborate search on permissions.
 .nf
-.B find . \-perm \-444 \-perm /222 \e! \-perm /111
-.B find . \-perm \-a+r \-perm /a+w \e! \-perm /a+x
-
+\&
+.in +4m
+.B $ find . \-perm \-444 \-perm /222 \e! \-perm /111
+.B $ find . \-perm \-a+r \-perm /a+w \e! \-perm /a+x
+.in
+\&
 .fi
-These two commands both search for files that are readable for
-everybody (
-.B \-perm \-444
+These two commands both search for files that are readable for everybody
+.RB ( "\-perm \-444"
 or
 .BR "\-perm \-a+r" ),
 have at least one write bit
-set (
-.B \-perm /222
+set
+.RB ( "\-perm /222"
 or
 .BR "\-perm /a+w" )
-but are not executable for anybody (
-.B ! \-perm /111
-and
+but are not executable for anybody
+.RB ( "! \-perm /111"
+or
 .B ! \-perm /a+x
 respectively).
-
-.P
-.nf
-.B cd /source-dir
-.B find . \-name .snapshot \-prune \-o \e( \e! \-name \(aq*~\(aq \-print0 \e)|
-.B cpio \-pmd0   /dest-dir
-
-.fi
-This command copies the contents of
-.B /source-dir
+.
+.SS
+Pruning - omitting files and subdirectories
+.IP \[bu]
+Copy the contents of
+.I /source-dir
 to
-.BR /dest-dir ,
-but omits files and directories named
-.B .snapshot
+.IR /dest-dir ,
+but omit files and directories named
+.I .snapshot
 (and anything in them).  It also omits files or directories whose name
 ends in
-.BR ~ ,
-but not their contents.  The construct
-.B \-prune \-o \e( \&...\& \-print0 \e)
+.IR '\(ti' ,
+but not their contents.
+.nf
+\&
+.in +4m
+.B $ cd /source-dir
+.B $ find . \-name .snapshot \-prune \-o \e( \e! \-name \(aq*~\(aq \-print0 \e) \e
+.br
+.in +4m
+.B | cpio \-pmd0  /dest-dir
+.in -4m
+.in -4m
+\&
+.fi
+The construct
+.B \-prune\ \-o\ \e(\ \&...\&\ \-print0\ \e)
 is quite common.  The idea here is that the expression before
 .B \-prune
 matches things which are to be pruned.  However, the
@@ -2256,64 +2338,96 @@ binds more tightly than
 .BR \-o ,
 this is the default anyway, but the parentheses help to show
 what is going on.
-
-.P
-.nf
-.B find repo/ \e( \-exec test \-d \(aq{}/.svn\(aq \e; \e
-.B \t        \-or \-exec test \-d \(aq{}/.git\(aq \e; \e
-.B \t        \-or \-exec test \-d \(aq{}/CVS\(aq \e; \e
-.B \t \e) \-print \-prune
-.fi
-
+.
+.IP \[bu]
 Given the following directory of projects and their associated SCM
 administrative directories, perform an efficient search for the
 projects' roots:
-
 .nf
+\&
+.in +4m
+.B $ find repo/ \e
+.in +4m
+.B \e( \-exec test \-d \(aq{}/.svn\(aq \e; \e
+.B \-or \-exec test \-d \(aq{}/.git\(aq \e; \e
+.B \-or \-exec test \-d \(aq{}/CVS\(aq \e; \e
+.B \e) \-print \-prune
+.in -4m
+.in -4m
+\&
+.fi
+Sample output:
+.nf
+\&
+.in +4m
 .B repo/project1/CVS
 .B repo/gnu/project2/.svn
 .B repo/gnu/project3/.svn
 .B repo/gnu/project3/src/.svn
 .B repo/project4/.git
-
+.in
+\&
 .fi
 In this example,
 .B \-prune
 prevents unnecessary descent into directories that have already been
-discovered (for example we do not search project3/src because we
-already found project3/.svn), but ensures sibling directories
-(project2 and project3) are found.
-
-.P
+discovered (for example we do not search
+.I project3/src
+because we already found
+.IR project3/.svn ),
+but ensures sibling directories
+.RI ( project2
+and
+.IR project3 )
+are found.
+.
+.SS
+Other useful examples
+.IP \[bu]
+Search for several file types.
 .nf
-.B find /tmp \-type f,d,l
+\&
+.in +4m
+.B $ find /tmp \-type f,d,l
+.in
+\&
 .fi
-
 Search for files, directories, and symbolic links in the directory
-.B /tmp
+.I /tmp
 passing these types as a comma-separated list (GNU extension),
 which is otherwise equivalent to the longer, yet more portable:
-
 .nf
-.B find /tmp \e( \-type f \-o \-type d \-o \-type l \e)
+\&
+.in +4m
+.B $ find /tmp \e( \-type f \-o \-type d \-o \-type l \e)
+.in
+\&
 .fi
-
-Search for files with a particular name and stop immediately when we
-find the first one:
-
+.
+.IP \[bu]
+Search for files with the particular name
+.I needle
+and stop immediately when we find the first one.
 .nf
-.B find / -name needle -print -quit
+\&
+.in +4m
+.B $ find / -name needle -print -quit
+.in
+\&
 .fi
-
-For some corner-cases, the interpretation of the
+.
+.IP \[bu]
+Demonstrate the interpretation of the
 .B %f
 and
 .B %h
-format directives of
+format directives of the
 .B \-printf
-is not obvious.  Here is an example including some output.
-
+action for some corner-cases.
+Here is an example including some output.
 .nf
+\&
+.in +4m
 .B $ find . .. / /tmp /tmp/TRACE compile compile/64/tests/find -maxdepth 0 -printf '[%h][%f]\en'
 .B [.][.]
 .B [.][..]
@@ -2322,6 +2436,8 @@ is not obvious.  Here is an example including some output.
 .B [/tmp][TRACE]
 .B [.][compile]
 .B [compile/64/tests][find]
+.in
+\&
 .fi
 .
 .SH EXIT STATUS
