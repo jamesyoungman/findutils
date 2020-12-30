@@ -1188,11 +1188,10 @@ command will be much less than the number of matched files.  The
 command line is built in much the same way that
 .B xargs
 builds its command lines.  Only one instance of `{}' is allowed within
-the command, and (when
-.B find
-is being invoked from a shell) it should be quoted (for
-example, \(aq{}\(aq) to protect it from interpretation by shells.  The
-command is executed in the starting directory.  If any invocation
+the command, and it must appear at the end, immediately before the `+';
+it needs to be escaped (with a `\e') or quoted to protect it from
+interpretation by the shell.
+The command is executed in the starting directory.  If any invocation
 with the `+' form returns a non-zero value as exit status, then
 .B find
 returns a non-zero exit status.  If
