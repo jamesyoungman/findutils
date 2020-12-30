@@ -38,6 +38,15 @@ including the call arguments and the exit code of the launched process.
 
 #35253: Clarify descriptions of -printf %f, %h.
 
+** Documentation Changes
+
+The man pages (find.1, locate.1, locatedb.5, updatedb.1, and xargs.1) now
+consistently end with the sections "REPORTING BUGS", "COPYRIGHT" and "SEE ALSO",
+with the latter referring to the online page on the GNU web server.
+
+The "EXAMPLES" section in the find.1 man page now shows the examples in a better
+structure and uses consistent formatting.
+
 ** Changes to the build process
 
 The configure option --without-fts has been removed.  The attempt to use
