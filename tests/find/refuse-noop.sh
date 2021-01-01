@@ -3,7 +3,7 @@
 # Between findutils-4.3.1 and 4.6, find dumped core ($? = 139).
 # See Savannah bug #48180.
 
-# Copyright (C) 2016-2020 Free Software Foundation, Inc.
+# Copyright (C) 2016-2021 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

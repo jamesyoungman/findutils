@@ -1,7 +1,7 @@
 #! /bin/sh
 # Generate the ChangeLog for findutils.
 
-# Copyright (C) 2015-2020 Free Software Foundation, Inc.
+# Copyright (C) 2015-2021 Free Software Foundation, Inc.
 # Written by James Youngman.
 #
 # This program is free software: you can redistribute it and/or modify
