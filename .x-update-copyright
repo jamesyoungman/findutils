@@ -1,4 +1,5 @@
 ^ChangeLog-2013$
 ^COPYING$
 ^bootstrap$
+^doc/fdl\.texi$
 ^tests/init\.sh$
