@@ -30,6 +30,9 @@ including the call arguments and the exit code of the launched process.
 
 #58205: find.1: clarify double dash '--' option
 
+#58149: 'xargs --help' now mentions that --replace (-I, -i) splits the input
+        at newline characters.
+
 #57025: doc: enhance description of tests accepting numeric arguments in find.1
 
 #54730: Add additional valuable example of find -quit

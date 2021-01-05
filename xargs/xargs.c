@@ -1683,8 +1683,8 @@ usage (int status)
          "                                 otherwise, there is no end-of-file string\n"));
   HTL (_("  -I R                         same as --replace=R\n"));
   HTL (_("  -i, --replace[=R]            replace R in INITIAL-ARGS with names read\n"
-         "                                 from standard input; if R is unspecified,\n"
-         "                                 assume {}\n"));
+         "                                 from standard input, split at newlines;\n"
+         "                                 if R is unspecified, assume {}\n"));
   HTL (_("  -L, --max-lines=MAX-LINES    use at most MAX-LINES non-blank input lines per\n"
          "                                 command line\n"));
   HTL (_("  -l[MAX-LINES]                similar to -L but defaults to at most one non-\n"
