@@ -20,7 +20,11 @@
 print_ver_ find oldfind
 
 make_canonical() {
-  sed -e 's/ /_/g'
+  sed -e '
+    # Solaris ls outputs with leading padding blanks; strip them.
+    s/^ *//g;
+    # Squeeze blanks between inode number and name to one underscore.
+    s/ /_/g'
 }
 
 # Create a file.
