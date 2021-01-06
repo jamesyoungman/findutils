@@ -373,9 +373,11 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
   int ex = WEXITSTATUS (execp->last_child_status);
   if (options.debug_options & DebugExec)
     {
+      /* pid_t is of type long on Solaris 11.  Cast CHILD_PID for use with
+       * %ld as long as gnulib doesn't provide portable PRIdPID. */
       fprintf (stderr,
-               "DebugExec: process (PID=%d) terminated with exit status: %d\n",
-               child_pid, ex);
+               "DebugExec: process (PID=%ld) terminated with exit status: %d\n",
+               (long) child_pid, ex);
     }
 
   if (0 == ex)
