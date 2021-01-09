@@ -56,7 +56,7 @@ externally_visible
 flatten
 format			  _GL_ATTRIBUTE_FORMAT(spec)
                           _GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(fmt,firstarg)
-                          _GL_ATTRIBUTE_FORMAT_PRINTF(fmt,firstarg)
+                          _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD(fmt,firstarg)
                           _GL_ATTRIBUTE_FORMAT_SCANF_SYSTEM(fmt,firstarg)
                           _GL_ATTRIBUTE_FORMAT_SCANF(fmt,firstarg)
 format_arg
@@ -131,17 +131,17 @@ visibility    "default"
 #  endif
 # endif
 
-# ifndef _GL_ATTRIBUTE_FORMAT_PRINTF
+# ifndef _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD
 #  if __GNUC_PREREQ(2,7)
 #   if __GNUC_PREREQ(4,4)
-#    define _GL_ATTRIBUTE_FORMAT_PRINTF(formatstring_parameter, first_argument) \
+#    define _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD(formatstring_parameter, first_argument) \
      _GL_ATTRIBUTE_FORMAT ((__gnu_printf__, formatstring_parameter, first_argument))
 #   else
-#    define _GL_ATTRIBUTE_FORMAT_PRINTF(formatstring_parameter, first_argument) \
+#    define _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD(formatstring_parameter, first_argument) \
      _GL_ATTRIBUTE_FORMAT ((__printf__, formatstring_parameter, first_argument))
 #   endif
 #  else
-#   define _GL_ATTRIBUTE_FORMAT_PRINTF(spec) /* unsupported */
+#   define _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD(spec) /* unsupported */
 #  endif
 # endif
 

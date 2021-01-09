@@ -56,7 +56,8 @@
 #undef MAX
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-static void checked_fprintf (struct format_val *dest, const char *fmt, ...) _GL_ATTRIBUTE_FORMAT_PRINTF(2, 3);
+static void checked_fprintf (struct format_val *dest, const char *fmt, ...)
+  _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD(2, 3);
 
 
 /* Create a new fprintf segment in *SEGMENT, with type KIND,
