@@ -1,15 +1,15 @@
 GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
-* Major changes in release ?.?.?, YYYY-MM-DD
+* Noteworthy changes in release 4.8.0 (2020-01-09) [stable]
 
 ** Changes in xargs
+
+'xargs -t' no longer outputs a trailing blank to stderr after the last argument
+of each constructed command line to be executed.  [#57291]
 
 xargs now warns when more than one of the conflicting options --max-lines (-L,
 -l), --replace (-i/-I) and --max-args (-n) are specified on the command line.
 [#52137]
-
-'xargs -t' no longer outputs a trailing blank to stderr after the last argument
-of each constructed command line to be executed.  [#57291]
 
 ** Bug Fixes
 
@@ -19,13 +19,30 @@ Discussed at: <https://lists.gnu.org/r/bug-gnulib/2020-04/msg00068.html>
 find -used works again.  This predicate was not working properly since adding
 the support for sub-second timestamp resolution for various predicates in
 FINDUTILS_4_3_3-1 back in 2007.
+Discussed at: <https://lists.gnu.org/r/bug-findutils/2019-11/msg00010.html>
+
+** Improvements
+
+'find -D exec' now diagnoses all -exec, -execdir, -ok and -okdir runs including
+the call arguments and the exit code of the launched process. [#59083]
+
+** Documentation Changes
 
 The documentation of 'find -printf %Ak' has been improved: it now refers to the
 strftime(3) documentation for a complete list of supported conversion
 specifiers, and documents the 'F' conversion specifier ('yyyy-mm-dd').
 
-#59083: 'find -D exec' now diagnoses all -exec, -execdir, -ok and -okdir runs
-including the call arguments and the exit code of the launched process.
+The man pages (find.1, locate.1, locatedb.5, updatedb.1, and xargs.1) now
+consistently end with the sections "REPORTING BUGS", "COPYRIGHT" and "SEE ALSO",
+with the latter referring to the online page on the GNU web server.
+
+The "EXAMPLES" section in the find.1 man page now shows the examples in a better
+structure and uses consistent formatting.
+
+Various man page fixes - syntax issues and typos.
+[#59745, #59330, #59012, #58193, #57807, #57775]
+
+Other documentation changes:
 
 #58654: doc: clarify that 'find -perm +MODE' is unrelated to umask
 
@@ -38,21 +55,13 @@ including the call arguments and the exit code of the launched process.
         at newline characters.
 
 #57025: doc: enhance description of tests accepting numeric arguments in find.1
+        [see also #49640].
 
 #54730: Add additional valuable example of find -quit
 
 #48135: Fix testsuite error on Hurd and BSD related to ln
 
 #35253: Clarify descriptions of -printf %f, %h.
-
-** Documentation Changes
-
-The man pages (find.1, locate.1, locatedb.5, updatedb.1, and xargs.1) now
-consistently end with the sections "REPORTING BUGS", "COPYRIGHT" and "SEE ALSO",
-with the latter referring to the online page on the GNU web server.
-
-The "EXAMPLES" section in the find.1 man page now shows the examples in a better
-structure and uses consistent formatting.
 
 ** Changes to the build process
 
