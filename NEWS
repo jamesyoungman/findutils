@@ -2,6 +2,10 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
+** Documentation Changes
+
+  The find.1 man page and the Texinfo manual now show environment variables
+  in a consistent style. [#59963]
 
 * Noteworthy changes in release 4.8.0 (2020-01-09) [stable]
 

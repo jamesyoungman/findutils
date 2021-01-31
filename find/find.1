@@ -476,11 +476,11 @@ if standard input is a tty, and to
 otherwise.  If a warning message relating to command-line usage is
 produced, the exit status of
 .B find
-is not affected.  If the POSIXLY_CORRECT environment variable is set,
-and
+is not affected.  If the
+.B POSIXLY_CORRECT
+environment variable is set, and
 .B \-warn
-is also used, it is not specified which, if any,
-warnings will be active.
+is also used, it is not specified which, if any, warnings will be active.
 
 .SS GLOBAL OPTIONS
 Global options always return true.
@@ -794,7 +794,9 @@ will never include a slash, so `\-name a/b' will never match anything
 .B \-path
 instead).
 A warning is issued if you try to do this,
-unless the environment variable POSIXLY_CORRECT is set.
+unless the environment variable
+.B POSIXLY_CORRECT
+is set.
 The metacharacters (`*', `?',
 and `[]') match a `.\&' at the start of the base name (this is a change
 in findutils-4.2.2; see section STANDARDS CONFORMANCE below).  To ignore a
@@ -1228,13 +1230,13 @@ invocation of
 .I command
 will only list files that exist in the same subdirectory.  If you use
 this option, you must ensure that your
-.B $PATH
+.B PATH
 environment variable does not reference `.';
 otherwise, an attacker can run any commands they like by leaving an
 appropriately-named file in a directory in which you will run
 .BR \-execdir .
 The same applies to having entries in
-.B $PATH
+.B PATH
 which are empty or which are not absolute directory names.  If
 any invocation with the `+' form returns a non-zero value as exit status,
 then
@@ -1309,7 +1311,8 @@ True; list current file in
 .B ls \-dils
 format on standard output.
 The block counts are of 1\ KB blocks, unless the environment variable
-POSIXLY_CORRECT is set, in which case 512-byte blocks are used.
+.B POSIXLY_CORRECT
+is set, in which case 512-byte blocks are used.
 See the
 .B UNUSUAL FILENAMES
 section for information about how unusual characters in filenames are handled.
@@ -1326,16 +1329,19 @@ from
 The response to the prompt is matched against a pair of regular
 expressions to determine if it is an affirmative or negative
 response.  This regular expression is obtained from the system if the
-`POSIXLY_CORRECT' environment variable is set, or otherwise from
+.B POSIXLY_CORRECT
+environment variable is set, or otherwise from
 .BR find 's
 message translations.  If the system has no suitable
 definition,
 .BR find 's
 own definition will be used.
 In either case, the interpretation of the regular expression itself
-will be affected by the environment variables 'LC_CTYPE'
-(character classes) and 'LC_COLLATE' (character ranges and equivalence
-classes).
+will be affected by the environment variables
+.B LC_CTYPE
+(character classes) and
+.B LC_COLLATE
+(character ranges and equivalence classes).
 
 
 
@@ -1460,7 +1466,8 @@ time, 24-hour (hh:mm:ss.xxxxxxxxxx)
 .IP +
 Date and time, separated by `+', for example
 `2004\-04\-28+22:22:05.0'.  This is a GNU extension.  The time is
-given in the current timezone (which may be affected by setting the TZ
+given in the current timezone (which may be affected by setting the
+.B TZ
 environment variable).  The seconds field includes a fractional part.
 .IP X
 locale's time representation (H:M:S).  The seconds field includes a
@@ -1820,8 +1827,9 @@ If you are able to decide what format to use for the output of
 .B find
 then it is normally better to use `\e0' as a terminator
 than to use newline, as file names can contain white space and newline
-characters.  The setting of the `LC_CTYPE' environment
-variable is used to determine which characters need to be quoted.
+characters.  The setting of the
+.B LC_CTYPE
+environment variable is used to determine which characters need to be quoted.
 
 .IP "\-print, \-fprint"
 Quoting is handled in the same way as for
@@ -1844,8 +1852,10 @@ actions print the current filename as-is.  This may change in a future release.
 .
 .SH "STANDARDS CONFORMANCE"
 For closest compliance to the POSIX standard, you should set the
-POSIXLY_CORRECT environment variable.  The following options are
-specified in the POSIX standard (IEEE Std 1003.1-2008, 2016 Edition):
+.B POSIXLY_CORRECT
+environment variable.
+The following options are specified in the POSIX standard
+(IEEE Std 1003.1-2008, 2016 Edition):
 
 .IP \fB\-H\fR
 This option is supported.
@@ -1872,14 +1882,19 @@ comma-separated list.
 .IP \fB\-ok\fR
 Supported.
 Interpretation of the response is according to the `yes' and `no'
-patterns selected by setting the `LC_MESSAGES' environment variable.
-When the `POSIXLY_CORRECT' environment variable is set, these patterns
-are taken system's definition of a positive (yes) or negative (no)
-response.  See the system's
-documentation for
+patterns selected by setting the
+.B LC_MESSAGES
+environment variable.
+When the
+.B POSIXLY_CORRECT
+environment variable is set, these patterns are taken system's definition
+of a positive (yes) or negative (no) response.
+See the system's documentation for
 .BR nl_langinfo (3),
 in particular YESEXPR and NOEXPR.
-When `POSIXLY_CORRECT' is not set, the patterns are instead taken from
+When
+.B POSIXLY_CORRECT
+is not set, the patterns are instead taken from
 .BR find 's
 own message catalogue.
 
@@ -1890,7 +1905,9 @@ take the relevant time from the symbolic link; see the HISTORY section
 below.
 
 .IP \fB\-perm\fR
-Supported.  If the POSIXLY_CORRECT environment variable is not set,
+Supported.  If the
+.B POSIXLY_CORRECT
+environment variable is not set,
 some mode arguments (for example +a+x) which are not valid in POSIX
 are supported for backward-compatibility.
 
@@ -1975,8 +1992,9 @@ but you should use the POSIX-compliant option
 .B \-depth
 instead.
 .P
-The POSIXLY_CORRECT environment variable does not affect the behaviour
-of the
+The
+.B POSIXLY_CORRECT
+environment variable does not affect the behaviour of the
 .B \-regex
 or
 .B \-iregex
@@ -1999,15 +2017,18 @@ matching to be used for the
 option.
 GNU find uses the
 .BR fnmatch (3)
-library function, and so support for `LC_COLLATE' depends on the
-system library.
+library function, and so support for
+.B LC_COLLATE
+depends on the system library.
 This variable also affects the interpretation of the response to
 .BR \-ok ;
-while the `LC_MESSAGES' variable selects the actual pattern used to
-interpret the response to
+while the
+.B LC_MESSAGES
+variable selects the actual pattern used to interpret the response to
 .BR \-ok ,
 the interpretation of any bracket expressions in the pattern will be
-affected by `LC_COLLATE'.
+affected by
+.BR LC_COLLATE .
 
 .IP LC_CTYPE
 This variable affects the treatment of character classes used in
@@ -2020,14 +2041,17 @@ library function supports this.  This variable also affects the
 interpretation of any character classes in the regular expressions
 used to interpret the response to the prompt issued by
 .BR \-ok .
-The `LC_CTYPE' environment variable will
-also affect which characters are considered to be unprintable when
-filenames are printed; see the section UNUSUAL FILENAMES.
+The
+.B LC_CTYPE
+environment variable will also affect which characters are considered
+to be unprintable when filenames are printed;
+see the section UNUSUAL FILENAMES.
 
 .IP LC_MESSAGES
-Determines the locale to be used for internationalised messages.  If
-the `POSIXLY_CORRECT' environment variable is set, this also
-determines the interpretation of the response to the prompt made by the
+Determines the locale to be used for internationalised messages.  If the
+.B POSIXLY_CORRECT
+environment variable is set, this also determines the interpretation of
+the response to the prompt made by the
 .B \-ok
 action.
 
@@ -2061,15 +2085,21 @@ the output for
 all messages printed on stderr are diagnostics and must result in a
 non-zero exit status.
 .IP
-When POSIXLY_CORRECT is not set,
+When
+.B POSIXLY_CORRECT
+is not set,
 .B "\-perm \fI+zzz\fR"
 is treated just like
 .B "\-perm \fI/zzz\fR"
 if
-\fI+zzz\fR is not a valid symbolic mode.  When POSIXLY_CORRECT is set, such
+\fI+zzz\fR is not a valid symbolic mode.  When
+.B POSIXLY_CORRECT
+is set, such
 constructs are treated as an error.
 .IP
-When POSIXLY_CORRECT is set, the response to the prompt made by the
+When
+.B POSIXLY_CORRECT
+is set, the response to the prompt made by the
 .B \-ok
 action is interpreted according to the system's message catalogue, as
 opposed to according to
@@ -2590,7 +2620,7 @@ should be used instead.
 .
 .P
 The environment variable
-.B  LC_COLLATE
+.B LC_COLLATE
 has no effect on the
 .B \-ok
 action.

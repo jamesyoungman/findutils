@@ -581,7 +581,7 @@ was generated, the default was @file{@value{LOCATE_DB}}.
 Instead of searching the default file name database, search the file
 name databases in @var{path}, which is a colon-separated list of
 database file names.  You can also use the environment variable
-@code{LOCATE_PATH} to set the list of database files to search.  The
+@env{LOCATE_PATH} to set the list of database files to search.  The
 option overrides the environment variable if both are used.
 @end table
 
@@ -1051,7 +1051,7 @@ Gibibytes (GiB, units of 1024 * 1024 * 1024 = 1073741824 bytes)
 @end table
 
 The `b' suffix always considers blocks to be 512 bytes.  This is not
-affected by the setting (or non-setting) of the @code{POSIXLY_CORRECT}
+affected by the setting (or non-setting) of the @env{POSIXLY_CORRECT}
 environment variable.  This behaviour is different from the behaviour of
 the @samp{-ls} action).  If you want to use 1024-byte units, use the
 `k' suffix instead.
@@ -1705,7 +1705,7 @@ files based on their inode number.
 
 @item
 the number of blocks in the file.  The block counts are of 1K blocks,
-unless the environment variable @code{POSIXLY_CORRECT} is set, in
+unless the environment variable @env{POSIXLY_CORRECT} is set, in
 which case 512-byte blocks are used.  @xref{Size}, for how to find
 files based on their size.
 
@@ -2173,7 +2173,7 @@ locale's date representation (mm/dd/yy)
 Date and time, separated by '+', for example
 `2004-04-28+22:22:05.0000000000'.
 The time is given in the current timezone (which may be affected by
-setting the TZ environment variable).  This is a GNU extension.  The
+setting the @env{TZ} environment variable).  This is a GNU extension.  The
 seconds field includes a fractional part.
 @end table
 
@@ -2234,11 +2234,11 @@ find . -name '*.h' -execdir diff -u '@{@}' /tmp/master ';'
 @end example
 @end deffn
 
-If you use @samp{-execdir}, you must ensure that the @samp{$PATH}
+If you use @samp{-execdir}, you must ensure that the @env{PATH}
 variable contains only absolute directory names.  Having an empty
-element in @samp{$PATH} or explicitly including @samp{.} (or any other
+element in @env{PATH} or explicitly including @samp{.} (or any other
 non-absolute name) is insecure.  GNU find will refuse to run if you
-use @samp{-execdir} and it thinks your @samp{$PATH} setting is
+use @samp{-execdir} and it thinks your @env{PATH} setting is
 insecure.  For example:
 
 @table @samp
@@ -2543,7 +2543,7 @@ which cannot be used to send arbitrary data to the terminal, and so
 these are printed as-is.
 @item %f, %h, %l, %p, %P
 The output of these directives is quoted if the output is going to a
-terminal.  The setting of the @code{LC_CTYPE} environment
+terminal.  The setting of the @env{LC_CTYPE} environment
 variable is used to determine which characters need to be quoted.
 
 This quoting is performed in the same way as for GNU @code{ls}.  This
@@ -2825,14 +2825,14 @@ Otherwise, run it, with  standard input redirected from
 The response to the prompt is matched against a pair of regular
 expressions to determine if it is a yes or no response.  These regular
 expressions are obtained from the system (@code{nl_langinfo} items
-YESEXPR and NOEXPR are used) if the @code{POSIXLY_CORRECT} environment
+YESEXPR and NOEXPR are used) if the @env{POSIXLY_CORRECT} environment
 variable is set and the system has such patterns available.  Otherwise,
 @code{find}'s message translations are used.  In either case, the
-@code{LC_MESSAGES} environment variable will determine the regular
+@env{LC_MESSAGES} environment variable will determine the regular
 expressions used to determine if the answer is affirmative or negative.
 The interpretation of the regular expressions themselves will be
-affected by the environment variables @code{LC_CTYPE} (character
-classes) and @code{LC_COLLATE} (character ranges and equivalence
+affected by the environment variables @env{LC_CTYPE} (character
+classes) and @env{LC_COLLATE} (character ranges and equivalence
 classes).
 @end deffn
 
@@ -2975,7 +2975,7 @@ You can obtain some statistics about the databases by using
 @section Database Locations
 
 There can be multiple file name databases.  Users can select which
-databases @code{locate} searches using the @code{LOCATE_PATH}
+databases @code{locate} searches using the @env{LOCATE_PATH}
 environment variable or a command line option.  The system
 administrator can choose the file name of the default database, the
 frequency with which the databases are updated, and the directories
@@ -2998,7 +2998,7 @@ the default location @file{@value{LOCATE_DB}}.
 
 If no database exists at @file{@value{LOCATE_DB}} but the user did not
 specify where to look (by using @samp{-d} or setting
-@code{LOCATE_PATH}), then @code{locate} will also check for a
+@env{LOCATE_PATH}), then @code{locate} will also check for a
 ``secure'' database in @file{/var/lib/slocate/slocate.db}.
 
 @node Database Formats
@@ -3345,7 +3345,7 @@ circumstances, @code{find} may issue a warning message.
 
 By default, warnings are enabled only if @code{find} is being run
 interactively (specifically, if the standard input is a terminal) and
-the @code{POSIXLY_CORRECT} environment variable is not set.  Warning
+the @env{POSIXLY_CORRECT} environment variable is not set.  Warning
 messages can be controlled explicitly by the use of options on the
 command line:
 
@@ -3512,7 +3512,7 @@ Instead of searching the default @code{locate} database
 @file{@value{LOCATE_DB}}, @code{locate} searches the file
 name databases in @var{path}, which is a colon-separated list of
 database file names.  You can also use the environment variable
-@code{LOCATE_PATH} to set the list of database files to search.  The
+@env{LOCATE_PATH} to set the list of database files to search.  The
 option overrides the environment variable if both are used.  Empty
 elements in @var{path} (that is, a leading or trailing colon, or two
 colons in a row) are taken to stand for the default database.
@@ -3655,7 +3655,7 @@ environment and then executes @code{updatedb} in the environment.
 @table @code
 @item --findoptions='@var{OPTION}@dots{}'
 Global options to pass on to @code{find}.
-The environment variable @code{FINDOPTIONS} also sets this value.
+The environment variable @env{FINDOPTIONS} also sets this value.
 Default is none.
 
 @item --localpaths='@var{path}@dots{}'
@@ -3664,12 +3664,12 @@ Default is @file{/}.
 
 @item --netpaths='@var{path}@dots{}'
 Network (NFS, AFS, RFS, etc.) directories to put in the database.
-The environment variable @code{NETPATHS} also sets this value.
+The environment variable @env{NETPATHS} also sets this value.
 Default is none.
 
 @item --prunepaths='@var{path}@dots{}'
 Directories to omit from the database, which would otherwise be
-included.  The environment variable @code{PRUNEPATHS} also sets this
+included.  The environment variable @env{PRUNEPATHS} also sets this
 value.  Default is @file{/tmp /usr/tmp /var/tmp /afs}.  The paths are
 used as regular expressions (with @code{find ... -regex}, so you need
 to specify these paths in the same way that @code{find} will encounter
@@ -3680,7 +3680,7 @@ slashes.
 Filesystems to omit from the database, which would otherwise be
 included.  Note that files are pruned when a filesystem is reached;
 Any filesystem mounted under an undesired filesystem will be ignored.
-The environment variable @code{PRUNEFS} also sets this value.  Default
+The environment variable @env{PRUNEFS} also sets this value.  Default
 is @file{nfs NFS proc}.
 
 @item --output=@var{dbfile}
@@ -3690,12 +3690,12 @@ when this document was formatted it was @file{@value{LOCATE_DB}}.
 @item --localuser=@var{user}
 The user to search the non-network directories as, using @code{su}.
 Default is to search the non-network directories as the current user.
-You can also use the environment variable @code{LOCALUSER} to set this user.
+You can also use the environment variable @env{LOCALUSER} to set this user.
 
 @item --netuser=@var{user}
 The user to search network directories as, using @code{su}.  Default
 @code{user} is @code{daemon}.  You can also use the environment variable
-@code{NETUSER} to set this user.
+@env{NETUSER} to set this user.
 
 @item --dbformat=@var{FORMAT}
 Generate the locate database in format @code{FORMAT}.  Supported
@@ -3886,7 +3886,7 @@ possible simultaneously.   @xref{Controlling Parallelism}, for
 information on dynamically controlling parallelism.
 
 @item --process-slot-var=@var{environment-variable-name}
-Set the environment variable @var{environment-variable-name} to a
+Set the environment variable @env{environment-variable-name} to a
 unique value in each running child process.  Each value is a decimal
 integer.  Values are reused once child processes exit.  This can be
 used in a rudimentary load distribution scheme, for example.
@@ -4059,10 +4059,10 @@ matching to be used for the `\-name' option.  GNU find uses the
 GNU version of the @code{fnmatch} library function.
 
 This variable also affects the interpretation of the response to
-@code{-ok}; while the @code{LC_MESSAGES} variable selects the actual
+@code{-ok}; while the @env{LC_MESSAGES} variable selects the actual
 pattern used to interpret the response to @code{-ok}, the interpretation
 of any bracket expressions in the pattern will be affected by the
-@code{LC_COLLATE} variable.
+@env{LC_COLLATE} variable.
 
 @item LC_CTYPE
 This variable affects the treatment of character classes used in
@@ -4071,7 +4071,7 @@ the @samp{-name} test, if the @code{fnmatch} function supports this.
 
 This variable also affects the interpretation of any character classes
 in the regular expressions used to interpret the response to the
-prompt issued by @code{-ok}.  The @code{LC_CTYPE} environment variable will
+prompt issued by @code{-ok}.  The @env{LC_CTYPE} environment variable will
 also affect which characters are considered to be unprintable when
 filenames are printed (@pxref{Unusual Characters in File Names}).
 
@@ -4086,7 +4086,7 @@ Determines the location of the internationalisation message catalogues.
 @item PATH
 Affects the directories which are searched to find the executables
 invoked by @samp{-exec}, @samp{-execdir} @samp{-ok} and @samp{-okdir}.
-If the @var{PATH} environment variable includes the current directory
+If the @env{PATH} environment variable includes the current directory
 (by explicitly including @samp{.} or by having an empty element), and
 the find command line includes @samp{-execdir} or @samp{-okdir},
 @code{find} will refuse to run.  @xref{Security Considerations}, for a
@@ -4094,7 +4094,7 @@ more detailed discussion of security matters.
 
 @item POSIXLY_CORRECT
 Determines the block size used by @samp{-ls} and @samp{-fls}.  If
-@code{POSIXLY_CORRECT} is set, blocks are units of 512 bytes.  Otherwise
+@env{POSIXLY_CORRECT} is set, blocks are units of 512 bytes.  Otherwise
 they are units of 1024 bytes.
 
 Setting this variable also turns off warning messages (that is, implies
@@ -4102,7 +4102,7 @@ Setting this variable also turns off warning messages (that is, implies
 the output for @samp{-ok}, all messages printed on stderr are
 diagnostics and must result in a non-zero exit status.
 
-When @code{POSIXLY_CORRECT} is set, the response to the prompt made by the
+When @env{POSIXLY_CORRECT} is set, the response to the prompt made by the
 @code{-ok} action is interpreted according to the system's message
 catalogue, as opposed to according to @code{find}'s own message
 translations.
@@ -5390,7 +5390,7 @@ be processed is passed to the invoked command, with a @samp{./}
 prepended (giving @file{./passwd} in our example).
 
 The @samp{-execdir} action refuses to do anything if the current
-directory is included in the @var{$PATH} environment variable.  This
+directory is included in the @env{PATH} environment variable.  This
 is necessary because @samp{-execdir} runs programs in the same
 directory in which it finds files -- in general, such a directory
 might be writable by untrusted users.  For similar reasons,
@@ -5721,7 +5721,7 @@ to run.
 This should not happen.  Re-run @code{updatedb}.  If that works, but
 @code{locate} still produces this error, run @code{locate --version}
 and @code{updatedb --version}.  These should produce the same output.
-If not, you are using a mixed toolset; check your @samp{$PATH}
+If not, you are using a mixed toolset; check your @env{PATH}
 environment variable and your shell aliases (if you have any).  If
 both programs claim to be GNU versions, this is a bug; all versions of
 these programs should interoperate without problem.  Ask for help on
