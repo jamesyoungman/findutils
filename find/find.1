@@ -2120,7 +2120,7 @@ The
 test comes before the
 .B \-type
 test in order to avoid having to call
-.B stat(2)
+.BR stat (2)
 on every file.
 .PP
 Note that there is still a race between the time
@@ -2311,10 +2311,8 @@ to
 .IR /dest-dir ,
 but omit files and directories named
 .I .snapshot
-(and anything in them).  It also omits files or directories whose name
-ends in
-.IR '\(ti' ,
-but not their contents.
+(and anything in them).  It also omits files or directories whose name ends in
+`\(ti', but not their contents.
 .nf
 \&
 .in +4m
