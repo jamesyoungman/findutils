@@ -263,6 +263,7 @@ coda
 devfs
 devpts
 ftpfs
+fuse.s3fs
 iso9660
 mfs
 ncpfs

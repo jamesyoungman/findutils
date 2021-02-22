@@ -2,6 +2,11 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
+** Changes in locate / updatedb
+
+  update now skips (fuse-mounted) s3fs filesystems by default,
+  i.e., unless PRUNEFS is set.
+
 ** Documentation Changes
 
   The find.1 man page and the Texinfo manual now show environment variables
