@@ -431,7 +431,7 @@ check_option_combinations (const struct predicate *p)
       /* The user specified both -delete and -prune.  One might test
        * this by first doing
        *    find dirs   .... -prune ..... -print
-       * to fnd out what's going to get deleted, and then switch to
+       * to find out what's going to get deleted, and then switch to
        *    find dirs   .... -prune ..... -delete
        * once we are happy.  Unfortunately, the -delete action also
        * implicitly turns on -depth, which will affect the behaviour
@@ -2904,7 +2904,7 @@ insert_exec_ok (const char *action,
     {
       allow_plus = false;
       /* If find reads stdin (i.e. for -ok and similar), close stdin
-       * in the child to prevent some script from consiming the output
+       * in the child to prevent some script from consuming the output
        * intended for find.
        */
       execp->close_stdin = true;
