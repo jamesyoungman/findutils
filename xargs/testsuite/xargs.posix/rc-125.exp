@@ -4,7 +4,7 @@
 # This works better but is harder to use in a DejaGnu test:
 #   yes | xargs -I{} echo | true
 # Part of the problem here of course is that the exit status of the
-# pipeline is the exit status of its last compinent.
+# pipeline is the exit status of its last component.
 #
 # This problem is recorded as Savannah bug# 19969.
 #
