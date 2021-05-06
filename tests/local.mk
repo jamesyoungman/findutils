@@ -114,6 +114,7 @@ all_tests = \
   tests/find/printf_inode.sh \
   tests/find/execdir-fd-leak.sh \
   tests/find/exec-plus-last-file.sh \
+  tests/find/files0-from.sh \
   tests/find/refuse-noop.sh \
   tests/find/debug-missing-arg.sh \
   tests/find/used.sh \

@@ -2,6 +2,13 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
+** New features in find
+
+  find now supports the -files0-from option to be able to safely pass an
+  arbitrary number of starting points to the tool.  The option requires a file
+  name as argument, or "-" to read from standard input.  The entries in that
+  file have to be separated by NUL characters.
+
 ** Changes in locate / updatedb
 
   update now skips (fuse-mounted) s3fs filesystems by default,

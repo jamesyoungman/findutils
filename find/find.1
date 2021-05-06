@@ -79,6 +79,11 @@ prevent that wildcard patterns expanded by the calling shell are not mistakenly
 treated as expression arguments, it is generally safer to prefix wildcards or
 dubious path names with either `./' or to use absolute path names starting
 with '/'.
+Alternatively, it is generally safe though non-portable to use the GNU option
+.B \-files0\-from
+to pass arbitrary starting points to
+.BR find .
+
 .IP \-P
 Never follow symbolic links.  This is the default behaviour.  When
 .B find
@@ -505,6 +510,59 @@ MacOS X and OpenBSD.
 Process each directory's contents before the directory itself.  The
 \-delete action also implies
 .BR \-depth .
+
+.IP "\-files0\-from \fIfile\fR"
+Read the starting points from \fIfile\fR instead of getting them on the
+command line.
+In contrast to the known limitations of passing starting points via arguments
+on the command line, namely the limitation of the amount of file names,
+and the inherent ambiguity of file names clashing with option names,
+using this option allows to safely pass an arbitrary number of starting points
+to \fBfind\fR.
+
+Using this option and passing starting points on the command line is mutually
+exclusive, and is therefore not allowed at the same time.
+
+The \fIfile\fR argument is mandatory.
+One can use
+.B \-files0\-from\ \-
+to read the list of starting points from the \fIstandard input\fR stream,
+and e.g. from a pipe.
+In this case, the actions
+.B \-ok
+and
+.B \-okdir
+are not allowed, because they would obviously interfere with reading from
+\fIstandard input\fR in order to get a user confirmation.
+
+The starting points in \fIfile\fR have to be separated by ASCII NUL characters.
+Two consecutive NUL characters, i.e., a starting point with a Zero-length
+file name is not allowed and will lead to an error diagnostic followed by
+a non-Zero exit code later.
+The given \fIfile\fR has to contain at least one starting point,
+i.e., an empty input file will be diagnosed as well.
+
+The processing of the starting points is otherwise as usual, e.g.
+.B find
+will recurse into subdirectories unless otherwise prevented.
+To process only the starting points, one can additionally pass
+.BR \-maxdepth\ 0 .
+
+Further notes:
+if a file is listed more than once in the input file, it is unspecified
+whether it is visited more than once.
+If the \fIfile\fR is mutated during the operation of
+.BR find ,
+the result is unspecified as well.
+Finally, the seek position within the named \fIfile\fR at the time
+.B find
+exits, be it with
+.B \-quit
+or in any other way, is also unspecified.
+By "unspecified" here is meant that it may or may not work or do any specific
+thing, and that the behavior may change from platform to platform, or from
+.B findutils
+release to release.
 
 .IP "\-help, \-\-help"
 Print a summary of the command-line usage of
@@ -1324,6 +1382,9 @@ but ask the user first.  If the user agrees, run the command.  Otherwise
 just return false.  If the command is run, its standard input is redirected
 from
 .IR /dev/null .
+This action may not be specified together with the
+.B \-files0\-from
+option.
 
 .IP
 The response to the prompt is matched against a pair of regular
@@ -1353,6 +1414,10 @@ but ask the user first in the same way as for
 If the user does not agree, just return false.
 If the command is run, its standard input is redirected from
 .IR /dev/null .
+This action may not be specified together with the
+.B \-files0\-from
+option.
+
 
 .IP \-print
 True; print the full file name on the standard output, followed by a
@@ -2159,7 +2224,27 @@ traverses the hierarchy printing the matching filenames, and the time the
 process executed by
 .B xargs
 works with that file.
-
+.
+.SS Processing arbitrary starting points
+.IP \[bu]
+Given that another program \fIproggy\fR pre-filters and creates a huge
+NUL-separated list of files, process those as starting points, and find
+all regular, empty files among them:
+.nf
+\&
+.in +4m
+.B $ proggy | find \-files0\-from \- \-maxdepth 0 \-type f \-empty
+.in
+\&
+.fi
+The use of
+.B `\-files0\-from\ \-`
+means to read the names of the starting points from \fIstandard input\fR,
+i.e., from the pipe; and
+.B \-maxdepth\ 0
+ensures that only explicitly those entries are examined without recursing
+into directories (in the case one of the starting points is one).
+.
 .SS
 Executing a command for each file
 .IP \[bu]
@@ -2524,6 +2609,7 @@ exit status was unaffected by the failure of
 .TS
 l l l .
 Feature	Added in	Also occurs in
+\-files0\-from	4.9.0
 \-newerXY	4.3.3	BSD
 \-D	4.3.1
 \-O	4.3.1

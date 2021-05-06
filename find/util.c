@@ -180,8 +180,9 @@ operators (decreasing precedence; -and is implicit where no others are given):\n
   HTL (_("\
 positional options (always true): -daystart -follow -regextype\n\n\
 normal options (always true, specified before other expressions):\n\
-      -depth --help -maxdepth LEVELS -mindepth LEVELS -mount -noleaf\n\
-      --version -xdev -ignore_readdir_race -noignore_readdir_race\n"));
+      -depth --help -files0-from FILE -maxdepth LEVELS -mindepth LEVELS\n\
+      -mount -noleaf --version -xdev -ignore_readdir_race\n\
+      -noignore_readdir_race\n"));
   HTL (_("\
 tests (N can be +N or -N or N): -amin N -anewer FILE -atime N -cmin N\n\
       -cnewer FILE -ctime N -empty -false -fstype TYPE -gid N -group NAME\n\
@@ -1073,6 +1074,9 @@ set_option_defaults (struct options *p)
   set_follow_state (SYMLINK_NEVER_DEREF); /* The default is equivalent to -P. */
 
   p->err_quoting_style = locale_quoting_style;
+
+  p->files0_from = NULL;
+  p->ok_prompt_stdin = false;
 }
 
 

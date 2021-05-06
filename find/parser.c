@@ -90,6 +90,7 @@ static bool parse_empty         (const struct parser_table*, char *argv[], int *
 static bool parse_exec          (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_execdir       (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_false         (const struct parser_table*, char *argv[], int *arg_ptr);
+static bool parse_files0_from   (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_fls           (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_fprintf       (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_follow        (const struct parser_table*, char *argv[], int *arg_ptr);
@@ -241,6 +242,7 @@ static struct parser_table const parse_table[] =
   {ARG_ACTION,      "exec",    parse_exec, pred_exec}, /* POSIX */
   {ARG_TEST,        "executable",            parse_accesscheck, pred_executable}, /* GNU, 4.3.0+ */
   PARSE_ACTION     ("execdir",               execdir), /* *BSD, GNU */
+  PARSE_OPTION     ("files0-from",           files0_from),   /* GNU */
   PARSE_ACTION     ("fls",                   fls),	     /* GNU */
   PARSE_POSOPT     ("follow",                follow),  /* GNU, Unix */
   PARSE_ACTION     ("fprint",                fprint),	     /* GNU */
@@ -961,6 +963,18 @@ parse_false (const struct parser_table* entry, char **argv, int *arg_ptr)
   (void) argv;
   (void) arg_ptr;
   return insert_false ();
+}
+
+static bool
+parse_files0_from (const struct parser_table* entry, char **argv, int *arg_ptr)
+{
+  const char *filename;
+  if (collect_arg (argv, arg_ptr, &filename))
+    {
+      options.files0_from = filename;
+      return true;
+    }
+  return false;
 }
 
 static bool
@@ -2903,6 +2917,8 @@ insert_exec_ok (const char *action,
   else
     {
       allow_plus = false;
+      /* The -ok* family need user confirmations via stdin.  */
+      options.ok_prompt_stdin = true;
       /* If find reads stdin (i.e. for -ok and similar), close stdin
        * in the child to prevent some script from consuming the output
        * intended for find.

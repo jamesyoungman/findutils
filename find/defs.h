@@ -636,6 +636,12 @@ struct options
   /* How should we quote filenames in error messages and so forth?
    */
   enum quoting_style err_quoting_style;
+
+  /* Read starting points from FILE (instead of argv).  */
+  const char *files0_from;
+
+  /* True if actions like -ok, -okdir need a user confirmation via stdin.  */
+  bool ok_prompt_stdin;
 };
 
 

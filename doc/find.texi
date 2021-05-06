@@ -287,6 +287,7 @@ more information about the matching files.
 
 @menu
 * find Expressions::
+* Starting points::
 * Name::
 * Links::
 * Time::
@@ -355,6 +356,90 @@ for less than @var{n},
 @item @var{n}
 for exactly @var{n}.
 @end table
+
+
+@node Starting points
+@section Starting points
+
+GNU @code{find} searches the directory tree rooted at each given starting-point
+by evaluating the given expression from left to right, according to the
+rules of operator precedence, until the outcome is known (the left hand side
+is false for @samp{and} operations, true for @samp{or}), at which point
+@code{find} moves on to the next file name.
+
+If no starting-point is specified, the current directory @samp{.} is assumed.
+
+A double dash @samp{--} could theoretically be used to signal that any remaining
+arguments are not options, but this does not really work due to the way
+@code{find} determines the end of the list of starting point arguments:
+it does that by reading until an expression argument comes (which also starts
+with a @samp{-}).
+Now, if a starting point argument would begin with a @samp{-}, then @code{find}
+would treat it as expression argument instead.
+Thus, to ensure that all start points are taken as such, and especially to
+prevent that wildcard patterns expanded by the calling shell are not mistakenly
+treated as expression arguments, it is generally safer to prefix wildcards
+or dubious path names with either @samp{./}, or to use absolute path names
+starting with @samp{/}.
+
+Alternatively, it is generally safe though non-portable to use the GNU option
+@samp{-files0-from} to pass arbitrary starting points to @code{find}.
+
+@deffn Option -files0-from file
+@deffnx Option -files0-from file
+
+Read the starting points from @file{file} instead of getting them on the
+command line.
+In contrast to the known limitations of passing starting points via arguments
+on the command line, namely the limitation of the amount of file names,
+and the inherent ambiguity of file names clashing with option names,
+using this option allows to safely pass an arbitrary number of starting points
+to @code{find}.
+
+Using this option and passing starting points on the command line is mutually
+exclusive, and is therefore not allowed at the same time.
+
+The @file{file} argument is mandatory.
+One can use @samp{-files0-from -} to read the list of starting points from the
+standard input stream, and e.g. from a pipe.
+In this case, the actions @samp{-ok} and @samp{-okdir} are not allowed,
+because they would obviously interfere with reading from standard input
+in order to get a user confirmation.
+
+The starting points in @file{file} have to be separated by ASCII NUL characters.
+Two consecutive NUL characters, i.e., a starting point with a Zero-length
+file name is not allowed and will lead to an error diagnostic followed by
+a non-Zero exit code later.
+The given @file{file} has to contain at least one starting point,
+i.e., an empty input file will be diagnosed as well.
+
+The processing of the starting points is otherwise as usual, e.g. @code{find}
+will recurse into subdirectories unless otherwise prevented.
+To process only the starting points, one can additionally pass @samp{-maxdepth 0}.
+
+Further notes:
+if a file is listed more than once in the input file, it is unspecified
+whether it is visited more than once.
+If the @file{file} is mutated during the operation of @code{find}, the result
+is unspecified as well.
+Finally, the seek position within the named @samp{file} at the time @code{find}
+exits, be it with @samp{-quit} or in any other way, is also unspecified.
+By "unspecified" here is meant that it may or may not work or do any specific
+thing, and that the behavior may change from platform to platform, or from
+findutils release to release.
+
+Example:
+Given that another program @code{proggy} pre-filters and creates a huge
+NUL-separated list of files, process those as starting points, and find
+all regular, empty files among them:
+@example
+$ proggy | find -files0-from - -maxdepth 0 -type f -empty
+@end example
+The use of @samp{-files0-from -} means to read the names of the starting points
+from standard input, i.e., from the pipe; and @samp{-maxdepth 0} ensures that
+only explicitly those entries are examined without recursing into directories
+(in the case one of the starting points is one).
+@end deffn
 
 
 @node Name
@@ -2822,6 +2907,8 @@ If the user does not agree to run the command, just return false.
 Otherwise, run it, with  standard input redirected from
 @file{/dev/null}.
 
+This action may not be specified together with the @samp{-files0-from} option.
+
 The response to the prompt is matched against a pair of regular
 expressions to determine if it is a yes or no response.  These regular
 expressions are obtained from the system (@code{nl_langinfo} items
@@ -2844,6 +2931,8 @@ is expanded to a relative path starting with the name of one of the
 starting directories, rather than just the basename of the matched
 file.  If the command is run, its standard input is redirected from
 @file{/dev/null}.
+
+This action may not be specified together with the @samp{-files0-from} option.
 @end deffn
 
 When processing multiple files with a single command, to query the
