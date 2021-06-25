@@ -4987,7 +4987,7 @@ It is possible to use the @samp{-printf} action to abandon the use of
 @code{test} entirely:
 
 @smallexample
-newest=$(find subdir -newer timestamp -printf "%A@:%p\n" |
+newest=$(find subdir -newer timestamp -printf "%A@@:%p\n" |
            sort -n |
            tail -n1 |
            cut -d: -f2- )
