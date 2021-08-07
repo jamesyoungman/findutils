@@ -108,6 +108,19 @@ cat /dev/null | returns_ 1 find -files0-from - > out 2> err || fail=1
 compare /dev/null out || fail=1
 grep 'file with starting points is empty:.*standard input' err || fail=1
 
+# With the -files0-from option, now a closing paren could be passed as first
+# predicate (without, it is treated as a starting point).  Ensure that find(1)
+# handles this invalid invocation.
+returns_ 1 find -files0-from - ')' -print < /dev/null > out 2> err || fail=1
+compare /dev/null out || fail=1
+grep "inv.*: expected expression before closing parentheses" err || fail=1
+
+# Likewise in the case find(1) implicitly adds the default action via the
+# artificial '( user-expr ) -print' construct.
+returns_ 1 find -files0-from - ')' < /dev/null > out 2> err || fail=1
+compare /dev/null out || fail=1
+grep "inv.*: expected expression before closing parentheses" err || fail=1
+
 # Now a regular case: 2 files: expect the same output.
 touch a b || framework_failure_
 printf '%s\0' a b > in || framework_failure_

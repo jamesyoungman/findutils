@@ -128,6 +128,14 @@ get_expr (struct predicate **input,
       break;
 
     case CLOSE_PAREN:
+      if (prev_pred == NULL)
+	{
+	  /* Happens with e.g. "find -files0-from - ')' -print" */
+	  die (EXIT_FAILURE, 0,
+	       _("invalid expression: expected expression before closing parentheses '%s'."),
+	       this_pred->p_name);
+	}
+
       if ((UNI_OP == prev_pred->p_type
 	  || BI_OP == prev_pred->p_type)
 	  && !this_pred->artificial)
@@ -180,6 +188,12 @@ get_expr (struct predicate **input,
       *input = (*input)->pred_next;
       if ( (*input)->p_type == CLOSE_PAREN )
 	{
+	  if (prev_pred->artificial)
+	    {
+	      die (EXIT_FAILURE, 0,
+		   _("invalid expression: expected expression before closing parentheses '%s'."),
+		   (*input)->p_name);
+	    }
 	  die (EXIT_FAILURE, 0,
 	       _("invalid expression; empty parentheses are not allowed."));
 	}
