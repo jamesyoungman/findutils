@@ -18,7 +18,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 . "${srcdir=.}/tests/init.sh"; fu_path_prepend_
-print_ver_ find oldfind
+print_ver_ find
 
 # This test is in 'all_root_tests' to get better coverage for file types a
 # regular user cannot create.  Still, it is run during 'make check' as well.
@@ -116,175 +116,171 @@ make_test_data dir \
 find dir -mindepth 1 -ls
 
 fail=0
-for exe in find oldfind; do
 
-  # Negative tests first.  Expect the output to be empty.
-  > exp
+# Negative tests first.  Expect the output to be empty.
+> exp
 
-  # Ensure empty type arguments are rejected.
-  returns_ 1 "${exe}" dir -mindepth 1 -type '' > out 2> err || fail=1
-  compare exp out || fail=1
-  grep 'Arguments to -type should contain at least one letter' err \
-    || { cat err; fail=1; }
+# Ensure empty type arguments are rejected.
+returns_ 1 find dir -mindepth 1 -type '' > out 2> err || fail=1
+compare exp out || fail=1
+grep 'Arguments to -type should contain at least one letter' err \
+  || { cat err; fail=1; }
 
-  returns_ 1 "${exe}" dir -mindepth 1 -xtype '' > out 2> err || fail=1
-  compare exp out || fail=1
-  grep 'Arguments to -xtype should contain at least one letter' err \
-    || { cat err; fail=1; }
+returns_ 1 find dir -mindepth 1 -xtype '' > out 2> err || fail=1
+compare exp out || fail=1
+grep 'Arguments to -xtype should contain at least one letter' err \
+  || { cat err; fail=1; }
 
-  # Ensure non-separated type arguments are rejected.
-  returns_ 1 "${exe}" dir -mindepth 1 -type fd > out 2> err || fail=1
-  compare exp out || fail=1
-  grep 'Must separate multiple arguments to -type' err \
-    || { cat err; fail=1; }
+# Ensure non-separated type arguments are rejected.
+returns_ 1 find dir -mindepth 1 -type fd > out 2> err || fail=1
+compare exp out || fail=1
+grep 'Must separate multiple arguments to -type' err \
+  || { cat err; fail=1; }
 
-  returns_ 1 "${exe}" dir -mindepth 1 -xtype fd > out 2> err || fail=1
-  compare exp out || fail=1
-  grep 'Must separate multiple arguments to -xtype' err \
-    || { cat err; fail=1; }
+returns_ 1 find dir -mindepth 1 -xtype fd > out 2> err || fail=1
+compare exp out || fail=1
+grep 'Must separate multiple arguments to -xtype' err \
+  || { cat err; fail=1; }
 
-  # Ensure unterminated type list arguments are rejected.
-  returns_ 1 "${exe}" dir -mindepth 1 -type f, > out 2> err || fail=1
-  compare exp out || fail=1
-  grep 'Last file type in list argument to -type is missing' err \
-    ||  { cat err; fail=1; }
+# Ensure unterminated type list arguments are rejected.
+returns_ 1 find dir -mindepth 1 -type f, > out 2> err || fail=1
+compare exp out || fail=1
+grep 'Last file type in list argument to -type is missing' err \
+  ||  { cat err; fail=1; }
 
-  returns_ 1 "${exe}" dir -mindepth 1 -xtype f, > out 2> err || fail=1
-  compare exp out || fail=1
-  grep 'Last file type in list argument to -xtype is missing' err \
-    ||  { cat err; fail=1; }
+returns_ 1 find dir -mindepth 1 -xtype f, > out 2> err || fail=1
+compare exp out || fail=1
+grep 'Last file type in list argument to -xtype is missing' err \
+  ||  { cat err; fail=1; }
 
-  # Ensure duplicate entries in the type list arguments are rejected.
-  returns_ 1 "${exe}" dir -mindepth 1 -type f,f > out 2> err || fail=1
-  compare exp out || fail=1
-  grep 'Duplicate file type .* in the argument list to -type' err \
-    ||  { cat err; fail=1; }
+# Ensure duplicate entries in the type list arguments are rejected.
+returns_ 1 find dir -mindepth 1 -type f,f > out 2> err || fail=1
+compare exp out || fail=1
+grep 'Duplicate file type .* in the argument list to -type' err \
+  ||  { cat err; fail=1; }
 
-  returns_ 1 "${exe}" dir -mindepth 1 -xtype f,f > out 2> err || fail=1
-  compare exp out || fail=1
-  grep 'Duplicate file type .* in the argument list to -xtype' err \
-    ||  { cat err; fail=1; }
+returns_ 1 find dir -mindepth 1 -xtype f,f > out 2> err || fail=1
+compare exp out || fail=1
+grep 'Duplicate file type .* in the argument list to -xtype' err \
+  ||  { cat err; fail=1; }
 
-  # Continue with positive tests.
-  # Files only
-  grep -e '/reg$' all > exp
-  "${exe}" dir -type f > out || fail=1
+# Continue with positive tests.
+# Files only
+grep -e '/reg$' all > exp
+find dir -type f > out || fail=1
+sort -o out out
+compare exp out || fail=1;
+
+# Symbolic links only.
+if [ $HAVE_LINK = 1 ]; then
+  grep -e 'link$' all > exp
+  find dir -type l > out || fail=1
   sort -o out out
   compare exp out || fail=1;
 
-  # Symbolic links only.
-  if [ $HAVE_LINK = 1 ]; then
+  grep -e 'dangling-link$' all > exp
+  find dir -xtype l > out || fail=1
+  sort -o out out
+  compare exp out || fail=1;
+fi
 
-    grep -e 'link$' all > exp
-    "${exe}" dir -type l > out || fail=1
-    sort -o out out
-    compare exp out || fail=1;
+# Files and directories.
+grep -e '/reg$' -e '/dir$' all > exp
+find dir -mindepth 1 -type f,d > out || fail=1
+sort -o out out
+compare exp out || fail=1;
 
-    grep -e 'dangling-link$' all > exp
-    "${exe}" dir -xtype l > out || fail=1
-    sort -o out out
-    compare exp out || fail=1;
-  fi
+grep -e '/reg' -e '/dir' all > exp
+find dir -mindepth 1 -xtype f,d > out || fail=1
+sort -o out out
+compare exp out || fail=1;
 
-  # Files and directories.
-  grep -e '/reg$' -e '/dir$' all > exp
-  "${exe}" dir -mindepth 1 -type f,d > out || fail=1
+# Block devices.
+grep -e '/reg$' -e '/dir$' -e '/blk$' all > exp
+find dir -mindepth 1 -type b,f,d > out || fail=1
+sort -o out out
+compare exp out || fail=1;
+
+grep -e '/reg' -e '/dir' -e '/blk' all > exp
+find dir -mindepth 1 -xtype b,f,d > out || fail=1
+sort -o out out
+compare exp out || fail=1;
+
+# Character devices.
+grep -e '/reg$' -e '/dir$' -e '/chr$' all > exp
+find dir -mindepth 1 -type f,c,d > out || fail=1
+sort -o out out
+compare exp out || fail=1;
+
+grep -e '/reg' -e '/dir' -e '/chr' all > exp
+find dir -mindepth 1 -xtype f,c,d > out || fail=1
+sort -o out out
+compare exp out || fail=1;
+
+# FIFOs.
+if [ $HAVE_FIFO = 1 ]; then
+  grep -e '/reg$' -e '/dir$' -e '/fifo$' all > exp
+  find dir -mindepth 1 -type f,d,p > out || fail=1
   sort -o out out
   compare exp out || fail=1;
 
-  grep -e '/reg' -e '/dir' all > exp
-  "${exe}" dir -mindepth 1 -xtype f,d > out || fail=1
+  grep -e '/reg' -e '/dir' -e '/fifo' all > exp
+  find dir -mindepth 1 -xtype f,d,p > out || fail=1
+  sort -o out out
+  compare exp out || fail=1;
+fi
+
+# Sockets.
+if [ $HAVE_SOCK = 1 ]; then
+  grep -e '/reg$' -e '/dir$' -e '/sock$' all > exp
+  find dir -mindepth 1 -type f,d,s > out || fail=1
   sort -o out out
   compare exp out || fail=1;
 
-  # Block devices.
-  grep -e '/reg$' -e '/dir$' -e '/blk$' all > exp
-  "${exe}" dir -mindepth 1 -type b,f,d > out || fail=1
+  grep -e '/reg' -e '/dir' -e '/sock' all > exp
+  find dir -mindepth 1 -xtype f,d,s > out || fail=1
+  sort -o out out
+  compare exp out || fail=1;
+fi
+
+# Symbolic links.
+if [ $HAVE_LINK = 1 ]; then
+  grep -e '/reg$' -e 'link$' all > exp
+  find dir -mindepth 1 -type f,l > out || fail=1
   sort -o out out
   compare exp out || fail=1;
 
-  grep -e '/reg' -e '/dir' -e '/blk' all > exp
-  "${exe}" dir -mindepth 1 -xtype b,f,d > out || fail=1
+  grep -e '/reg' -e 'dangling-link$' all > exp
+  find dir -mindepth 1 -xtype f,l > out || fail=1
   sort -o out out
   compare exp out || fail=1;
+fi
 
-  # Character devices.
-  grep -e '/reg$' -e '/dir$' -e '/chr$' all > exp
-  "${exe}" dir -mindepth 1 -type f,c,d > out || fail=1
+# -xtype: all but the dangling symlink.
+t='f,d,b,c'
+[ $HAVE_FIFO = 1 ] && t="$t,p"
+[ $HAVE_SOCK = 1 ] && t="$t,s"
+[ $HAVE_DOOR = 1 ] && t="$t,D"
+grep -v 'dangling-link$' all > exp
+find dir -mindepth 1 -xtype "$t" > out || fail=1
+sort -o out out
+compare exp out || fail=1;
+
+# negation
+if [ $HAVE_LINK = 1 ]; then
+  find dir -mindepth 1 -not -xtype l > out || fail=1
   sort -o out out
   compare exp out || fail=1;
+fi
 
-  grep -e '/reg' -e '/dir' -e '/chr' all > exp
-  "${exe}" dir -mindepth 1 -xtype f,c,d > out || fail=1
-  sort -o out out
-  compare exp out || fail=1;
+# Finally: full list
+[ $HAVE_LINK = 1 ] && t="$t,l"
+find dir -mindepth 1 -type "$t" > out || fail=1
+sort -o out out
+compare all out || fail=1;
 
-  # FIFOs.
-  if [ $HAVE_FIFO = 1 ]; then
-    grep -e '/reg$' -e '/dir$' -e '/fifo$' all > exp
-    "${exe}" dir -mindepth 1 -type f,d,p > out || fail=1
-    sort -o out out
-    compare exp out || fail=1;
-
-    grep -e '/reg' -e '/dir' -e '/fifo' all > exp
-    "${exe}" dir -mindepth 1 -xtype f,d,p > out || fail=1
-    sort -o out out
-    compare exp out || fail=1;
-  fi
-
-  # Sockets.
-  if [ $HAVE_SOCK = 1 ]; then
-    grep -e '/reg$' -e '/dir$' -e '/sock$' all > exp
-    "${exe}" dir -mindepth 1 -type f,d,s > out || fail=1
-    sort -o out out
-    compare exp out || fail=1;
-
-    grep -e '/reg' -e '/dir' -e '/sock' all > exp
-    "${exe}" dir -mindepth 1 -xtype f,d,s > out || fail=1
-    sort -o out out
-    compare exp out || fail=1;
-  fi
-
-  # Symbolic links.
-  if [ $HAVE_LINK = 1 ]; then
-
-    grep -e '/reg$' -e 'link$' all > exp
-    "${exe}" dir -mindepth 1 -type f,l > out || fail=1
-    sort -o out out
-    compare exp out || fail=1;
-
-    grep -e '/reg' -e 'dangling-link$' all > exp
-    "${exe}" dir -mindepth 1 -xtype f,l > out || fail=1
-    sort -o out out
-    compare exp out || fail=1;
-  fi
-
-  # -xtype: all but the dangling symlink.
-  t='f,d,b,c'
-  [ $HAVE_FIFO = 1 ] && t="$t,p"
-  [ $HAVE_SOCK = 1 ] && t="$t,s"
-  [ $HAVE_DOOR = 1 ] && t="$t,D"
-  grep -v 'dangling-link$' all > exp
-  "${exe}" dir -mindepth 1 -xtype "$t" > out || fail=1
-  sort -o out out
-  compare exp out || fail=1;
-
-  # negation
-  if [ $HAVE_LINK = 1 ]; then
-    "${exe}" dir -mindepth 1 -not -xtype l > out || fail=1
-    sort -o out out
-    compare exp out || fail=1;
-  fi
-
-  # Finally: full list
-  [ $HAVE_LINK = 1 ] && t="$t,l"
-  "${exe}" dir -mindepth 1 -type "$t" > out || fail=1
-  sort -o out out
-  compare all out || fail=1;
-
-  "${exe}" dir -mindepth 1 -xtype "$t" > out || fail=1
-  sort -o out out
-  compare all out || fail=1;
-done
+find dir -mindepth 1 -xtype "$t" > out || fail=1
+sort -o out out
+compare all out || fail=1;
 
 Exit $fail

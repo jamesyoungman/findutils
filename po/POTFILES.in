@@ -9,7 +9,6 @@
 find/exec.c
 find/fstype.c
 find/ftsfind.c
-find/oldfind.c
 find/parser.c
 find/pred.c
 find/print.c

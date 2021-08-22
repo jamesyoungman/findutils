@@ -19,18 +19,16 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 . "${srcdir=.}/tests/init.sh"; fu_path_prepend_
-print_ver_ find oldfind
+print_ver_ find
 
 # Exercise both the previous name of the pseudo-option '-noop',
-# and the now renamed '---noop' option for both find executables.
-for exe in find oldfind; do
-  for opt in 'noop' '--noop'; do
-    rm -f out err || framework_failure_
-    returns_ 1 "$exe" "-${opt}" > out 2> err || fail=1
-    compare /dev/null out || fail=1
-    grep "find: unknown predicate .-${opt}." err \
-      || { cat err; fail=1; }
-  done
+# and the now renamed '---noop' option.
+for opt in 'noop' '--noop'; do
+  rm -f out err || framework_failure_
+  returns_ 1 find "-${opt}" > out 2> err || fail=1
+  compare /dev/null out || fail=1
+  grep "find: unknown predicate .-${opt}." err \
+    || { cat err; fail=1; }
 done
 
 Exit $fail

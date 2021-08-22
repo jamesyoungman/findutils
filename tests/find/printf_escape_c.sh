@@ -17,19 +17,16 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 . "${srcdir=.}/tests/init.sh"; fu_path_prepend_
-print_ver_ find oldfind
+print_ver_ find
 
 echo 'hello^.^world' > exp || framework_failure_
 
-for executable in oldfind find; do
-  rm -f out || framework_failure_
-  $executable . -maxdepth 0 \
-    -printf 'hello^\cthere' \
-    -exec printf %s {} \; \
-    -printf '^world\n' \
-    > out || fail=1
+find . -maxdepth 0 \
+  -printf 'hello^\cthere' \
+  -exec printf %s {} \; \
+  -printf '^world\n' \
+  > out || fail=1
 
-  compare exp out || fail=1
-done
+compare exp out || fail=1
 
 Exit $fail

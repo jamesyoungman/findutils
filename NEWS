@@ -21,6 +21,10 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
   The output of 'find --help' now reads better.
 
+** Changes to the build process
+
+  The find version without FTS, oldfind, has been completely removed.  It has
+  not been installed since 4.5.18 (2015), and was only still used in tests.
 
 * Noteworthy changes in release 4.8.0 (2020-01-09) [stable]
 

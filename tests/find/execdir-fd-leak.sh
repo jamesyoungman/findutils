@@ -19,7 +19,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 . "${srcdir=.}/tests/init.sh"; fu_path_prepend_
-print_ver_ find oldfind
+print_ver_ find
 
 # seq is not required by POSIX, so we have manual lists of number here instead.
 three_to_thirty_five="3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35"
@@ -55,12 +55,10 @@ make_test_data() {
 make_test_data \
   || framework_failure_ "failed to set up the test"
 
-for exe in find oldfind; do
-  ( ulimit -n 30 && \
-    ${exe} . -type f -execdir cat '{}' \; >/dev/null; \
-  ) \
-  || { echo "Option -execdir of ${exe} leaks file descriptors" >&2 ; \
+( ulimit -n 30 && \
+  find . -type f -execdir cat '{}' \; >/dev/null; \
+) \
+  || { echo "Option -execdir leaks file descriptors" >&2 ; \
        fail=1 ; }
-done
 
 Exit $fail

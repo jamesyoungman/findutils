@@ -15,7 +15,7 @@
 ## You should have received a copy of the GNU General Public License
 ## along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-built_programs = find oldfind xargs frcode locate updatedb
+built_programs = find xargs frcode locate updatedb
 
 # Indirections required so that we'll still be able to know the
 # complete list of our tests even if the user overrides TESTS

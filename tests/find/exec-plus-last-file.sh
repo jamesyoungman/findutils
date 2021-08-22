@@ -21,7 +21,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 . "${srcdir=.}/tests/init.sh"; fu_path_prepend_
-print_ver_ find oldfind
+print_ver_ find
 
 # Require seq(1) for this test - which may not be available
 # on some systems, e.g on some *BSDs.
@@ -57,10 +57,8 @@ mkdir "$DIR" \
   || framework_failure_
 
 
-for exe in find oldfind; do
-  "$exe" "$DIR" -type f -exec "$CMD" '{}' + > out || fail=1
-  LC_ALL=C sort out > out2 || fail=1
-  compare exp out2 || fail=1
-done
+find "$DIR" -type f -exec "$CMD" '{}' + > out || fail=1
+LC_ALL=C sort out > out2 || fail=1
+compare exp out2 || fail=1
 
 Exit $fail

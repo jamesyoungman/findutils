@@ -19,7 +19,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 . "${srcdir=.}/tests/init.sh"; fu_path_prepend_
-print_ver_ find oldfind
+print_ver_ find
 
 # Mark as expensive.
 expensive_
@@ -77,18 +77,12 @@ cd ..
 # Create a small directory as reference to determine lower ulimit.
 mkdir dir2 && touch dir2/a dir2/b dir2/c || framework_failure_
 
-# We don't check oldfind, as it uses savedir, meaning that
-# it stores all the directory entries.  Hence the excessive
-# memory consumption bug applies to oldfind even though it is
-# not using fts.
-for exe in find oldfind; do
-  # Determine memory consumption for the trivial case.
-  vm="$(get_min_ulimit_v_ ${exe} dir2 -fprint dummy)" \
-    || skip_ "this shell lacks ulimit support"
+# Determine memory consumption for the trivial case.
+vm="$(get_min_ulimit_v_ find dir2 -fprint dummy)" \
+  || skip_ "this shell lacks ulimit support"
 
-  # Allow 35MiB more memory than above.
-  ( ulimit -v $(($vm + 35000)) && ${exe} dir >/dev/null ) \
-    || { echo "${exe}: memory consumption is too high" >&2; fail=1; }
-done
+# Allow 35MiB more memory than above.
+( ulimit -v $(($vm + 35000)) && find dir >/dev/null ) \
+  || { echo "memory consumption is too high" >&2; fail=1; }
 
 Exit $fail

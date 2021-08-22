@@ -363,10 +363,7 @@ the nature of the input arguments which is in fact not true for the
 context of the now duplicated code.
 
 A good example of the use of refactoring in findutils is the
-@code{collect_arg} function in @file{find/parser.c}.  A less clear-cut
-but larger example is the factoring out of code which would otherwise
-have been duplicated between @file{find/oldfind.c} and
-@code{find/ftsfind.c}.
+@code{collect_arg} function in @file{find/parser.c}.
 
 The findutils test suite is comprehensive enough that refactoring code
 should not generally be a daunting prospect from a testing point of

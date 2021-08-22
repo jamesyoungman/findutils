@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 . "${srcdir=.}/tests/init.sh"; fu_path_prepend_
-print_ver_ find oldfind
+print_ver_ find
 
 # Check for working od(1).
 echo test | od -c >/dev/null \
@@ -54,33 +54,29 @@ _EOD_
 # Prepare expected stderr.
 echo "warning: unrecognized escape" > experr || framework_failure_
 
-for executable in oldfind find; do
-  rm -f out* err* || framework_failure_
+find . -maxdepth 0 \
+  -printf 'OCTAL1: \1\n' \
+  -printf 'OCTAL2: \02\n' \
+  -printf 'OCTAL3: \003\n' \
+  -printf 'OCTAL4: \0044\n' \
+  -printf 'OCTAL8: \0028\n' \
+  -printf 'BEL: \a\n' \
+  -printf 'CR: \r\n' \
+  -printf 'FF: \f\n' \
+  -printf 'TAB: \t\n' \
+  -printf 'VTAB: \v\n' \
+  -printf 'BS: \b\n' \
+  -printf 'BACKSLASH: \\\n' \
+  -printf 'UNKNOWN: \z\n' \
+  > out 2> err || fail=1
 
-  $executable . -maxdepth 0 \
-    -printf 'OCTAL1: \1\n' \
-    -printf 'OCTAL2: \02\n' \
-    -printf 'OCTAL3: \003\n' \
-    -printf 'OCTAL4: \0044\n' \
-    -printf 'OCTAL8: \0028\n' \
-    -printf 'BEL: \a\n' \
-    -printf 'CR: \r\n' \
-    -printf 'FF: \f\n' \
-    -printf 'TAB: \t\n' \
-    -printf 'VTAB: \v\n' \
-    -printf 'BS: \b\n' \
-    -printf 'BACKSLASH: \\\n' \
-    -printf 'UNKNOWN: \z\n' \
-    > out 2> err || fail=1
+# Some 'od' implementations (e.g. on the *BSDs) produce different indentation
+# and trailing spaces, therefore squeeze the former and remove the latter.
+od -t o1 < out | sed 's/  */ /g; s/ *$//;' > out2 || framework_failure_
+compare expout out2 || fail=1
 
-  # Some 'od' implementations (e.g. on the *BSDs) produce different indentation
-  # and trailing spaces, therefore squeeze the former and remove the latter.
-  od -t o1 < out | sed 's/  */ /g; s/ *$//;' > out2 || framework_failure_
-  compare expout out2 || fail=1
-
-  sed 's/^.*\(warning: unrecognized escape\) .*$/\1/' err > err2 \
-    || framework_failure_
-  compare experr err2 || fail=1
-done
+sed 's/^.*\(warning: unrecognized escape\) .*$/\1/' err > err2 \
+  || framework_failure_
+compare experr err2 || fail=1
 
 Exit $fail

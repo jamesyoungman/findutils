@@ -138,14 +138,6 @@ struct perm_val
   mode_t val[2];
 };
 
-/* dir_id is used to support loop detection in oldfind.c
- */
-struct dir_id
-{
-  ino_t ino;
-  dev_t dev;
-};
-
 /* samefile_file_id is used to support the -samefile test.
  */
 struct samefile_file_id
@@ -346,14 +338,13 @@ struct predicate
   const struct parser_table* parser_entry;
 };
 
-/* oldfind.c, ftsfind.c */
+/* ftsfind.c */
 bool is_fts_enabled(int *ftsoptions);
 
 /* find library function declarations.  */
 
 /* find global function declarations.  */
 
-/* oldfind.c */
 /* SymlinkOption represents the choice of
  * -P, -L or -P (default) on the command line.
  */
@@ -363,7 +354,6 @@ enum SymlinkOption
     SYMLINK_ALWAYS_DEREF,	/* Option -L */
     SYMLINK_DEREF_ARGSONLY	/* Option -H */
   };
-extern enum SymlinkOption symlink_handling; /* defined in oldfind.c. */
 
 void set_follow_state (enum SymlinkOption opt);
 void cleanup(void);
@@ -528,7 +518,7 @@ bool apply_predicate(const char *pathname, struct stat *stat_buf, struct predica
 # define pred_is(node, fn) ( ((node)->pred_func) == (fn) )
 
 
-/* oldfind.c. */
+/* util.c. */
 int get_info (const char *pathname, struct stat *p, struct predicate *pred_ptr);
 bool following_links (void);
 bool digest_mode (mode_t *mode, const char *pathname, const char *name, struct stat *pstat, bool leaf);

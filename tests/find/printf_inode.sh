@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 . "${srcdir=.}/tests/init.sh"; fu_path_prepend_
-print_ver_ find oldfind
+print_ver_ find
 
 make_canonical() {
   sed -e '
@@ -33,11 +33,9 @@ make_canonical() {
 # Let ls(1) create the expected output.
 ls -i file | make_canonical > exp || framework_failure_
 
-for executable in oldfind find; do
-  rm -f out out2
-  $executable file -printf '%i_%p\n' > out || fail=1
-  make_canonical < out > out2 || framework_failure_
-  compare exp out2 || fail=1
-done
+rm -f out out2
+find file -printf '%i_%p\n' > out || fail=1
+make_canonical < out > out2 || framework_failure_
+compare exp out2 || fail=1
 
 Exit $fail

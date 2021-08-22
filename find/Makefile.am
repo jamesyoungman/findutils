@@ -20,13 +20,10 @@ localedir = $(datadir)/locale
 noinst_LIBRARIES = libfindtools.a
 libfindtools_a_SOURCES = finddata.c fstype.c parser.c pred.c exec.c tree.c util.c sharefile.c print.c
 
-# We always build two versions of find, one with fts (called "find"),
-# one without (called "oldfind").  The oldfind binary is no longer
-# installed.
+# We only build the version of find with fts (called "find"),
+# i.e., no longer the one called "oldfind".
 bin_PROGRAMS     = find
-check_PROGRAMS   = oldfind
 find_SOURCES     = ftsfind.c
-oldfind_SOURCES  = oldfind.c
 man_MANS         = find.1
 
 EXTRA_DIST = defs.h sharefile.h print.h $(man_MANS)

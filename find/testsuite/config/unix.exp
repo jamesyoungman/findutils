@@ -20,39 +20,28 @@
 # written by Rob Savoye <rob@cygnus.com>.
 
 
-global OLDFIND
 global FTSFIND
 
 verbose "base_dir is $base_dir" 2
 global env;
 set env(GNU_FINDUTILS_FD_LEAK_CHECK) "1"
 
-# look for OLDFIND and FTSFIND
-if { ![info exists OLDFIND] || ![info exists FTSFIND] } {
-    verbose "Searching for oldfind"
+# look for FTSFIND
+if { ![info exists FTSFIND] } {
+    verbose "Searching for find"
     set dir "$base_dir/.."
 
     set objfile "ftsfind.o"
     if ![file exists "$dir/$objfile"] then {
 	error "dir is $dir, but I cannot see $objfile in that directory"
     }
-    set OLDFIND [findfile $dir/oldfind $dir/oldfind [transform oldfind]]
     set FTSFIND [findfile $dir/find    $dir/find    [transform find   ]]
 }
 
 verbose "ftsfind is at $FTSFIND" 2
-verbose "oldfind is at $OLDFIND" 2
-
-if { [ string equal $FTSFIND $OLDFIND ] } {
-    error "OLDFIND and FTSFIND are set to $FTSFIND, which can't be right"
-}
 
 if [file exists $FTSFIND] then {
-    if [file exists $OLDFIND] then {
-	verbose "FTSFIND=$FTSFIND and OLDFIND=$OLDFIND both exist." 2
-    } else {
-	error "OLDFIND=$OLDFIND, but that program does not exist"
-    }
+    verbose "FTSFIND=$FTSFIND exists." 2
 } else {
     error "FTSFIND=$FTSFIND, but that program does not exist (base_dir is $base_dir)"
 }
@@ -198,10 +187,8 @@ proc optimisation_levels_to_test {} {
 }
 
 proc find_start { passfail options {infile ""} {output ""} {setup ""}} {
-    global OLDFIND
     global FTSFIND
     global FINDFLAGS
-    global SKIP_OLD
     global SKIP_NEW
 
     if {$infile != ""} then {
@@ -214,18 +201,10 @@ proc find_start { passfail options {infile ""} {output ""} {setup ""}} {
 	error "$FTSFIND, program does not exist"
 	exit 1
     }
-    if {[which $OLDFIND] == 0} then {
-	error "$OLDFIND, program does not exist"
-	exit 1
-    }
 
     # Now run the test with each binary, once with each optimisation level.
     foreach optlevel [optimisation_levels_to_test] {
 	set flags "$FINDFLAGS -O$optlevel"
-	if { ![info exists SKIP_OLD] || ! $SKIP_OLD } {
-	    eval $setup
-	    do_find_start old-O$optlevel  $OLDFIND $flags $passfail $options $infile $output
-	}
 	if { ![info exists SKIP_NEW] || !$SKIP_NEW } {
 	    eval $setup
 	    do_find_start new-O$optlevel  $FTSFIND $flags $passfail $options $infile $output

@@ -19,14 +19,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 . "${srcdir=.}/tests/init.sh"; fu_path_prepend_
-print_ver_ find oldfind
+print_ver_ find
 
-# Exercise both find executables.
-for exe in find oldfind; do
-  rm -f out err || framework_failure_
-  returns_ 1 "$exe" -D >/dev/null 2> err || fail=1
-  grep -F "find: Missing argument after the -D option." err \
-    || { cat err; fail=1; }
-done
+returns_ 1 find -D >/dev/null 2> err || fail=1
+grep -F "find: Missing argument after the -D option." err \
+  || { cat err; fail=1; }
 
 Exit $fail
