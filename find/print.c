@@ -1029,7 +1029,7 @@ do_fprintf (struct format_val *dest,
                 if (linkname == NULL)
                   {
                     nonfatal_target_file_error (errno, pathname);
-                    state.exit_status = 1;
+                    state.exit_status = EXIT_FAILURE;
                   }
               }
             if (linkname)
@@ -1198,7 +1198,7 @@ do_fprintf (struct format_val *dest,
                         checked_fprintf (dest, segment->text, "?");
                         error (0, errno, "%s",
                                safely_quote_err_filename (0, pathname));
-                        /* exit_status = 1;
+                        /* exit_status = EXIT_FAILURE;
                            return ; */
                         break;
                       }
@@ -1237,7 +1237,7 @@ do_fprintf (struct format_val *dest,
 
                 error (0, errno, _("getfilecon failed: %s"),
                     safely_quote_err_filename (0, pathname));
-                state.exit_status = 1;
+                state.exit_status = EXIT_FAILURE;
               }
             else
               {

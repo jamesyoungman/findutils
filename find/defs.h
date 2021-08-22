@@ -517,7 +517,6 @@ void nonfatal_nontarget_file_error (int errno_value, const char *name);
 
 int process_leading_options (int argc, char *argv[]);
 void set_option_defaults (struct options *p);
-void error_severity (int level);
 
 # if 0
 #  define apply_predicate(pathname, stat_buf_ptr, node)	\

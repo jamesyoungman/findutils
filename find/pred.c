@@ -269,7 +269,7 @@ pred_delete (const char *pathname, struct stat *stat_buf, struct predicate *pred
        * seems somewhat arbitrary and confusing.  So, as of
        * findutils-4.3.11, we also set the exit status in this case.
        */
-      state.exit_status = 1;
+      state.exit_status = EXIT_FAILURE;
       return false;
     }
   else
@@ -300,14 +300,14 @@ pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 			| O_CLOEXEC | O_DIRECTORY | O_NOCTTY | O_NONBLOCK)) < 0)
 	{
 	  error (0, errno, "%s", safely_quote_err_filename (0, pathname));
-	  state.exit_status = 1;
+	  state.exit_status = EXIT_FAILURE;
 	  return false;
 	}
       d = fdopendir (fd);
       if (d == NULL)
 	{
 	  error (0, errno, "%s", safely_quote_err_filename (0, pathname));
-	  state.exit_status = 1;
+	  state.exit_status = EXIT_FAILURE;
 	  close (fd);
 	  return false;
 	}
@@ -328,14 +328,14 @@ pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 	{
 	  /* Handle errors from readdir(3). */
 	  error (0, errno, "%s", safely_quote_err_filename (0, pathname));
-	  state.exit_status = 1;
+	  state.exit_status = EXIT_FAILURE;
 	  CLOSEDIR (d);
 	  return false;
 	}
       if (CLOSEDIR (d))
 	{
 	  error (0, errno, "%s", safely_quote_err_filename (0, pathname));
-	  state.exit_status = 1;
+	  state.exit_status = EXIT_FAILURE;
 	  return false;
 	}
       return (empty);
@@ -574,7 +574,7 @@ match_lname (const char *pathname, struct stat *stat_buf, struct predicate *pred
       else
 	{
 	  nonfatal_target_file_error (errno, pathname);
-	  state.exit_status = 1;
+	  state.exit_status = EXIT_FAILURE;
 	}
       free (linkname);
     }
@@ -1150,7 +1150,7 @@ pred_xtype (const char *pathname, struct stat *stat_buf, struct predicate *pred_
       else
 	{
 	  error (0, errno, "%s", safely_quote_err_filename (0, pathname));
-	  state.exit_status = 1;
+	  state.exit_status = EXIT_FAILURE;
 	}
       return false;
     }

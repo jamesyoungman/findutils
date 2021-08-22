@@ -347,7 +347,7 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
 	{
 	  error (0, errno, _("error waiting for %s"),
 		 safely_quote_err_filename (0, argv[0]));
-	  state.exit_status = 1;
+	  state.exit_status = EXIT_FAILURE;
 	  return 0;		/* FAIL */
 	}
     }
@@ -364,7 +364,7 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
 	   * -exec {} + returns true if the invoked command fails, but
 	   *            sets the program exit status.
 	   */
-	  state.exit_status = 1;
+	  state.exit_status = EXIT_FAILURE;
 	}
 
       return 1;			/* OK */
@@ -392,7 +392,7 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
 	   * -exec {} + returns true if the invoked command fails, but
 	   *            sets the program exit status.
 	   */
-	  state.exit_status = 1;
+	  state.exit_status = EXIT_FAILURE;
 	}
       /* The child failed, but this is the exec callback.  We
        * don't want to run the child again in this case anwyay.

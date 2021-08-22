@@ -254,7 +254,7 @@ get_statinfo (const char *pathname, const char *name, struct stat *p)
 	      /* Savannah bug #16378. */
 	      error (0, 0, _("WARNING: file %s appears to have mode 0000"),
 		     quotearg_n_style (0, options.err_quoting_style, name));
-	      error_severity (1);
+	      state.exit_status = EXIT_FAILURE;
 	    }
 	}
       else
@@ -1124,19 +1124,6 @@ safely_quote_err_filename (int n, char const *arg)
   return quotearg_n_style (n, options.err_quoting_style, arg);
 }
 
-/* We have encountered an error which should affect the exit status.
- * This is normally used to change the exit status from 0 to 1.
- * However, if the exit status is already 2 for example, we don't want to
- * reduce it to 1.
- */
-void
-error_severity (int level)
-{
-  if (state.exit_status < level)
-    state.exit_status = level;
-}
-
-
 /* report_file_err
  */
 static void
@@ -1150,7 +1137,7 @@ report_file_err(int exitval, int errno_value,
   if (!is_target_file || !state.already_issued_stat_error_msg)
     {
       error (exitval, errno_value, "%s", safely_quote_err_filename (0, name));
-      error_severity (1);
+      state.exit_status = EXIT_FAILURE;
     }
   if (is_target_file)
     {

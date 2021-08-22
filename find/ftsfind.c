@@ -319,7 +319,7 @@ consider_visiting (FTS *p, FTSENT *ent)
   else if (ent->fts_info == FTS_DC)
     {
       issue_loop_warning (ent);
-      error_severity (EXIT_FAILURE);
+      state.exit_status = EXIT_FAILURE;
       return;
     }
   else if (ent->fts_info == FTS_SLNONE)
@@ -508,7 +508,7 @@ find (char *arg)
     {
       error (0, errno, _("cannot search %s"),
 	     safely_quote_err_filename (0, arg));
-      error_severity (EXIT_FAILURE);
+      state.exit_status = EXIT_FAILURE;
     }
   else
     {
@@ -541,7 +541,7 @@ find (char *arg)
 	  error (0, errno,
 		 "failed to read file names from file system at or below %s",
 		 safely_quote_err_filename (0, arg));
-	  error_severity (EXIT_FAILURE);
+	  state.exit_status = EXIT_FAILURE;
 	  return false;
 	}
 
@@ -554,7 +554,7 @@ find (char *arg)
 	  error (0, errno,
 		 _("failed to restore working directory after searching %s"),
 		 arg);
-	  error_severity (EXIT_FAILURE);
+	  state.exit_status = EXIT_FAILURE;
 	  return false;
 	}
       p = NULL;
@@ -666,7 +666,7 @@ process_all_startpoints (int argc, char *argv[])
               goto argv_iter_done;
             case AI_ERR_READ:  /* may only happen with -files0-from  */
               error (0, errno, _("%s: read error"), files0_filename_quoted);
-              state.exit_status = 1;
+              state.exit_status = EXIT_FAILURE;
               ok = false;
               goto argv_iter_done;
             case AI_ERR_MEM:
@@ -694,7 +694,7 @@ process_all_startpoints (int argc, char *argv[])
               error (0, 0, "%s:%lu: %s", files0_filename_quoted, file_number,
                      _("invalid zero-length file name"));
             }
-          state.exit_status = 1;
+          state.exit_status = EXIT_FAILURE;
           ok = false;
           continue;
         }
@@ -742,7 +742,7 @@ main (int argc, char **argv)
   record_initial_cwd ();
 
   state.already_issued_stat_error_msg = false;
-  state.exit_status = 0;
+  state.exit_status = EXIT_SUCCESS;
   state.execdirs_outstanding = false;
   state.cwd_dir_fd = AT_FDCWD;
 
