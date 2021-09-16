@@ -24,6 +24,7 @@ top_srcdir="$1"
     --srcdir="${top_srcdir}" \
     --amend="${top_srcdir}/build-aux/git-log-fix" \
     --ignore-matching='IGNORE_THIS' \
+    --no-cluster \
     --since='2014-01-01' \
     --strip-cherry-pick \
   && cat "${top_srcdir}/ChangeLog-2013"
