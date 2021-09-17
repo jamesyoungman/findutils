@@ -171,36 +171,40 @@ Usage: %s [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]\n"),
            program_name);
 
   HTL (_("\n\
-default path is the current directory; default expression is -print\n\
-expression may consist of: operators, options, tests, and actions:\n"));
-  HTL (_("\
-operators (decreasing precedence; -and is implicit where no others are given):\n\
+Default path is the current directory; default expression is -print.\n\
+Expression may consist of: operators, options, tests, and actions.\n"));
+  HTL (_("\n\
+Operators (decreasing precedence; -and is implicit where no others are given):\n\
       ( EXPR )   ! EXPR   -not EXPR   EXPR1 -a EXPR2   EXPR1 -and EXPR2\n\
       EXPR1 -o EXPR2   EXPR1 -or EXPR2   EXPR1 , EXPR2\n"));
-  HTL (_("\
-positional options (always true): -daystart -follow -regextype\n\n\
-normal options (always true, specified before other expressions):\n\
-      -depth --help -files0-from FILE -maxdepth LEVELS -mindepth LEVELS\n\
-      -mount -noleaf --version -xdev -ignore_readdir_race\n\
-      -noignore_readdir_race\n"));
-  HTL (_("\
-tests (N can be +N or -N or N): -amin N -anewer FILE -atime N -cmin N\n\
-      -cnewer FILE -ctime N -empty -false -fstype TYPE -gid N -group NAME\n\
-      -ilname PATTERN -iname PATTERN -inum N -iwholename PATTERN -iregex PATTERN\n\
-      -links N -lname PATTERN -mmin N -mtime N -name PATTERN -newer FILE"));
   HTL (_("\n\
+Positional options (always true):\n\
+      -daystart -follow -nowarn -regextype -warn\n"));
+  HTL (_("\n\
+Normal options (always true, specified before other expressions):\n\
+      -depth -files0-from FILE -maxdepth LEVELS -mindepth LEVELS\n\
+       -mount -noleaf -xdev -ignore_readdir_race -noignore_readdir_race\n"));
+  HTL (_("\n\
+Tests (N can be +N or -N or N):\n\
+      -amin N -anewer FILE -atime N -cmin N -cnewer FILE -context CONTEXT\n\
+      -ctime N -empty -false -fstype TYPE -gid N -group NAME -ilname PATTERN\n\
+      -iname PATTERN -inum N -iwholename PATTERN -iregex PATTERN\n\
+      -links N -lname PATTERN -mmin N -mtime N -name PATTERN -newer FILE\n\
       -nouser -nogroup -path PATTERN -perm [-/]MODE -regex PATTERN\n\
       -readable -writable -executable\n\
       -wholename PATTERN -size N[bcwkMG] -true -type [bcdpflsD] -uid N\n\
-      -used N -user NAME -xtype [bcdpfls]"));
-  HTL (_("\
-      -context CONTEXT\n"));
+      -used N -user NAME -xtype [bcdpfls]\n"));
   HTL (_("\n\
-actions: -delete -print0 -printf FORMAT -fprintf FILE FORMAT -print \n\
+Actions:\n\
+      -delete -print0 -printf FORMAT -fprintf FILE FORMAT -print \n\
       -fprint0 FILE -fprint FILE -ls -fls FILE -prune -quit\n\
       -exec COMMAND ; -exec COMMAND {} + -ok COMMAND ;\n\
-      -execdir COMMAND ; -execdir COMMAND {} + -okdir COMMAND ;\n\
-\n"));
+      -execdir COMMAND ; -execdir COMMAND {} + -okdir COMMAND ;\n"));
+
+  HTL (_("\n\
+Other common options:\n"));
+  HTL (_("      --help                   display this help and exit\n"));
+  HTL (_("      --version                output version information and exit\n\n"));
 
   show_valid_debug_options (0);
   HTL (_("\n\
