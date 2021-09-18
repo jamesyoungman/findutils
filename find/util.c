@@ -114,7 +114,7 @@ insert_primary_withpred (const struct parser_table *entry,
    p_prec	    NO_PREC
 
    Other cells that need to be filled in are defaulted by
-   get_new_pred_chk_op, which is used to insure that the prior node is
+   get_new_pred_chk_op, which is used to ensure that the prior node is
    either not there at all (we are the very first node) or is an
    operator. */
 struct predicate *
@@ -1195,7 +1195,7 @@ nonfatal_nontarget_file_error (int errno_value, const char *name)
 void
 fatal_nontarget_file_error(int errno_value, const char *name)
 {
-  /* We're going to exit fatally, so make sure we always isssue the error
+  /* We're going to exit fatally, so make sure we always issue the error
    * message, even if it will be duplicate.   Motivation: otherwise it may
    * not be clear what went wrong.
    */

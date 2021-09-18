@@ -140,7 +140,7 @@ get_expr (struct predicate **input,
 	  || BI_OP == prev_pred->p_type)
 	  && !this_pred->artificial)
 	{
-	  /* e.g. "find \( -not \)" or "find \( -true -a \" */
+	  /* e.g. "find \( -not \)" or "find \( -true -a \)" */
 	  die (EXIT_FAILURE, 0,
 	       _("expected an expression between '%s' and ')'"),
 	       prev_pred->p_name);

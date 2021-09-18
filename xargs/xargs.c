@@ -200,7 +200,7 @@ static struct option const longopts[] =
 */
 enum XargsStatusValues {
   XARGS_EXIT_CLIENT_EXIT_NONZERO = 123, /* utility exited with nonzero status */
-  XARGS_EXIT_CLIENT_EXIT_255 = 124,     /* utility exites with status 255 */
+  XARGS_EXIT_CLIENT_EXIT_255 = 124,     /* utility exited with status 255 */
   XARGS_EXIT_CLIENT_FATAL_SIG = 125,    /* utility died from a fatal signal */
   XARGS_EXIT_COMMAND_CANNOT_BE_RUN = 126, /* canot run the command */
   XARGS_EXIT_COMMAND_NOT_FOUND = 127,	  /* cannot find the command */
