@@ -533,7 +533,7 @@ is case-insensitive.
 
 
 In the context of the tests @samp{-path}, @samp{-wholename},
-@samp{-ipath} and @samp{-wholename}, a ``full path'' is the name of
+@samp{-ipath} and @samp{-iwholename}, a ``full path'' is the name of
 all the directories traversed from @code{find}'s start point to the
 file being tested, followed by the base name of the file itself.
 These paths are often not absolute paths; for example
