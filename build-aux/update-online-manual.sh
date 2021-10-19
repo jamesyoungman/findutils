@@ -31,7 +31,6 @@ EOF
 }
 
 checkfiles="CVS dvi ${TEXIBASE}.html html_node html_mono info ps texi text ${TEXIBASE}.pdf"
-targets="dvi html info pdf ${TEXIBASE}.ps ${TEXIBASE}.txt ${PACKAGE}.texi_html_node.tar.gz ${TEXIBASE}_mono.html ${TEXIBASE}.texi.tar.gz ${TEXIBASE}-info.tar.gz"
 
 if [ $# -ne 1 ]; then
 	usage >&2
@@ -69,9 +68,8 @@ if [ -d "$BUILDDIR/doc" ]; then
 else
     echo "No." >&2 ; exit 1
 fi
-BUILDDIR="$BUILDDIR"/doc
 
-printf "Does the (doc) build directory have a Makefile?  "
+printf "Does the build directory have a Makefile?  "
 if [ -f "$BUILDDIR"/Makefile ]; then
     echo Yes.
 else
@@ -83,12 +81,12 @@ fi
 ## Figure out where the source code lives by asking Make.
 ##
 REL_SRCDIR="$(cd $BUILDDIR && grep '^srcdir =' Makefile | cut -d= -f2)"
-echo Build directory is $BUILDDIR.
-echo Relative path to source directory is $REL_SRCDIR
+echo "Build directory: '$BUILDDIR'"
+echo "Relative path to source directory: '$REL_SRCDIR'"
 
 SRCDIR="$(cd $BUILDDIR && cd $REL_SRCDIR && /bin/pwd)"
 unset REL_SRCDIR
-echo Source directory is $SRCDIR.
+echo "Source directory: '$SRCDIR'"
 
 
 if true
@@ -97,42 +95,30 @@ then
     ## Build (most of) the files we need.
     ## We collect them from the build directory afterwards.
     ##
-    make -C "$BUILDDIR" $targets
-    cp ${BUILDDIR}/${TEXIBASE}.texi.tar.gz texi/${TEXIBASE}.texi.tar.gz
-    cp ${BUILDDIR}/${TEXIBASE}-info.tar.gz info/${TEXIBASE}-info.tar.gz
-
-    echo Collecting the PostScript file...
-    rm -f ps/${TEXIBASE}.ps.gz
-    gzip -9 < ${BUILDDIR}/${TEXIBASE}.ps > ps/${TEXIBASE}.ps.gz
+    make -C "$BUILDDIR" web-manual
+    cp ${BUILDDIR}/doc/manual/${TEXIBASE}.texi.tar.gz texi/${TEXIBASE}.texi.tar.gz
+    cp ${BUILDDIR}/doc/manual/${TEXIBASE}.info.tar.gz info/${TEXIBASE}-info.tar.gz
 
     echo Collecting the DVI file...
-    cp  $BUILDDIR/${TEXIBASE}.dvi dvi/
-    rm dvi/${TEXIBASE}.dvi.gz
-    gzip -9 dvi/${TEXIBASE}.dvi
+    cp  $BUILDDIR/doc/manual/${TEXIBASE}.dvi.gz dvi/${TEXIBASE}.dvi.gz
 
     echo Collecting the PDF file...
-    cp  $BUILDDIR/${TEXIBASE}.pdf .
+    cp  $BUILDDIR/doc/manual/${TEXIBASE}.pdf .
 
     echo "Collecting the text files (compressed and uncompressed)..."
-    rm -f text/${TEXIBASE}.txt text/${TEXIBASE}.txt.gz
-    cp $BUILDDIR/${TEXIBASE}.txt text/
-    gzip -9 text/${TEXIBASE}.txt
-    cp $BUILDDIR/${TEXIBASE}.txt text/
+    cp $BUILDDIR/doc/manual/${TEXIBASE}.txt text
+    cp $BUILDDIR/doc/manual/${TEXIBASE}.txt.gz text
 
     echo "Collecting the all-in-one-file HTML (compressed and uncompressed)..."
-    rm -f html_mono/${TEXIBASE}.html html_mono/${TEXIBASE}.html.gz
-    cp $BUILDDIR/${TEXIBASE}_mono.html html_mono/${TEXIBASE}.html
-    gzip -9 html_mono/${TEXIBASE}.html
-    cp $BUILDDIR/${TEXIBASE}_mono.html html_mono/${TEXIBASE}.html
-
+    cp $BUILDDIR/doc/manual/${TEXIBASE}.html html_mono
+    cp $BUILDDIR/doc/manual/${TEXIBASE}.html.gz html_mono
 
     echo "Collecting the file-per-node HTML tar file..."
-    rm -f html_node/${PACKAGE}.texi_html_node.tar.gz
     find html_node/${TEXIBASE}_html -name '*.html' -type f -delete
-    cp $BUILDDIR/${PACKAGE}.texi_html_node.tar.gz html_node/
+    cp $BUILDDIR/doc/manual/${TEXIBASE}.html_node.tar.gz html_node/${PACKAGE}.texi_html_node.tar.gz
 
     echo "Unpacking the node-per-node HTML tar file..."
-    ( cd html_node && tar zxf ${PACKAGE}.texi_html_node.tar.gz && mv ${TEXIBASE}.html/*.html ${TEXIBASE}_html )
+    (set -x; cd html_node/${TEXIBASE}_html&& tar -zxf ../${PACKAGE}.texi_html_node.tar.gz )
 
 fi
 
@@ -194,9 +180,6 @@ This manual is available in the following formats:
   </LI>
   <LI>
       $(linkfor "dvi/${TEXIBASE}.dvi.gz" "gzipped" "a TeX dvi file")
-  </LI>
-  <LI>
-      $(linkfor "ps/${TEXIBASE}.ps.gz" "gzipped characters" "a PostScript file")
   </LI>
   <LI>
       $(linkfor "${TEXIBASE}.pdf" "PDF file" PDF)

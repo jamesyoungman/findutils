@@ -21,6 +21,8 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
   The output of 'find --help' now reads better.
 
+  The HTML online manual is using the official GNU stylesheet again.
+
 ** Changes to the build process
 
   The find version without FTS, oldfind, has been completely removed.  It has
