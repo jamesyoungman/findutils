@@ -613,12 +613,25 @@ Savannah you should be able to check the web pages out like this
 (@samp{$USER} is a placeholder for your Savannah username):
 
 @smallexample
-cvs -d  :ext:$USER@@cvs.savannah.gnu.org:/web/findutils checkout findutils/manual
+cvs -d :ext:$USER@@cvs.savannah.gnu.org:/web/findutils checkout findutils/manual
 @end smallexample
 
 You can automatically update the documentation in this repository
-using the script @samp{build-aux/update-online-manual.sh} in the
-findutils Git repository.
+by using the script @samp{build-aux/update-online-manual.sh} with the
+path to the findutils Git repository as parameter.
+
+@smallexample
+build-aux/update-online-manual.sh $HOME/git/findutils
+@end smallexample
+
+That script will generate the documentation in the directory
+@samp{doc/manual/}
+by calling the @code{make} target @samp{web-manual};
+then it will copy over the files into the CVS checkout.
+
+There you can check the documentation once again before committing
+to CVS.  The Savannah CVS server will automatically initiate the
+transfer to the web server.
 
 @section Build Guidance
 
