@@ -410,8 +410,12 @@ The starting points in @file{file} have to be separated by ASCII NUL characters.
 Two consecutive NUL characters, i.e., a starting point with a Zero-length
 file name is not allowed and will lead to an error diagnostic followed by
 a non-Zero exit code later.
-The given @file{file} has to contain at least one starting point,
-i.e., an empty input file will be diagnosed as well.
+
+In the case the given @file{file} is empty, @code{find} does not process any
+starting point and therefore will exit immediately after parsing the program
+arguments.
+This is unlike the standard invocation where @code{find} assumes the current
+directory as starting point if no path argument is passed.
 
 The processing of the starting points is otherwise as usual, e.g. @code{find}
 will recurse into subdirectories unless otherwise prevented.

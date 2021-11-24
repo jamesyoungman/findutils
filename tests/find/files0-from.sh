@@ -94,19 +94,19 @@ returns_ 1 find -files0-from / > out 2> err \
   || { grep . out err; fail=1; }
 
 # Exercise an empty input file.
-returns_ 1 find -files0-from /dev/null > out 2> err || fail=1
+find -files0-from /dev/null > out 2> err || fail=1
 compare /dev/null out || fail=1
-grep 'file with starting points is empty:' err || fail=1
+compare /dev/null err || fail=1
 
 # Likewise via stdin.
-returns_ 1 find -files0-from - < /dev/null > out 2> err || fail=1
+find -files0-from - < /dev/null > out 2> err || fail=1
 compare /dev/null out || fail=1
-grep 'file with starting points is empty:.*standard input' err || fail=1
+compare /dev/null err || fail=1
 
 # Likewise via a pipe on stdin.
-cat /dev/null | returns_ 1 find -files0-from - > out 2> err || fail=1
+cat /dev/null | find -files0-from - > out 2> err || fail=1
 compare /dev/null out || fail=1
-grep 'file with starting points is empty:.*standard input' err || fail=1
+compare /dev/null err || fail=1
 
 # With the -files0-from option, now a closing paren could be passed as first
 # predicate (without, it is treated as a starting point).  Ensure that find(1)

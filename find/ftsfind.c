@@ -713,10 +713,6 @@ process_all_startpoints (int argc, char *argv[])
     }
  argv_iter_done:
 
-  if (ok && options.files0_from && argv_iter_n_args (ai) <= 0)
-    die (EXIT_FAILURE, 0, _("file with starting points is empty: %s"),
-         files0_filename_quoted);
-
   argv_iter_free (ai);
 
   if (ok && options.files0_from && (ferror (stream) || fclose (stream) != 0))
