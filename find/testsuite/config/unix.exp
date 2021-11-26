@@ -256,8 +256,8 @@ proc mkdir { dirname } {
 
 proc safe_path [ ] {
     if { [ path_setting_is_unsafe ] } {
-	warning { Cannot perform test as your $PATH environment variable includes a reference to the current directory or a directory name which is not absolute }
-	untested { skipping this test because your $PATH variable is wrongly set }
+	warning { Cannot perform test as your PATH environment variable includes a reference to the current directory or a directory name which is not absolute }
+	untested { skipping this test because your PATH variable is wrongly set }
 	return 0
     } else {
 	return 1
