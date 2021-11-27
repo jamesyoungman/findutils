@@ -23,7 +23,7 @@ local-checks-to-skip :=
 
 # Errors I think are too picky anyway.
 local-checks-to-skip += sc_error_message_period sc_error_message_uppercase \
-	sc_file_system
+	sc_file_system sc_indent
 
 exclude_file_name_regexp--sc_obsolete_symbols = build-aux/src-sniff\.py
 exclude_file_name_regexp--sc_space_tab = \
