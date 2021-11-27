@@ -18,6 +18,8 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
   The find.1 man page and the Texinfo manual now show environment variables
   in a consistent style. [#59963]
+  Furthermore, both add the description of the -printf format directive '%B',
+  for a file's birth time, and its limitations. [#61327]
 
   The output of 'find --help' now reads better.
 

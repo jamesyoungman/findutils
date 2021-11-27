@@ -2109,18 +2109,30 @@ Wed Nov  2 00:42:36 1994
 @item %a
 File's last access time in the format returned by the C @code{ctime}
 function.
+
 @item %A@var{k}
 File's last access time in the format specified by @var{k}
 (@pxref{Time Formats}).
+
+@item %B@var{k}
+File's birth time, i.e., its creation time, in the format specified by @var{k}
+(@pxref{Time Formats}).
+
+This directive produces an empty string if the underlying operating system or
+filesystem does not support birth times.
+
 @item %c
 File's last status change time in the format returned by the C
 @code{ctime} function.
+
 @item %C@var{k}
 File's last status change time in the format specified by @var{k}
 (@pxref{Time Formats}).
+
 @item %t
 File's last modification time in the format returned by the C
 @code{ctime} function.
+
 @item %T@var{k}
 File's last modification time in the format specified by @var{k}
 (@pxref{Time Formats}).
@@ -2154,8 +2166,8 @@ behaviour, because other directives may be added in the future.
 @node Time Formats
 @subsection Time Formats
 
-Below is an incomplete list of formats for the directives @samp{%A}, @samp{%C},
-and @samp{%T}, which print the file's timestamps.
+Below is an incomplete list of formats for the directives @samp{%A}, @samp{%B},
+@samp{%C}, and @samp{%T}, which print the file's timestamps.
 Please refer to the documentation of @code{strftime} for the full list.
 Some of these formats might not be available on all systems, due to differences
 in the implementation of the C @code{strftime} function.

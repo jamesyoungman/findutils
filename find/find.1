@@ -1588,6 +1588,14 @@ year (1970...\&)
 The amount of disk space used for this file in 512-byte blocks.  Since disk
 space is allocated in multiples of the filesystem block size this is usually
 greater than %s/512, but it can also be smaller if the file is a sparse file.
+
+.IP %B\fIk\fP
+File's birth time, i.e., its creation time, in the format specified by
+.IR k ,
+which is the same as for %A.
+This directive produces an empty string if the underlying operating system or
+filesystem does not support birth times.
+
 .IP %c
 File's last status change time in the format returned by the C
 .BR ctime (3)
