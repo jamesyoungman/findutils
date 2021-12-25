@@ -503,6 +503,30 @@ get_stat_Ytime (const struct stat *p,
 void
 set_follow_state (enum SymlinkOption opt)
 {
+  switch (opt)
+    {
+    case SYMLINK_ALWAYS_DEREF:  /* -L */
+      options.xstat = optionl_stat;
+      options.x_getfilecon = optionl_getfilecon;
+      options.no_leaf_check = true;
+      break;
+
+    case SYMLINK_NEVER_DEREF:	/* -P (default) */
+      options.xstat = optionp_stat;
+      options.x_getfilecon = optionp_getfilecon;
+      /* Can't turn no_leaf_check off because the user might have specified
+       * -noleaf anyway
+       */
+      break;
+
+    case SYMLINK_DEREF_ARGSONLY: /* -H */
+      options.xstat = optionh_stat;
+      options.x_getfilecon = optionh_getfilecon;
+      options.no_leaf_check = true;
+    }
+
+  options.symlink_handling = opt;
+
   if (options.debug_options & DebugStat)
     {
       /* For DebugStat, the choice is made at runtime within debug_stat()
@@ -510,31 +534,6 @@ set_follow_state (enum SymlinkOption opt)
        */
       options.xstat = debug_stat;
     }
-  else
-    {
-      switch (opt)
-	{
-	case SYMLINK_ALWAYS_DEREF:  /* -L */
-	  options.xstat = optionl_stat;
-	  options.x_getfilecon = optionl_getfilecon;
-	  options.no_leaf_check = true;
-	  break;
-
-	case SYMLINK_NEVER_DEREF:	/* -P (default) */
-	  options.xstat = optionp_stat;
-	  options.x_getfilecon = optionp_getfilecon;
-	  /* Can't turn no_leaf_check off because the user might have specified
-	   * -noleaf anyway
-	   */
-	  break;
-
-	case SYMLINK_DEREF_ARGSONLY: /* -H */
-	  options.xstat = optionh_stat;
-	  options.x_getfilecon = optionh_getfilecon;
-	  options.no_leaf_check = true;
-	}
-    }
-  options.symlink_handling = opt;
 }
 
 
