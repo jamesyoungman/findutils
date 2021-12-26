@@ -20,6 +20,11 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   if the -L option was not given.
   [Bug present since the SELinux implementation in 4.5.6]
 
+  'find -inum' and 'find -printf %i' now also work on platforms which allow
+  the inode number Zero; e.g. the GNU/Hurd uses inode number 0 for /dev/console.
+  Previously, find(1) would abort when visiting such a file.
+  [Bug present since FINDUTILS_4_5_4-1.]
+
 ** Documentation Changes
 
   The find.1 man page and the Texinfo manual now show environment variables

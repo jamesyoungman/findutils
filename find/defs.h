@@ -519,7 +519,6 @@ bool apply_predicate(const char *pathname, struct stat *stat_buf, struct predica
 
 
 /* util.c. */
-int get_info (const char *pathname, struct stat *p, struct predicate *pred_ptr);
 bool following_links (void);
 bool digest_mode (mode_t *mode, const char *pathname, const char *name, struct stat *pstat, bool leaf);
 bool default_prints (struct predicate *pred);

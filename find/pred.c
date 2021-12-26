@@ -498,8 +498,6 @@ pred_inum (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
 {
   (void) pathname;
 
-  assert (stat_buf->st_ino != 0);
-
   switch (pred_ptr->args.numinfo.kind)
     {
     case COMP_GT:

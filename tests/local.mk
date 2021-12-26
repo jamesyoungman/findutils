@@ -107,6 +107,7 @@ check-root:
 all_tests = \
   tests/misc/help-version.sh \
   tests/find/depth-unreadable-dir.sh \
+  tests/find/inode-zero.sh \
   tests/find/many-dir-entries-vs-OOM.sh \
   tests/find/name-lbracket-literal.sh \
   tests/find/printf_escapechars.sh \

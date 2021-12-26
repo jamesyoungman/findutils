@@ -280,7 +280,7 @@ get_statinfo (const char *pathname, const char *name, struct stat *p)
 /* Get the stat/type/inode information for a file, if it is not
  * already known.   Returns 0 on success (or if we did nothing).
  */
-int
+static int
 get_info (const char *pathname,
 	  struct stat *p,
 	  struct predicate *pred_ptr)
@@ -290,7 +290,7 @@ get_info (const char *pathname,
   /* If we need the full stat info, or we need the type info but don't
    * already have it, stat the file now.
    */
-  if (pred_ptr->need_stat)
+  if (pred_ptr->need_stat && !state.have_stat)
     {
       todo = true;		/* need full stat info */
     }
@@ -316,31 +316,10 @@ get_info (const char *pathname,
     }
   if (todo)
     {
-      int result = get_statinfo (pathname, state.rel_pathname, p);
-      if (result != 0)
-	{
-	  return -1;		/* failure. */
-	}
-      else
-	{
-	  /* Verify some postconditions.  We can't check st_mode for
-	     non-zero-ness because of Savannah bug #16378 (which is
-	     that broken NFS servers can return st_mode==0). */
-	  if (pred_ptr->need_type)
-	    {
-	      assert (state.have_type);
-	    }
-	  if (pred_ptr->need_inum)
-	    {
-	      assert (p->st_ino);
-	    }
-	  return 0;		/* success. */
-	}
+      if (get_statinfo (pathname, state.rel_pathname, p) != 0)
+	return -1;		/* failure. */
     }
-  else
-    {
-      return 0;			/* success; nothing to do. */
-    }
+  return 0;			/* success, or nothing to do. */
 }
 
 /* Determine if we can use O_NOFOLLOW.
