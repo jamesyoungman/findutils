@@ -89,9 +89,14 @@ if test -e $f && test '!' -r $f; then
 fi
 
 # Exercise a directory argument.
-returns_ 1 find -files0-from / > out 2> err \
-  && grep 'read error' err \
-  || { grep . out err; fail=1; }
+# On most modern systems like GNU/Linux, read(2)-ing from a directory file
+# descriptor will fail with EISDIR.  Skip on other plaforms where that succeeds,
+# e.g. on GNU/Hurd and AIX.
+if returns_ 1 cat / >/dev/null; then
+  returns_ 1 find -files0-from / > out 2> err \
+    && grep 'read error' err \
+    || { grep . out err; fail=1; }
+fi
 
 # Exercise an empty input file.
 find -files0-from /dev/null > out 2> err || fail=1
