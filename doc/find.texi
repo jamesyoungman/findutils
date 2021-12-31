@@ -3941,7 +3941,7 @@ the command, thus allowing that command to be associated to the terminal
 while @code{xargs} reads from a different stream, e.g. from a pipe.
 This is useful if you want @code{xargs} to run an interactive application.
 @example
-grep -lz PATTERN * | xargs -0o vi
+grep -lZ PATTERN * | xargs -0o -n1 vi
 @end example
 
 
