@@ -30,7 +30,7 @@
 This manual documents version @value{VERSION} of the GNU utilities for finding
 files that match certain criteria and performing various operations on them.
 
-Copyright @copyright{} 1994--2021 Free Software Foundation, Inc.
+Copyright @copyright{} 1994--2022 Free Software Foundation, Inc.
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
