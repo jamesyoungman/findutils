@@ -45,7 +45,7 @@ struct tagRegexTypeMap
   int  option_val;
 };
 
-struct tagRegexTypeMap regex_map[] =
+static struct tagRegexTypeMap regex_map[] =
   {
    { "findutils-default",     CONTEXT_FINDUTILS, RE_SYNTAX_EMACS|RE_DOT_NEWLINE  },
    { "ed",                    CONTEXT_GENERIC,   RE_SYNTAX_ED                    },

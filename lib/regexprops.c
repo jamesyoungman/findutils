@@ -528,7 +528,7 @@ describe_all (const char *contextname,
 	      const char *up)
 {
   const char *name, *next, *previous;
-  int options;
+  int regopts;
   int i, parent;
 
   copying ();
@@ -542,7 +542,7 @@ describe_all (const char *contextname,
   previous = "";
 
   for (i=0;
-       options = get_regex_type_flags (i),
+       regopts = get_regex_type_flags (i),
 	 name=get_regex_type_name (i);
        ++i)
     {
@@ -568,7 +568,7 @@ describe_all (const char *contextname,
 	}
       else
 	{
-	  describe_regex_syntax (options);
+	  describe_regex_syntax (regopts);
 	}
       previous = name;
     }

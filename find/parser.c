@@ -325,7 +325,7 @@ static struct parser_table const parse_table[] =
   {ARG_TEST, "-help",                 parse_help,    NULL},       /* GNU */
   {ARG_TEST, "version",               parse_version, NULL},	  /* GNU */
   {ARG_TEST, "-version",              parse_version, NULL},	  /* GNU */
-  {0, 0, 0, 0}
+  {0, NULL, NULL, NULL}
 };
 
 
@@ -463,7 +463,7 @@ get_noop (void)
   int i;
   if (NULL == noop)
     {
-      for (i = 0; parse_table[i].parser_name != 0; i++)
+      for (i = 0; parse_table[i].parser_name != NULL; i++)
 	{
 	  if (ARG_NOOP ==parse_table[i].type)
 	    {
@@ -653,7 +653,7 @@ find_parser (const char *search_name)
   if (*search_name == '-')
     search_name++;
 
-  for (i = 0; parse_table[i].parser_name != 0; i++)
+  for (i = 0; parse_table[i].parser_name != NULL; i++)
     {
       if (strcmp (parse_table[i].parser_name, search_name) == 0)
 	{

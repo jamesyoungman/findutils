@@ -539,7 +539,7 @@ main (int argc, char **argv)
 	  if (optarg && (strlen (optarg) > 0))
 	    eof_str = optarg;
 	  else
-	    eof_str = 0;
+	    eof_str = NULL;
 	  break;
 
 	case 'h':

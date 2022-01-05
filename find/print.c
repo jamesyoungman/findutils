@@ -1021,7 +1021,7 @@ do_fprintf (struct format_val *dest,
           /* sanitised */
 #ifdef S_ISLNK
           {
-            char *linkname = 0;
+            char *linkname = NULL;
 
             if (S_ISLNK (stat_buf->st_mode))
               {

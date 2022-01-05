@@ -128,7 +128,7 @@ enum ExistenceCheckType
   };
 
 /* Check for existence of files before printing them out? */
-enum ExistenceCheckType check_existence = ACCEPT_EITHER;
+static enum ExistenceCheckType check_existence = ACCEPT_EITHER;
 
 static int follow_symlinks = 1;
 
@@ -204,7 +204,7 @@ get_short (FILE *fp)
   return x;
 }
 
-const char * const metacharacters = "*?[]\\";
+static const char * const metacharacters = "*?[]\\";
 
 /* Return nonzero if S contains any shell glob characters.
  */
