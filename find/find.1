@@ -1167,42 +1167,47 @@ does not check.
 
 .SS ACTIONS
 .IP "\-delete\fR"
-Delete files; true if removal succeeded.  If the removal failed, an
-error message is issued.
-If
-.B \-delete
-fails,
+Delete files or directories; true if removal succeeded.
+If the removal failed, an error message is issued and
 .BR find 's
-exit status will be nonzero
-(when it eventually exits).
-Use of
-.B \-delete
-automatically turns on the
-.RB ` \-depth '
-option.
+exit status will be nonzero (when it eventually exits).
 
-.BR Warnings :
-Don't forget that the find command line is
-evaluated as an expression, so putting
+.BR Warning :
+Don't forget that
+.B find
+evaluates the command line as an
+expression, so putting
 .B \-delete
 first will make
 .B find
 try to delete everything below the starting points you specified.
-When testing a
-.B find
-command line that you later intend to use with
-.BR \-delete ,
-you should explicitly specify
+
+The use of the
+.B \-delete
+action on the command line automatically turns on the
 .B \-depth
-in order to avoid later surprises.  Because
-.B \-delete
-implies
-.BR \-depth ,
-you cannot usefully use
+option.
+As in turn
+.B \-depth
+makes
 .B \-prune
-and
+ineffective, the
 .B \-delete
-together.
+action cannot usefully be combined with
+.BR \-prune .
+
+Often, the user might want to test a find command line with
+.B \-print
+prior to adding
+.B \-delete
+for the actual removal run.
+To avoid surprising results, it is usually best to remember to use
+.B \-depth
+explicitly during those earlier test runs.
+
+The
+.B \-delete
+action will fail to remove a directory unless it is empty.
 
 Together with the
 .B \-ignore_readdir_race
@@ -1211,9 +1216,11 @@ option,
 will ignore errors of the
 .B \-delete
 action in the case the file has disappeared since the parent directory was
-read: it will not output an error diagnostic, and the return code of the
+read: it will not output an error diagnostic, not change the exit code to
+nonzero, and the return code of the
 .B \-delete
 action will be true.
+
 
 .IP "\-exec \fIcommand\fR ;"
 Execute

@@ -32,6 +32,9 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   Furthermore, both add the description of the -printf format directive '%B',
   for a file's birth time, and its limitations. [#61327]
 
+  The description of the -delete action has been improved and aligned among
+  the manual page and the Texinfo documentation.
+
   The output of 'find --help' now reads better.
 
   The HTML online manual is using the official GNU stylesheet again.

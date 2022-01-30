@@ -2970,21 +2970,35 @@ with @samp{y} or @samp{Y}.  Implies @samp{-t}.
 
 @deffn Action -delete
 Delete files or directories; true if removal succeeded.  If the
-removal failed, an error message is issued.
+removal failed, an error message is issued and @code{find}'s exit status
+will be nonzero (when it eventually exits).
+
+@quotation Warning
+Don't forget that @code{find} evaluates the command line as an expression,
+so putting @samp{-delete} first will make @code{find} try to delete everything
+below the starting points you specified.
+@end quotation
 
 The use of the @samp{-delete} action on the command line automatically
-turns on the @samp{-depth} option (@pxref{find Expressions}).  This
-can be surprising if you were previously just testing with
-@samp{-print}, so it is usually best to remember to use @samp{-depth}
-explicitly.
+turns on the @samp{-depth} option.
+As in turn @samp{-depth} makes @samp{-prune} ineffective, the @samp{-delete}
+action cannot usefully be combined with @samp{-prune}.
 
-If @samp{-delete} fails, @code{find}'s exit status will be nonzero
-(when it eventually exits).
+Often, the user might want to test a @code{find} command line with @samp{-print}
+prior to adding @samp{-delete} for the actual removal run.  To avoid surprising
+results, it is usually best to remember to use @samp{-depth} explicitly during
+those earlier test runs.
+
+See @ref{Cleaning Up} for a deeper discussion about good use cases of the
+@samp{-delete} action and those with surprising results.
+
+The @samp{-delete} action will fail to remove a directory unless it is empty.
 
 Together with the @samp{-ignore_readdir_race} option, @code{find} will
 ignore errors of the @samp{-delete} action in the case the file has disappeared
-since the parent directory was read: it will not output an error diagnostic, and
-the return code of the @samp{-delete} action will be true.
+since the parent directory was read: it will not output an error diagnostic, not
+change the exit code to nonzero, and the return code of the @samp{-delete}
+action will be true.
 @end deffn
 
 @node Adding Tests
