@@ -1,17 +1,17 @@
 GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
-* Noteworthy changes in release ?.? (????-??-??) [?]
+* Noteworthy changes in release 4.9.0 (2022-02-22) [stable]
 
 ** New features in find
 
   find now supports the -files0-from option to be able to safely pass an
   arbitrary number of starting points to the tool.  The option requires a file
   name as argument, or "-" to read from standard input.  The entries in that
-  file have to be separated by NUL characters.
+  file have to be separated by NUL characters. [#60383]
 
 ** Changes in locate / updatedb
 
-  update now skips (fuse-mounted) s3fs filesystems by default,
+  updatedb now skips (fuse-mounted) s3fs filesystems by default,
   i.e., unless PRUNEFS is set.
 
 ** Bug Fixes
@@ -25,15 +25,22 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   Previously, find(1) would abort when visiting such a file.
   [Bug present since FINDUTILS_4_5_4-1.]
 
+  findutils-4.8.0 failed to build on some MacOS versions.
+  Fixed by a gnulib update. [#59972, #59991]
+
 ** Documentation Changes
 
   The find.1 man page and the Texinfo manual now show environment variables
   in a consistent style. [#59963]
+
   Furthermore, both add the description of the -printf format directive '%B',
   for a file's birth time, and its limitations. [#61327]
 
   The description of the -delete action has been improved and aligned among
-  the manual page and the Texinfo documentation.
+  the manual page and the Texinfo documentation. [#61774]
+
+  Various other documentation fixes - syntax issues and typos.
+  [#61303, #60823, #61341]
 
   The output of 'find --help' now reads better.
 
@@ -44,7 +51,8 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   The find version without FTS, oldfind, has been completely removed.  It has
   not been installed since 4.5.18 (2015), and was only still used in tests.
 
-* Noteworthy changes in release 4.8.0 (2020-01-09) [stable]
+
+* Noteworthy changes in release 4.8.0 (2021-01-09) [stable]
 
 ** Changes in xargs
 
