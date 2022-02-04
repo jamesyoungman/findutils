@@ -183,7 +183,7 @@ Positional options (always true):\n\
   HTL (_("\n\
 Normal options (always true, specified before other expressions):\n\
       -depth -files0-from FILE -maxdepth LEVELS -mindepth LEVELS\n\
-       -mount -noleaf -xdev -ignore_readdir_race -noignore_readdir_race\n"));
+      -mount -noleaf -xdev -ignore_readdir_race -noignore_readdir_race\n"));
   HTL (_("\n\
 Tests (N can be +N or -N or N):\n\
       -amin N -anewer FILE -atime N -cmin N -cnewer FILE -context CONTEXT\n\
