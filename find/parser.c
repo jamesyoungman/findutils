@@ -1267,7 +1267,7 @@ fnmatch_sanitycheck (void)
 }
 
 
-static bool
+static void
 check_name_arg (const char *pred, const char *alt, const char *arg)
 {
   if (should_issue_warnings () && strchr (arg, '/'))
@@ -1281,7 +1281,6 @@ check_name_arg (const char *pred, const char *alt, const char *arg)
 	    safely_quote_err_filename (1, "/"),
 	    safely_quote_err_filename (2, alt));
     }
-  return true;			/* allow it anyway */
 }
 
 
@@ -1293,14 +1292,14 @@ parse_iname (const struct parser_table* entry, char **argv, int *arg_ptr)
   fnmatch_sanitycheck ();
   if (collect_arg (argv, arg_ptr, &name))
     {
-      if (check_name_arg ("-iname", "-iwholename", name))
-	{
-	  struct predicate *our_pred = insert_primary (entry, name);
-	  our_pred->need_stat = our_pred->need_type = false;
-	  our_pred->args.str = name;
-	  our_pred->est_success_rate = estimate_pattern_match_rate (name, 0);
-	  return true;
-	}
+      struct predicate *our_pred;
+      check_name_arg ("-iname", "-iwholename", name);
+
+      our_pred = insert_primary (entry, name);
+      our_pred->need_stat = our_pred->need_type = false;
+      our_pred->args.str = name;
+      our_pred->est_success_rate = estimate_pattern_match_rate (name, 0);
+      return true;
     }
   return false;
 }
@@ -1475,23 +1474,17 @@ static bool
 parse_name (const struct parser_table* entry, char **argv, int *arg_ptr)
 {
   const char *name;
-  const int saved_argc = *arg_ptr;
-
+  fnmatch_sanitycheck ();
   if (collect_arg (argv, arg_ptr, &name))
     {
-      fnmatch_sanitycheck ();
-      if (check_name_arg ("-name", "-wholename", name))
-	{
-	  struct predicate *our_pred = insert_primary (entry, name);
-	  our_pred->need_stat = our_pred->need_type = false;
-	  our_pred->args.str = name;
-	  our_pred->est_success_rate = estimate_pattern_match_rate (name, 0);
-	  return true;
-	}
-      else
-	{
-	  *arg_ptr = saved_argc; /* don't consume the invalid argument. */
-	}
+      struct predicate *our_pred;
+      check_name_arg ("-name", "-wholename", name);
+
+      our_pred = insert_primary (entry, name);
+      our_pred->need_stat = our_pred->need_type = false;
+      our_pred->args.str = name;
+      our_pred->est_success_rate = estimate_pattern_match_rate (name, 0);
+      return true;
     }
   return false;
 }
