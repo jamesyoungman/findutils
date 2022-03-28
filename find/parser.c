@@ -1270,16 +1270,16 @@ fnmatch_sanitycheck (void)
 static void
 check_name_arg (const char *pred, const char *alt, const char *arg)
 {
-  if (should_issue_warnings () && strchr (arg, '/'))
+  if (should_issue_warnings () && strchr (arg, '/') && (0 != strcmp ("/", arg)))
     {
       error (0, 0,
 	     _("warning: %s matches against basenames only, "
-	       "but the given pattern contains a directory separator (%s), "
-	       "thus the expression will evaluate to false all the time.  "
-	       "Did you mean %s?"),
-	    safely_quote_err_filename (0, pred),
-	    safely_quote_err_filename (1, "/"),
-	    safely_quote_err_filename (2, alt));
+		"but the given pattern contains a directory separator (%s), "
+		"thus the expression will evaluate to false all the time.  "
+		"Did you mean %s?"),
+	     safely_quote_err_filename (0, pred),
+	     safely_quote_err_filename (1, "/"),
+	     safely_quote_err_filename (2, alt));
     }
 }
 

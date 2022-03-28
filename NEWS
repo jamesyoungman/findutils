@@ -2,6 +2,12 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
+** Bug Fixes
+
+  'find -name /' no longer outputs a warning, because that is a valid pattern
+  to match the root directory "/".  Previously, a diagnostic falsely claimed
+  that this pattern would not match anything. [#62227]
+
 
 * Noteworthy changes in release 4.9.0 (2022-02-22) [stable]
 

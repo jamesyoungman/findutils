@@ -848,20 +848,23 @@ modification times.
 Base of file name (the path with the leading directories removed)
 matches shell pattern
 .IR pattern .
-Because the leading directories are removed,
-the file names considered for a match with
-.B \-name
-will never include a slash, so `\-name a/b' will never match anything
-(you probably need to use
+Because the leading directories of the file names are removed, the
+.I pattern
+should not include a slash, because `\-name a/b' will never match anything
+(and you probably want to use
 .B \-path
 instead).
-A warning is issued if you try to do this,
-unless the environment variable
+An exception to this is when using only a slash as \fIpattern\fR (`-name /'),
+because that is a valid string for matching the root directory "/" (because the
+base name of "/" is "/").
+A warning is issued if you try to pass a pattern containing a - but not
+consisting solely of one - slash, unless the environment variable
 .B POSIXLY_CORRECT
-is set.
-The metacharacters (`*', `?',
-and `[]') match a `.\&' at the start of the base name (this is a change
-in findutils-4.2.2; see section STANDARDS CONFORMANCE below).  To ignore a
+is set or the option
+.B \-nowarn
+is used.
+
+To ignore a
 directory and the files under it, use
 .B \-prune
 rather than checking every file in the tree;
