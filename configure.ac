@@ -276,9 +276,12 @@ AC_CHECK_MEMBER(struct dirent.d_type,,,[
 
 jy_AC_ATTRIBUTE_NORETURN
 
-dnl internationalization macros
+dnl Internationalization macros.
+dnl AM_GNU_GETTEXT_REQUIRE_VERSION makes autopoint pull the latest available
+dnl version instead of the exact specified version.
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.19.3])
+AM_GNU_GETTEXT_VERSION([0.19.8])
+AM_GNU_GETTEXT_REQUIRE_VERSION([0.19.8])
 
 dnl regextype.c and regexprops.c are designed to be usable outside findutils,
 dnl but findutils doesn't want to support all the regex types in gnulib,

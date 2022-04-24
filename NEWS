@@ -8,6 +8,11 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   to match the root directory "/".  Previously, a diagnostic falsely claimed
   that this pattern would not match anything. [#62227]
 
+** Changes to the build process
+
+  findutils now builds again on systems with musl-libc.
+  This requires gettext-0.19.8.
+
 
 * Noteworthy changes in release 4.9.0 (2022-02-22) [stable]
 
