@@ -205,7 +205,8 @@ AC_CHECK_LIB([m],[fabs],[FINDLIBS="-lm $FINDLIBS"]
 AC_SUBST([FINDLIBS])
 
 dnl Checks for header files.
-AC_HEADER_STDC
+AC_CHECK_INCLUDES_DEFAULT
+
 AC_CHECK_HEADERS(sys/param.h mntent.h sys/mnttab.h sys/mntio.h sys/mkdev.h)
 dnl fdleak.c needs sys/resource.h because it calls getrlimit(2).
 AC_CHECK_FUNCS(getrlimit)
