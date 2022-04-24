@@ -4174,7 +4174,7 @@ other internationalisation variables.
 
 @item LC_COLLATE
 The POSIX standard specifies that this variable affects the pattern
-matching to be used for the `\-name' option.  GNU find uses the
+matching to be used for the @samp{-name} option.  GNU find uses the
 GNU version of the @code{fnmatch} library function.
 
 This variable also affects the interpretation of the response to
