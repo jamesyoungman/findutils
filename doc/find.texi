@@ -328,10 +328,21 @@ connect primaries into more complex expressions.
 The @samp{-print} action is performed on all files for which the
 entire expression is true (@pxref{Print File Name}), unless the
 expression contains an action other than @samp{-prune} or
-@samp{-quit}. Actions which inhibit the default @samp{-print} are
-@samp{-delete}, @samp{-exec}, @samp{-execdir}, @samp{-ok},
-@samp{-okdir}, @samp{-fls}, @samp{-fprint}, @samp{-fprintf},
-@samp{-ls}, @samp{-print} and @samp{-printf}.
+@samp{-quit}.
+Actions which inhibit the default @samp{-print} are
+@samp{-delete},
+@samp{-execdir},
+@samp{-exec},
+@samp{-fls},
+@samp{-fprint0},
+@samp{-fprintf},
+@samp{-fprint},
+@samp{-ls},
+@samp{-okdir},
+@samp{-ok},
+@samp{-print0},
+@samp{-printf}
+and @samp{-print}.
 
 Options take effect immediately, rather than being evaluated for each
 file when their place in the expression is reached.  Therefore, for

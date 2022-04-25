@@ -39,6 +39,9 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
   Translators contributed numerous fixes for issues in the find.1 man page.
 
+  The list of actions that suppress the default -print action has been
+  supplemented with the missing '-print0' and '-fprint0' actions.
+
 
 * Noteworthy changes in release 4.10.0 (2024-06-01) [stable]
 
