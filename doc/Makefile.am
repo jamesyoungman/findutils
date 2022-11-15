@@ -26,6 +26,10 @@ CLEANFILES = find.txt find_mono.html findutils.texi_html_node.tar.gz dblocation.
 	find.txt  tmp-doc-install find_mono.html.gz
 MAKEINFOTXT = $(MAKEINFO) --plaintext
 
+# Tell makeinfo to put everything in a single info file: <package>.info.
+# Otherwise, it would also generate files with names like <package>.info-[12].
+AM_MAKEINFOFLAGS = --no-split
+
 find.txt: find.texi $(srcdir)/version.texi $(find_TEXINFOS)
 
 # find.txt is a file which we need to know how to build
@@ -51,7 +55,7 @@ find.txt: find.texi $(srcdir)/version.texi $(find_TEXINFOS)
 # This rule is derived from the generic .texi.html rule.
 find_mono.html: find.texi
 	rm -rf $(@:.html=.htp)
-	if $(MAKEINFOHTML) --no-split $(AM_MAKEINFOHTMLFLAGS) $(MAKEINFOFLAGS) -I $(srcdir) \
+	if $(MAKEINFOHTML) $(AM_MAKEINFOHTMLFLAGS) $(MAKEINFOFLAGS) -I $(srcdir) \
 	 -o $(@:.html=.htp) find.texi; \
 	then \
 	  rm -rf $@; \
