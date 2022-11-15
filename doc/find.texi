@@ -386,7 +386,6 @@ Alternatively, it is generally safe though non-portable to use the GNU option
 @samp{-files0-from} to pass arbitrary starting points to @code{find}.
 
 @deffn Option -files0-from file
-@deffnx Option -files0-from file
 
 Read the starting points from @file{file} instead of getting them on the
 command line.
