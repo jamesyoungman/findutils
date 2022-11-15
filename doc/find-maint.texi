@@ -947,7 +947,7 @@ VI. VENDOR RESPONSE
 The GNU project discovered the problem while 'locate' was being worked
 on; this is the first public announcement of the problem.
 
-The GNU findutils mantainer has issued a patch as p[art of this
+The GNU findutils mantainer has issued a patch as part of this
 announcement.  The patch appears below.
 
 A source release of findutils-4.2.31 will be issued on 2007-05-30.
