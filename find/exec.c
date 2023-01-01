@@ -1,5 +1,5 @@
 /* exec.c -- Implementation of -exec, -execdir, -ok, -okdir.
-   Copyright (C) 1990-2022 Free Software Foundation, Inc.
+   Copyright (C) 1990-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
