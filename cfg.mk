@@ -232,7 +232,7 @@ sc_prohibit_test_calls_print_ver_with_irrelevant_argument:
 	  | { fail=0;							\
 	      while read file name; do					\
 		for i in $$name; do					\
-		  grep -w "$$i" $$file|grep -vw print_ver_|grep -q .	\
+		  grep -w "$$i" $$file|grep -vw print_ver_|grep . >/dev/null \
 		    || { fail=1;					\
 			 echo "*** Test: $$file, offending: $$i." 1>&2; };\
 		done;							\

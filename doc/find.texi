@@ -3050,7 +3050,7 @@ its argument is an unstripped binary file:
 
 @example
 #! /bin/sh
-file "$1" | grep -q "not stripped"
+file "$1" | grep "not stripped" >/dev/null
 @end example
 
 
