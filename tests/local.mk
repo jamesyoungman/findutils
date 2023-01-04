@@ -121,6 +121,7 @@ all_tests = \
   tests/find/debug-missing-arg.sh \
   tests/find/used.sh \
   tests/find/newer.sh \
+  tests/find/opt-numeric-arg.sh \
   tests/xargs/conflicting_opts.sh \
   tests/xargs/verbose-quote.sh \
   $(all_root_tests)

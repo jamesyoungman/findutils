@@ -1127,11 +1127,7 @@ parse_gid (const struct parser_table* entry, char **argv, int *arg_ptr)
       p->est_success_rate = (p->args.numinfo.l_val < 100) ? 0.99 : 0.2;
       return true;
     }
-  else
-    {
-      --*arg_ptr;		/* don't consume the invalid argument. */
-      return false;
-    }
+  return false;
 }
 
 
@@ -1319,11 +1315,7 @@ parse_inum (const struct parser_table* entry, char **argv, int *arg_ptr)
       p->need_type = false;
       return true;
     }
-  else
-    {
-      --*arg_ptr;		/* don't consume the invalid argument. */
-      return false;
-    }
+  return false;
 }
 
 static bool
@@ -1346,11 +1338,7 @@ parse_links (const struct parser_table* entry, char **argv, int *arg_ptr)
 	p->est_success_rate = 1e-3;
       return true;
     }
-  else
-    {
-      --*arg_ptr;		/* don't consume the invalid argument. */
-      return false;
-    }
+  return false;
 }
 
 static bool
@@ -2415,11 +2403,7 @@ parse_uid (const struct parser_table* entry, char **argv, int *arg_ptr)
       p->est_success_rate = (p->args.numinfo.l_val < 100) ? 0.99 : 0.2;
       return true;
     }
-  else
-    {
-      --*arg_ptr;		/* don't consume the invalid argument. */
-      return false;
-    }
+  return false;
 }
 
 static bool
@@ -3334,7 +3318,7 @@ get_num (const char *str,
    A new predicate node is assigned, along with an argument node
    obtained with malloc.
 
-   Used by -inum and -links parsers. */
+   Used by -inum, -uid, -gid and -links parsers. */
 
 static struct predicate *
 insert_num (char **argv, int *arg_ptr, const struct parser_table *entry)
@@ -3363,6 +3347,16 @@ insert_num (char **argv, int *arg_ptr, const struct parser_table *entry)
 	    fprintf (stderr, "%"PRIuMAX"\n", our_pred->args.numinfo.l_val);
 	  }
 	return our_pred;
+      }
+    else
+      {
+	const char *predicate = argv[(*arg_ptr)-2];
+	die (EXIT_FAILURE, 0,
+	     _("non-numeric argument to %s: %s"),
+	     predicate,
+	     quotearg_n_style (0, options.err_quoting_style, numstr));
+	/*NOTREACHED*/
+	return NULL;
       }
   }
   return NULL;

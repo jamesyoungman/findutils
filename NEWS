@@ -8,6 +8,11 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   to match the root directory "/".  Previously, a diagnostic falsely claimed
   that this pattern would not match anything. [#62227]
 
+  'find -gid' (without the mandatory argument) now outputs a correct error
+  diagnostic.  Previously it output: "find: invalid argument `-gid' to `-gid'".
+  The error diagnostic for non-numeric arguments has been improved as well.
+  Likewise for -inum, -links and -uid.
+
 ** Changes to the build process
 
   findutils now builds again on systems with musl-libc.
