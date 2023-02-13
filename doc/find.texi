@@ -3890,7 +3890,7 @@ file string, which is treated like any other argument.
 Input file names are terminated by the specified character @var{delim}
 instead of by whitespace, and any quotes and backslash characters are
 not considered special (every character is taken literally).  Disables
-the logical end of file marker string, which is treated like any other
+the logical end-of-file marker string, which is treated like any other
 argument.
 
 The specified delimiter may be a single character, a C-style character
@@ -3902,17 +3902,17 @@ Octal and hexadecimal escape codes are understood as for the
 @itemx --eof@r{[}=@var{eof-str}@r{]}
 @itemx -e@r{[}@var{eof-str}@r{]}
 
-Set the logical end of file marker string to @var{eof-str}.  If the
-logical end of file marker string occurs as a line of input, the rest of
+Set the logical end-of-file marker string to @var{eof-str}.  If the
+logical end-of-file marker string occurs as a line of input, the rest of
 the input is ignored.  If @var{eof-str} is omitted (@samp{-e}) or blank
-(either @samp{-e} or @samp{-E}), there is no logical end of file marker
+(either @samp{-e} or @samp{-E}), there is no logical end-of-file marker
 string.  The @samp{-e} form of this option is deprecated in favour of
 the POSIX-compliant @samp{-E} option, which you should use instead.  As
 of GNU @code{xargs} version 4.2.9, the default behaviour of @code{xargs}
-is not to have a logical end of file marker string.  The POSIX standard
+is not to have a logical end-of-file marker string.  The POSIX standard
 (IEEE Std 1003.1, 2004 Edition) allows this.
 
-The logical end of file marker string is not treated specially if the
+The logical end-of-file marker string is not treated specially if the
 @samp{-d} or the @samp{-0} options are in effect.  That is, when either
 of these options are in effect, the whole input file will be read even
 if @samp{-E} was used.

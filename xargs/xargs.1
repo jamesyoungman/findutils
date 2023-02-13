@@ -68,7 +68,7 @@ message is issued on stderr when this happens.
 .B \-0, \-\-null
 Input items are terminated by a null character instead of by
 whitespace, and the quotes and backslash are not special (every
-character is taken literally).  Disables the end of file string, which
+character is taken literally).  Disables the end-of-file string, which
 is treated like any other argument.  Useful when input items might
 contain white space, quote marks, or backslashes.  The GNU find
 \-print0 option produces input suitable for this mode.
@@ -104,13 +104,13 @@ where this is possible.
 
 .TP
 .BI \-E " eof-str"
-Set the end of file string to \fIeof-str\fR.  If the end of file
+Set the end-of-file string to \fIeof-str\fR.  If the end-of-file
 string occurs as a line of input, the rest of the input is ignored.
 If neither
 .B \-E
 nor
 .B \-e
-is used, no end of file string is used.
+is used, no end-of-file string is used.
 .TP
 .BR \-e "[\fIeof-str\fR], " "\-\-eof" [\fI=eof-str\fR]
 This option is a synonym for the
@@ -119,11 +119,11 @@ option.  Use
 .B \-E
 instead,
 because it is POSIX compliant while this option is not.  If
-\fIeof-str\fR is omitted, there is no end of file string.  If neither
+\fIeof-str\fR is omitted, there is no end-of-file string.  If neither
 .B \-E
 nor
 .B \-e
-is used, no end of file string is used.
+is used, no end-of-file string is used.
 .TP
 .BI \-I " replace-str"
 Replace occurrences of \fIreplace-str\fR in the initial-arguments with

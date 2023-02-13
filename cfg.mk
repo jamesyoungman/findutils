@@ -273,6 +273,12 @@ sc_preprocessor_indentation:
 exclude_file_name_regexp--sc_prohibit_test_backticks = \
   ^tests/(local\.mk|init\.sh)$$
 
+# Ensure to use hyphenated "end-of-file".
+sc_prohibit_unhyphenated_eof:
+	@prohibit='end[^-]of[^-]file' \
+	halt='use "end-of-file", not "e''nd of file"' \
+	  $(_sc_search_regexp)
+
 # Now that we have better tests, make this the default.
 export VERBOSE = yes
 

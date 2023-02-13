@@ -101,8 +101,7 @@ static struct buildcmd_control bc_ctl;
 static int nullwarning_given = 0;
 
 
-/* If nonzero, when this string is read on stdin it is treated as
-   end of file.
+/* If nonzero, when this string is read on stdin, then it is treated as EOF.
    IEEE Std 1003.1, 2004 Edition allows this to be NULL.
    In findutils releases up to and including 4.2.8, this was "_".
 */
