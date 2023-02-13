@@ -2478,11 +2478,13 @@ However, if the command needs to have its standard input be a terminal
 substitution method or use either the @samp{--arg-file} option or the
 @samp{--open-tty} option of @code{xargs}.
 
-The @code{xargs} command will process all its input, building command
-lines and executing them, unless one of the commands exits with a
-status of 255 (this will cause xargs to issue an error message and
-stop) or it reads a line contains the end of file string specified
-with the @samp{--eof} option.
+The @code{xargs} command will usually process all of its input,
+building command lines and executing them.
+The processing stops earlier and immediately if the tool reads a line containing
+the end-of-file marker string specified with the @samp{--eof} option,
+or if one of the launched commands exits with a status of 255.
+The latter will cause @code{xargs} to issue an error message and exit with
+status 124.
 
 @menu
 * Unsafe File Name Handling::
