@@ -2606,6 +2606,27 @@ or
 may not have been performed.
 .
 .SH "HISTORY"
+
+A
+.B find
+program appeared in Version 5 Unix as part of the
+Programmer's Workbench project and was written by Dick Haight.  Doug
+McIlroy's
+.I A Research UNIX Reader: Annotated Excerpts from the Programmer’s Manual, 1971-1986
+provides some additional details; you can read it on-line at
+<https://www.cs.dartmouth.edu/~doug/reader.pdf>.
+
+GNU
+.B find
+was originally written by Eric Decker, with
+enhancements by David MacKenzie, Jay Plett, and Tim Wood.  The idea
+for
+.B find -print0
+and
+.B xargs -0
+came from Dan Bernstein.
+.
+.SH "COMPATIBILITY"
 As of findutils-4.2.2, shell metacharacters (`*', `?' or `[]' for
 example) used in filename patterns match a leading `.', because
 IEEE POSIX interpretation 126 requires this.

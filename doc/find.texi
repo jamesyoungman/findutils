@@ -77,6 +77,7 @@ A copy of the license is included in the section entitled
 * Worked Examples::             Examples demonstrating more complex points.
 * Security Considerations::     Security issues relating to findutils.
 * Error Messages::              Explanations of some messages you might see.
+* History::                     History of find, xargs and locate.
 * GNU Free Documentation License::  Copying and sharing this manual.
 * Primary Index::               The components of @code{find} expressions.
 @end menu
@@ -91,15 +92,11 @@ principal programs that you use to perform these tasks are
 this manual use capabilities specific to the GNU versions of those
 programs.
 
-GNU @code{find} was originally written by Eric Decker, with
-enhancements by David MacKenzie, Jay Plett, and Tim Wood.  GNU
-@code{xargs} was originally written by Mike Rendell, with enhancements
-by David MacKenzie.  GNU @code{locate} and its associated utilities
-were originally written by James Woods, with enhancements by David
-MacKenzie.  The idea for @samp{find -print0} and @samp{xargs -0} came
-from Dan Bernstein.  The current maintainer of GNU findutils (and this
-manual) is James Youngman.  Many other people have contributed bug
-fixes, small improvements, and helpful suggestions.  Thanks!
+See @ref{History} for a history of @code{find}, @code{locate} and
+@code{xargs}.  The current maintainers of GNU findutils (and this
+manual) are Bernhard Voelker and James Youngman.  Many other people
+have contributed bug fixes, small improvements, and helpful
+suggestions.  Thanks!
 
 To report a bug in GNU findutils, please use the form on the Savannah
 web site at
@@ -5052,9 +5049,9 @@ use @code{make} to update the timestamps:
 @smallexample
 makefile=$(mktemp)
 find subdir \
-	\( \! -xtype l \) \
-	-newer timestamp \
-	-printf "timestamp:: %p\n\ttouch -r %p timestamp\n\n" > "$makefile"
+        \( \! -xtype l \) \
+        -newer timestamp \
+        -printf "timestamp:: %p\n\ttouch -r %p timestamp\n\n" > "$makefile"
 make -f "$makefile"
 rm   -f "$makefile"
 @end smallexample
@@ -5856,6 +5853,82 @@ The @code{updatedb} program (and the programs it invokes) do issue
 error messages, but none seem to be candidates for guidance.  If
 you are having a problem understanding one of these, ask for help on
 @email{bug-findutils@@gnu.org}.
+
+
+@node History
+@chapter History
+
+The @code{xargs} and @code{find} programs have separate origins but
+are collected together in Findutils because they are often used
+together.  While today they also share a small amount of
+implementation, this wasn't originally the case.  The @code{locate}
+program started out as a feature of @code{find} but today it is a
+separate program.
+
+@section History of @code{find}
+
+A @code{find} program appeared in Version 5 Unix as part of the
+Programmer's Workbench project and was written by Dick Haight.  Doug
+McIlroy's @cite{A Research UNIX Reader: Annotated Excerpts from the
+Programmer’s Manual, 1971-1986} provides some additional details; you
+can read it on-line at
+@url{https://www.cs.dartmouth.edu/~doug/reader.pdf}.
+
+GNU @code{find} was originally written by Eric Decker, with
+enhancements by David MacKenzie, Jay Plett, and Tim Wood.  The idea
+for @samp{find -print0} and @samp{xargs -0} came from Dan Bernstein.
+
+@section History of @code{xargs}
+
+The @code{xargs} program was invented by Herb Gellis at Bell Labs.  In
+his own words:
+
+@quotation
+Hi James, Thanks for reaching out. Yes I invented @code{xargs} way
+back before we even released UNIX to the general public when it was
+running on PDP-11 machines with little memory, and capable shell
+programs were not there yet - kind of like early IBM PC-DOS command
+lines. The name came about, first, by noticing at the time there were
+no commands beginning with @samp{x} (silly reason, I know), and then
+came up with, basically, "eXecute command with ARGumentS". This
+obviously allowed one to process files, sequentially, including
+batches of files, while the UNIX command line buffer was very tiny. I
+don't remember exactly how small but possibly only 512 bytes. The very
+first use intended was to allow compiling C programs that were broken
+into many small routines whose total name length would exceed the
+command line buffer. Hope this settles the matter! Oh, another arcane
+factoid about @code{xargs} at the beginning was that I was able to
+keep it smaller than 4k (I think that was the amount) which at the
+time was the maximum size of a file segment on PDP-11/UNIX, so that
+the program could be loaded completely on the first segment, without
+having to go back and get chains of further segments - Hence fast!
+@end quotation
+
+In 2023, GNU @code{xargs} is unfortunately much larger, around 75KiB
+when stripped.
+
+GNU @code{xargs} isn't derived from the original Bell Labs program.
+It was originally written by Mike Rendell, with enhancements by David
+MacKenzie.
+
+@section History of @code{locate}
+
+4.3-BSD introduced the @dfn{fast-find} feature, in which the command
+@code{find needle} would look for a file named @samp{needle}.  This
+took advantage of the fact that, at the time, there was no valid
+two-argument @code{find} invocation.  The implementation was much
+faster than searching the whole file system in real time, because it
+used a pre-built file name database.  This functionality is described
+in more detail in @cite{Finding Files Fast} by James Woods (Usenix
+;login, Volume 8 Issue 1, pages. 8-10, 1983).
+
+Standardisation of @code{find} led to this functionality being moved
+into the @code{locate} program in 4.4-BSD.   The command @code{find
+needle} now unambiguously means ``start searching at the file
+@code{needle} and print the names of the files you encounter''.
+
+GNU @code{locate} and its associated utilities were originally written
+by James Woods, with enhancements by David MacKenzie.
 
 @node GNU Free Documentation License
 @appendix GNU Free Documentation License
