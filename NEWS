@@ -18,6 +18,11 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   findutils now builds again on systems with musl-libc.
   This requires gettext-0.19.8.
 
+  findutils programs no longer fail for timestamps past the year 2038
+  on obsolete configurations with 32-bit signed time_t, because the
+  build procedure now rejects these configurations.
+  On systems without any year2038 support configure with --disable-year2038.
+
 ** Documentation Changes
 
   When generating the Texinfo manual, `makeinfo` is invoked with the --no-split
