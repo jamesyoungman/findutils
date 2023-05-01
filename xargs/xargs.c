@@ -70,6 +70,10 @@
 #include "gcc-function-attributes.h"
 #include "system.h"
 
+/* GCC 13 misunderstands the dup2 trickery in this file.  */
+#if 13 <= __GNUC__
+# pragma GCC diagnostic ignored "-Wanalyzer-fd-leak"
+#endif
 
 #ifndef LONG_MAX
 # define LONG_MAX (~(1 << (sizeof (long) * 8 - 1)))
