@@ -98,6 +98,7 @@ manual) are Bernhard Voelker and James Youngman.  Many other people
 have contributed bug fixes, small improvements, and helpful
 suggestions.  Thanks!
 
+@findex bugs, reporting
 To report a bug in GNU findutils, please use the form on the Savannah
 web site at
 @code{https://savannah.gnu.org/bugs/?group=findutils}.  Reporting bugs
