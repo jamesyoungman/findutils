@@ -3868,6 +3868,14 @@ a program died due to a fatal signal.
 @subsection xargs options
 
 @table @code
+@item --
+@findex option delimiter, --
+Delimit the option list.  Later arguments, if any, are treated as operands even
+if they begin with @samp{-}.  For example, @samp{xargs -- --help} runs the
+command @samp{--help} (found in @env{PATH}) instead of printing the usage text,
+and @samp{xargs -- --mycommand} runs the command @samp{--mycommand} instead of
+rejecting this as unrecognized option.
+
 @item --arg-file@r{=@var{inputfile}}
 @itemx -a @r{@var{inputfile}}
 Read names from the file @var{inputfile} instead of standard input.

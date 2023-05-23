@@ -279,6 +279,22 @@ Exit if the size (see the
 .B \-s
 option) is exceeded.
 .TP
+.B "\-\-"
+Delimit the option list.  Later arguments, if any, are treated as operands even
+if they begin with
+.IR \- .
+For example,
+.B xargs \-\- \-\-help
+runs the command
+.I \-\-help
+(found in
+.IR PATH )
+instead of printing the usage text, and
+.B xargs \-\- \-\-mycommand
+runs the command
+.I \-\-mycommand
+instead of rejecting this as unrecognized option.
+.TP
 .B "\-\-help"
 Print a summary of the options to
 .B xargs

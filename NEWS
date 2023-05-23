@@ -28,6 +28,8 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   When generating the Texinfo manual, `makeinfo` is invoked with the --no-split
   option for all output formats now; this avoids files like find.info-[12].
 
+  The xargs documentation now describes the double dash "--" option delimiter.
+
 
 * Noteworthy changes in release 4.9.0 (2022-02-22) [stable]
 
