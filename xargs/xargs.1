@@ -48,7 +48,8 @@ and/or newlines are incorrectly processed by
 In these situations it is better to use the
 .B \-0
 option, which
-prevents such problems.   When using this option you will need to
+prevents such problems.
+When using this option you will need to
 ensure that the program which produces the input for
 .B xargs
 also uses a null character as a separator.  If that program is
@@ -91,9 +92,12 @@ as
 or an octal or hexadecimal escape code.  Octal and hexadecimal
 escape codes are understood as for the
 .B printf
-command.   Multibyte characters are not supported.
-When processing the input, quotes and backslash are not special; every
-character in the input is taken literally.  The
+command.
+Multibyte characters are not supported.
+When processing the input,
+quotes and backslash are not special;
+every character in the input is taken literally.
+The
 .B \-d
 option disables any end-of-file string, which is treated like any
 other argument.  You can use this option when the input consists of
@@ -231,7 +235,7 @@ to run an interactive application.
 Prompt the user about whether to run each command line and read a line
 from the terminal.  Only run the command line if the response starts
 with `y' or `Y'.  Implies
-.BR -t .
+.BR \-t .
 .TP
 .BR \-\-process\-slot\-var "=\fIname\fR"
 Set the environment variable
@@ -245,14 +249,14 @@ If the standard input does not contain any nonblanks, do not run the
 command.  Normally, the command is run once even if there is no input.
 This option is a GNU extension.
 .TP
-.BI -s " max-chars\fR, \fI" \-\-max\-chars "=\fImax-chars\fR"
+.BI \-s " max-chars\fR, \fI" \-\-max\-chars "=\fImax-chars\fR"
 Use at most \fImax-chars\fR characters per command line, including the
 command and initial-arguments and the terminating nulls at the ends of
 the argument strings.  The largest allowed value is system-dependent,
 and is calculated as the argument length limit for exec, less the size
 of your environment, less 2048 bytes of headroom.  If this value is
-more than 128KiB, 128Kib is used as the default value; otherwise, the
-default value is the maximum.  1KiB is 1024 bytes.
+more than 128\~KiB, 128\~KiB is used as the default value; otherwise, the
+default value is the maximum.  1\~KiB is 1024 bytes.
 .B xargs
 automatically adapts to tighter constraints.
 .TP
@@ -265,7 +269,7 @@ choice of buffer size and the
 option.  Pipe the input from
 .I /dev/null
 (and perhaps specify
-.BR --no-run-if-empty )
+.BR \-\-no-run-if-empty )
 if you don't want
 .B xargs
 to do anything.
@@ -313,8 +317,9 @@ The options
 and
 .B \-\-max-args
 (\fB\-n\fP)
-are mutually exclusive. If some of them are specified at the same
-time, then
+are mutually exclusive.
+If some of them are specified at the same time,
+then
 .B xargs
 will generally use the option specified last on the command line,
 i.e., it will reset the value of the offending option (given before)
@@ -390,7 +395,7 @@ exits with the following status:
 .IP 0
 if it succeeds
 .IP 123
-if any invocation of the command exited with status 1-125
+if any invocation of the command exited with status 1\(en125
 .IP 124
 if the command exited with status 255
 .IP 125
@@ -462,14 +467,17 @@ can often be used as a more secure alternative.
 
 When you use the
 .B \-I
-option, each line read from the input is buffered
-internally.   This means that there is an upper limit on the length
+option,
+each line read from the input is buffered
+internally.
+This means that there is an upper limit on the length
 of input line that
 .B xargs
 will accept when used with the
 .B \-I
-option.  To work around this
-limitation, you can use the
+option.
+To work around this limitation,
+you can use the
 .B \-s
 option to increase the amount of
 buffer space that
@@ -486,14 +494,18 @@ Here, the first invocation of
 has no input line length limit
 because it doesn't use the
 .B \-i
-option.  The second invocation of
+option.
+The second invocation of
 .B xargs
-does have such a limit, but we have ensured that it never encounters
-a line which is longer than it can handle.   This is not an ideal
-solution.  Instead, the
+does have such a limit,
+but we have ensured that it never encounters
+a line which is longer than it can handle.
+This is not an ideal solution.
+Instead, the
 .B \-i
 option should not impose a line length
-limit, which is why this discussion appears in the BUGS section.
+limit,
+which is why this discussion appears in the BUGS section.
 The problem doesn't occur with the output of
 .BR find (1)
 because it emits just one filename per line.
@@ -515,7 +527,7 @@ mailing list:
 .RE
 .
 .SH COPYRIGHT
-Copyright \(co 1990-2023 Free Software Foundation, Inc.
+Copyright \(co 1990\(en2023 Free Software Foundation, Inc.
 License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
 .br
 This is free software: you are free to change and redistribute it.
