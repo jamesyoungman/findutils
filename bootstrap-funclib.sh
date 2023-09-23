@@ -1,6 +1,6 @@
 # A library of shell functions for autopull.sh, autogen.sh, and bootstrap.
 
-scriptlibversion=2023-03-09.17; # UTC
+scriptlibversion=2023-08-29.21; # UTC
 
 # Copyright (C) 2003-2023 Free Software Foundation, Inc.
 #
@@ -303,7 +303,7 @@ check_versions() {
     # Handle the still-experimental Automake-NG programs specially.
     # They remain named as the mainstream Automake programs ("automake",
     # and "aclocal") to avoid gratuitous incompatibilities with
-    # pre-existing usages (by, say, autoreconf, or custom autogen.sh
+    # preexisting usages (by, say, autoreconf, or custom autogen.sh
     # scripts), but correctly identify themselves (as being part of
     # "GNU automake-ng") when asked their version.
     case $app in
@@ -460,7 +460,8 @@ prepare_GNULIB_SRCDIR ()
     # We already checked that $GNULIB_SRCDIR references a directory.
     # Verify that it contains a gnulib checkout.
     test -f "$GNULIB_SRCDIR/gnulib-tool" \
-      || die "Error: --gnulib-srcdir or \$GNULIB_SRCDIR is specified, but does not contain gnulib-tool"
+      || die "Error: --gnulib-srcdir or \$GNULIB_SRCDIR is specified," \
+             "but does not contain gnulib-tool"
   elif $use_git; then
     gnulib_path=$(git_modules_config submodule.gnulib.path)
     test -z "$gnulib_path" && gnulib_path=gnulib
@@ -521,7 +522,8 @@ prepare_GNULIB_SRCDIR ()
           # be processed, which can drastically reduce download and processing
           # time for checkout. If the fetch by commit fails, a shallow fetch can
           # not be performed because we do not know what the depth of the commit
-          # is without fetching all commits. So fallback to fetching all commits.
+          # is without fetching all commits. So fall back to fetching all
+          # commits.
           git -C "$gnulib_path" init
           git -C "$gnulib_path" remote add origin \
               ${GNULIB_URL:-$default_gnulib_url}
@@ -537,7 +539,8 @@ prepare_GNULIB_SRCDIR ()
     GNULIB_SRCDIR=$gnulib_path
     # Verify that the submodule contains a gnulib checkout.
     test -f "$gnulib_path/gnulib-tool" \
-      || die "Error: $gnulib_path is supposed to contain a gnulib checkout, but does not contain gnulib-tool"
+      || die "Error: $gnulib_path is supposed to contain a gnulib checkout," \
+             "but does not contain gnulib-tool"
   fi
 
   # XXX Should this be done if $use_git is false?
@@ -557,7 +560,8 @@ upgrade_bootstrap ()
   if test -f "$medir"/bootstrap-funclib.sh; then
     update_lib=true
     { cmp -s "$medir"/bootstrap "$GNULIB_SRCDIR/top/bootstrap" \
-      && cmp -s "$medir"/bootstrap-funclib.sh "$GNULIB_SRCDIR/top/bootstrap-funclib.sh" \
+      && cmp -s "$medir"/bootstrap-funclib.sh \
+                "$GNULIB_SRCDIR/top/bootstrap-funclib.sh" \
       && cmp -s "$medir"/autopull.sh "$GNULIB_SRCDIR/top/autopull.sh" \
       && cmp -s "$medir"/autogen.sh "$GNULIB_SRCDIR/top/autogen.sh"; \
     }
@@ -574,10 +578,18 @@ upgrade_bootstrap ()
       a) ignored=--;;
       *) ignored=ignored;;
     esac
+    u=$update_lib
     exec sh -c \
-      '{ if '$update_lib' && test -f "$1"; then cp "$1" "$3"; else cp "$2" "$3"; fi; } && { if '$update_lib' && test -f "$4"; then cp "$4" "$5"; else rm -f "$5"; fi; } && { if '$update_lib' && test -f "$6"; then cp "$6" "$7"; else rm -f "$7"; fi; } && { if '$update_lib' && test -f "$8"; then cp "$8" "$9"; else rm -f "$9"; fi; } && shift && shift && shift && shift && shift && shift && shift && shift && shift && exec "${CONFIG_SHELL-/bin/sh}" "$@"' \
+      '{ if '$u' && test -f "$1"; then cp "$1" "$3"; else cp "$2" "$3"; fi; } &&
+       { if '$u' && test -f "$4"; then cp "$4" "$5"; else rm -f "$5"; fi; } &&
+       { if '$u' && test -f "$6"; then cp "$6" "$7"; else rm -f "$7"; fi; } &&
+       { if '$u' && test -f "$8"; then cp "$8" "$9"; else rm -f "$9"; fi; } &&
+       shift && shift && shift && shift && shift &&
+       shift && shift && shift && shift &&
+       exec "${CONFIG_SHELL-/bin/sh}" "$@"' \
       $ignored \
-      "$GNULIB_SRCDIR/top/bootstrap" "$GNULIB_SRCDIR/build-aux/bootstrap" "$medir/bootstrap" \
+      "$GNULIB_SRCDIR/top/bootstrap" "$GNULIB_SRCDIR/build-aux/bootstrap" \
+      "$medir/bootstrap" \
       "$GNULIB_SRCDIR/top/bootstrap-funclib.sh" "$medir/bootstrap-funclib.sh" \
       "$GNULIB_SRCDIR/top/autopull.sh" "$medir/autopull.sh" \
       "$GNULIB_SRCDIR/top/autogen.sh" "$medir/autogen.sh" \
@@ -610,7 +622,9 @@ Optional environment variables:
                            Use this if you already have gnulib sources
                            and history on your machine, and do not want
                            to waste your bandwidth downloading them again.
-  GNULIB_URL               Cloneable URL of the gnulib repository.
+  GNULIB_URL               URL of the gnulib repository.  The default is
+                           $default_gnulib_url,
+                           which is Gnulib's upstream repository.
 
 Options:
   --bootstrap-sync         if this bootstrap script is not identical to
@@ -710,9 +724,12 @@ autopull()
   done
 
   $use_git || test -n "$GNULIB_SRCDIR" \
-    || die "Error: --no-git requires \$GNULIB_SRCDIR environment variable or --gnulib-srcdir option"
+    || die "Error: --no-git requires \$GNULIB_SRCDIR environment variable" \
+           "or --gnulib-srcdir option"
   test -z "$GNULIB_SRCDIR" || test -d "$GNULIB_SRCDIR" \
-    || die "Error: \$GNULIB_SRCDIR environment variable or --gnulib-srcdir option is specified, but does not denote a directory"
+    || die "Error: \$GNULIB_SRCDIR environment variable" \
+           "or --gnulib-srcdir option is specified," \
+           "but does not denote a directory"
 
   if test -n "$checkout_only_file" && test ! -r "$checkout_only_file"; then
     die "Running this script from a non-checked-out distribution is risky."
@@ -774,7 +791,10 @@ autopull()
       uninitialized=`echo "$uninitialized" | grep -v '^gnulib$'`
     fi
     if test -n "$uninitialized"; then
-      die "Some git submodules are not initialized: "`echo "$uninitialized" | tr '\n' ',' | sed -e 's|,$|.|'`" Either use option '--no-git', or run 'git submodule update --init' and bootstrap again."
+      uninit_comma=`echo "$uninitialized" | tr '\n' ',' | sed -e 's|,$|.|'`
+      die "Some git submodules are not initialized: "$uninit_comma \
+          "Either use option '--no-git'," \
+          "or run 'git submodule update --init' and bootstrap again."
     fi
   fi
 
@@ -941,7 +961,7 @@ symlink_to_dir()
       for dot_ig in x $vc_ignore; do
         test $dot_ig = x && continue
         ig=$parent/$dot_ig
-        insert_vc_ignore $ig "${dst_dir##*/}"
+        insert_vc_ignore $ig "${dst_dir##*/}/"
       done
     fi
 
@@ -1038,7 +1058,8 @@ autogen()
   done
 
   test -z "$GNULIB_SRCDIR" || test -d "$GNULIB_SRCDIR" \
-    || die "Error: \$GNULIB_SRCDIR environment variable or --gnulib-srcdir option is specified, but does not denote a directory"
+    || die "Error: \$GNULIB_SRCDIR environment variable or --gnulib-srcdir" \
+           "option is specified, but does not denote a directory"
 
   if test -n "$checkout_only_file" && test ! -r "$checkout_only_file"; then
     die "Running this script from a non-checked-out distribution is risky."
@@ -1046,7 +1067,8 @@ autogen()
 
   if $use_gnulib; then
     if test -z "$GNULIB_SRCDIR"; then
-      gnulib_path=$(test -f .gitmodules && git config --file .gitmodules submodule.gnulib.path)
+      gnulib_path=$(test -f .gitmodules &&
+                    git config --file .gitmodules submodule.gnulib.path)
       test -z "$gnulib_path" && gnulib_path=gnulib
       GNULIB_SRCDIR=$gnulib_path
     fi
@@ -1067,7 +1089,7 @@ autogen()
     mkdir $build_aux
     for dot_ig in x $vc_ignore; do
       test $dot_ig = x && continue
-      insert_vc_ignore $dot_ig $build_aux
+      insert_vc_ignore $dot_ig $build_aux/
     done
   fi
 
