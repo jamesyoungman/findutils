@@ -21,7 +21,7 @@ for manpage
 do
   what="lint check on manpage $manpage"
   echo -n "$what: "
-  messages="$( troff -t -man ${srcdir}/${manpage} 2>&1 >/dev/null )"
+  messages="$( groff -t -man ${srcdir}/${manpage} 2>&1 >/dev/null )"
   if test -z "$messages" ; then
       echo "passed"
   else
