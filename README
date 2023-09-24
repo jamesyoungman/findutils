@@ -6,6 +6,8 @@ options, some borrowed from Unix and some unique to GNU.
 
 See the file NEWS for a list of major changes in the current release.
 
+See the file COPYING for copying conditions.
+
 See the file INSTALL for compilation and installation instructions.
 
 If there is no file INSTALL, you must be looking at the checked-out
