@@ -33,7 +33,6 @@
 
 /* gnulib headers. */
 #include "areadlink.h"
-#include "error.h"
 #include "filemode.h"
 #include "human.h"
 #include "mbswidth.h"
@@ -43,7 +42,6 @@
 
 /* find headers. */
 #include "system.h"
-#include "die.h"
 #include "listfile.h"
 
 /* Since major is a function on SVR4, we can't use `ifndef major'.  */
@@ -451,7 +449,7 @@ list_file (const char *name,
     }
   if (!output_good)
     {
-      die (EXIT_FAILURE, errno, _("Failed to write output (at stage %d)"), failed_at);
+      error (EXIT_FAILURE, errno, _("Failed to write output (at stage %d)"), failed_at);
     }
 }
 

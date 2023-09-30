@@ -27,7 +27,6 @@
 
 /* find headers. */
 #include "system.h"
-#include "die.h"
 #include "safe-atoi.h"
 
 
@@ -45,12 +44,12 @@ safe_atoi (const char *s, enum quoting_style style)
       if (errno == ERANGE)
 	{
 	  /* too big, or too small. */
-	  die (EXIT_FAILURE, errno, "%s", s);
+	  error (EXIT_FAILURE, errno, "%s", s);
 	}
       else
 	{
 	  /* not a valid number */
-	  die (EXIT_FAILURE, errno, "%s", s);
+	  error (EXIT_FAILURE, errno, "%s", s);
 	}
       /* Otherwise, we do a range check against INT_MAX and INT_MIN
        * below.
@@ -61,18 +60,18 @@ safe_atoi (const char *s, enum quoting_style style)
     {
       /* The number was in range for long, but not int. */
       errno = ERANGE;
-      die (EXIT_FAILURE, errno, "%s", s);
+      error (EXIT_FAILURE, errno, "%s", s);
     }
   else if (*end)
     {
-      die (EXIT_FAILURE, errno, _("Unexpected suffix %s on %s"),
-	   quotearg_n_style (0, style, end),
-	   quotearg_n_style (1, style, s));
+      error (EXIT_FAILURE, errno, _("Unexpected suffix %s on %s"),
+             quotearg_n_style (0, style, end),
+             quotearg_n_style (1, style, s));
     }
   else if (end == s)
     {
-      die (EXIT_FAILURE, errno, _("Expected an integer: %s"),
-	   quotearg_n_style (0, style, s));
+      error (EXIT_FAILURE, errno, _("Expected an integer: %s"),
+             quotearg_n_style (0, style, s));
     }
   return (int)lval;
 }

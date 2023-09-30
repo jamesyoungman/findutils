@@ -27,12 +27,10 @@
 
 /* gnulib headers. */
 #include "byteswap.h"
-#include "error.h"
 #include "quotearg.h"
 
 /* find headers. */
 #include "system.h"
-#include "die.h"
 #include "locatedb.h"
 
 
@@ -120,10 +118,10 @@ getword (FILE *fp,
        * Either condition is fatal.
        */
       if (feof (fp))
-	die (EXIT_FAILURE, 0, _("unexpected EOF in %s"), quoted_name);
+	error (EXIT_FAILURE, 0, _("unexpected EOF in %s"), quoted_name);
       else
-	die (EXIT_FAILURE, errno,
-	     _("error reading a word from %s"), quoted_name);
+	error (EXIT_FAILURE, errno,
+	       _("error reading a word from %s"), quoted_name);
       abort ();
     }
   else

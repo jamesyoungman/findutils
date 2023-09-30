@@ -32,7 +32,6 @@
 /* gnulib headers. */
 #include "areadlink.h"
 #include "dirname.h"
-#include "error.h"
 #include "filemode.h"
 #include "human.h"
 #include "printquoted.h"
@@ -44,7 +43,6 @@
 /* find-specific headers. */
 #include "system.h"
 #include "defs.h"
-#include "die.h"
 #include "print.h"
 
 
@@ -370,8 +368,8 @@ insert_fprintf (struct format_val *vec,
           if (fmt_editpos[1] == 0)
             {
               /* Trailing %.  We don't like those. */
-              die (EXIT_FAILURE, 0,
-                   _("error: %s at end of format string"), fmt_editpos);
+              error (EXIT_FAILURE, 0,
+                     _("error: %s at end of format string"), fmt_editpos);
             }
 
           if (fmt_editpos[1] == '%') /* %% produces just %. */
@@ -394,9 +392,9 @@ insert_fprintf (struct format_val *vec,
             {
               if (strchr ("{[(", fmt_editpos[0]))
                 {
-                  die (EXIT_FAILURE, 0,
-                       _("error: the format directive `%%%c' is reserved for future use"),
-                       (int)fmt_editpos[0]);
+                  error (EXIT_FAILURE, 0,
+                         _("error: the format directive `%%%c' is reserved for future use"),
+                         (int)fmt_editpos[0]);
                   /*NOTREACHED*/
                 }
 
@@ -1257,7 +1255,7 @@ do_fprintf (struct format_val *dest,
 	     simply to ensure that the error message matches the one
 	     in insert_fprintf, easing the translation burden.
 	   */
-	  die (EXIT_FAILURE, 0, _("error: %s at end of format string"), "%");
+	  error (EXIT_FAILURE, 0, _("error: %s at end of format string"), "%");
 	  /*NOTREACHED*/
 	  break;
         }

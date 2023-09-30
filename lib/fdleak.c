@@ -35,7 +35,6 @@
 /* gnulib headers. */
 #include "cloexec.h"
 #include "dirent--.h"
-#include "error.h"
 #include "fcntl--.h"
 
 /* find headers. */

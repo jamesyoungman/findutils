@@ -41,7 +41,6 @@
 #include "argv-iter.h"
 #include "cloexec.h"
 #include "closeout.h"
-#include "error.h"
 #include "fts_.h"
 #include "intprops.h"
 #include "progname.h"
@@ -53,7 +52,6 @@
 
 /* find headers. */
 #include "defs.h"
-#include "die.h"
 #include "dircallback.h"
 #include "fdleak.h"
 #include "unused-result.h"
@@ -580,7 +578,7 @@ process_all_startpoints (int argc, char *argv[])
       if (argv_starting_points)
         {
           error (0, 0, _("extra operand %s"), safely_quote_err_filename (0, argv[0]));
-          die (EXIT_FAILURE, 0, "%s",
+          error (EXIT_FAILURE, 0,
                    _("file operands cannot be combined with -files0-from"));
         }
 
@@ -591,9 +589,9 @@ process_all_startpoints (int argc, char *argv[])
            * mess with stdin.  */
           if (options.ok_prompt_stdin)
             {
-              die (EXIT_FAILURE, 0, "%s\n",
-                   _("option -files0-from reading from standard input"
-                   " cannot be combined with -ok, -okdir"));
+              error (EXIT_FAILURE, 0,
+                     _("option -files0-from reading from standard input"
+                       " cannot be combined with -ok, -okdir"));
             }
           files0_filename_quoted = safely_quote_err_filename (0, _("(standard input)"));
           stream = stdin;
@@ -603,8 +601,10 @@ process_all_startpoints (int argc, char *argv[])
           files0_filename_quoted = safely_quote_err_filename (0, options.files0_from);
           stream = fopen (options.files0_from, "r");
           if (stream == NULL)
-            die (EXIT_FAILURE, errno, _("cannot open %s for reading"),
-                 files0_filename_quoted);
+            {
+              error (EXIT_FAILURE, errno, _("cannot open %s for reading"),
+                     files0_filename_quoted);
+            }
 
           const int fd = fileno (stream);
           assert (fd >= 0);
@@ -621,10 +621,11 @@ process_all_startpoints (int argc, char *argv[])
               if (fstat (fd, &sb1) == 0 && fstat (STDIN_FILENO, &sb2) == 0
                     && SAME_INODE (sb1, sb2))
                 {
-                  die (EXIT_FAILURE, 0, "%s: %s\n",
-                           _("option -files0-from: standard input must not refer"
-                             " to the same file when combined with -ok, -okdir"),
-                           files0_filename_quoted);
+                  error (EXIT_FAILURE, 0,
+                         _("option -files0-from: standard input must not refer"
+                           " to the same file when combined with -ok, -okdir:"
+                           " %s"),
+                         files0_filename_quoted);
                 }
             }
           set_cloexec_flag (fd, true);
@@ -716,7 +717,7 @@ process_all_startpoints (int argc, char *argv[])
   argv_iter_free (ai);
 
   if (ok && options.files0_from && (ferror (stream) || fclose (stream) != 0))
-    die (EXIT_FAILURE, 0, _("error reading %s"), files0_filename_quoted);
+    error (EXIT_FAILURE, 0, _("error reading %s"), files0_filename_quoted);
 
   return ok;
 }
@@ -750,8 +751,8 @@ main (int argc, char **argv)
   state.shared_files = sharefile_init ("w");
   if (NULL == state.shared_files)
     {
-      die (EXIT_FAILURE, errno,
-	   _("Failed to initialize shared-file hash table"));
+      error (EXIT_FAILURE, errno,
+	     _("Failed to initialize shared-file hash table"));
     }
 
   /* Set the option defaults before we do the locale initialisation as
@@ -766,9 +767,7 @@ main (int argc, char **argv)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
   if (atexit (close_stdout))
-    {
-      die (EXIT_FAILURE, errno, _("The atexit library function failed"));
-    }
+    error (EXIT_FAILURE, errno, _("The atexit library function failed"));
 
   /* Check for -P, -H or -L options.  Also -D and -O, which are
    * both GNU extensions.

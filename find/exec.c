@@ -29,7 +29,6 @@
 /* gnulib headers */
 #include "cloexec.h"
 #include "dirname.h"
-#include "error.h"
 #include "fcntl--.h"
 #include "save-cwd.h"
 #include "xalloc.h"
@@ -37,7 +36,6 @@
 /* findutils headers */
 #include "buildcmd.h"
 #include "defs.h"
-#include "die.h"
 #include "fdleak.h"
 #include "system.h"
 
@@ -119,9 +117,9 @@ impl_pred_exec (const char *pathname,
       */
       if (!record_exec_dir (execp))
         {
-          die (EXIT_FAILURE, errno,
-               _("Failed to save working directory in order to "
-                 "run a command on %s"),
+          error (EXIT_FAILURE, errno,
+                 _("Failed to save working directory in order to "
+                   "run a command on %s"),
                  safely_quote_err_filename (0, pathname));
           /*NOTREACHED*/
         }
@@ -314,7 +312,7 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
 
   child_pid = fork ();
   if (child_pid == -1)
-    die (EXIT_FAILURE, errno, _("cannot fork"));
+    error (EXIT_FAILURE, errno, _("cannot fork"));
   if (child_pid == 0)
     {
       /* We are the child. */

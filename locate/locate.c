@@ -83,7 +83,6 @@
 #include "fnmatch.h"
 #include "progname.h"
 #include "xalloc.h"
-#include "error.h"
 #include "fcntl--.h"
 #include "human.h"
 #include "dirname.h"
@@ -96,7 +95,6 @@
 /* find headers. */
 #include "system.h"
 #include "bugreports.h"
-#include "die.h"
 #include "findutils-version.h"
 #include "gcc-function-attributes.h"
 #include "locatedb.h"
@@ -156,8 +154,8 @@ set_max_db_age (const char *s)
 
   if (0 == *s)
     {
-      die (EXIT_FAILURE, 0,
-           _("The argument for option --max-database-age must not be empty"));
+      error (EXIT_FAILURE, 0,
+             _("The argument for option --max-database-age must not be empty"));
     }
 
 
@@ -172,16 +170,16 @@ set_max_db_age (const char *s)
   if ((ULONG_MAX == val && ERANGE == errno) ||
       (0 == val && EINVAL == errno))
     {
-      die (EXIT_FAILURE, errno,
-           _("Invalid argument %s for option --max-database-age"),
-           quotearg_n_style (0, locale_quoting_style, s));
+      error (EXIT_FAILURE, errno,
+             _("Invalid argument %s for option --max-database-age"),
+             quotearg_n_style (0, locale_quoting_style, s));
     }
   else if (*end)
     {
       /* errno wasn't set, don't print its message */
-      die (EXIT_FAILURE, 0,
-           _("Invalid argument %s for option --max-database-age"),
-           quotearg_n_style (0, locale_quoting_style, s));
+      error (EXIT_FAILURE, 0,
+             _("Invalid argument %s for option --max-database-age"),
+             quotearg_n_style (0, locale_quoting_style, s));
     }
   else
     {
@@ -429,10 +427,10 @@ visit_justprint_unquoted (struct process_data *procdata, void *context)
 static void
 toolong (struct process_data *procdata)
 {
-  die (EXIT_FAILURE, 0,
-       _("locate database %s contains a "
-         "filename longer than locate can handle"),
-       procdata->dbfile);
+  error (EXIT_FAILURE, 0,
+         _("locate database %s contains a "
+           "filename longer than locate can handle"),
+         procdata->dbfile);
 }
 
 static void
@@ -541,8 +539,8 @@ visit_locate02_format (struct process_data *procdata, void *context)
        * reading in data which is outside our control, we
        * cannot prevent it.
        */
-      die (EXIT_FAILURE, 0, _("locate database %s is corrupt or invalid"),
-           quotearg_n_style (0, locale_quoting_style, procdata->dbfile));
+      error (EXIT_FAILURE, 0, _("locate database %s is corrupt or invalid"),
+             quotearg_n_style (0, locale_quoting_style, procdata->dbfile));
     }
 
   /* Overlay the old path with the remainder of the new.  */
@@ -1142,10 +1140,10 @@ search_one_database (int argc,
                                      256 - nread, procdata.fp);
               if ( (more_read + nread) != 256 )
                 {
-                  die (EXIT_FAILURE, 0,
-                       _("Old-format locate database %s is "
-                         "too short to be valid"),
-                       quotearg_n_style (0, locale_quoting_style, dbfile));
+                  error (EXIT_FAILURE, 0,
+                         _("Old-format locate database %s is "
+                           "too short to be valid"),
+                         quotearg_n_style (0, locale_quoting_style, dbfile));
 
                 }
             }
@@ -1187,7 +1185,7 @@ search_one_database (int argc,
                                               &p->regex);
           if (error_message)
             {
-              die (EXIT_FAILURE, 0, "%s", error_message);
+              error (EXIT_FAILURE, 0, "%s", error_message);
             }
           else
             {
@@ -1490,8 +1488,8 @@ drop_privs (void)
   return 0;
 
  fail:
-  die (EXIT_FAILURE, errno, "%s",
-       quotearg_n_style (0, locale_quoting_style, what));
+  error (EXIT_FAILURE, errno, "%s",
+         quotearg_n_style (0, locale_quoting_style, what));
   abort ();
   kill (0, SIGKILL);
   _exit (1);
@@ -1565,7 +1563,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
   quote_opts = clone_quoting_options (NULL);
   if (atexit (close_stdout) || atexit (cleanup_quote_opts))
     {
-      die (EXIT_FAILURE, errno, _("The atexit library function failed"));
+      error (EXIT_FAILURE, errno, _("The atexit library function failed"));
     }
 
   limits.limit = 0;

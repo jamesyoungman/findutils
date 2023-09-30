@@ -20,6 +20,8 @@
 
 # include <locale.h>
 
+# include "error.h"
+
 /* Take care of NLS matters.  */
 
 # include "gettext.h"

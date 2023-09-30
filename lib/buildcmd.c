@@ -37,7 +37,6 @@
 /* find headers. */
 #include "system.h"
 #include "buildcmd.h"
-#include "die.h"
 
 
 /* COMPAT:  SYSV version defaults size (and has a max value of) to 470.
@@ -141,7 +140,7 @@ bc_do_insert (struct buildcmd_control *ctl,
     }
   while (*arg);
   if (*arg)
-    die (EXIT_FAILURE, 0, _("command too long"));
+    error (EXIT_FAILURE, 0, _("command too long"));
   *p++ = '\0';
 
   bc_push_arg (ctl, state,
@@ -280,8 +279,8 @@ bc_do_exec (struct buildcmd_control *ctl,
 	      {
 		/* No room to reduce the length of the argument list.
 		   Issue an error message and give up. */
-		die (EXIT_FAILURE, 0,
-		     _("can't call exec() due to argument size restrictions"));
+		error (EXIT_FAILURE, 0,
+		       _("can't call exec() due to argument size restrictions"));
 	      }
 	    else
 	      {
@@ -345,14 +344,18 @@ bc_push_arg (struct buildcmd_control *ctl,
       if (state->cmd_argv_chars + len + pfxlen > ctl->arg_max)
         {
           if (initial_args || state->cmd_argc == ctl->initial_argc)
-            die (EXIT_FAILURE, 0,
-		 _("cannot fit single argument within argument list size limit"));
+            {
+              error (EXIT_FAILURE, 0,
+                     _("cannot fit single argument within argument list size limit"));
+            }
 
           /* xargs option -i (replace_pat) implies -x (exit_if_size_exceeded) */
           if (ctl->replace_pat
               || (ctl->exit_if_size_exceeded &&
                   (ctl->lines_per_exec || ctl->args_per_exec)))
-            die (EXIT_FAILURE, 0, _("argument list too long"));
+            {
+              error (EXIT_FAILURE, 0, _("argument list too long"));
+            }
           bc_do_exec (ctl, state);
         }
       if (bc_argc_limit_reached (initial_args, ctl, state))
@@ -608,10 +611,10 @@ exceeds (const char *env_var_name, size_t quantity)
 	}
       else
 	{
-	  die (EXIT_FAILURE, errno,
-	       _("Environment variable %s is not set to a "
-		 "valid decimal number"),
-	       env_var_name);
+	  error (EXIT_FAILURE, errno,
+		 _("Environment variable %s is not set to a "
+		   "valid decimal number"),
+		 env_var_name);
 	  return 0;
 	}
     }

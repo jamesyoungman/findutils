@@ -54,7 +54,6 @@
 
 /* find headers. */
 #include "defs.h"
-#include "die.h"
 #include "extendbuf.h"
 #include "system.h"
 
@@ -237,7 +236,7 @@ file_system_type_uncached (const struct stat *statp, const char *path,
        * use because gnulib has abstracted all that stuff away.
        * Hence we cannot issue a specific error message here.
        */
-      die (EXIT_FAILURE, 0, _("Cannot read mounted file system list"));
+      error (EXIT_FAILURE, 0, _("Cannot read mounted file system list"));
     }
   for (type=NULL, entry=entries; entry; entry=entry->me_next)
     {

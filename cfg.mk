@@ -132,17 +132,6 @@ sc_prohibit_colon_redirection:
 	       exit 1; }  \
 	  || :
 
-# Usage of error() with an exit constant, should instead use die(),
-# as that avoids warnings and may generate better code, due to being apparent
-# to the compiler that it doesn't return.
-sc_die_EXIT_FAILURE:
-	@cd $(srcdir) \
-	  && GIT_PAGER= git grep -E 'error \(.*_(FAILURE|INVALID)' \
-	       -- find lib locate xargs \
-	  && { echo '$(ME): '"Use die() instead of error" 1>&2; \
-	       exit 1; }  \
-	  || :
-
 sc_prohibit-skip:
 	@prohibit='\|\| skip ' \
 	halt='Use skip_ not skip' \

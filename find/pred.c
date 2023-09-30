@@ -37,7 +37,6 @@
 /* gnulib headers. */
 #include "areadlink.h"
 #include "dirname.h"
-#include "error.h"
 #include "fcntl--.h"
 #include "fnmatch.h"
 #include "stat-size.h"
@@ -46,7 +45,6 @@
 
 /* find headers. */
 #include "defs.h"
-#include "die.h"
 #include "dircallback.h"
 #include "listfile.h"
 #include "printquoted.h"
@@ -697,7 +695,7 @@ is_ok (const char *program, const char *arg)
   /* XXX: printing UNTRUSTED data here. */
   if (fprintf (stderr, _("< %s ... %s > ? "), program, arg) < 0)
     {
-      die (EXIT_FAILURE, errno, _("Failed to write prompt for -ok"));
+      error (EXIT_FAILURE, errno, _("Failed to write prompt for -ok"));
     }
   fflush (stderr);
   return yesno ();

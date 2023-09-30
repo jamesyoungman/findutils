@@ -35,7 +35,6 @@
 
 /* findutils headers */
 #include "system.h"
-#include "die.h"
 
 
 struct tagRegexTypeMap
@@ -94,10 +93,10 @@ get_regex_type (const char *s)
       p += sprintf (p, "%s", quote (regex_map[i].name));
     }
 
-  die (EXIT_FAILURE, 0,
-       _("Unknown regular expression type %s; valid types are %s."),
-       quote (s),
-       buf);
+  error (EXIT_FAILURE, 0,
+         _("Unknown regular expression type %s; valid types are %s."),
+         quote (s),
+         buf);
   /*NOTREACHED*/
   return -1;
 }
