@@ -13,6 +13,12 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   The error diagnostic for non-numeric arguments has been improved as well.
   Likewise for -inum, -links and -uid.
 
+** Improvements
+
+  The find predicates -used, -amin, -cmin, -mmin, -atime, -ctime, and -mtime
+  now properly diagnose a not-a-number argument.  Previously, find dumped
+  core via an assertion.  [#64717]
+
 ** Changes to the build process
 
   findutils now builds again on systems with musl-libc.

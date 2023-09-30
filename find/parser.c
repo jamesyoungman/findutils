@@ -75,6 +75,11 @@
 # define endpwent() ((void) 0)
 #endif
 
+/* Roll our own isnan rather than using <math.h>.  */
+#ifndef isnan
+# define isnan(x) ((x) != (x))
+#endif
+
 static bool parse_accesscheck   (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_amin          (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_and           (const struct parser_table*, char *argv[], int *arg_ptr);
@@ -3090,7 +3095,7 @@ insert_exec_ok (const char *action,
    Issue OVERFLOWMESSAGE if overflow occurs.
    Return true if all okay, false if input error.
 
-   Used by -atime, -ctime and -mtime (parsers) to
+   Used by -amin, -cmin, -mmin, -used, -atime, -ctime and -mtime (parsers) to
    get the appropriate information for a time predicate processor. */
 
 static bool
@@ -3117,6 +3122,12 @@ get_relative_timestamp (const char *str,
       /* Convert the ASCII number into floating-point. */
       if (xstrtod (str, NULL, &offset, strtod))
 	{
+	  if (isnan (offset))
+	    {
+	      die (EXIT_FAILURE, 0, _("invalid not-a-number argument: `%s'"),
+		   str);
+	    }
+
 	  /* Separate the floating point number the user specified
 	   * (which is a number of days, or minutes, etc) into an
 	   * integral number of seconds (SECONDS) and a fraction (NANOSEC).

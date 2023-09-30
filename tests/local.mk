@@ -124,6 +124,7 @@ all_tests = \
   tests/find/opt-numeric-arg.sh \
   tests/xargs/conflicting_opts.sh \
   tests/xargs/verbose-quote.sh \
+  tests/find/arg-nan.sh \
   $(all_root_tests)
 
 $(TEST_LOGS): $(PROGRAMS)
