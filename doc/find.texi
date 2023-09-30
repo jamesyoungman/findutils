@@ -2753,7 +2753,7 @@ work that it takes significant time to run, even on a single image.
 You could run:
 
 @example
-find originals -name '*.jpg' | xargs -l makeallsizes
+find originals -name '*.jpg' | xargs -L 1 makeallsizes
 @end example
 
 This will run @code{makeallsizes @var{filename}} once for each @code{.jpg}
@@ -2762,7 +2762,7 @@ two central processors, this script will only keep one of them busy.
 Instead, you could probably finish in about half the time by running:
 
 @example
-find originals -name '*.jpg' | xargs -l -P 2 makeallsizes
+find originals -name '*.jpg' | xargs -L 1 -P 2 makeallsizes
 @end example
 
 @code{xargs} will run the first two commands in parallel, and then
@@ -2803,7 +2803,7 @@ If you send it the signal @code{SIGUSR1}, it will run one more command
 in parallel.  For example:
 
 @example
-shell$ xargs <allimages -l -P 4 makeallsizes &
+shell$ xargs <allimages -L 1 -P 4 makeallsizes &
 [4] 27643
    ... at some later point ...
 shell$ kill -USR2 27643
@@ -2863,7 +2863,7 @@ names read from the input.  Also, unquoted blanks do not terminate
 arguments; instead, the input is split at newlines only.  For the
 @samp{-i} option, if @var{replace-str} is omitted for @samp{--replace}
 or @samp{-i}, it defaults to @samp{@{@}} (like for @samp{find -exec}).
-Implies @samp{-x} and @samp{-l 1}.  @samp{-i} is deprecated in favour
+Implies @samp{-x} and @samp{-L 1}.  @samp{-i} is deprecated in favour
 of @samp{-I}. As an example, to sort each file in the @file{bills}
 directory, leaving the output in that file name with @file{.sorted}
 appended, you could do:
@@ -3934,7 +3934,7 @@ names read from standard input.  Also, unquoted blanks do not
 terminate arguments; instead, the input is split at newlines only.  If
 @var{replace-str} is omitted (omitting it is allowed only for
 @samp{-i}), it defaults to @samp{@{@}} (like for @samp{find -exec}).
-Implies @samp{-x} and @samp{-l 1}.  The @samp{-i} option is deprecated
+Implies @samp{-x} and @samp{-L 1}.  The @samp{-i} option is deprecated
 in favour of the @samp{-I} option.
 
 @item -L @var{max-lines}
@@ -4029,7 +4029,7 @@ reset the value of the offending option (given before) to its default value.
 Additionally, @code{xargs} will issue a warning diagnostic on @file{stderr}.
 
 @example
-$ seq 4 | xargs -l2 -n3
+$ seq 4 | xargs -L2 -n3
 xargs: warning: options --max-lines and --max-args/-n are \
   mutually exclusive, ignoring previous --max-lines value
 1 2 3

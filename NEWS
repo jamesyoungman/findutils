@@ -36,6 +36,9 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
   The xargs documentation now describes the double dash "--" option delimiter.
 
+  The xargs examples in the Texinfo manual now use the -L option instead of
+  the deprecated -l option.  [#64480]
+
 
 * Noteworthy changes in release 4.9.0 (2022-02-22) [stable]
 
