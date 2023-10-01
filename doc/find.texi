@@ -5079,7 +5079,7 @@ works with newlines and doesn't need to sort the list of filenames.
 @smallexample
 find subdir -newer timestamp -printf "%A@@:%p\0" |
    perl -0 newest.pl |
-   xargs --no-run-if-empty --null -i \
+   xargs --no-run-if-empty --null --replace \
       find @{@} -maxdepth 0 -newer timestamp -exec touch -r @{@} timestamp \;
 @end smallexample
 
