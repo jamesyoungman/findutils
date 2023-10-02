@@ -2855,16 +2855,20 @@ limit the command size (@pxref{Limiting Command Size}), this mode of
 operation is equivalent to @samp{find -exec} (@pxref{Single File}).
 
 @table @code
-@item --replace@r{[}=@var{replace-str}@r{]}
-@itemx -I @var{replace-str}
-@itemx -i @var{replace-str}
+@item -I @var{replace-str}
+@itemx --replace@r{[}=@var{replace-str}@r{]}
+@itemx -i@r{[}@var{replace-str}@r{]}
 Replace occurrences of @var{replace-str} in the initial arguments with
-names read from the input.  Also, unquoted blanks do not terminate
-arguments; instead, the input is split at newlines only.  For the
-@samp{-i} option, if @var{replace-str} is omitted for @samp{--replace}
-or @samp{-i}, it defaults to @samp{@{@}} (like for @samp{find -exec}).
-Implies @samp{-x} and @samp{-L 1}.  @samp{-i} is deprecated in favour
-of @samp{-I}. As an example, to sort each file in the @file{bills}
+names read from standard input.
+Also, unquoted blanks do not terminate arguments;
+instead, the input is split at newlines only.
+If @var{replace-str} is omitted (omitting it is allowed only for @samp{-i}
+and @samp{--replace}), it defaults to @samp{@{@}} (like for @samp{find -exec}).
+Implies @samp{-x} and @samp{-L 1}.
+The @samp{-i} option is deprecated in favour of the @samp{-I} option.
+@end table
+
+As an example, to sort each file in the @file{bills}
 directory, leaving the output in that file name with @file{.sorted}
 appended, you could do:
 
@@ -2878,8 +2882,6 @@ The equivalent command using @samp{find -execdir} is:
 @example
 find bills -type f -execdir sort -o '@{@}.sorted' '@{@}' ';'
 @end example
-@end table
-
 
 When you use the @samp{-I} option, each line read from the input is
 buffered internally.  This means that there is an upper limit on the
@@ -3930,12 +3932,13 @@ Print a summary of the options to @code{xargs} and exit.
 @itemx --replace@r{[}=@var{replace-str}@r{]}
 @itemx -i@r{[}@var{replace-str}@r{]}
 Replace occurrences of @var{replace-str} in the initial arguments with
-names read from standard input.  Also, unquoted blanks do not
-terminate arguments; instead, the input is split at newlines only.  If
-@var{replace-str} is omitted (omitting it is allowed only for
-@samp{-i}), it defaults to @samp{@{@}} (like for @samp{find -exec}).
-Implies @samp{-x} and @samp{-L 1}.  The @samp{-i} option is deprecated
-in favour of the @samp{-I} option.
+names read from standard input.
+Also, unquoted blanks do not terminate arguments;
+instead, the input is split at newlines only.
+If @var{replace-str} is omitted (omitting it is allowed only for @samp{-i}
+and @samp{--replace}), it defaults to @samp{@{@}} (like for @samp{find -exec}).
+Implies @samp{-x} and @samp{-L 1}.
+The @samp{-i} option is deprecated in favour of the @samp{-I} option.
 
 @item -L @var{max-lines}
 @itemx --max-lines@r{[}=@var{max-lines}@r{]}
