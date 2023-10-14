@@ -705,7 +705,9 @@ it points to is always used.
 File was last accessed less than, more than or exactly
 .IR n *24
 hours ago.
-When find figures out how many 24-hour periods ago the file
+When
+.B find
+figures out how many 24-hour periods ago the file
 was last accessed, any fractional part is ignored, so to match
 .BR "\-atime\ +1" ,
 a file has to have been accessed at least
@@ -1199,7 +1201,9 @@ ineffective, the
 action cannot usefully be combined with
 .BR \-prune .
 
-Often, the user might want to test a find command line with
+Often, the user might want to test a
+.B find
+command line with
 .B \-print
 prior to adding
 .B \-delete
@@ -2038,8 +2042,10 @@ The
 .B find
 utility shall detect infinite loops; that is, entering a
 previously visited directory that is an ancestor of the last file
-encountered.  When it detects an infinite loop, find shall write a
-diagnostic message to standard error and shall either recover its
+encountered.
+When it detects an infinite loop,
+.find find
+shall write a diagnostic message to standard error and shall either recover its
 position in the hierarchy or terminate.
 .P
 GNU
