@@ -4,7 +4,7 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 ** Bug Fixes
 
-  Find now defaults to optimisation level 1 rather than 2 and the
+  Find now defaults to optimization level 1 rather than 2 and the
   cost-based optimizer will only run at level 2 and above.  This
   should prevent changes of operation order which result in
   user-visible differences in behaviour. [#58427]
@@ -12,16 +12,17 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   If the -P option to xargs is not used, xargs will not change the way
   in which the SIGUSR1 and SIGUSR2 signals are handled.  This means
   that they will cause the program to terminate if the signals were
-  not ignored in the process which started xargs.  If you want to
-  depend on xargs not being killed by these signals but don't want
-  parallel execution, use "-P 1".  This change improved xargs' POSIX
-  compliance.
+  not ignored in the process which started xargs.  This also means that
+  xargs does not use parallel execution at all.
+  If you start xargs with '-P 1', then xargs will not be killed by these
+  signals, and they instead change the degree of parallelism.
+  This change improves xargs' POSIX compliance.
 
-  xargs -P now waits for all its child processes to compete before
+  'xargs -P' now waits for all its child processes to complete before
   exiting, even if one of them exits with status 255. [#64451]
 
-  If the -P option of xargs is in use, input reads interrupted by a
-  signal are re-started. [#64442]
+  If the -P option of xargs is in use, reads on standard input which are
+  interrupted by a signal are re-started. [#64442]
 
   'find -name /' no longer outputs a warning, because that is a valid pattern
   to match the root directory "/".  Previously, a diagnostic falsely claimed
@@ -36,7 +37,7 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   Previously, that was limited to INT_MAX, although the types uid_t and gid_t
   are larger on many systems, including x86_64 GNU/Linux. [#64900]
 
-  find -xtype l no longer fails on symbolic links that point to
+  'find -xtype l' no longer fails on symbolic links that point to
   themselves.  These are treated similarly to broken links. [#51926]
 
 ** Improvements
@@ -70,13 +71,14 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 ** Translations
 
-Updated the following translations: Belarusian, Brazilian Portuguese,
+Updated the following translations: Belarusian, Brazilian, Portuguese,
 Bulgarian, Catalan, Chinese (simplified), Chinese (traditional),
 Croatian, Czech, Danish, Dutch, Esperanto, Estonian, Finnish, French,
 Galician, Georgian, German, Greek, Hungarian, Indonesian, Irish,
 Italian, Japanese, Korean, Lithuanian, Luganda, Malay, Norwegian
 Bokmaal, Polish, Portuguese, Romanian, Russian, Serbian, Slovak,
 Slovenian, Spanish, Swedish, Turkish, Ukrainian, Vietnamese.
+
 
 * Noteworthy changes in release 4.9.0 (2022-02-22) [stable]
 
