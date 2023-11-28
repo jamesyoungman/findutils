@@ -122,6 +122,7 @@ all_tests = \
   tests/find/used.sh \
   tests/find/newer.sh \
   tests/find/opt-numeric-arg.sh \
+  tests/find/user-group-max.sh \
   tests/xargs/conflicting_opts.sh \
   tests/xargs/verbose-quote.sh \
   tests/find/arg-nan.sh \

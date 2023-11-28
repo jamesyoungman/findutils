@@ -86,7 +86,7 @@ exclude_file_name_regexp--sc_texinfo_acronym = doc/perm\.texi
 
 # List syntax-check exemptions.
 exclude_file_name_regexp--sc_bindtextdomain = \
-  ^(locate/frcode|lib/regexprops|lib/test_splitstring)\.c$$
+  ^(locate/frcode|lib/regexprops|lib/test_splitstring|find/getlimits)\.c$$
 
 # sc_prohibit_strcmp is broken because it gives false positives for
 # cases where neither argument is a string literal.

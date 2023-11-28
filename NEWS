@@ -13,6 +13,10 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   The error diagnostic for non-numeric arguments has been improved as well.
   Likewise for -inum, -links and -uid.
 
+  'find -user' and 'find -group' now allow to specify larger UIDs/GIDs.
+  Previously, that was limited to INT_MAX, although the types uid_t and gid_t
+  are larger on many systems, including x86_64 GNU/Linux. [#64900]
+
 ** Improvements
 
   The find predicates -used, -amin, -cmin, -mmin, -atime, -ctime, and -mtime

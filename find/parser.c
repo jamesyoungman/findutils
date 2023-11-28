@@ -34,6 +34,7 @@
 /* gnulib headers. */
 #include "fnmatch.h"
 #include "fts_.h"
+#include "intprops.h"
 #include "modechange.h"
 #include "mountlist.h"
 #include "parse-datetime.h"
@@ -71,6 +72,14 @@
 
 #if ! HAVE_ENDPWENT
 # define endpwent() ((void) 0)
+#endif
+
+#ifndef UID_T_MAX
+# define UID_T_MAX TYPE_MAXIMUM (uid_t)
+#endif
+
+#ifndef GID_T_MAX
+# define GID_T_MAX TYPE_MAXIMUM (gid_t)
 #endif
 
 /* Roll our own isnan rather than using <math.h>.  */
@@ -1138,61 +1147,33 @@ static bool
 parse_group (const struct parser_table* entry, char **argv, int *arg_ptr)
 {
   const char *groupname;
-  const int saved_argc = *arg_ptr;
 
   if (collect_arg (argv, arg_ptr, &groupname))
     {
-      gid_t gid;
       struct predicate *our_pred;
+      gid_t gid;
       struct group *cur_gr = getgrnam (groupname);
       endgrent ();
-      if (cur_gr)
+      if (cur_gr != NULL)
 	{
 	  gid = cur_gr->gr_gid;
 	}
       else
 	{
-	  const int gid_len = strspn (groupname, "0123456789");
-	  if (gid_len)
+	  uintmax_t num;
+	  if ((xstrtoumax (groupname, NULL, 10, &num, "") != LONGINT_OK)
+                || (GID_T_MAX < num))
 	    {
-	      if (groupname[gid_len] == 0)
-		{
-		  gid = safe_atoi (groupname, options.err_quoting_style);
-		}
-	      else
-		{
-		  /* XXX: no test in test suite for this */
-		  error (EXIT_FAILURE, 0,
-			 _("%s is not the name of an existing group and"
-			   " it does not look like a numeric group ID "
-			   "because it has the unexpected suffix %s"),
-			 quotearg_n_style (0, options.err_quoting_style, groupname),
-			 quotearg_n_style (1, options.err_quoting_style, groupname+gid_len));
-		  *arg_ptr = saved_argc; /* don't consume the invalid argument. */
-		  return false;
-		}
+	      error (EXIT_FAILURE, 0,
+		     _("invalid group name or GID argument to -group: %s"),
+		     quotearg_n_style (0, options.err_quoting_style,
+				       groupname));
 	    }
-	  else
-	    {
-	      if (*groupname)
-		{
-		  /* XXX: no test in test suite for this */
-		  error (EXIT_FAILURE, 0,
-		         _("%s is not the name of an existing group"),
-		         quotearg_n_style (0, options.err_quoting_style, groupname));
-		}
-	      else
-		{
-		  error (EXIT_FAILURE, 0,
-		         _("argument to -group is empty, but should be a group name"));
-		}
-	      *arg_ptr = saved_argc; /* don't consume the invalid argument. */
-	      return false;
-	    }
+	  gid = num;
 	}
       our_pred = insert_primary (entry, groupname);
       our_pred->args.gid = gid;
-      our_pred->est_success_rate = (our_pred->args.numinfo.l_val < 100) ? 0.99 : 0.2;
+      our_pred->est_success_rate = (our_pred->args.gid < 100) ? 0.99 : 0.2;
       return true;
     }
   return false;
@@ -2463,31 +2444,16 @@ parse_user (const struct parser_table* entry, char **argv, int *arg_ptr)
 	}
       else
 	{
-	  const size_t uid_len = strspn (username, "0123456789");
-	  if (uid_len && (username[uid_len]==0))
+	  uintmax_t num;
+	  if ((xstrtoumax (username, NULL, 10, &num, "") != LONGINT_OK)
+                || (UID_T_MAX < num))
 	    {
-	      uid = safe_atoi (username, options.err_quoting_style);
+	      error (EXIT_FAILURE, 0,
+		     _("invalid user name or UID argument to -user: %s"),
+		     quotearg_n_style (0, options.err_quoting_style,
+				       username));
 	    }
-	  else
-	    {
-	      /* This is a fatal error (if we just return false, the caller
-	       * will say "invalid argument `username' to -user", which is
-	       * not as helpful). */
-	      if (username[0])
-		{
-		  error (EXIT_FAILURE, 0,
-		         _("%s is not the name of a known user"),
-		         quotearg_n_style (0, options.err_quoting_style,
-					   username));
-		}
-	      else
-		{
-		  error (EXIT_FAILURE, 0,
-		         _("The argument to -user should not be empty"));
-		}
-	      /*NOTREACHED*/
-	      return false;
-	    }
+	  uid = num;
 	}
       our_pred = insert_primary (entry, username);
       our_pred->args.uid = uid;
