@@ -5402,20 +5402,12 @@ supported.
 You can tell if your system supports @code{O_NOFOLLOW} by running
 
 @example
-find --version
+find --version | grep Features
 @end example
 
 This will tell you the version number and which features are enabled.
 For example, if I run this on my system now, this gives:
 @example
-find (GNU findutils) 4.8.0
-Copyright (C) 2021 Free Software Foundation, Inc.
-License GPLv3+: GNU GPL version 3 or later \
-<https://gnu.org/licenses/gpl.html>.
-This is free software: you are free to change and redistribute it.
-There is NO WARRANTY, to the extent permitted by law.
-
-Written by Eric B. Decker, James Youngman, and Kevin Dalley.
 Features enabled: D_TYPE O_NOFOLLOW(enabled) LEAF_OPTIMISATION \
 FTS(FTS_CWDFD) CBO(level=2)
 @end example
