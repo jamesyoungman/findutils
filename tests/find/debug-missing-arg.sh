@@ -3,7 +3,7 @@
 # Between FINDUTILS_4_3_1-1 and 4.6, find crashed on some platforms.
 # See Savannah bug #52220.
 
-# Copyright (C) 2017-2023 Free Software Foundation, Inc.
+# Copyright (C) 2017-2024 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
