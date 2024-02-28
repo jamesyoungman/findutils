@@ -1049,9 +1049,9 @@ For example the test @code{-newerac /tmp/foo} succeeds for all files
 which have been accessed more recently than @file{/tmp/foo} was
 changed.   Here @samp{X} is @samp{a} and @samp{Y} is @samp{c}.
 
-Not all files have a known birth time.  If @samp{Y} is @samp{b} and
+Not all files have a known birth time.  If @samp{Y} is @samp{B} and
 the birth time of @file{reference} is not available, @code{find} exits
-with an explanatory error message.  If @samp{X} is @samp{b} and we do
+with an explanatory error message.  If @samp{X} is @samp{B} and we do
 not know the birth time the file currently being considered, the test
 simply fails (that is, it behaves like @code{-false} does).
 

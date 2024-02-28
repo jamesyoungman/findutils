@@ -43,6 +43,9 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   The xargs examples in the Texinfo manual now use the -L and --replace options
   instead of the deprecated -l and -i options.  [#64480]
 
+  The TexInfo manual now uses upper-case 'B' as birthtime for the -newerXY
+  comparison consistently.  [#65378]
+
 
 * Noteworthy changes in release 4.9.0 (2022-02-22) [stable]
 
