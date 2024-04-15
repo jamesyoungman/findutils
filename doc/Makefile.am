@@ -26,9 +26,13 @@ CLEANFILES = find.txt find_mono.html findutils.texi_html_node.tar.gz dblocation.
 	find.txt  tmp-doc-install find_mono.html.gz
 MAKEINFOTXT = $(MAKEINFO) --plaintext
 
-# Tell makeinfo to put everything in a single info file: <package>.info.
-# Otherwise, it would also generate files with names like <package>.info-[12].
-AM_MAKEINFOFLAGS = --no-split
+# --no-split: tell makeinfo to put everything in a single info file,
+# "<package>.info".  Otherwise, it would generate into several files.
+# CHECK_NORMAL_MENU_STRUCTURE (for makeinfo versions >= 6.8):
+#   Warn if the nodes pointers (either explicitly or automatically set)
+#   are not consistent with the order of node menu entries.
+AM_MAKEINFOFLAGS = --no-split -c CHECK_NORMAL_MENU_STRUCTURE=1
+
 
 find.txt: find.texi $(srcdir)/version.texi $(find_TEXINFOS)
 
