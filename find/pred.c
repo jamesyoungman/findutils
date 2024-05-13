@@ -702,6 +702,16 @@ is_ok (const char *program, const char *arg)
 }
 
 bool
+predicate_uses_exec(const struct predicate* p)
+{
+  return pred_is(p, pred_exec)
+    || pred_is(p, pred_execdir)
+    || pred_is(p, pred_ok)
+    || pred_is(p, pred_okdir);
+}
+
+
+bool
 pred_ok (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
 {
   if (is_ok (pred_ptr->args.exec_vec.replace_vec[0], pathname))

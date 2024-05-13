@@ -2048,7 +2048,7 @@ parse_size (const struct parser_table* entry, char **argv, int *arg_ptr)
   int blksize = 512;
   int len;
 
-  /* XXX: cannot (yet) convert to ue collect_arg() as this
+  /* XXX: cannot (yet) convert to use collect_arg() as this
    * function modifies the args in-place.
    */
   if ((argv == NULL) || (argv[*arg_ptr] == NULL))
@@ -2787,6 +2787,7 @@ insert_exec_ok (const char *action,
   our_pred->side_effects = our_pred->no_default_print = true;
   our_pred->need_type = our_pred->need_stat = false;
 
+  assert(predicate_uses_exec (our_pred));
   execp = &our_pred->args.exec_vec;
   execp->wd_for_exec = NULL;
 

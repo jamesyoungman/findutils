@@ -395,9 +395,14 @@ do_complete_pending_execdirs (struct predicate *p)
 
   do_complete_pending_execdirs (p->pred_left);
 
-  if (pred_is (p, pred_execdir) || pred_is(p, pred_okdir))
+  /* We only want to do work here if there is a dir-local pending
+   * exec.  This is because the completion of work for -exec ... {} +
+   * happens when the program exits, not when we leave a directory.
+   */
+  if (pred_is(p, pred_okdir) || pred_is(p, pred_execdir))
     {
       /* It's an exec-family predicate.  p->args.exec_val is valid. */
+      assert(predicate_uses_exec(p));
       if (p->args.exec_vec.multiple)
 	{
 	  struct exec_val *execp = &p->args.exec_vec;
@@ -426,8 +431,6 @@ complete_pending_execdirs (void)
     }
 }
 
-
-
 /* Examine the predicate list for instances of -exec which have been
  * terminated with '+' (build argument list) rather than ';' (singles
  * only).  If there are any, run them (this will have no effect if
@@ -438,14 +441,12 @@ complete_pending_execs (struct predicate *p)
 {
   if (NULL == p)
     return;
-
   complete_pending_execs (p->pred_left);
 
   /* It's an exec-family predicate then p->args.exec_val is valid
    * and we can check it.
    */
-  /* XXX: what about pred_ok() ? */
-  if (pred_is (p, pred_exec) && p->args.exec_vec.multiple)
+  if (predicate_uses_exec (p) && p->args.exec_vec.multiple)
     {
       struct exec_val *execp = &p->args.exec_vec;
 

@@ -472,7 +472,8 @@ void print_tree (FILE*, struct predicate *node, int indent);
 void print_list (FILE*, struct predicate *node);
 void print_optlist (FILE *fp, const struct predicate *node);
 void show_success_rates(const struct predicate *node);
-
+bool predicate_uses_exec(const struct predicate*);
+# define pred_is(node, fn) ( ((node)->pred_func) == (fn) )
 
 /* tree.c */
 bool matches_start_point(const char * glob, bool foldcase);
@@ -511,9 +512,6 @@ void set_option_defaults (struct options *p);
 # else
 bool apply_predicate(const char *pathname, struct stat *stat_buf, struct predicate *p);
 # endif
-
-# define pred_is(node, fn) ( ((node)->pred_func) == (fn) )
-
 
 /* util.c. */
 bool following_links (void);

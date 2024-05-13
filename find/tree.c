@@ -1056,7 +1056,7 @@ get_pred_cost (const struct predicate *p)
       data_requirement_cost = NeedsNothing;
     }
 
-  if (pred_is (p, pred_exec) || pred_is(p, pred_execdir))
+  if (predicate_uses_exec (p))
     {
       if (p->args.exec_vec.multiple)
 	inherent_cost = NeedsEventualExec;
