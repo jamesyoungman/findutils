@@ -1,8 +1,6 @@
 This package contains the GNU find, xargs, and locate programs.  find
-and xargs comply with POSIX 1003.2, as far as I know (with the
-exception of the "+" modifier for the "-exec" action, which isn't
-implemented yet).  They also support a large number of additional
-options, some borrowed from Unix and some unique to GNU.
+and xargs comply with POSIX 1003.2.  They also support a large number
+of additional options, some borrowed from Unix and some unique to GNU.
 
 See the file NEWS for a list of major changes in the current release.
 
@@ -26,12 +24,6 @@ use subkeys.pgp.net.  I think that one works.  See also the
 "Downloading" section of https://www.gnu.org/software/findutils/.
 
 Special configure options:
-
---with-afs
-  Make find support "-fstype afs".  Requires /afs, /usr/afsws/lib, and
-/usr/afsws/include.  configure doesn't add AFS support
-automatically because it adds considerably to find's size, and the
-AFS libraries need -lucb on Solaris, which breaks find.
 
 DEFAULT_ARG_SIZE=<value>
   If this environment variable is defined to a numeric expression
@@ -60,10 +52,10 @@ thing has been done in 4.4BSD.  If you use locate, you should run the
 included `updatedb' script from cron periodically (typically nightly).
 
 The latest full release is available at
-ftp://ftp.gnu.org/gnu/findutils.
+http://ftp.gnu.org/gnu/findutils.
 
 The latest test release (if any) is available at
-ftp://alpha.gnu.org/gnu/findutils
+http://alpha.gnu.org/gnu/findutils
 
 Discussion of the findutils package and ways to improve it takes place
 on the "bug-findutils" mailing list, which you can join by sending
