@@ -324,8 +324,8 @@ static struct parser_table const parse_table[] =
   PARSE(ARG_UNIMPLEMENTED,      "cpio",                  cpio),	/* Unix */
 #endif
   /* gnulib's stdbool.h might have made true and false into macros,
-   * so we can't leave named 'true' and 'false' tokens, so we have
-   * to expeant the relevant entries longhand.
+   * so we can't leave naked 'true' and 'false' tokens, so we have
+   * to expand the relevant entries longhand.
    */
   {ARG_TEST, "false",                 parse_false,   pred_false}, /* GNU */
   {ARG_TEST, "true",                  parse_true,    pred_true }, /* GNU */
