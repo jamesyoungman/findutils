@@ -157,9 +157,6 @@ static bool parse_warn          (const struct parser_table*, char *argv[], int *
 static bool parse_xtype         (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_quit          (const struct parser_table*, char *argv[], int *arg_ptr);
 static bool parse_context       (const struct parser_table*, char *argv[], int *arg_ptr);
-#if 0
-static bool parse_show_control_chars (const struct parser_table*, char *argv[], int *arg_ptr);
-#endif
 
 static bool parse_help (const struct parser_table* entry, char **argv, int *arg_ptr)
   _GL_ATTRIBUTE_NORETURN;
@@ -305,9 +302,6 @@ static struct parser_table const parse_table[] =
   PARSE_TEST       ("regex",                 regex),	     /* GNU */
   PARSE_POSOPT     ("regextype",             regextype),     /* GNU */
   PARSE_TEST       ("samefile",              samefile),	     /* GNU */
-#if 0
-  PARSE_OPTION     ("show-control-chars",    show_control_chars), /* GNU, 4.3.0+ */
-#endif
   PARSE_TEST       ("size",                  size), /* POSIX */
   PARSE_TEST       ("type",                  type), /* POSIX */
   PARSE_TEST       ("uid",                   uid),	     /* GNU */
@@ -2295,49 +2289,6 @@ parse_samefile (const struct parser_table* entry, char **argv, int *arg_ptr)
   our_pred->est_success_rate = 0.01f;
   return true;
 }
-
-#if 0
-/* This function is commented out partly because support for it is
- * uneven.
- */
-static bool
-parse_show_control_chars (const struct parser_table* entry,
-			  char **argv,
-			  int *arg_ptr)
-{
-  const char *arg;
-  const char *errmsg = _("The -show-control-chars option takes "
-			 "a single argument which "
-			 "must be 'literal' or 'safe'");
-
-  if ((argv == NULL) || (argv[*arg_ptr] == NULL))
-    {
-      error (EXIT_FAILURE, errno, "%s", errmsg);
-      return false;
-    }
-  else
-    {
-      arg = argv[*arg_ptr];
-
-      if (0 == strcmp ("literal", arg))
-	{
-	  options.literal_control_chars = true;
-	}
-      else if (0 == strcmp ("safe", arg))
-	{
-	  options.literal_control_chars = false;
-	}
-      else
-	{
-	  error (EXIT_FAILURE, errno, "%s", errmsg);
-	  return false;
-	}
-      (*arg_ptr)++;		/* consume the argument. */
-      return true;
-    }
-}
-#endif
-
 
 static bool
 parse_true (const struct parser_table* entry, char **argv, int *arg_ptr)

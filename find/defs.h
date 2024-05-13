@@ -294,9 +294,6 @@ struct predicate
   /* est_success_rate is a number between 0.0 and 1.0 */
   float est_success_rate;
 
-  /* True if this predicate should display control characters literally */
-  bool literal_control_chars;
-
   /* True if this predicate didn't originate from the user. */
   bool artificial;
 

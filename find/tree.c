@@ -1501,7 +1501,6 @@ get_new_pred (const struct parser_table *entry)
   last_pred->need_type = true;
   last_pred->p_cost = NeedsUnknown;
   last_pred->arg_text = "ThisShouldBeSetToSomethingElse";
-  last_pred->literal_control_chars = options.literal_control_chars;
   last_pred->est_success_rate = 1.0;
   init_pred_perf (last_pred);
   return last_pred;

@@ -376,7 +376,7 @@ pred_fls (const char *pathname, struct stat *stat_buf, struct predicate *pred_pt
   list_file (pathname, state.cwd_dir_fd, state.rel_pathname, stat_buf,
 	     options.start_time.tv_sec,
 	     options.output_block_size,
-	     pred_ptr->literal_control_chars, stream);
+	     options.literal_control_chars, stream);
   return true;
 }
 
