@@ -336,7 +336,7 @@ struct predicate
 };
 
 /* ftsfind.c */
-bool is_fts_enabled(int *ftsoptions);
+bool is_fts_cwdfd_enabled(void);
 
 /* find library function declarations.  */
 

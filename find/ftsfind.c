@@ -825,9 +825,7 @@ main (int argc, char **argv)
 }
 
 bool
-is_fts_enabled (int *fts_options)
+is_fts_cwdfd_enabled (void)
 {
-  /* this version of find (i.e. this main()) uses fts. */
-  *fts_options = ftsoptions;
-  return true;
+  return ftsoptions & FTS_CWDFD;
 }
