@@ -89,6 +89,7 @@ fi
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_CPP
+AC_PROG_EGREP
 
 dnl for gnulib
 gl_EARLY
