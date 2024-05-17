@@ -645,9 +645,9 @@ find @var{directories} -name @var{pattern}
 
 where @var{directories} are the directories for which the file name
 databases contain information.  The differences are that the
-@code{locate} information might be out of date, and that @code{locate}
-handles wildcards in the pattern slightly differently than @code{find}
-(@pxref{Shell Pattern Matching}).
+@code{locate} information might be out of date, and that by default
+@code{locate} matches wildcards against the whole file name (not just
+its base name) (@pxref{Shell Pattern Matching}).
 
 The file name databases contain lists of files that were on the system
 when the databases were last updated.  The system administrator can
