@@ -867,9 +867,9 @@ find . -lname '*sysdep.c'
 
 Hard links allow more than one name to refer to the same file on a
 file system, i.e., to the same inode.  To find all the names which refer
-to the same file as @var{name}, use @samp{-samefile NAME}.
+to the same file as @var{name}, use @samp{-samefile @var{name}}.
 
-@deffn Test -samefile NAME
+@deffn Test -samefile @var{name}
 True if the file is a hard link to the same inode as @var{name}.
 This implies that @var{name} and the file reside on the same file system,
 i.e., they have the same device number.
@@ -882,7 +882,7 @@ so this can cut down on needless searching.
 If the @samp{-L} option is in effect, then dereferencing of symbolic links
 applies both to the @var{name} argument of the @samp{-samefile} primary and
 to each file examined during the traversal of the directory hierarchy.
-Therefore, @samp{find -L -samefile NAME} will find both hard links and
+Therefore, @samp{find -L -samefile @var{name}} will find both hard links and
 symbolic links pointing to the file referenced by @var{name}.
 @end deffn
 
