@@ -336,7 +336,7 @@ expression contains an action other than @samp{-prune} or
 Options take effect immediately, rather than being evaluated for each
 file when their place in the expression is reached.  Therefore, for
 clarity, it is best to place them at the beginning of the expression.
-There are two exceptions to this; @samp{-daystart} and @samp{-follow}
+There are exceptions to this; @samp{regextype}, @samp{-daystart} and @samp{-follow}
 have different effects depending on where in the command line they
 appear.  This can be confusing, so it's best to keep them at the
 beginning, too.
