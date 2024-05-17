@@ -568,18 +568,16 @@ $ find .  -path '*/*config'
 True if the entire file name matches regular expression @var{expr}.
 This is a match on the whole path, not a search.  For example, to
 match a file named @file{./fubar3}, you can use the regular expression
-@samp{.*bar.} or @samp{.*b.*3}, but not @samp{f.*r3}.  @xref{Regexps,
-, Syntax of Regular Expressions, emacs, The GNU Emacs Manual}, for a
-description of the syntax of regular expressions.  For @samp{-iregex},
-the match is case-insensitive.
+@samp{.*bar.} or @samp{.*b.*3}, but not @samp{f.*r3}.
+For @samp{-iregex}, the match is case-insensitive.
 
 As for @samp{-path}, the candidate file name never ends with a slash,
 so regular expressions which only match something that ends in slash
 will always fail.
 
 There are several varieties of regular expressions; by default this
-test uses POSIX basic regular expressions, but this can be changed
-with the option @samp{-regextype}.
+test uses GNU Emacs regular expressions, but this can be changed with
+the option @samp{-regextype}.
 @end deffn
 
 @deffn Option -regextype name
