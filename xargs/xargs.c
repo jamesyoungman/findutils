@@ -1494,6 +1494,7 @@ static void
 wait_for_proc (bool all, unsigned int minreap)
 {
   unsigned int reaped = 0;
+  int deferred_exit_status = 0;
 
   while (procs_executing)
     {
@@ -1576,17 +1577,44 @@ wait_for_proc (bool all, unsigned int minreap)
       procs_executing--;
       reaped++;
 
+#define set_deferred_exit_status(n) \
+      do \
+      { \
+	if (deferred_exit_status < n)  \
+	  { \
+	    deferred_exit_status = n; \
+	  } \
+      } while (0)
+
       if (WEXITSTATUS (status) == CHILD_EXIT_PLEASE_STOP_IMMEDIATELY)
-	error (XARGS_EXIT_CLIENT_EXIT_255, 0,
-	       _("%s: exited with status 255; aborting"), bc_state.cmd_argv[0]);
+	{
+	  error (0, 0, _("%s: exited with status 255; aborting"), bc_state.cmd_argv[0]);
+	  set_deferred_exit_status(XARGS_EXIT_CLIENT_EXIT_255);
+	}
       if (WIFSTOPPED (status))
-	error (XARGS_EXIT_CLIENT_FATAL_SIG, 0,
-	       _("%s: stopped by signal %d"), bc_state.cmd_argv[0], WSTOPSIG (status));
+	{
+	  error (0, 0, _("%s: stopped by signal %d"), bc_state.cmd_argv[0], WSTOPSIG (status));
+	  set_deferred_exit_status(XARGS_EXIT_CLIENT_FATAL_SIG);
+	}
       if (WIFSIGNALED (status))
-	error (XARGS_EXIT_CLIENT_FATAL_SIG, 0,
-	       _("%s: terminated by signal %d"), bc_state.cmd_argv[0], WTERMSIG (status));
+	{
+	  error (0, 0,
+		 _("%s: terminated by signal %d"), bc_state.cmd_argv[0], WTERMSIG (status));
+	  set_deferred_exit_status(XARGS_EXIT_CLIENT_FATAL_SIG);
+	}
       if (WEXITSTATUS (status) != 0)
-	child_error = XARGS_EXIT_CLIENT_EXIT_NONZERO;
+	{
+	  child_error = XARGS_EXIT_CLIENT_EXIT_NONZERO;
+	}
+      if (deferred_exit_status && !all)
+	{
+	  break;
+	}
+    }
+  if (deferred_exit_status)
+    {
+      child_error = deferred_exit_status > child_error ? deferred_exit_status : child_error;
+      exit (child_error);
     }
 }
 

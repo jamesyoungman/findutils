@@ -4,6 +4,9 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 ** Bug Fixes
 
+  xargs -P now waits for all its child processes to compete before
+  exiting, even if one of them exits with status 255. [#64451]
+
   'find -name /' no longer outputs a warning, because that is a valid pattern
   to match the root directory "/".  Previously, a diagnostic falsely claimed
   that this pattern would not match anything. [#62227]

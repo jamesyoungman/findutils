@@ -2740,7 +2740,9 @@ Run up to @var{max-procs} processes at a time; the default is 1.  If
 @var{max-procs} is 0, @code{xargs} will run as many processes as
 possible at a time.  Use the @samp{-n}, @samp{-s}, or @samp{-L} option
 with @samp{-P}; otherwise chances are that the command will be run
-only once.
+only once. If a child process exits with status 255, @code{xargs} will
+still wait for all child processes to exit (before version 4.9.0 this
+might not happen).
 @end table
 
 For example, suppose you have a directory tree of large image files

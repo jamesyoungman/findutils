@@ -225,6 +225,9 @@ You cannot decrease it below 1.
 never terminates its commands; when asked to decrease, it merely
 waits for more than one existing command to terminate before starting
 another.
+.B xargs
+always waits for all child processes to exit before exiting itself
+(but see BUGS).
 
 .B Please note
 that it is up to the called processes to properly manage parallel
@@ -532,6 +535,13 @@ which is why this discussion appears in the BUGS section.
 The problem doesn't occur with the output of
 .BR find (1)
 because it emits just one filename per line.
+.P
+In versions of
+.B xargs
+up to and including version 4.9.0,
+.B xargs -P
+would exit while some of its children were still running, if one of
+them exited with status 255.
 .
 .SH "REPORTING BUGS"
 GNU findutils online help: <https://www.gnu.org/software/findutils/#get-help>
