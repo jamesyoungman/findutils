@@ -408,7 +408,7 @@ main (int argc, char **argv)
   void (*act_on_init_result)(void) = noop;
   enum BC_INIT_STATUS bcstatus;
   enum { XARGS_POSIX_HEADROOM = 2048u };
-  struct sigaction sigact;
+  bool catch_usr_signals = false;
 
   /* We #define __STDC_LIMIT_MACROS above for its side effect on
    * <limits.h>, but we use it here to avoid getting what would
@@ -671,6 +671,12 @@ main (int argc, char **argv)
 	case 'P':
 	  /* Allow only up to MAX_PROC_MAX child processes. */
 	  proc_max = parse_num (optarg, 'P', 0L, MAX_PROC_MAX, 1);
+#if !(defined(SIGUSR1) && defined(SIGUSR2))
+	  error (0, 0, _("SIGUSR1 and SIGUSR2 are not both defined, so the -P option does nothing."));
+	  proc_max = 1;
+#else
+	  catch_usr_signals = true;
+#endif
 	  break;
 
         case 'a':
@@ -723,25 +729,29 @@ main (int argc, char **argv)
   act_on_init_result ();
   assert (BC_INIT_OK == bcstatus);
 
+  if (catch_usr_signals)
+    {
 #ifdef SIGUSR1
 # ifdef SIGUSR2
-  /* Accept signals to increase or decrease the number of running
-     child processes.  Do this as early as possible after setting
-     proc_max.  */
-  sigact.sa_handler = increment_proc_max;
-  sigemptyset(&sigact.sa_mask);
-  sigact.sa_flags = 0;
-  if (0 != sigaction (SIGUSR1, &sigact, (struct sigaction *)NULL))
-	  error (0, errno, _("Cannot set SIGUSR1 signal handler"));
+      struct sigaction sigact;
 
-  sigact.sa_handler = decrement_proc_max;
-  sigemptyset(&sigact.sa_mask);
-  sigact.sa_flags = 0;
-  if (0 != sigaction (SIGUSR2, &sigact, (struct sigaction *)NULL))
-	  error (0, errno, _("Cannot set SIGUSR2 signal handler"));
+      /* Accept signals to increase or decrease the number of running
+	 child processes.  Do this as early as possible after setting
+	 proc_max.  */
+      sigact.sa_handler = increment_proc_max;
+      sigemptyset(&sigact.sa_mask);
+      sigact.sa_flags = 0;
+      if (0 != sigaction (SIGUSR1, &sigact, (struct sigaction *)NULL))
+	error (0, errno, _("Cannot set SIGUSR1 signal handler"));
+
+      sigact.sa_handler = decrement_proc_max;
+      sigemptyset(&sigact.sa_mask);
+      sigact.sa_flags = 0;
+      if (0 != sigaction (SIGUSR2, &sigact, (struct sigaction *)NULL))
+	error (0, errno, _("Cannot set SIGUSR2 signal handler"));
 # endif /* SIGUSR2 */
 #endif /* SIGUSR1 */
-
+    }
 
   if (0 == strcmp (input_file, "-"))
     {

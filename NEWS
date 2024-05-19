@@ -3,6 +3,12 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
 ** Bug Fixes
+  If the -P option to xargs is not used, xargs will not change the way
+  in which the SIGUSR1 and SIGUSR2 signals are handled.  This means that
+  they will cause the program to terminate if the signals were not
+  ignored in the process which started xargs.  If you want to depend
+  on xargs not being killed by these signals but don't want
+  parallel execution, use "-P 1".
 
   xargs -P now waits for all its child processes to compete before
   exiting, even if one of them exits with status 255. [#64451]
