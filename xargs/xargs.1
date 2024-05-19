@@ -229,6 +229,16 @@ another.
 always waits for all child processes to exit before exiting itself
 (but see BUGS).
 
+If you do not use the
+.B \-P
+option,
+.B xargs
+will not handle the SIGUSR1 and SIGUSR2 signals, meaning that they
+will terminate the program (unless they were blocked in the parent
+process before
+.B xargs
+was started).
+
 .B Please note
 that it is up to the called processes to properly manage parallel
 access to shared resources.
@@ -462,6 +472,15 @@ The
 .B \-\-show\-limits
 option can be used to discover the actual limits in force on the
 current system.
+
+In versions of
+.B xargs
+up to and including version 4.9.0, SIGUSR1 and SIGUSR2 would
+not cause
+.B xargs
+to terminate even if the
+.B \-P
+option was not used.
 .
 .SH "HISTORY"
 

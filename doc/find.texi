@@ -2745,12 +2745,19 @@ still wait for all child processes to exit (before version 4.9.0 this
 might not happen).
 @end table
 
-For example, suppose you have a directory tree of large image files
-and a @code{makeallsizes} script that takes a single file name and
-creates various sized images from it (thumbnail-sized, web-page-sized,
-printer-sized, and the original large file).  The script is doing enough
-work that it takes significant time to run, even on a single image.
-You could run:
+If @code{xargs} is run without the @samp{-P} option, it will not
+change the handling of the @code{SIGUSR1} and @code{SIGUSR2} signals.
+This means they will terminate the @code{xargs} program unless those
+signals were set to be ignored in the parent process of @code{xargs}.
+If you do not want parallel execution but you also do not want these
+signals to be fatal, you can specify @code{-P 1}.
+
+Suppose you have a directory tree of large image files and a
+@code{makeallsizes} script that takes a single file name and creates
+various sized images from it (thumbnail-sized, web-page-sized,
+printer-sized, and the original large file).  The script is doing
+enough work that it takes significant time to run, even on a single
+image.  You could run:
 
 @example
 find originals -name '*.jpg' | xargs -L 1 makeallsizes
