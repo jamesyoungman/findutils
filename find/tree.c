@@ -529,7 +529,7 @@ consider_arm_swap (struct predicate *p)
 {
   int left_cost, right_cost;
   const char *reason = NULL;
-  struct predicate **pl, **pr;
+  struct predicate **pl = NULL, **pr = NULL;
 
   if (BI_OP != p->p_type)
     reason = "Not a binary operation";
@@ -540,14 +540,18 @@ consider_arm_swap (struct predicate *p)
 	reason = "Doesn't have two arms";
     }
 
-
   if (!reason)
     {
       if (NULL == p->pred_left->pred_right)
-	reason = "Left arm has no child on RHS";
+	{
+	  reason = "Left arm has no child on RHS";
+	}
+      else
+	{
+	  pr = &p->pred_right;
+	  pl = &p->pred_left->pred_right;
+	}
     }
-  pr = &p->pred_right;
-  pl = &p->pred_left->pred_right;
 
   if (!reason)
     {
