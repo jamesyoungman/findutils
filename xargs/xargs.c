@@ -740,13 +740,13 @@ main (int argc, char **argv)
 	 proc_max.  */
       sigact.sa_handler = increment_proc_max;
       sigemptyset(&sigact.sa_mask);
-      sigact.sa_flags = 0;
+      sigact.sa_flags = SA_RESTART;
       if (0 != sigaction (SIGUSR1, &sigact, (struct sigaction *)NULL))
 	error (0, errno, _("Cannot set SIGUSR1 signal handler"));
 
       sigact.sa_handler = decrement_proc_max;
       sigemptyset(&sigact.sa_mask);
-      sigact.sa_flags = 0;
+      sigact.sa_flags = SA_RESTART;
       if (0 != sigaction (SIGUSR2, &sigact, (struct sigaction *)NULL))
 	error (0, errno, _("Cannot set SIGUSR2 signal handler"));
 # endif /* SIGUSR2 */
@@ -930,6 +930,8 @@ read_line (void)
 
       if (c == EOF)
 	{
+	  if (EINTR == errno)
+	    continue;
 	  /* COMPAT: SYSV seems to ignore stuff on a line that
 	     ends without a \n; we don't.  */
 	  eof = true;
@@ -1105,6 +1107,8 @@ read_string (void)
       int c = getc (input_stream);
       if (c == EOF)
 	{
+	  if (EINTR == errno)
+	    continue;
 	  eof = true;
 	  if (p == linebuf)
 	    return -1;
