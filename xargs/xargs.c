@@ -671,11 +671,11 @@ main (int argc, char **argv)
 	case 'P':
 	  /* Allow only up to MAX_PROC_MAX child processes. */
 	  proc_max = parse_num (optarg, 'P', 0L, MAX_PROC_MAX, 1);
-#if !(defined(SIGUSR1) && defined(SIGUSR2))
+#if defined SIGUSR1 && defined SIGUSR2
+	  catch_usr_signals = true;
+#else
 	  error (0, 0, _("SIGUSR1 and SIGUSR2 are not both defined, so the -P option does nothing."));
 	  proc_max = 1;
-#else
-	  catch_usr_signals = true;
 #endif
 	  break;
 
