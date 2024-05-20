@@ -16,6 +16,8 @@
 
    Written by James Youngman <jay@gnu.org>
 */
+/* config.h must be included first. */
+#include <config.h>
 
 /* System headers */
 #include <assert.h>
@@ -285,12 +287,12 @@ verify_signal_ignored(int signum)
   if (status.fatalsig)
     {
       fprintf(stderr, "xargs should not have exited fatally on receipt of signal %d\n", signum);
-      exit(1);
+      exit(EXIT_FAILURE);
     }
   if (status.retval)
     {
       fprintf(stderr, "xargs should not have returned a nonzero exit status %d\n", status.retval);
-      exit(1);
+      exit(EXIT_FAILURE);
     }
   fputs("OK\n", stdout);
 }
@@ -306,7 +308,7 @@ verify_signal_is_fatal(int signum)
   if (!status.fatalsig)
     {
       fprintf(stderr, "xargs should have exited fatally on receipt of signal %d\n", signum);
-      exit(1);
+      exit(EXIT_FAILURE);
     }
   fputs("OK\n", stdout);
 }
@@ -322,7 +324,7 @@ verify_signal_is_nonfatal_with_p(int signum)
   if (status.fatalsig)
     {
       fprintf(stderr, "xargs -P should not have exited fatally on receipt of signal %d\n", signum);
-      exit(1);
+      exit(EXIT_FAILURE);
     }
   fputs("OK\n", stdout);
 }

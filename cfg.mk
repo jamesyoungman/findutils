@@ -86,7 +86,11 @@ exclude_file_name_regexp--sc_texinfo_acronym = doc/perm\.texi
 
 # List syntax-check exemptions.
 exclude_file_name_regexp--sc_bindtextdomain = \
-  ^(locate/frcode|lib/regexprops|lib/test_splitstring|find/getlimits)\.c$$
+  ^(locate/frcode|lib/regexprops|lib/test_splitstring|find/getlimits|tests/xargs/test-sigusr)\.c$$
+
+# sc_unmarked_diagnostics: exempt internal programs.
+exclude_file_name_regexp--sc_unmarked_diagnostics = \
+  ^(tests/xargs/test-sigusr)\.c$$
 
 # sc_prohibit_strcmp is broken because it gives false positives for
 # cases where neither argument is a string literal.
@@ -112,7 +116,8 @@ sc_tests_list_consistency:
 	  cd $(top_srcdir);						\
 	  $(SHELL) build-aux/vc-list-files tests			\
 	    | grep -Ev '^tests/init\.sh$$'				\
-	    | grep -E "$$test_extensions_rx\$$";			\
+	    | grep -E "$$test_extensions_rx\$$"				\
+	    | sed 's/\.c$$//';						\
 	} | sort | uniq -u | grep . && exit 1; :
 
 # Ensure that all version-controlled test scripts are executable.
@@ -122,6 +127,7 @@ sc_tests_executable:
 	find $(srcdir)/tests \( $$find_ext \) \! -perm -u+x -print	   \
 	  | { sed "s|^$(srcdir)/||"; git ls-files $(srcdir)/tests/; }	   \
 	  | sort | uniq -d						   \
+	  | grep -Ev '^tests/.*\.c$$'					   \
 	  | sed -e "s/^/$(ME): Please make test executable: /" | grep .	   \
 	    && exit 1; :
 

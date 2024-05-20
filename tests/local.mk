@@ -25,7 +25,7 @@ root_tests = $(all_root_tests)
 
 EXTRA_DIST += $(all_tests)
 
-TEST_EXTENSIONS = .sh
+TEST_EXTENSIONS = .sh .c
 
 SH_LOG_COMPILER = $(SHELL)
 
