@@ -19,8 +19,7 @@
 # define SYSTEM_H
 
 # include <locale.h>
-
-# include "error.h"
+# include <error.h>
 
 /* Take care of NLS matters.  */
 

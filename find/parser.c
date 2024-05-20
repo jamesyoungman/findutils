@@ -32,7 +32,7 @@
 
 
 /* gnulib headers. */
-#include "fnmatch.h"
+#include <fnmatch.h>
 #include "intprops.h"
 #include "modechange.h"
 #include "mountlist.h"

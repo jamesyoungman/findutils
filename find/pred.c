@@ -38,7 +38,7 @@
 #include "areadlink.h"
 #include "dirname.h"
 #include "fcntl--.h"
-#include "fnmatch.h"
+#include <fnmatch.h>
 #include "stat-size.h"
 #include "stat-time.h"
 #include "yesno.h"

@@ -29,7 +29,7 @@
 #include <unistd.h>
 
 /* Gnulib modules */
-#include "error.h"
+#include <error.h>
 
 
 enum { FLAGFILE_MAX = 128 };

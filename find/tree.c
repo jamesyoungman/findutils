@@ -23,7 +23,7 @@
 #include <stdlib.h>
 
 /* gnulib headers. */
-#include "fnmatch.h"
+#include <fnmatch.h>
 #include "xalloc.h"
 
 /* find headers. */

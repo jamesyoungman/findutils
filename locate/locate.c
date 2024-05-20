@@ -80,7 +80,7 @@
 #include <xstrtol.h>
 
 /* gnulib headers. */
-#include "fnmatch.h"
+#include <fnmatch.h>
 #include "progname.h"
 #include "xalloc.h"
 #include "fcntl--.h"
