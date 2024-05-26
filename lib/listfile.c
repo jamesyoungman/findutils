@@ -182,17 +182,17 @@ list_file (const char *name,
          so we removed the trailing space.  Happily this also makes it
          easier to update nlink_width. */
       chars_out =  fprintf (stream, "%*lu",
-			    nlink_width, (unsigned long) statp->st_nlink);
+                            nlink_width, (unsigned long) statp->st_nlink);
       if (chars_out < 0)
         {
           output_good = false;
           failed_at = 300;
         }
       else
-	{
-	  if (chars_out > nlink_width)
-	    nlink_width = chars_out;
-	}
+        {
+          if (chars_out > nlink_width)
+            nlink_width = chars_out;
+        }
     }
 
   if (output_good)

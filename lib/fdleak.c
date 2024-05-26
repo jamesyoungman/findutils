@@ -73,31 +73,31 @@ get_proc_max_fd (void)
 
       while (1)
         {
-	  errno = 0;
-	  dent = readdir (dir);
-	  if (NULL == dent)
-	    {
-	      if (errno)
-		{
-		  error (0, errno, "%s", quotearg_n_style (0, locale_quoting_style, path));
-		  good = 0;
-		}
-	      break;
-	    }
+          errno = 0;
+          dent = readdir (dir);
+          if (NULL == dent)
+            {
+              if (errno)
+                {
+                  error (0, errno, "%s", quotearg_n_style (0, locale_quoting_style, path));
+                  good = 0;
+                }
+              break;
+            }
 
-	  if (dent->d_name[0] != '.'
-	      || (dent->d_name[1] != 0
-		  && (dent->d_name[1] != '.' || dent->d_name[2] != 0)))
-	    {
-	      const int fd = safe_atoi (dent->d_name, literal_quoting_style);
-	      if (fd > maxfd)
-		maxfd = fd;
-	      good = 1;
-	    }
-	}
+          if (dent->d_name[0] != '.'
+              || (dent->d_name[1] != 0
+                  && (dent->d_name[1] != '.' || dent->d_name[2] != 0)))
+            {
+              const int fd = safe_atoi (dent->d_name, literal_quoting_style);
+              if (fd > maxfd)
+                maxfd = fd;
+              good = 1;
+            }
+        }
       closedir (dir);
       if (good)
-	return maxfd;
+        return maxfd;
     }
   return -1;
 }
@@ -116,7 +116,7 @@ get_max_fd (void)
 
   open_max = sysconf (_SC_OPEN_MAX);
   if (open_max == -1)
-    open_max = _POSIX_OPEN_MAX;	/* underestimate */
+    open_max = _POSIX_OPEN_MAX; /* underestimate */
 
   /* We assume if RLIMIT_NOFILE is defined, all the related macros are, too. */
 #if defined HAVE_GETRLIMIT && defined RLIMIT_NOFILE
@@ -124,10 +124,10 @@ get_max_fd (void)
     struct rlimit fd_limit;
     if (0 == getrlimit (RLIMIT_NOFILE, &fd_limit))
       {
-	if (fd_limit.rlim_cur == RLIM_INFINITY)
-	  return open_max;
-	else
-	  return (int) fd_limit.rlim_cur;
+        if (fd_limit.rlim_cur == RLIM_INFINITY)
+          return open_max;
+        else
+          return (int) fd_limit.rlim_cur;
       }
   }
 #endif
@@ -138,7 +138,7 @@ get_max_fd (void)
 
 static int
 visit_open_fds (int fd_min, int fd_max,
-		int (*callback)(int, void*), void *cb_context)
+                int (*callback)(int, void*), void *cb_context)
 {
   enum { MAX_POLL = 64 };
   struct pollfd pf[MAX_POLL];
@@ -149,31 +149,31 @@ visit_open_fds (int fd_min, int fd_max,
       int i;
       int limit = fd_max - fd_min;
       if (limit > MAX_POLL)
-	limit = MAX_POLL;
+        limit = MAX_POLL;
 
       for (i=0; i<limit; i++)
-	{
-	  pf[i].events = POLLIN|POLLOUT;
-	  pf[i].revents = 0;
-	  pf[i].fd = fd_min + i;
-	}
+        {
+          pf[i].events = POLLIN|POLLOUT;
+          pf[i].revents = 0;
+          pf[i].fd = fd_min + i;
+        }
       rv = poll (pf, limit, 0);
       if (-1 == rv)
-	{
-	  return -1;
-	}
+        {
+          return -1;
+        }
       else
-	{
-	  int j;
-	  for (j=0; j<limit; j++)
-	    {
-	      if (pf[j].revents != POLLNVAL)
-		{
-		  if (0 != (rv = callback (pf[j].fd, cb_context)))
-		    return rv;
-		}
-	    }
-	}
+        {
+          int j;
+          for (j=0; j<limit; j++)
+            {
+              if (pf[j].revents != POLLNVAL)
+                {
+                  if (0 != (rv = callback (pf[j].fd, cb_context)))
+                    return rv;
+                }
+            }
+        }
       fd_min += limit;
     }
   return 0;
@@ -208,19 +208,19 @@ remember_fd_if_non_cloexec (int fd, void *context)
     {
       struct remember_fd_context * const p = context;
       void *newbuf = extendbuf (p->buf,
-				sizeof (p->buf[0])*(p->used+1),
-				&(p->allocated));
+                                sizeof (p->buf[0])*(p->used+1),
+                                &(p->allocated));
       if (newbuf)
-	{
-	  p->buf = newbuf;
-	  p->buf[p->used] = fd;
-	  ++p->used;
-	  return 0;
-	}
+        {
+          p->buf = newbuf;
+          p->buf[p->used] = fd;
+          ++p->used;
+          return 0;
+        }
       else
-	{
-	  return -1;
-	}
+        {
+          return -1;
+        }
     }
 }
 
@@ -259,26 +259,26 @@ find_first_leak_callback (int fd, void *context)
     {
       struct fd_leak_context *p = context;
       while (p->lookup_pos < p->used)
-	{
-	  if (p->prev_buf[p->lookup_pos] < fd)
-	    {
-	      ++p->lookup_pos;
-	    }
-	  else if (p->prev_buf[p->lookup_pos] == fd)
-	    {
-	      /* FD was open and still is, it's not a leak. */
-	      return 0;
-	    }
-	  else
-	    {
-	      break;
-	    }
-	}
+        {
+          if (p->prev_buf[p->lookup_pos] < fd)
+            {
+              ++p->lookup_pos;
+            }
+          else if (p->prev_buf[p->lookup_pos] == fd)
+            {
+              /* FD was open and still is, it's not a leak. */
+              return 0;
+            }
+          else
+            {
+              break;
+            }
+        }
       /* We come here if p->prev_buf[p->lookup_pos] > fd, or
-	 if we ran out of items in the lookup table.
-	 Either way, this is a leak. */
+         if we ran out of items in the lookup table.
+         Either way, this is a leak. */
       p->leaked_fd = fd;
-      return -1;		/* No more callbacks needed. */
+      return -1;                /* No more callbacks needed. */
     }
   return 0;
 }
@@ -387,10 +387,10 @@ complain_about_leaky_fds (void)
     {
       no_leaks = 0;
       error (0, 0,
-	     _("File descriptor %d will leak; please report this as a bug, "
-	       "remembering to include a detailed description of the simplest "
-	       "way to reproduce this problem."),
-	     leaking_fd);
+             _("File descriptor %d will leak; please report this as a bug, "
+               "remembering to include a detailed description of the simplest "
+               "way to reproduce this problem."),
+             leaking_fd);
     }
   assert (no_leaks);
 }

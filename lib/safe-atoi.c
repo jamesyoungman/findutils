@@ -42,15 +42,15 @@ safe_atoi (const char *s, enum quoting_style style)
     {
       /* max/min possible value, or an error. */
       if (errno == ERANGE)
-	{
-	  /* too big, or too small. */
-	  error (EXIT_FAILURE, errno, "%s", s);
-	}
+        {
+          /* too big, or too small. */
+          error (EXIT_FAILURE, errno, "%s", s);
+        }
       else
-	{
-	  /* not a valid number */
-	  error (EXIT_FAILURE, errno, "%s", s);
-	}
+        {
+          /* not a valid number */
+          error (EXIT_FAILURE, errno, "%s", s);
+        }
       /* Otherwise, we do a range check against INT_MAX and INT_MIN
        * below.
        */

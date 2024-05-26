@@ -52,7 +52,7 @@ decide_size (size_t current, size_t wanted)
   while (newsize < wanted)
     {
       if (2 * newsize < newsize)
-	return wanted;
+        return wanted;
       newsize *= 2;
     }
   return newsize;
@@ -84,24 +84,24 @@ extendbuf (void* existing, size_t wanted, size_t *allocated)
   else
     {
       if (newsize != (*allocated) )
-	{
-	  (*allocated) = newsize;
-	  result = realloc (existing, newsize);
-	  if (NULL == result)
-	    {
-	      saved_errno = errno;
-	    }
-	}
+        {
+          (*allocated) = newsize;
+          result = realloc (existing, newsize);
+          if (NULL == result)
+            {
+              saved_errno = errno;
+            }
+        }
       else
-	{
-	  result = existing;
-	}
+        {
+          result = existing;
+        }
     }
 
   if (result)
     {
       /* malloc () or realloc () may have changed errno, but in the
-	 success case we want to preserve the previous value.
+         success case we want to preserve the previous value.
       */
       errno = saved_errno;
     }

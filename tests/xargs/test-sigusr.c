@@ -57,9 +57,9 @@ wait_for_flagfile(void)
   for (;;)
     {
       if (0 == stat(flagfile_name, &st))
-	{
-	  return;
-	}
+        {
+          return;
+        }
       sleep(1);
     }
 }
@@ -70,9 +70,9 @@ delete_flagfile(void)
   if (0 != unlink(flagfile_name))
     {
       if (ENOENT != errno)
-	{
-	  error (2, errno, "Failed to unlink %s", flagfile_name);
-	}
+        {
+          error (2, errno, "Failed to unlink %s", flagfile_name);
+        }
     }
 }
 
@@ -205,23 +205,23 @@ run_xargs(const char *option, const char *optarg, int send_signal)
     case -1:
       error(EXIT_FAILURE, errno, "cannot fork");
       break;
-    case 0:			/* child */
-      close(pipefd[0]);		/* close read end */
+    case 0:                     /* child */
+      close(pipefd[0]);         /* close read end */
       /* The child will close the write end of the pipe on successful exec. */
       run_child(argv, pipefd[1]);
       abort();
       break;
-    default:			/* parent */
-      close(pipefd[1]);		/* close write end */
+    default:                    /* parent */
+      close(pipefd[1]);         /* close write end */
       if (read(pipefd[0], &child_errno, sizeof child_errno) < sizeof child_errno)
-	{
-	  /* The exec succeded in the child, and its write end of the pipe was closed. */
-	}
+        {
+          /* The exec succeded in the child, and its write end of the pipe was closed. */
+        }
       else
-	{
-	  /* exec failed in the child and its errno value is now in child_errno. */
-	  error(2, child_errno, "execvp failed in the child process");
-	}
+        {
+          /* exec failed in the child and its errno value is now in child_errno. */
+          error(2, child_errno, "execvp failed in the child process");
+        }
       break;
     }
 
@@ -237,9 +237,9 @@ run_xargs(const char *option, const char *optarg, int send_signal)
   if (send_signal)
     {
       if (0 != kill (child, send_signal))
-	{
-	  error(2, errno, "kill failed");
-	}
+        {
+          error(2, errno, "kill failed");
+        }
     }
 
   wstatus = 0;
@@ -256,18 +256,18 @@ run_xargs(const char *option, const char *optarg, int send_signal)
   else
     {
       if (WIFEXITED(wstatus))
-	{
-	  result.retval = WEXITSTATUS(wstatus);
-	}
+        {
+          result.retval = WEXITSTATUS(wstatus);
+        }
       else if (WIFSIGNALED(wstatus))
-	{
-	  result.retval = -1;
-	  result.fatalsig = WTERMSIG(wstatus);
-	}
+        {
+          result.retval = -1;
+          result.fatalsig = WTERMSIG(wstatus);
+        }
       else if (WIFSTOPPED(wstatus))
-	{
-	  error(2, 0, "child was unexpectedly stopped");
-	}
+        {
+          error(2, 0, "child was unexpectedly stopped");
+        }
       return result;
     }
   /*NOTREACHED*/

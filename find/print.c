@@ -1250,14 +1250,14 @@ do_fprintf (struct format_val *dest,
           break;
 
         case 0:
-	  /* Trailing single %.  This should have been rejected by
-	     insert_fprintf.  We use %s here in the error message
-	     simply to ensure that the error message matches the one
-	     in insert_fprintf, easing the translation burden.
-	   */
-	  error (EXIT_FAILURE, 0, _("error: %s at end of format string"), "%");
-	  /*NOTREACHED*/
-	  break;
+          /* Trailing single %.  This should have been rejected by
+             insert_fprintf.  We use %s here in the error message
+             simply to ensure that the error message matches the one
+             in insert_fprintf, easing the translation burden.
+           */
+          error (EXIT_FAILURE, 0, _("error: %s at end of format string"), "%");
+          /*NOTREACHED*/
+          break;
         }
       /* end of KIND_FORMAT case */
       break;

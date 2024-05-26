@@ -117,7 +117,7 @@ prefix_length (char *s1, char *s2)
        * our return type.
        */
       if (0 == --limit)
-	break;
+        break;
     }
   return s1 - start;
 }
@@ -142,8 +142,8 @@ usage (int status)
     }
 
   fprintf (stdout,
-	   _("Usage: %s [-0 | --null] [--version] [--help]\n"),
-	   program_name);
+           _("Usage: %s [-0 | --null] [--version] [--help]\n"),
+           program_name);
 
   explain_how_to_report_bugs (stdout, program_name);
   exit (status);
@@ -164,7 +164,7 @@ get_seclevel (char *s)
   if ((0==result) && (p == optarg))
     {
       error (EXIT_FAILURE, 0,
-	     _("You need to specify a security level as a decimal integer."));
+             _("You need to specify a security level as a decimal integer."));
       /*NOTREACHED*/
       return -1;
     }
@@ -172,7 +172,7 @@ get_seclevel (char *s)
 
     {
       error (EXIT_FAILURE, 0,
-	     _("Security level %s is outside the convertible range."), s);
+             _("Security level %s is outside the convertible range."), s);
       /*NOTREACHED*/
       return -1;
     }
@@ -180,7 +180,7 @@ get_seclevel (char *s)
     {
       /* Some suffix exists */
       error (EXIT_FAILURE, 0,
-	     _("Security level %s has unexpected suffix %s."), s, p);
+             _("Security level %s has unexpected suffix %s."), s, p);
       /*NOTREACHED*/
       return -1;
     }
@@ -200,11 +200,11 @@ outerr (void)
 int
 main (int argc, char **argv)
 {
-  char *path;			/* The current input entry.  */
-  char *oldpath;		/* The previous input entry.  */
-  size_t pathsize, oldpathsize;	/* Amounts allocated for them.  */
+  char *path;                   /* The current input entry.  */
+  char *oldpath;                /* The previous input entry.  */
+  size_t pathsize, oldpathsize; /* Amounts allocated for them.  */
   int count, oldcount, diffcount; /* Their prefix lengths & the difference. */
-  int line_len;			/* Length of input line.  */
+  int line_len;                 /* Length of input line.  */
   int delimiter = '\n';
   int optc;
   int slocate_compat = 0;
@@ -232,29 +232,29 @@ main (int argc, char **argv)
     switch (optc)
       {
       case '0':
-	delimiter = 0;
-	break;
+        delimiter = 0;
+        break;
 
       case 'S':
-	slocate_compat = 1;
-	slocate_seclevel = get_seclevel (optarg);
-	if (slocate_seclevel < 0 || slocate_seclevel > 1)
-	  {
-	    error (EXIT_FAILURE, 0,
-		   _("slocate security level %ld is unsupported."),
-		   slocate_seclevel);
-	  }
-	break;
+        slocate_compat = 1;
+        slocate_seclevel = get_seclevel (optarg);
+        if (slocate_seclevel < 0 || slocate_seclevel > 1)
+          {
+            error (EXIT_FAILURE, 0,
+                   _("slocate security level %ld is unsupported."),
+                   slocate_seclevel);
+          }
+        break;
 
       case 'h':
-	usage (EXIT_SUCCESS);
+        usage (EXIT_SUCCESS);
 
       case 'v':
-	display_findutils_version ("frcode");
-	return 0;
+        display_findutils_version ("frcode");
+        return 0;
 
       default:
-	usage (EXIT_FAILURE);
+        usage (EXIT_FAILURE);
       }
 
   /* We expect to have no arguments. */
@@ -275,76 +275,76 @@ main (int argc, char **argv)
     {
       /* GNU LOCATE02 format */
       if (fwrite (LOCATEDB_MAGIC, 1, sizeof (LOCATEDB_MAGIC), stdout)
-	  != sizeof (LOCATEDB_MAGIC))
-	{
-	  error (EXIT_FAILURE, errno, _("Failed to write to standard output"));
-	}
+          != sizeof (LOCATEDB_MAGIC))
+        {
+          error (EXIT_FAILURE, errno, _("Failed to write to standard output"));
+        }
     }
 
 
   while ((line_len = getdelim (&path, &pathsize, delimiter, stdin)) > 0)
     {
       if (path[line_len - 1] != delimiter)
-	{
-	  error (0, 0, _("The input file should end with the delimiter"));
-	}
+        {
+          error (0, 0, _("The input file should end with the delimiter"));
+        }
       else
-	{
-	  path[line_len - 1] = '\0'; /* FIXME temporary: nuke the delimiter.  */
-	}
+        {
+          path[line_len - 1] = '\0'; /* FIXME temporary: nuke the delimiter.  */
+        }
 
       count = prefix_length (oldpath, path);
       diffcount = count - oldcount;
       if ( (diffcount > SHRT_MAX) || (diffcount < SHRT_MIN) )
-	{
-	  /* We do this to prevent overflow of the value we
-	   * write with put_short ()
-	   */
-	  count = 0;
-	  diffcount = (-oldcount);
-	}
+        {
+          /* We do this to prevent overflow of the value we
+           * write with put_short ()
+           */
+          count = 0;
+          diffcount = (-oldcount);
+        }
       oldcount = count;
 
       if (slocate_compat)
-	{
-	  /* Emit no count for the first pathname. */
-	  slocate_compat = 0;
-	}
+        {
+          /* Emit no count for the first pathname. */
+          slocate_compat = 0;
+        }
       else
-	{
-	  /* If the difference is small, it fits in one byte;
-	     otherwise, two bytes plus a marker noting that fact.  */
-	  if (diffcount < LOCATEDB_ONEBYTE_MIN
-	      || diffcount > LOCATEDB_ONEBYTE_MAX)
-	    {
-	      if (EOF == putc (LOCATEDB_ESCAPE, stdout))
-		outerr ();
-	      if (!put_short (diffcount, stdout))
-		outerr ();
-	    }
-	  else
-	    {
-	      if (EOF == putc (diffcount, stdout))
-		outerr ();
-	    }
-	}
+        {
+          /* If the difference is small, it fits in one byte;
+             otherwise, two bytes plus a marker noting that fact.  */
+          if (diffcount < LOCATEDB_ONEBYTE_MIN
+              || diffcount > LOCATEDB_ONEBYTE_MAX)
+            {
+              if (EOF == putc (LOCATEDB_ESCAPE, stdout))
+                outerr ();
+              if (!put_short (diffcount, stdout))
+                outerr ();
+            }
+          else
+            {
+              if (EOF == putc (diffcount, stdout))
+                outerr ();
+            }
+        }
 
       if ( (EOF == fputs (path + count, stdout))
-	   || (EOF == putc ('\0', stdout)))
-	{
-	  outerr ();
-	}
+           || (EOF == putc ('\0', stdout)))
+        {
+          outerr ();
+        }
 
       if (1)
-	{
-	  /* Swap path and oldpath and their sizes.  */
-	  char *tmppath = oldpath;
-	  size_t tmppathsize = oldpathsize;
-	  oldpath = path;
-	  oldpathsize = pathsize;
-	  path = tmppath;
-	  pathsize = tmppathsize;
-	}
+        {
+          /* Swap path and oldpath and their sizes.  */
+          char *tmppath = oldpath;
+          size_t tmppathsize = oldpathsize;
+          oldpath = path;
+          oldpathsize = pathsize;
+          path = tmppath;
+          pathsize = tmppathsize;
+        }
     }
 
   free (path);

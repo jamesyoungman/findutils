@@ -35,10 +35,10 @@
  */
 int
 print_quoted (FILE *fp,
-	      const struct quoting_options *qopts,
-	      bool dest_is_tty,
-	      const char *format,
-	      const char *s)
+              const struct quoting_options *qopts,
+              bool dest_is_tty,
+              const char *format,
+              const char *s)
 {
   int rv;
 
@@ -48,28 +48,28 @@ print_quoted (FILE *fp,
       size_t len = quotearg_buffer (smallbuf, sizeof smallbuf, s, -1, qopts);
       char *buf;
       if (len < sizeof smallbuf)
-	buf = smallbuf;
+        buf = smallbuf;
       else
-	{
-	  /* The original coreutils code uses alloca(), but I don't
-	   * want to take on the anguish of introducing alloca() to
-	   * 'find'.
-	   * XXX: newsflash: we already have alloca().
-	   */
-	  buf = xmalloc (len + 1);
-	  quotearg_buffer (buf, len + 1, s, -1, qopts);
-	}
+        {
+          /* The original coreutils code uses alloca(), but I don't
+           * want to take on the anguish of introducing alloca() to
+           * 'find'.
+           * XXX: newsflash: we already have alloca().
+           */
+          buf = xmalloc (len + 1);
+          quotearg_buffer (buf, len + 1, s, -1, qopts);
+        }
 
       /* Replace any remaining funny characters with '?'. */
       len = qmark_chars (buf, len);
       buf[len] = 0;
 
-      rv = fprintf (fp, format, buf);	/* Print the quoted version */
+      rv = fprintf (fp, format, buf);   /* Print the quoted version */
       if (buf != smallbuf)
-	{
-	  free (buf);
-	  buf = NULL;
-	}
+        {
+          free (buf);
+          buf = NULL;
+        }
     }
   else
     {

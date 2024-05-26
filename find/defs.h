@@ -38,14 +38,14 @@ Please stop compiling the program now
 
 /* XXX: some of these includes probably don't belong in a common header file */
 # include <sys/stat.h>
-# include <stdio.h>		/* for FILE* */
+# include <stdio.h>             /* for FILE* */
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <time.h>
-# include <limits.h>		/* for CHAR_BIT */
-# include <stdbool.h>		/* for bool */
-# include <stdint.h>		/* for uintmax_t */
+# include <limits.h>            /* for CHAR_BIT */
+# include <stdbool.h>           /* for bool */
+# include <stdint.h>            /* for uintmax_t */
 # include <sys/stat.h> /* S_ISUID etc. */
 # include <selinux/selinux.h>
 
@@ -73,11 +73,11 @@ void set_stat_placeholders (struct stat *p);
 int get_statinfo (const char *pathname, const char *name, struct stat *p);
 
 
-# define MODE_WXUSR	(S_IWUSR | S_IXUSR)
-# define MODE_R		(S_IRUSR | S_IRGRP | S_IROTH)
-# define MODE_RW		(S_IWUSR | S_IWGRP | S_IWOTH | MODE_R)
-# define MODE_RWX	(S_IXUSR | S_IXGRP | S_IXOTH | MODE_RW)
-# define MODE_ALL	(S_ISUID | S_ISGID | S_ISVTX | MODE_RWX)
+# define MODE_WXUSR     (S_IWUSR | S_IXUSR)
+# define MODE_R         (S_IRUSR | S_IRGRP | S_IROTH)
+# define MODE_RW                (S_IWUSR | S_IWGRP | S_IWOTH | MODE_R)
+# define MODE_RWX       (S_IXUSR | S_IXGRP | S_IXOTH | MODE_RW)
+# define MODE_ALL       (S_ISUID | S_ISGID | S_ISVTX | MODE_RWX)
 
 
 struct predicate;
@@ -87,7 +87,7 @@ struct options;
 typedef bool (*PRED_FUNC)(const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr);
 
 /* The number of seconds in a day. */
-# define DAYSECS	    86400
+# define DAYSECS            86400
 
 /* Argument structures for predicates. */
 
@@ -128,7 +128,7 @@ enum predicate_precedence
 struct long_val
 {
   enum comparison_type kind;
-  bool negative;	 /* Defined only when representing time_t.  */
+  bool negative;         /* Defined only when representing time_t.  */
   uintmax_t l_val;
 };
 
@@ -191,14 +191,14 @@ struct time_val
 
 struct exec_val
 {
-  bool multiple;		/* -exec {} \+ denotes multiple argument. */
+  bool multiple;                /* -exec {} \+ denotes multiple argument. */
   struct buildcmd_control ctl;
   struct buildcmd_state   state;
-  char **replace_vec;		/* Command arguments (for ";" style) */
+  char **replace_vec;           /* Command arguments (for ";" style) */
   int num_args;
-  bool close_stdin;		/* If true, close stdin in the child. */
+  bool close_stdin;             /* If true, close stdin in the child. */
   struct saved_cwd *wd_for_exec; /* What directory to perform the exec in. */
-  int last_child_status;	/* Status of the most recent child. */
+  int last_child_status;        /* Status of the most recent child. */
 };
 
 /* The format string for a -printf or -fprintf is chopped into one or
@@ -209,26 +209,26 @@ struct exec_val
 /* Special values for the `kind' field of `struct segment'. */
 enum SegmentKind
   {
-    KIND_PLAIN=0,		/* Segment containing just plain text. */
-    KIND_STOP=1,		/* \c -- stop printing and flush output. */
-    KIND_FORMAT,		/* Regular format */
+    KIND_PLAIN=0,               /* Segment containing just plain text. */
+    KIND_STOP=1,                /* \c -- stop printing and flush output. */
+    KIND_FORMAT,                /* Regular format */
   };
 
 struct segment
 {
   enum SegmentKind segkind;     /* KIND_FORMAT, KIND_PLAIN, KIND_STOP */
-  char format_char[2];		/* Format chars if kind is KIND_FORMAT */
-  char *text;			/* Plain text or `%' format string. */
-  int text_len;			/* Length of `text'. */
-  struct segment *next;		/* Next segment for this predicate. */
+  char format_char[2];          /* Format chars if kind is KIND_FORMAT */
+  char *text;                   /* Plain text or `%' format string. */
+  int text_len;                 /* Length of `text'. */
+  struct segment *next;         /* Next segment for this predicate. */
 };
 
 struct format_val
 {
-  struct segment *segment;	/* Linked list of segments. */
-  FILE *stream;			/* Output stream to print on. */
-  const char *filename;		/* We need the filename for error messages. */
-  bool dest_is_tty;		/* True if the destination is a terminal. */
+  struct segment *segment;      /* Linked list of segments. */
+  FILE *stream;                 /* Output stream to print on. */
+  const char *filename;         /* We need the filename for error messages. */
+  bool dest_is_tty;             /* True if the destination is a terminal. */
   struct quoting_options *quote_opts;
 };
 
@@ -304,17 +304,17 @@ struct predicate
      Next to each member are listed the predicates that use it. */
   union
   {
-    const char *str;		/* fstype [i]lname [i]name [i]path */
+    const char *str;            /* fstype [i]lname [i]name [i]path */
     struct re_pattern_buffer *regex; /* regex */
-    struct exec_val exec_vec;	/* exec ok */
-    struct long_val numinfo;	/* gid inum links  uid */
-    struct size_val size;	/* size */
-    uid_t uid;			/* user */
-    gid_t gid;			/* group */
-    struct time_val reftime;	/* newer newerXY anewer cnewer mtime atime ctime mmin amin cmin */
-    struct perm_val perm;	/* perm */
+    struct exec_val exec_vec;   /* exec ok */
+    struct long_val numinfo;    /* gid inum links  uid */
+    struct size_val size;       /* size */
+    uid_t uid;                  /* user */
+    gid_t gid;                  /* group */
+    struct time_val reftime;    /* newer newerXY anewer cnewer mtime atime ctime mmin amin cmin */
+    struct perm_val perm;       /* perm */
     struct samefile_file_id samefileid; /* samefile */
-    bool types[FTYPE_COUNT];	/* file type(s) */
+    bool types[FTYPE_COUNT];    /* file type(s) */
     struct format_val printf_vec; /* printf fprintf fprint ls fls print0 fprint0 print */
     char *scontext; /* security context */
   } args;
@@ -347,9 +347,9 @@ bool is_fts_cwdfd_enabled(void);
  */
 enum SymlinkOption
   {
-    SYMLINK_NEVER_DEREF,	/* Option -P */
-    SYMLINK_ALWAYS_DEREF,	/* Option -L */
-    SYMLINK_DEREF_ARGSONLY	/* Option -H */
+    SYMLINK_NEVER_DEREF,        /* Option -P */
+    SYMLINK_ALWAYS_DEREF,       /* Option -L */
+    SYMLINK_DEREF_ARGSONLY      /* Option -H */
   };
 
 void set_follow_state (enum SymlinkOption opt);
@@ -364,20 +364,20 @@ dev_t * get_mounted_devices (size_t *);
 
 enum arg_type
   {
-    ARG_OPTION,			/* regular options like -maxdepth */
-    ARG_NOOP,			/* does nothing, returns true, internal use only */
-    ARG_POSITIONAL_OPTION,	/* options whose position is important (-follow) */
-    ARG_TEST,			/* a like -name */
-    ARG_SPECIAL_PARSE,		/* complex to parse, don't eat the test name before calling parse_xx(). */
-    ARG_PUNCTUATION,		/* like -o or ( */
-    ARG_ACTION			/* like -print */
+    ARG_OPTION,                 /* regular options like -maxdepth */
+    ARG_NOOP,                   /* does nothing, returns true, internal use only */
+    ARG_POSITIONAL_OPTION,      /* options whose position is important (-follow) */
+    ARG_TEST,                   /* a like -name */
+    ARG_SPECIAL_PARSE,          /* complex to parse, don't eat the test name before calling parse_xx(). */
+    ARG_PUNCTUATION,            /* like -o or ( */
+    ARG_ACTION                  /* like -print */
   };
 
 
 struct parser_table;
 /* Pointer to a parser function. */
 typedef bool (*PARSE_FUNC)(const struct parser_table *p,
-			   char *argv[], int *arg_ptr);
+                           char *argv[], int *arg_ptr);
 struct parser_table
 {
   enum arg_type type;
@@ -482,7 +482,7 @@ struct predicate * get_eval_tree (void);
 struct predicate *get_new_pred_noarg (const struct parser_table *entry);
 struct predicate *get_new_pred (const struct parser_table *entry);
 struct predicate *get_new_pred_chk_op (const struct parser_table *entry,
-					      const char *arg);
+                                              const char *arg);
 float  calculate_derived_rates (struct predicate *p);
 
 /* util.c */
@@ -507,7 +507,7 @@ int process_leading_options (int argc, char *argv[]);
 void set_option_defaults (struct options *p);
 
 # if 0
-#  define apply_predicate(pathname, stat_buf_ptr, node)	\
+#  define apply_predicate(pathname, stat_buf_ptr, node) \
   (*(node)->pred_func)((pathname), (stat_buf_ptr), (node))
 # else
 bool apply_predicate(const char *pathname, struct stat *stat_buf, struct predicate *p);
@@ -577,7 +577,7 @@ struct options
    */
   bool posixly_correct;
 
-  struct timespec      start_time;		/* Time at start of execution.  */
+  struct timespec      start_time;              /* Time at start of execution.  */
 
   /* Either one day before now (the default), or the start of today (if -daystart is given). */
   struct timespec      cur_day_start;
@@ -585,7 +585,7 @@ struct options
   /* If true, cur_day_start has been adjusted to the start of the day. */
   bool full_days;
 
-  int output_block_size;	/* Output block size.  */
+  int output_block_size;        /* Output block size.  */
 
   /* bitmask for debug options */
   unsigned long debug_options;
@@ -638,7 +638,7 @@ struct state
 
   /* If true, we know the type of the current path. */
   bool have_type;
-  mode_t type;			/* this is the actual type */
+  mode_t type;                  /* this is the actual type */
 
   /* The file being operated on, relative to the current directory.
      Used for stat, readlink, remove, and opendir.  */

@@ -74,9 +74,9 @@ get_regex_type (const char *s)
   for (i=0u; i<N_REGEX_MAP_ENTRIES; ++i)
     {
       if (0 == strcmp (regex_map[i].name, s))
-	return regex_map[i].option_val;
+        return regex_map[i].option_val;
       else
-	msglen += strlen (quote (regex_map[i].name)) + 2u;
+        msglen += strlen (quote (regex_map[i].name)) + 2u;
     }
 
   /* We didn't find a match for the type of regular expression that the
@@ -86,10 +86,10 @@ get_regex_type (const char *s)
   for (i=0u; i<N_REGEX_MAP_ENTRIES; ++i)
     {
       if (i > 0u)
-	{
-	  strcpy (p, ", ");
-	  p += 2;
-	}
+        {
+          strcpy (p, ", ");
+          p += 2;
+        }
       p += sprintf (p, "%s", quote (regex_map[i].name));
     }
 
@@ -143,15 +143,15 @@ get_regex_type_synonym (unsigned int ix, unsigned int context)
   for (i=0u; i<ix; ++i)
     {
       if ((regex_map[i].context & context) == 0)
-	{
-	  /* It is pointless to state that "x is a synonym of y" if we
-	     are not in fact going to include y. */
-	  continue;
-	}
+        {
+          /* It is pointless to state that "x is a synonym of y" if we
+             are not in fact going to include y. */
+          continue;
+        }
       else if (flags == regex_map[i].option_val)
-	{
-	  return i;
-	}
+        {
+          return i;
+        }
     }
   return -1;
 }

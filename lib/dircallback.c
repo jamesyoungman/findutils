@@ -36,7 +36,7 @@
 
 int
 run_in_dir (const struct saved_cwd *there,
-	    int (*callback)(void*), void *usercontext)
+            int (*callback)(void*), void *usercontext)
 {
   int err = -1;
   int saved_errno = 0;
@@ -44,17 +44,17 @@ run_in_dir (const struct saved_cwd *there,
   if (0 == save_cwd (&here))
     {
       if (0 == restore_cwd (there))
-	{
-	  err = callback(usercontext);
-	  saved_errno = (err < 0 ? errno : 0);
-	}
+        {
+          err = callback(usercontext);
+          saved_errno = (err < 0 ? errno : 0);
+        }
       else
-	{
-	  openat_restore_fail (errno);
-	}
+        {
+          openat_restore_fail (errno);
+        }
 
       if (restore_cwd (&here) != 0)
-	openat_restore_fail (errno);
+        openat_restore_fail (errno);
 
       free_cwd (&here);
     }
@@ -82,26 +82,26 @@ run_in_dirfd (int dir_fd, int (*callback)(void*), void *usercontext)
       int err;
 
       if (save_cwd (&saved_cwd) != 0)
-	openat_save_fail (errno);
+        openat_save_fail (errno);
 
       if (fchdir (dir_fd) != 0)
-	{
-	  saved_errno = errno;
-	  free_cwd (&saved_cwd);
-	  errno = saved_errno;
-	  return -1;
-	}
+        {
+          saved_errno = errno;
+          free_cwd (&saved_cwd);
+          errno = saved_errno;
+          return -1;
+        }
 
       err = (*callback)(usercontext);
       saved_errno = (err < 0 ? errno : 0);
 
       if (restore_cwd (&saved_cwd) != 0)
-	openat_restore_fail (errno);
+        openat_restore_fail (errno);
 
       free_cwd (&saved_cwd);
 
       if (saved_errno)
-	errno = saved_errno;
+        errno = saved_errno;
       return err;
     }
 }

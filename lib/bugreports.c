@@ -31,9 +31,9 @@ explain_how_to_report_bugs (FILE *f, const char *program_name)
 "program via the %s bug-reporting page at\n"
 "%s or, if\n"
 "you have no web access, by sending email to <%s>.\n"),
-		  PACKAGE_URL,
-		  program_name,
-		  PACKAGE_NAME,
-		  PACKAGE_BUGREPORT_URL,
-		  PACKAGE_BUGREPORT);
+                  PACKAGE_URL,
+                  program_name,
+                  PACKAGE_NAME,
+                  PACKAGE_BUGREPORT_URL,
+                  PACKAGE_BUGREPORT);
 }

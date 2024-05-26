@@ -81,10 +81,10 @@ left_dir (void)
   if (ftsoptions & FTS_CWDFD)
     {
       if (curr_fd >= 0)
-	{
-	  close (curr_fd);
-	  curr_fd = -1;
-	}
+        {
+          close (curr_fd);
+          curr_fd = -1;
+        }
     }
   else
     {
@@ -106,23 +106,23 @@ inside_dir (int dir_fd)
 
       state.cwd_dir_fd = dir_fd;
       if (curr_fd < 0)
-	{
-	  if (AT_FDCWD == dir_fd)
-	    {
-	      curr_fd = AT_FDCWD;
-	    }
-	  else if (dir_fd >= 0)
-	    {
-	      curr_fd = dup_cloexec (dir_fd);
-	    }
-	  else
-	    {
-	      /* curr_fd is invalid, but dir_fd is also invalid.
-	       * This should not have happened.
-	       */
-	      assert (curr_fd >= 0 || dir_fd >= 0);
-	    }
-	}
+        {
+          if (AT_FDCWD == dir_fd)
+            {
+              curr_fd = AT_FDCWD;
+            }
+          else if (dir_fd >= 0)
+            {
+              curr_fd = dup_cloexec (dir_fd);
+            }
+          else
+            {
+              /* curr_fd is invalid, but dir_fd is also invalid.
+               * This should not have happened.
+               */
+              assert (curr_fd >= 0 || dir_fd >= 0);
+            }
+        }
     }
   else
     {
@@ -226,8 +226,8 @@ issue_loop_warning (FTSENT * ent)
   if (S_ISLNK(ent->fts_statp->st_mode))
     {
       error (0, 0,
-	     _("Symbolic link %s is part of a loop in the directory hierarchy; we have already visited the directory to which it points."),
-	     safely_quote_err_filename (0, ent->fts_path));
+             _("Symbolic link %s is part of a loop in the directory hierarchy; we have already visited the directory to which it points."),
+             safely_quote_err_filename (0, ent->fts_path));
     }
   else
     {
@@ -240,13 +240,13 @@ issue_loop_warning (FTSENT * ent)
        * to /a/b/c.
        */
       error (0, 0,
-	     _("File system loop detected; "
-	       "%s is part of the same file system loop as %s."),
-	     safely_quote_err_filename (0, ent->fts_path),
-	     partial_quotearg_n (1,
-				 ent->fts_cycle->fts_path,
-				 ent->fts_cycle->fts_pathlen,
-				 options.err_quoting_style));
+             _("File system loop detected; "
+               "%s is part of the same file system loop as %s."),
+             safely_quote_err_filename (0, ent->fts_path),
+             partial_quotearg_n (1,
+                                 ent->fts_cycle->fts_path,
+                                 ent->fts_cycle->fts_pathlen,
+                                 options.err_quoting_style));
     }
 }
 
@@ -274,14 +274,14 @@ consider_visiting (FTS *p, FTSENT *ent)
 
   if (options.debug_options & DebugSearch)
     fprintf (stderr,
-	     "consider_visiting (early): %s: "
-	     "fts_info=%-6s, fts_level=%2d, prev_depth=%d "
-	     "fts_path=%s, fts_accpath=%s\n",
-	     quotearg_n_style (0, options.err_quoting_style, ent->fts_path),
-	     get_fts_info_name (ent->fts_info),
-	     (int)ent->fts_level, prev_depth,
-	     quotearg_n_style (1, options.err_quoting_style, ent->fts_path),
-	     quotearg_n_style (2, options.err_quoting_style, ent->fts_accpath));
+             "consider_visiting (early): %s: "
+             "fts_info=%-6s, fts_level=%2d, prev_depth=%d "
+             "fts_path=%s, fts_accpath=%s\n",
+             quotearg_n_style (0, options.err_quoting_style, ent->fts_path),
+             get_fts_info_name (ent->fts_info),
+             (int)ent->fts_level, prev_depth,
+             quotearg_n_style (1, options.err_quoting_style, ent->fts_path),
+             quotearg_n_style (2, options.err_quoting_style, ent->fts_accpath));
 
   if (ent->fts_info == FTS_DP)
     {
@@ -306,13 +306,13 @@ consider_visiting (FTS *p, FTSENT *ent)
     {
       nonfatal_target_file_error (ent->fts_errno, ent->fts_path);
       if (options.do_dir_first)
-	{
-	  /* Return for unreadable directories without -depth.
-	   * With -depth, the directory itself has to be processed, yet the
-	   * error message above has to be output.
-	   */
-	  return;
-	}
+        {
+          /* Return for unreadable directories without -depth.
+           * With -depth, the directory itself has to be processed, yet the
+           * error message above has to be output.
+           */
+          return;
+        }
     }
   else if (ent->fts_info == FTS_DC)
     {
@@ -330,45 +330,45 @@ consider_visiting (FTS *p, FTSENT *ent)
        * of the file (fts_path) in the error message.
        */
       if (symlink_loop (ent->fts_accpath))
-	{
-	  nonfatal_target_file_error (ELOOP, ent->fts_path);
-	  return;
-	}
+        {
+          nonfatal_target_file_error (ELOOP, ent->fts_path);
+          return;
+        }
     }
   else if (ent->fts_info == FTS_NS)
     {
       if (ent->fts_level == 0)
-	{
-	  /* e.g., nonexistent starting point */
-	  nonfatal_target_file_error (ent->fts_errno, ent->fts_path);
-	  return;
-	}
+        {
+          /* e.g., nonexistent starting point */
+          nonfatal_target_file_error (ent->fts_errno, ent->fts_path);
+          return;
+        }
       else
-	{
-	  /* The following if statement fixes Savannah bug #19605
-	   * (failure to diagnose a symbolic link loop)
-	   */
-	  if (symlink_loop (ent->fts_accpath))
-	    {
-	      nonfatal_target_file_error (ELOOP, ent->fts_path);
-	      return;
-	    }
-	  else
-	    {
-	      nonfatal_target_file_error (ent->fts_errno, ent->fts_path);
-	      /* Continue despite the error, as file name without stat info
-	       * might be better than not even processing the file name. This
-	       * can lead to repeated error messages later on, though, if a
-	       * predicate requires stat information.
-	       *
-	       * Not printing an error message here would be even more wrong,
-	       * though, as this could cause the contents of a directory to be
-	       * silently ignored, as the directory wouldn't be identified as
-	       * such.
-	       */
-	    }
+        {
+          /* The following if statement fixes Savannah bug #19605
+           * (failure to diagnose a symbolic link loop)
+           */
+          if (symlink_loop (ent->fts_accpath))
+            {
+              nonfatal_target_file_error (ELOOP, ent->fts_path);
+              return;
+            }
+          else
+            {
+              nonfatal_target_file_error (ent->fts_errno, ent->fts_path);
+              /* Continue despite the error, as file name without stat info
+               * might be better than not even processing the file name. This
+               * can lead to repeated error messages later on, though, if a
+               * predicate requires stat information.
+               *
+               * Not printing an error message here would be even more wrong,
+               * though, as this could cause the contents of a directory to be
+               * silently ignored, as the directory wouldn't be identified as
+               * such.
+               */
+            }
 
-	}
+        }
     }
 
   /* Cope with the usual cases. */
@@ -387,11 +387,11 @@ consider_visiting (FTS *p, FTSENT *ent)
       state.type = mode = statbuf.st_mode;
 
       if (00000 == mode)
-	{
-	  /* Savannah bug #16378. */
-	  error (0, 0, _("WARNING: file %s appears to have mode 0000"),
-		 quotearg_n_style (0, options.err_quoting_style, ent->fts_path));
-	}
+        {
+          /* Savannah bug #16378. */
+          error (0, 0, _("WARNING: file %s appears to have mode 0000"),
+                 quotearg_n_style (0, options.err_quoting_style, ent->fts_path));
+        }
     }
 
   /* update state.curdepth before calling digest_mode(), because digest_mode
@@ -401,7 +401,7 @@ consider_visiting (FTS *p, FTSENT *ent)
   if (mode)
     {
       if (!digest_mode (&mode, ent->fts_path, ent->fts_name, &statbuf, 0))
-	return;
+        return;
     }
 
   /* examine this item. */
@@ -425,12 +425,12 @@ consider_visiting (FTS *p, FTSENT *ent)
   if (options.maxdepth >= 0)
     {
       if (ent->fts_level >= options.maxdepth)
-	{
-	  fts_set (p, ent, FTS_SKIP); /* descend no further */
+        {
+          fts_set (p, ent, FTS_SKIP); /* descend no further */
 
-	  if (ent->fts_level > options.maxdepth)
-	    ignore = 1;		/* don't even look at this one */
-	}
+          if (ent->fts_level > options.maxdepth)
+            ignore = 1;         /* don't even look at this one */
+        }
     }
 
   if ( (ent->fts_info == FTS_D) && !options.do_dir_first )
@@ -450,11 +450,11 @@ consider_visiting (FTS *p, FTSENT *ent)
 
   if (options.debug_options & DebugSearch)
     fprintf (stderr,
-	     "consider_visiting (late): %s: "
-	     "fts_info=%-6s, isdir=%d ignore=%d have_stat=%d have_type=%d \n",
-	     quotearg_n_style (0, options.err_quoting_style, ent->fts_path),
-	     get_fts_info_name (ent->fts_info),
-	     isdir, ignore, state.have_stat, state.have_type);
+             "consider_visiting (late): %s: "
+             "fts_info=%-6s, isdir=%d ignore=%d have_stat=%d have_type=%d \n",
+             quotearg_n_style (0, options.err_quoting_style, ent->fts_path),
+             get_fts_info_name (ent->fts_info),
+             isdir, ignore, state.have_stat, state.have_type);
 
   if (!ignore)
     {
@@ -505,7 +505,7 @@ find (char *arg)
   if (NULL == p)
     {
       error (0, errno, _("cannot search %s"),
-	     safely_quote_err_filename (0, arg));
+             safely_quote_err_filename (0, arg));
       state.exit_status = EXIT_FAILURE;
     }
   else
@@ -513,48 +513,48 @@ find (char *arg)
       int level = INT_MIN;
 
       while ( (errno=0, ent=fts_read (p)) != NULL )
-	{
-	  if (state.execdirs_outstanding && ((int)ent->fts_level != level))
-	    {
-	      /* If we changed level, perform any outstanding
-	       * execdirs.  If we see a sequence of directory entries
-	       * like this: fffdfffdfff, we could build a command line
-	       * of 9 files, but this simple-minded implementation
-	       * builds a command line for only 3 files at a time
-	       * (since fts descends into the directories).
-	       */
-	      complete_pending_execdirs ();
-	    }
-	  level = (int)ent->fts_level;
+        {
+          if (state.execdirs_outstanding && ((int)ent->fts_level != level))
+            {
+              /* If we changed level, perform any outstanding
+               * execdirs.  If we see a sequence of directory entries
+               * like this: fffdfffdfff, we could build a command line
+               * of 9 files, but this simple-minded implementation
+               * builds a command line for only 3 files at a time
+               * (since fts descends into the directories).
+               */
+              complete_pending_execdirs ();
+            }
+          level = (int)ent->fts_level;
 
-	  state.already_issued_stat_error_msg = false;
-	  state.have_stat = false;
-	  state.have_type = !!ent->fts_statp->st_mode;
-	  state.type = state.have_type ? ent->fts_statp->st_mode : 0;
-	  consider_visiting (p, ent);
-	}
+          state.already_issued_stat_error_msg = false;
+          state.have_stat = false;
+          state.have_type = !!ent->fts_statp->st_mode;
+          state.type = state.have_type ? ent->fts_statp->st_mode : 0;
+          consider_visiting (p, ent);
+        }
       /* fts_read returned NULL; distinguish between "finished" and "error". */
       if (errno)
-	{
-	  error (0, errno,
-		 "failed to read file names from file system at or below %s",
-		 safely_quote_err_filename (0, arg));
-	  state.exit_status = EXIT_FAILURE;
-	  return false;
-	}
+        {
+          error (0, errno,
+                 "failed to read file names from file system at or below %s",
+                 safely_quote_err_filename (0, arg));
+          state.exit_status = EXIT_FAILURE;
+          return false;
+        }
 
       if (0 != fts_close (p))
-	{
-	  /* Here we break the abstraction of fts_close a bit, because we
-	   * are going to skip the rest of the start points, and return with
-	   * nonzero exit status.  Hence we need to issue a diagnostic on
-	   * stderr. */
-	  error (0, errno,
-		 _("failed to restore working directory after searching %s"),
-		 arg);
-	  state.exit_status = EXIT_FAILURE;
-	  return false;
-	}
+        {
+          /* Here we break the abstraction of fts_close a bit, because we
+           * are going to skip the rest of the start points, and return with
+           * nonzero exit status.  Hence we need to issue a diagnostic on
+           * stderr. */
+          error (0, errno,
+                 _("failed to restore working directory after searching %s"),
+                 arg);
+          state.exit_status = EXIT_FAILURE;
+          return false;
+        }
       p = NULL;
     }
   return true;
@@ -752,7 +752,7 @@ main (int argc, char **argv)
   if (NULL == state.shared_files)
     {
       error (EXIT_FAILURE, errno,
-	     _("Failed to initialize shared-file hash table"));
+             _("Failed to initialize shared-file hash table"));
     }
 
   /* Set the option defaults before we do the locale initialisation as
@@ -812,7 +812,7 @@ main (int argc, char **argv)
    * the wrong directory for example.
    */
   if (process_all_startpoints (argc-end_of_leading_options,
-			       argv+end_of_leading_options))
+                               argv+end_of_leading_options))
     {
       /* If "-exec ... {} +" has been used, there may be some
        * partially-full command lines which have been built,

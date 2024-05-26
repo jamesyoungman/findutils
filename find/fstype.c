@@ -101,7 +101,7 @@ in_afs (char *path)
 
   if (pioctl (path, VIOC_FILE_CELL_NAME, &vi, 1)
       && (errno == EINVAL || errno == ENOENT))
-	return 0;
+        return 0;
   return 1;
 }
 #endif /* AFS */
@@ -148,7 +148,7 @@ filesystem_type (const struct stat *statp, const char *path)
   if (current_fstype != NULL)
     {
       if (fstype_known && statp->st_dev == current_dev)
-	return current_fstype;	/* Cached value.  */
+        return current_fstype;  /* Cached value.  */
       free (current_fstype);
     }
   current_dev = statp->st_dev;
@@ -162,25 +162,25 @@ is_used_fs_type(const char *name)
   if (0 == strcmp("afs", name))
     {
       /* I guess AFS may not appear in /etc/mtab (or equivalent) but still be in use,
-	 so assume we always need to check for AFS.  */
+         so assume we always need to check for AFS.  */
       return true;
     }
   else
     {
       const struct mount_entry *entries = get_file_system_list(false);
       if (entries)
-	{
-	  const struct mount_entry *entry;
-	  for (entry = entries; entry; entry = entry->me_next)
-	    {
-	      if (0 == strcmp(name, entry->me_type))
-		return true;
-	    }
-	}
+        {
+          const struct mount_entry *entry;
+          for (entry = entries; entry; entry = entry->me_next)
+            {
+              if (0 == strcmp(name, entry->me_type))
+                return true;
+            }
+        }
       else
-	{
-	  return true;
-	}
+        {
+          return true;
+        }
     }
   return false;
 }
@@ -194,16 +194,16 @@ set_fstype_devno (struct mount_entry *p)
     {
       set_stat_placeholders (&stbuf);
       if (0 == (options.xstat)(p->me_mountdir, &stbuf))
-	{
-	  p->me_dev = stbuf.st_dev;
-	  return 0;
-	}
+        {
+          p->me_dev = stbuf.st_dev;
+          return 0;
+        }
       else
-	{
-	  return -1;
-	}
+        {
+          return -1;
+        }
     }
-  return 0;			/* not needed */
+  return 0;                     /* not needed */
 }
 
 /* Return a newly allocated string naming the type of file system that the
@@ -242,21 +242,21 @@ file_system_type_uncached (const struct stat *statp, const char *path,
     {
 #ifdef MNTTYPE_IGNORE
       if (!strcmp (entry->me_type, MNTTYPE_IGNORE))
-	continue;
+        continue;
 #endif
       if (0 == set_fstype_devno (entry))
-	{
-	  if (entry->me_dev == statp->st_dev)
-	    {
-	      best = entry;
-	      /* Don't exit the loop, because some systems (for
-		 example Linux-based systems in which /etc/mtab is a
-		 symlink to /proc/mounts) can have duplicate entries
-		 in the filesystem list.  This happens most frequently
-		 for /.
-	      */
-	    }
-	}
+        {
+          if (entry->me_dev == statp->st_dev)
+            {
+              best = entry;
+              /* Don't exit the loop, because some systems (for
+                 example Linux-based systems in which /etc/mtab is a
+                 symlink to /proc/mounts) can have duplicate entries
+                 in the filesystem list.  This happens most frequently
+                 for /.
+              */
+            }
+        }
     }
   if (best)
     {
@@ -290,19 +290,19 @@ get_mounted_devices (size_t *n)
     {
       void *p = extendbuf (result, sizeof(dev_t)*(used+1), &alloc_size);
       if (p)
-	{
-	  result = p;
-	  if (0 == set_fstype_devno (entry))
-	    {
-	      result[used] = entry->me_dev;
-	      ++used;
-	    }
-	}
+        {
+          result = p;
+          if (0 == set_fstype_devno (entry))
+            {
+              result[used] = entry->me_dev;
+              ++used;
+            }
+        }
       else
-	{
-	  free (result);
-	  result = NULL;
-	}
+        {
+          free (result);
+          result = NULL;
+        }
     }
   free_file_system_list (entries);
   if (result)

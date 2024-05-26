@@ -39,6 +39,6 @@
 # include <stddef.h>
 
 bool splitstring(const char *s, const char *separators,
-		 bool first, size_t *pos, size_t *len);
+                 bool first, size_t *pos, size_t *len);
 
 #endif

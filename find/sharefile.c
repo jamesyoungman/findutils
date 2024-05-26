@@ -80,7 +80,7 @@ entry_free (void *pv)
   if (p->fp)
     {
       if (0 != fclose (p->fp))
-	fatal_nontarget_file_error (errno, p->name);
+        fatal_nontarget_file_error (errno, p->name);
     }
   free (p->name);
   free (p);
@@ -105,25 +105,25 @@ sharefile_init (const char *mode)
     {
       p->mode = strdup (mode);
       if (p->mode)
-	{
-	  p->table = hash_initialize (DefaultHashTableSize, NULL,
-				      entry_hashfunc,
-				      entry_comparator,
-				      entry_free);
-	  if (p->table)
-	    {
-	      return p;
-	    }
-	  else
-	    {
-	      free (p->mode);
-	      free (p);
-	    }
-	}
+        {
+          p->table = hash_initialize (DefaultHashTableSize, NULL,
+                                      entry_hashfunc,
+                                      entry_comparator,
+                                      entry_free);
+          if (p->table)
+            {
+              return p;
+            }
+          else
+            {
+              free (p->mode);
+              free (p);
+            }
+        }
       else
-	{
-	  free (p);
-	}
+        {
+          free (p);
+        }
     }
   return NULL;
 }
@@ -168,36 +168,36 @@ sharefile_fopen (sharefile_handle h, const char *filename)
       set_cloexec_flag (fd, true);
       if (fstat (fd, &st) < 0)
         {
-	  entry_free (new_entry);
+          entry_free (new_entry);
           return NULL;
         }
       else
         {
-	  void *existing;
+          void *existing;
 
           new_entry->device = st.st_dev;
           new_entry->inode = st.st_ino;
 
           existing = hash_lookup (p->table, new_entry);
-          if (existing)	    /* We have previously opened that file. */
-	    {
-	      entry_free (new_entry); /* don't need new_entry. */
-	      return ((const struct SharefileEntry*)existing)->fp;
-	    }
+          if (existing)     /* We have previously opened that file. */
+            {
+              entry_free (new_entry); /* don't need new_entry. */
+              return ((const struct SharefileEntry*)existing)->fp;
+            }
           else /* We didn't open it already */
-	    {
-	      if (hash_insert (p->table, new_entry))
-		{
-		  return new_entry->fp;
-		}
-	      else			/* failed to insert in hashtable. */
-		{
-		  const int save_errno = errno;
-		  entry_free (new_entry);
-		  errno = save_errno;
-		  return NULL;
-		}
-	    }
+            {
+              if (hash_insert (p->table, new_entry))
+                {
+                  return new_entry->fp;
+                }
+              else                      /* failed to insert in hashtable. */
+                {
+                  const int save_errno = errno;
+                  entry_free (new_entry);
+                  errno = save_errno;
+                  return NULL;
+                }
+            }
         }
     }
 }

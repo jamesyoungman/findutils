@@ -29,11 +29,11 @@
 
 static void
 assertEqualFunc(const char *file, int line, const char *label,
-		size_t expected, size_t got)
+                size_t expected, size_t got)
 {
   if (expected != got)
     fprintf(stderr, "%s line %d: %s: expected %lu, got %lu\n",
-	    file, line, label, (unsigned long)expected, (unsigned long)got);
+            file, line, label, (unsigned long)expected, (unsigned long)got);
 }
 #define ASSERT_EQUAL(expected,got) \
   do{ \

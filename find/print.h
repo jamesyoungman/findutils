@@ -25,13 +25,13 @@ struct predicate;
 struct segment;
 
 struct segment **make_segment (struct segment **segment,
-			       char *format, int len,
-			       int kind, char format_char,
-			       char aux_format_char,
-			       struct predicate *pred);
+                               char *format, int len,
+                               int kind, char format_char,
+                               char aux_format_char,
+                               struct predicate *pred);
 bool
 insert_fprintf (struct format_val *vec,
-		const struct parser_table *entry,
-		char *format);
+                const struct parser_table *entry,
+                char *format);
 
 #endif /* PRINT_H */

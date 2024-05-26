@@ -45,9 +45,9 @@ display_findutils_version (const char *official_name)
    */
   fflush (stderr);
   version_etc (stdout,
-	       official_name, PACKAGE_NAME, version_string,
-	       _("Eric B. Decker"),
-	       _("James Youngman"),
-	       _("Kevin Dalley"),
-	       (const char*) NULL);
+               official_name, PACKAGE_NAME, version_string,
+               _("Eric B. Decker"),
+               _("James Youngman"),
+               _("Kevin Dalley"),
+               (const char*) NULL);
 }

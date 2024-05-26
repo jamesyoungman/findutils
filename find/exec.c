@@ -64,30 +64,30 @@ record_exec_dir (struct exec_val *execp)
   if (!execp->state.todo)
     {
       /* working directory not already known, so must be a *dir variant,
-	 and this must be the first arg we added.   However, this may
-	 be -execdir foo {} \; (i.e. not multiple).  */
+         and this must be the first arg we added.   However, this may
+         be -execdir foo {} \; (i.e. not multiple).  */
       assert (!execp->state.todo);
 
       /* Record the WD. If we're using -L or fts chooses to do so for
-	 any other reason, state.cwd_dir_fd may in fact not be the
-	 directory containing the target file.  When this happens,
-	 rel_path will contain directory components (since it is the
-	 path from state.cwd_dir_fd to the target file).
+         any other reason, state.cwd_dir_fd may in fact not be the
+         directory containing the target file.  When this happens,
+         rel_path will contain directory components (since it is the
+         path from state.cwd_dir_fd to the target file).
 
-	 We deal with this by extracting any directory part and using
-	 that to adjust what goes into execp->wd_for_exec.
+         We deal with this by extracting any directory part and using
+         that to adjust what goes into execp->wd_for_exec.
       */
       if (strchr (state.rel_pathname, '/'))
-	{
-	  char *dir = mdir_name (state.rel_pathname);
-	  bool result = initialize_wd_for_exec (execp, state.cwd_dir_fd, dir);
-	  free (dir);
-	  return result;
-	}
+        {
+          char *dir = mdir_name (state.rel_pathname);
+          bool result = initialize_wd_for_exec (execp, state.cwd_dir_fd, dir);
+          free (dir);
+          return result;
+        }
       else
-	{
-	  return initialize_wd_for_exec (execp, state.cwd_dir_fd, ".");
-	}
+        {
+          return initialize_wd_for_exec (execp, state.cwd_dir_fd, ".");
+        }
     }
   return true;
 }
@@ -217,13 +217,13 @@ impl_pred_exec (const char *pathname,
 
     Possible returns:
 
-    ret		errno	status(h)   status(l)
+    ret         errno   status(h)   status(l)
 
-    pid		x	signal#	    0177	stopped
-    pid		x	exit arg    0		term by _exit
-    pid		x	0	    signal #	term by signal
-    -1		EINTR				parent got signal
-    -1		other				some other kind of error
+    pid         x       signal#     0177        stopped
+    pid         x       exit arg    0           term by _exit
+    pid         x       0           signal #    term by signal
+    -1          EINTR                           parent got signal
+    -1          other                           some other kind of error
 
     Return true only if the pid matches, status(l) is
     zero, and the exit arg (status high) is 0.
@@ -237,27 +237,27 @@ prep_child_for_exec (bool close_stdin, const struct saved_cwd *wd)
       const char inputfile[] = "/dev/null";
 
       if (close (0) < 0)
-	{
-	  error (0, errno, _("Cannot close standard input"));
-	  ok = false;
-	}
+        {
+          error (0, errno, _("Cannot close standard input"));
+          ok = false;
+        }
       else
-	{
-	  if (open (inputfile, O_RDONLY
+        {
+          if (open (inputfile, O_RDONLY
 #if defined O_LARGEFILE
-		   |O_LARGEFILE
+                   |O_LARGEFILE
 #endif
-		   ) < 0)
-	    {
-	      /* This is not entirely fatal, since
-	       * executing the child with a closed
-	       * stdin is almost as good as executing it
-	       * with its stdin attached to /dev/null.
-	       */
-	      error (0, errno, "%s", safely_quote_err_filename (0, inputfile));
-	      /* do not set ok=false, it is OK to continue anyway. */
-	    }
-	}
+                   ) < 0)
+            {
+              /* This is not entirely fatal, since
+               * executing the child with a closed
+               * stdin is almost as good as executing it
+               * with its stdin attached to /dev/null.
+               */
+              error (0, errno, "%s", safely_quote_err_filename (0, inputfile));
+              /* do not set ok=false, it is OK to continue anyway. */
+            }
+        }
     }
 
   /* Even if DebugSearch is set, don't announce our change of
@@ -268,8 +268,8 @@ prep_child_for_exec (bool close_stdin, const struct saved_cwd *wd)
   if (0 != restore_cwd (wd))
     {
       error (0, errno, _("Failed to change directory%s%s"),
-	     (wd->desc < 0 && wd->name) ? ": " : "",
-	     (wd->desc < 0 && wd->name) ? wd->name : "");
+             (wd->desc < 0 && wd->name) ? ": " : "",
+             (wd->desc < 0 && wd->name) ? wd->name : "");
       ok = false;
     }
   return ok;
@@ -283,8 +283,8 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
   static int first_time = 1;
   struct exec_val *execp = usercontext;
 
-  (void) ctl;			/* silence compiler warning */
-  (void) argc;			/* silence compiler warning */
+  (void) ctl;                   /* silence compiler warning */
+  (void) argc;                  /* silence compiler warning */
 
   if (options.debug_options & DebugExec)
     {
@@ -292,10 +292,10 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
       fprintf (stderr, "DebugExec: launching process (argc=%" PRIuMAX "):",
                (uintmax_t) execp->state.cmd_argc - 1);
       for (i=0; i<execp->state.cmd_argc -1; ++i)
-	{
-	  fprintf (stderr, " %s",
-	           safely_quote_err_filename (0, execp->state.cmd_argv[i]));
-	}
+        {
+          fprintf (stderr, " %s",
+                   safely_quote_err_filename (0, execp->state.cmd_argv[i]));
+        }
       fprintf (stderr, "\n");
     }
 
@@ -318,54 +318,54 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
       /* We are the child. */
       assert (NULL != execp->wd_for_exec);
       if (!prep_child_for_exec (execp->close_stdin, execp->wd_for_exec))
-	{
-	  _exit (1);
-	}
+        {
+          _exit (1);
+        }
       else
-	{
-	  if (fd_leak_check_is_enabled ())
-	    {
-	      complain_about_leaky_fds ();
-	    }
-	}
+        {
+          if (fd_leak_check_is_enabled ())
+            {
+              complain_about_leaky_fds ();
+            }
+        }
 
       if (bc_args_exceed_testing_limit (argv))
-	errno = E2BIG;
+        errno = E2BIG;
       else
-	execvp (argv[0], argv);
+        execvp (argv[0], argv);
       /* TODO: use a pipe to pass back the errno value, like xargs does */
       error (0, errno, "%s",
-	     safely_quote_err_filename (0, argv[0]));
+             safely_quote_err_filename (0, argv[0]));
       _exit (1);
     }
 
   while (waitpid (child_pid, &(execp->last_child_status), 0) == (pid_t) -1)
     {
       if (errno != EINTR)
-	{
-	  error (0, errno, _("error waiting for %s"),
-		 safely_quote_err_filename (0, argv[0]));
-	  state.exit_status = EXIT_FAILURE;
-	  return 0;		/* FAIL */
-	}
+        {
+          error (0, errno, _("error waiting for %s"),
+                 safely_quote_err_filename (0, argv[0]));
+          state.exit_status = EXIT_FAILURE;
+          return 0;             /* FAIL */
+        }
     }
 
   if (WIFSIGNALED (execp->last_child_status))
     {
       error (0, 0, _("%s terminated by signal %d"),
-	     quotearg_n_style (0, options.err_quoting_style, argv[0]),
-	     WTERMSIG (execp->last_child_status));
+             quotearg_n_style (0, options.err_quoting_style, argv[0]),
+             WTERMSIG (execp->last_child_status));
 
       if (execp->multiple)
-	{
-	  /* -exec   \; just returns false if the invoked command fails.
-	   * -exec {} + returns true if the invoked command fails, but
-	   *            sets the program exit status.
-	   */
-	  state.exit_status = EXIT_FAILURE;
-	}
+        {
+          /* -exec   \; just returns false if the invoked command fails.
+           * -exec {} + returns true if the invoked command fails, but
+           *            sets the program exit status.
+           */
+          state.exit_status = EXIT_FAILURE;
+        }
 
-      return 1;			/* OK */
+      return 1;                 /* OK */
     }
 
   int ex = WEXITSTATUS (execp->last_child_status);
@@ -380,22 +380,22 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
 
   if (0 == ex)
     {
-      return 1;			/* OK */
+      return 1;                 /* OK */
     }
   else
     {
       if (execp->multiple)
-	{
-	  /* -exec   \; just returns false if the invoked command fails.
-	   * -exec {} + returns true if the invoked command fails, but
-	   *            sets the program exit status.
-	   */
-	  state.exit_status = EXIT_FAILURE;
-	}
+        {
+          /* -exec   \; just returns false if the invoked command fails.
+           * -exec {} + returns true if the invoked command fails, but
+           *            sets the program exit status.
+           */
+          state.exit_status = EXIT_FAILURE;
+        }
       /* The child failed, but this is the exec callback.  We
        * don't want to run the child again in this case anwyay.
        */
-      return 1;			/* FAIL (but don't try again) */
+      return 1;                 /* FAIL (but don't try again) */
     }
 
 }

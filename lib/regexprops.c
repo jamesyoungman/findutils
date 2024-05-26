@@ -98,9 +98,9 @@ enum_item (const char *s)
 
 static void
 begin_subsection (const char *name,
-		  const char *next,
-		  const char *prev,
-		  const char *up)
+                  const char *next,
+                  const char *prev,
+                  const char *up)
 {
   (void) next;
   (void) prev;
@@ -173,9 +173,9 @@ describe_regex_syntax (int options)
   if (options & RE_DOT_NOT_NULL)
     {
       if ( (options & RE_DOT_NEWLINE)  == 0 )
-	content (" and");
+        content (" and");
       else
-	content (" except");
+        content (" except");
 
       content (" the null character");
     }
@@ -186,29 +186,29 @@ describe_regex_syntax (int options)
     {
       begintable_markup ("@samp");
       if (options & RE_BK_PLUS_QM)
-	{
-	  enum_item ("\\+");
-	  content ("indicates that the regular expression should match one"
-		   " or more occurrences of the previous atom or regexp.");
-	  enum_item ("\\?");
-	  content ("indicates that the regular expression should match zero"
-		   " or one occurrence of the previous atom or regexp.");
-	  enum_item ("+ and ?");
-	  content ("match themselves.\n");
-	}
+        {
+          enum_item ("\\+");
+          content ("indicates that the regular expression should match one"
+                   " or more occurrences of the previous atom or regexp.");
+          enum_item ("\\?");
+          content ("indicates that the regular expression should match zero"
+                   " or one occurrence of the previous atom or regexp.");
+          enum_item ("+ and ?");
+          content ("match themselves.\n");
+        }
       else
-	{
-	  enum_item ("+");
-	  content ("indicates that the regular expression should match one"
-		   " or more occurrences of the previous atom or regexp.");
-	  enum_item ("?");
-	  content ("indicates that the regular expression should match zero"
-		   " or one occurrence of the previous atom or regexp.");
-	  enum_item ("\\+");
-	  literal ("matches a @samp{+}");
-	  enum_item ("\\?");
-	  literal ("matches a @samp{?}.");
-	}
+        {
+          enum_item ("+");
+          content ("indicates that the regular expression should match one"
+                   " or more occurrences of the previous atom or regexp.");
+          enum_item ("?");
+          content ("indicates that the regular expression should match zero"
+                   " or one occurrence of the previous atom or regexp.");
+          enum_item ("\\+");
+          literal ("matches a @samp{+}");
+          enum_item ("\\?");
+          literal ("matches a @samp{?}.");
+        }
       endtable ();
     }
 
@@ -224,17 +224,17 @@ describe_regex_syntax (int options)
 
   if (options &  RE_BACKSLASH_ESCAPE_IN_LISTS)
     literal ("Within square brackets, @samp{\\} can be used to quote "
-	     "the following character.  ");
+             "the following character.  ");
   else
     literal ("Within square brackets, @samp{\\} is taken literally.  ");
 
   if (options & RE_CHAR_CLASSES)
     content ("Character classes are supported; for example "
-	     "@samp{[[:digit:]]} will match a single decimal digit.\n");
+             "@samp{[[:digit:]]} will match a single decimal digit.\n");
   else
     literal ("Character classes are not supported, so for example "
-	     "you would need to use @samp{[0-9]} "
-	     "instead of @samp{[[:digit:]]}.\n");
+             "you would need to use @samp{[0-9]} "
+             "instead of @samp{[[:digit:]]}.\n");
 
   if (options & RE_HAT_LISTS_NOT_NEWLINE)
     {
@@ -244,9 +244,9 @@ describe_regex_syntax (int options)
   if (options & RE_NO_GNU_OPS)
     {
       content ("GNU extensions are not supported and so "
-	       "@samp{\\w}, @samp{\\W}, @samp{\\<}, @samp{\\>}, @samp{\\b}, @samp{\\B}, @samp{\\`}, and @samp{\\'} "
-	       "match "
-	       "@samp{w}, @samp{W}, @samp{<}, @samp{>}, @samp{b}, @samp{B}, @samp{`}, and @samp{'} respectively.\n");
+               "@samp{\\w}, @samp{\\W}, @samp{\\<}, @samp{\\>}, @samp{\\b}, @samp{\\B}, @samp{\\`}, and @samp{\\'} "
+               "match "
+               "@samp{w}, @samp{W}, @samp{<}, @samp{>}, @samp{b}, @samp{B}, @samp{`}, and @samp{'} respectively.\n");
     }
   else
     {
@@ -271,7 +271,7 @@ describe_regex_syntax (int options)
       literal ("Grouping is performed with parentheses @samp{()}.  ");
 
       if (options & RE_UNMATCHED_RIGHT_PAREN_ORD)
-	literal ("An unmatched @samp{)} matches just itself.  ");
+        literal ("An unmatched @samp{)} matches just itself.  ");
     }
   else
     {
@@ -286,9 +286,9 @@ describe_regex_syntax (int options)
     {
       literal ("A backslash followed by a digit acts as a back-reference and matches the same thing as the previous grouped expression indicated by that number.  For example @samp{\\2} matches the second group expression.  The order of group expressions is determined by the position of their opening parenthesis ");
       if (options & RE_NO_BK_PARENS)
-	literal ("@samp{(}");
+        literal ("@samp{(}");
       else
-	literal ("@samp{\\(}");
+        literal ("@samp{\\(}");
       content (".");
     }
 
@@ -297,9 +297,9 @@ describe_regex_syntax (int options)
   if (!(options & RE_LIMITED_OPS))
     {
       if (options & RE_NO_BK_VBAR)
-	literal ("The alternation operator is @samp{|}.");
+        literal ("The alternation operator is @samp{|}.");
       else
-	literal ("The alternation operator is @samp{\\|}.");
+        literal ("The alternation operator is @samp{\\|}.");
     }
   newpara ();
 
@@ -313,24 +313,24 @@ describe_regex_syntax (int options)
       beginenum ();
       enum_item ("At the beginning of a regular expression");
       if (options & RE_NO_BK_PARENS)
-	{
-	  enum_item ("After an open-group, signified by @samp{(}");
-	}
+        {
+          enum_item ("After an open-group, signified by @samp{(}");
+        }
       else
-	{
-	  enum_item ("After an open-group, signified by @samp{\\(}");
-	}
+        {
+          enum_item ("After an open-group, signified by @samp{\\(}");
+        }
       newline ();
       if (!(options & RE_LIMITED_OPS))
-	{
-	  if (options & RE_NEWLINE_ALT)
-	    enum_item ("After a newline");
+        {
+          if (options & RE_NEWLINE_ALT)
+            enum_item ("After a newline");
 
-	  if (options & RE_NO_BK_VBAR )
-	    enum_item ("After the alternation operator @samp{|}");
-	  else
-	    enum_item ("After the alternation operator @samp{\\|}");
-	}
+          if (options & RE_NO_BK_VBAR )
+            enum_item ("After the alternation operator @samp{|}");
+          else
+            enum_item ("After the alternation operator @samp{\\|}");
+        }
       endenum ();
 
       newpara ();
@@ -338,71 +338,71 @@ describe_regex_syntax (int options)
       beginenum ();
       enum_item ("At the end of a regular expression");
       if (options & RE_NO_BK_PARENS)
-	{
-	  enum_item ("Before a close-group, signified by @samp{)}");
-	}
+        {
+          enum_item ("Before a close-group, signified by @samp{)}");
+        }
       else
-	{
-	  enum_item ("Before a close-group, signified by @samp{\\)}");
-	}
+        {
+          enum_item ("Before a close-group, signified by @samp{\\)}");
+        }
       if (!(options & RE_LIMITED_OPS))
-	{
-	  if (options & RE_NEWLINE_ALT)
-	    enum_item ("Before a newline");
+        {
+          if (options & RE_NEWLINE_ALT)
+            enum_item ("Before a newline");
 
-	  if (options & RE_NO_BK_VBAR)
-	    enum_item ("Before the alternation operator @samp{|}");
-	  else
-	    enum_item ("Before the alternation operator @samp{\\|}");
-	}
+          if (options & RE_NO_BK_VBAR)
+            enum_item ("Before the alternation operator @samp{|}");
+          else
+            enum_item ("Before the alternation operator @samp{\\|}");
+        }
       endenum ();
     }
   newpara ();
   if (!(options & RE_LIMITED_OPS) )
     {
       if ((options & RE_CONTEXT_INDEP_OPS)
-	  && !(options & RE_CONTEXT_INVALID_OPS))
-	{
-	  literal ("The characters @samp{*}, @samp{+} and @samp{?} are special anywhere in a regular expression.\n");
-	}
+          && !(options & RE_CONTEXT_INVALID_OPS))
+        {
+          literal ("The characters @samp{*}, @samp{+} and @samp{?} are special anywhere in a regular expression.\n");
+        }
       else
-	{
-	  if (options & RE_BK_PLUS_QM)
-	    literal ("@samp{\\*}, @samp{\\+} and @samp{\\?} ");
-	  else
-	    literal ("@samp{*}, @samp{+} and @samp{?} ");
+        {
+          if (options & RE_BK_PLUS_QM)
+            literal ("@samp{\\*}, @samp{\\+} and @samp{\\?} ");
+          else
+            literal ("@samp{*}, @samp{+} and @samp{?} ");
 
-	  if (options & RE_CONTEXT_INVALID_OPS)
-	    {
-	      content ("are special at any point in a regular expression except the following places, where they are not allowed:");
-	    }
-	  else
-	    {
-	      content ("are special at any point in a regular expression except:");
-	    }
+          if (options & RE_CONTEXT_INVALID_OPS)
+            {
+              content ("are special at any point in a regular expression except the following places, where they are not allowed:");
+            }
+          else
+            {
+              content ("are special at any point in a regular expression except:");
+            }
 
-	  beginenum ();
-	  enum_item ("At the beginning of a regular expression");
-	  if (options & RE_NO_BK_PARENS)
-	    {
-	      enum_item ("After an open-group, signified by @samp{(}");
-	    }
-	  else
-	    {
-	      enum_item ("After an open-group, signified by @samp{\\(}");
-	    }
-	  if (!(options & RE_LIMITED_OPS))
-	    {
-	      if (options & RE_NEWLINE_ALT)
-		enum_item ("After a newline");
+          beginenum ();
+          enum_item ("At the beginning of a regular expression");
+          if (options & RE_NO_BK_PARENS)
+            {
+              enum_item ("After an open-group, signified by @samp{(}");
+            }
+          else
+            {
+              enum_item ("After an open-group, signified by @samp{\\(}");
+            }
+          if (!(options & RE_LIMITED_OPS))
+            {
+              if (options & RE_NEWLINE_ALT)
+                enum_item ("After a newline");
 
-	      if (options & RE_NO_BK_VBAR)
-		enum_item ("After the alternation operator @samp{|}");
-	      else
-		enum_item ("After the alternation operator @samp{\\|}");
-	    }
-	  endenum ();
-	}
+              if (options & RE_NO_BK_VBAR)
+                enum_item ("After the alternation operator @samp{|}");
+              else
+                enum_item ("After the alternation operator @samp{\\|}");
+            }
+          endenum ();
+        }
     }
 
 
@@ -410,29 +410,29 @@ describe_regex_syntax (int options)
   if (options & RE_INTERVALS)
     {
       if (options & RE_NO_BK_BRACES)
-	{
-	  literal ("Intervals are specified by @samp{@{} and @samp{@}}.\n");
-	  if (options & RE_INVALID_INTERVAL_ORD)
-	    {
-	      literal ("Invalid intervals are treated as literals, for example @samp{a@{1} is treated as @samp{a\\@{1}");
-	    }
-	  else
-	    {
-	      literal ("Invalid intervals such as @samp{a@{1z} are not accepted.\n");
-	    }
-	}
+        {
+          literal ("Intervals are specified by @samp{@{} and @samp{@}}.\n");
+          if (options & RE_INVALID_INTERVAL_ORD)
+            {
+              literal ("Invalid intervals are treated as literals, for example @samp{a@{1} is treated as @samp{a\\@{1}");
+            }
+          else
+            {
+              literal ("Invalid intervals such as @samp{a@{1z} are not accepted.\n");
+            }
+        }
       else
-	{
-	  literal ("Intervals are specified by @samp{\\@{} and @samp{\\@}}.\n");
-	  if (options & RE_INVALID_INTERVAL_ORD)
-	    {
-	      literal ("Invalid intervals are treated as literals, for example @samp{a\\@{1} is treated as @samp{a@{1}");
-	    }
-	  else
-	    {
-	      literal ("Invalid intervals such as @samp{a\\@{1z} are not accepted.\n");
-	    }
-	}
+        {
+          literal ("Intervals are specified by @samp{\\@{} and @samp{\\@}}.\n");
+          if (options & RE_INVALID_INTERVAL_ORD)
+            {
+              literal ("Invalid intervals are treated as literals, for example @samp{a\\@{1} is treated as @samp{a@{1}");
+            }
+          else
+            {
+              literal ("Invalid intervals such as @samp{a\\@{1z} are not accepted.\n");
+            }
+        }
     }
 
   newpara ();
@@ -485,17 +485,17 @@ menu (unsigned int context)
   output ("@menu\n", 0);
   for (i=0;
        get_regex_type_flags (i),
-	 name=get_regex_type_name (i);
+         name=get_regex_type_name (i);
        ++i)
     {
       if (!ignore (i, context))
-	{
-	  output ("* ", 0);
-	  output (name, 0);
-	  content (" regular expression syntax");
-	  output ("::", 0);
-	  newline ();
-	}
+        {
+          output ("* ", 0);
+          output (name, 0);
+          content (" regular expression syntax");
+          output ("::", 0);
+          newline ();
+        }
     }
   output ("@end menu\n", 0);
 }
@@ -509,13 +509,13 @@ get_next (unsigned int ix, unsigned int context)
   while (get_regex_type_name (ix))
     {
       if (!ignore (ix, context))
-	{
-	  next = get_regex_type_name (ix);
-	  if (NULL == next)
-	    return "";
-	  else
-	    return next;
-	}
+        {
+          next = get_regex_type_name (ix);
+          if (NULL == next)
+            return "";
+          else
+            return next;
+        }
       ++ix;
     }
   return "";
@@ -524,8 +524,8 @@ get_next (unsigned int ix, unsigned int context)
 
 static void
 describe_all (const char *contextname,
-	      unsigned int context,
-	      const char *up)
+              unsigned int context,
+              const char *up)
 {
   const char *name, *next, *previous;
   int regopts;
@@ -543,33 +543,33 @@ describe_all (const char *contextname,
 
   for (i=0;
        regopts = get_regex_type_flags (i),
-	 name=get_regex_type_name (i);
+         name=get_regex_type_name (i);
        ++i)
     {
       if (ignore (i, context))
-	{
-	  fprintf (stderr,
-		   "Skipping regexp type %s for context %s\n",
-		   name, contextname);
-	  name = previous;
-	  continue;
-	}
+        {
+          fprintf (stderr,
+                   "Skipping regexp type %s for context %s\n",
+                   name, contextname);
+          name = previous;
+          continue;
+        }
 
       next = get_next (i+1, context);
       if (NULL == next)
-	next = "";
+        next = "";
       begin_subsection (name, next, previous, up);
       parent = get_regex_type_synonym (i, context);
       if (parent >= 0)
-	{
-	  content ("This is a synonym for ");
-	  content (get_regex_type_name (parent));
-	  content (".");
-	}
+        {
+          content ("This is a synonym for ");
+          content (get_regex_type_name (parent));
+          content (".");
+        }
       else
-	{
-	  describe_regex_syntax (regopts);
-	}
+        {
+          describe_regex_syntax (regopts);
+        }
       previous = name;
     }
 }
@@ -596,17 +596,17 @@ main (int argc, char *argv[])
     {
       contextname = argv[2];
       if (0 == strcmp (contextname, "findutils"))
-	context = CONTEXT_FINDUTILS;
+        context = CONTEXT_FINDUTILS;
       else if (0 == strcmp (contextname, "generic"))
-	context = CONTEXT_GENERIC;
+        context = CONTEXT_GENERIC;
       else if (0 == strcmp (contextname, "all"))
-	context = CONTEXT_ALL;
+        context = CONTEXT_ALL;
       else
-	{
-	  fprintf (stderr, "Unexpected context %s",
-		   contextname);
-	  return 1;
-	}
+        {
+          fprintf (stderr, "Unexpected context %s",
+                   contextname);
+          return 1;
+        }
     }
 
   describe_all (contextname, context, up);

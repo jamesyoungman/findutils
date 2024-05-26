@@ -37,7 +37,7 @@ field_length (const char *str, const char *separators)
     {
       const char *end = strpbrk (str, separators);
       if (end)
-	return end - str;
+        return end - str;
     }
   return strlen (str);
 }
@@ -45,7 +45,7 @@ field_length (const char *str, const char *separators)
 
 bool
 splitstring(const char *s, const char *separators, bool first,
-	    size_t *pos, size_t *len)
+            size_t *pos, size_t *len)
 {
   if (first)
     {
@@ -54,11 +54,11 @@ splitstring(const char *s, const char *separators, bool first,
     }
   else
     {
-      *pos += *len;		/* advance to the next field. */
+      *pos += *len;             /* advance to the next field. */
       if (s[*pos])
-	++*pos;			/* skip the separator */
+        ++*pos;                 /* skip the separator */
       else
-	return false;		/* we reached the end. */
+        return false;           /* we reached the end. */
     }
   *len = field_length (&s[*pos], separators);
   return true;

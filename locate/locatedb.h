@@ -47,10 +47,10 @@
 /* These are used for old, bigram-encoded databases:  */
 
 /* Means the differential count follows in a 2-byte int instead. */
-# define LOCATEDB_OLD_ESCAPE	30
+# define LOCATEDB_OLD_ESCAPE    30
 
 /* Offset added to differential counts to encode them as positive numbers.  */
-# define LOCATEDB_OLD_OFFSET	14
+# define LOCATEDB_OLD_OFFSET    14
 
 typedef enum
   {
@@ -60,8 +60,8 @@ typedef enum
   } GetwordEndianState;
 
 int getword (FILE *fp, const char *filename,
-	     size_t maxvalue,
-	     GetwordEndianState *endian_state_flag);
+             size_t maxvalue,
+             GetwordEndianState *endian_state_flag);
 
 # define SLOCATE_DB_MAGIC_LEN 2
 

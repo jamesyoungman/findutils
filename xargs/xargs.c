@@ -19,7 +19,7 @@
    and David MacKenzie <djm@gnu.org>.
    Modifications by
         James Youngman
-	Dmitry V. Levin
+        Dmitry V. Levin
 */
 
 /* We want SIG_ATOMIC_MAX to be defined.  The implementation only does
@@ -79,7 +79,7 @@
 
 #define ISBLANK(c) (isascii (c) && isblank (c))
 #define ISSPACE(c) (ISBLANK (c) || (c) == '\n' || (c) == '\r' \
-		    || (c) == '\f' || (c) == '\v')
+                    || (c) == '\f' || (c) == '\v')
 
 /* Return nonzero if S is the EOF string.  */
 #define EOF_STR(s) (eof_str && *eof_str == *s && !strcmp (eof_str, s))
@@ -204,7 +204,7 @@ enum XargsStatusValues {
   XARGS_EXIT_CLIENT_EXIT_255 = 124,     /* utility exited with status 255 */
   XARGS_EXIT_CLIENT_FATAL_SIG = 125,    /* utility died from a fatal signal */
   XARGS_EXIT_COMMAND_CANNOT_BE_RUN = 126, /* canot run the command */
-  XARGS_EXIT_COMMAND_NOT_FOUND = 127,	  /* cannot find the command */
+  XARGS_EXIT_COMMAND_NOT_FOUND = 127,     /* cannot find the command */
 };
 /* Exit status values the child might use. */
 enum  ClientStatusValues {
@@ -250,7 +250,7 @@ get_char_oct_or_hex_escape (const char *s)
     }
   else
     {
-      p = NULL;			/* Silence compiler warning. */
+      p = NULL;                 /* Silence compiler warning. */
       error (EXIT_FAILURE, 0,
              _("Invalid escape sequence %s in input delimiter specification."),
              s);
@@ -268,19 +268,19 @@ get_char_oct_or_hex_escape (const char *s)
       || (val > UCHAR_MAX))
     {
       if (16 == base)
-	{
-	  error (EXIT_FAILURE, 0,
-		 _("Invalid escape sequence %s in input delimiter specification; "
-		   "character values must not exceed %lx."),
-		 s, (unsigned long)UCHAR_MAX);
-	}
+        {
+          error (EXIT_FAILURE, 0,
+                 _("Invalid escape sequence %s in input delimiter specification; "
+                   "character values must not exceed %lx."),
+                 s, (unsigned long)UCHAR_MAX);
+        }
       else
-	{
-	  error (EXIT_FAILURE, 0,
-		 _("Invalid escape sequence %s in input delimiter specification; "
-		   "character values must not exceed %lo."),
-		 s, (unsigned long)UCHAR_MAX);
-	}
+        {
+          error (EXIT_FAILURE, 0,
+                 _("Invalid escape sequence %s in input delimiter specification; "
+                   "character values must not exceed %lo."),
+                 s, (unsigned long)UCHAR_MAX);
+        }
     }
 
   /* check for trailing garbage */
@@ -306,40 +306,40 @@ get_input_delimiter (const char *s)
   else
     {
       if ('\\' == s[0])
-	{
-	  /* an escape code */
-	  switch (s[1])
-	    {
-	    case 'a':
-	      return '\a';
-	    case 'b':
-	      return '\b';
-	    case 'f':
-	      return '\f';
-	    case 'n':
-	      return '\n';
-	    case 'r':
-	      return '\r';
-	    case 't':
-	      return'\t';
-	    case 'v':
-	      return '\v';
-	    case '\\':
-	      return '\\';
-	    default:
-	      return get_char_oct_or_hex_escape (s);
-	    }
-	}
+        {
+          /* an escape code */
+          switch (s[1])
+            {
+            case 'a':
+              return '\a';
+            case 'b':
+              return '\b';
+            case 'f':
+              return '\f';
+            case 'n':
+              return '\n';
+            case 'r':
+              return '\r';
+            case 't':
+              return'\t';
+            case 'v':
+              return '\v';
+            case '\\':
+              return '\\';
+            default:
+              return get_char_oct_or_hex_escape (s);
+            }
+        }
       else
-	{
-	  error (EXIT_FAILURE, 0,
-		 _("Invalid input delimiter specification %s: the delimiter must "
-		   "be either a single character or an escape sequence starting "
-		   "with \\."),
-		 s);
-	  /*NOTREACHED*/
-	  return 0;
-	}
+        {
+          error (EXIT_FAILURE, 0,
+                 _("Invalid input delimiter specification %s: the delimiter must "
+                   "be either a single character or an escape sequence starting "
+                   "with \\."),
+                 s);
+          /*NOTREACHED*/
+          return 0;
+        }
     }
 }
 
@@ -376,12 +376,12 @@ static FILE* fopen_cloexec_for_read_only (const char *file_name)
     {
       FILE *result = fdopen (fd, "r");
       if (!result)
-	{
-	  int saved_errno = errno;
-	  close (fd);
-	  errno = saved_errno;
-	  return NULL;
-	}
+        {
+          int saved_errno = errno;
+          close (fd);
+          errno = saved_errno;
+          return NULL;
+        }
       return result;
     }
 }
@@ -390,8 +390,8 @@ static FILE* fopen_cloexec_for_read_only (const char *file_name)
 static void warn_mutually_exclusive (const char *option, const char *offending)
 {
   error (0, 0, _("warning: options %s and %s are mutually exclusive, "
-	 "ignoring previous %s value"),
-	 offending, option, offending);
+         "ignoring previous %s value"),
+         offending, option, offending);
 }
 
 
@@ -399,7 +399,7 @@ int
 main (int argc, char **argv)
 {
   int optc, option_index;
-  int show_limits = 0;			/* --show-limits */
+  int show_limits = 0;                  /* --show-limits */
   int always_run_command = 1;
   const char *input_file = "-"; /* "-" is stdin */
   char default_cmd[] = "echo";
@@ -480,27 +480,27 @@ main (int argc, char **argv)
 #ifdef _SC_ARG_MAX
       val = sysconf (_SC_ARG_MAX);
       if (val > 0)
-	{
-	  assert (val > XARGS_POSIX_HEADROOM);
-	  /* Note that val can in fact be greater than ARG_MAX
-	   * and bc_ctl.arg_max can also be greater than ARG_MAX.
-	   */
-	  bc_ctl.arg_max = smaller_of (bc_ctl.arg_max,
-				       (size_t)val-XARGS_POSIX_HEADROOM);
-	}
+        {
+          assert (val > XARGS_POSIX_HEADROOM);
+          /* Note that val can in fact be greater than ARG_MAX
+           * and bc_ctl.arg_max can also be greater than ARG_MAX.
+           */
+          bc_ctl.arg_max = smaller_of (bc_ctl.arg_max,
+                                       (size_t)val-XARGS_POSIX_HEADROOM);
+        }
       else
-	{
+        {
 # if defined ARG_MAX
-	  assert (ARG_MAX > XARGS_POSIX_HEADROOM);
-	  bc_ctl.arg_max = smaller_of (bc_ctl.arg_max,
-				       (ARG_MAX - XARGS_POSIX_HEADROOM));
+          assert (ARG_MAX > XARGS_POSIX_HEADROOM);
+          bc_ctl.arg_max = smaller_of (bc_ctl.arg_max,
+                                       (ARG_MAX - XARGS_POSIX_HEADROOM));
 # endif
-	}
+        }
 #else
       /* No _SC_ARG_MAX */
       assert (ARG_MAX > XARGS_POSIX_HEADROOM);
       bc_ctl.arg_max = smaller_of (bc_ctl.arg_max,
-				   (ARG_MAX - XARGS_POSIX_HEADROOM));
+                                   (ARG_MAX - XARGS_POSIX_HEADROOM));
 #endif
 
 
@@ -521,202 +521,202 @@ main (int argc, char **argv)
     }
 
   while ((optc = getopt_long (argc, argv, "+0a:E:e::i::I:l::L:n:oprs:txP:d:",
-			      longopts, &option_index)) != -1)
+                              longopts, &option_index)) != -1)
     {
       switch (optc)
-	{
-	case '0':
-	  read_args = read_string;
-	  input_delimiter = '\0';
-	  break;
+        {
+        case '0':
+          read_args = read_string;
+          input_delimiter = '\0';
+          break;
 
-	case 'd':
-	  read_args = read_string;
-	  input_delimiter = get_input_delimiter (optarg);
-	  break;
+        case 'd':
+          read_args = read_string;
+          input_delimiter = get_input_delimiter (optarg);
+          break;
 
-	case 'E':		/* POSIX */
-	case 'e':		/* deprecated */
-	  if (optarg && (strlen (optarg) > 0))
-	    eof_str = optarg;
-	  else
-	    eof_str = NULL;
-	  break;
+        case 'E':               /* POSIX */
+        case 'e':               /* deprecated */
+          if (optarg && (strlen (optarg) > 0))
+            eof_str = optarg;
+          else
+            eof_str = NULL;
+          break;
 
-	case 'h':
-	  usage (EXIT_SUCCESS);
+        case 'h':
+          usage (EXIT_SUCCESS);
 
-	case 'I':		/* POSIX */
-	case 'i':		/* deprecated */
-	  if (optarg)
-	    bc_ctl.replace_pat = optarg;
-	  else
-	    bc_ctl.replace_pat = "{}";
-	  /* -i excludes -n -l.  */
-	  if (bc_ctl.args_per_exec != 0)
-	    {
-	      warn_mutually_exclusive ("--replace/-I/-i", "--max-args");
-	      bc_ctl.args_per_exec = 0;
-	    }
-	  if (bc_ctl.lines_per_exec != 0)
-	    {
-	      warn_mutually_exclusive ("--replace/-I/-i", "--max-lines");
-	      bc_ctl.lines_per_exec = 0;
-	    }
-	  break;
+        case 'I':               /* POSIX */
+        case 'i':               /* deprecated */
+          if (optarg)
+            bc_ctl.replace_pat = optarg;
+          else
+            bc_ctl.replace_pat = "{}";
+          /* -i excludes -n -l.  */
+          if (bc_ctl.args_per_exec != 0)
+            {
+              warn_mutually_exclusive ("--replace/-I/-i", "--max-args");
+              bc_ctl.args_per_exec = 0;
+            }
+          if (bc_ctl.lines_per_exec != 0)
+            {
+              warn_mutually_exclusive ("--replace/-I/-i", "--max-lines");
+              bc_ctl.lines_per_exec = 0;
+            }
+          break;
 
-	case 'L':		/* POSIX */
-	  bc_ctl.lines_per_exec = parse_num (optarg, 'L', 1L, -1L, 1);
-	  /* -L excludes -i -n.  */
-	  if (bc_ctl.args_per_exec != 0)
-	    {
-	      warn_mutually_exclusive ("-L", "--max-args");
-	      bc_ctl.args_per_exec = 0;
-	    }
-	  if (bc_ctl.replace_pat != NULL)
-	    {
-	      warn_mutually_exclusive ("-L", "--replace");
-	      bc_ctl.replace_pat = NULL;
-	    }
-	  break;
+        case 'L':               /* POSIX */
+          bc_ctl.lines_per_exec = parse_num (optarg, 'L', 1L, -1L, 1);
+          /* -L excludes -i -n.  */
+          if (bc_ctl.args_per_exec != 0)
+            {
+              warn_mutually_exclusive ("-L", "--max-args");
+              bc_ctl.args_per_exec = 0;
+            }
+          if (bc_ctl.replace_pat != NULL)
+            {
+              warn_mutually_exclusive ("-L", "--replace");
+              bc_ctl.replace_pat = NULL;
+            }
+          break;
 
-	case 'l':		/* deprecated */
-	  if (optarg)
-	    bc_ctl.lines_per_exec = parse_num (optarg, 'l', 1L, -1L, 1);
-	  else
-	    bc_ctl.lines_per_exec = 1;
-	  /* -l excludes -i -n.  */
-	  if (bc_ctl.args_per_exec != 0)
-	    {
-	      warn_mutually_exclusive ("--max-lines/-l", "--max-args");
-	      bc_ctl.args_per_exec = 0;
-	    }
-	  if (bc_ctl.replace_pat != NULL)
-	    {
-	      warn_mutually_exclusive ("--max-lines/-l", "--replace");
-	      bc_ctl.replace_pat = NULL;
-	    }
-	  break;
+        case 'l':               /* deprecated */
+          if (optarg)
+            bc_ctl.lines_per_exec = parse_num (optarg, 'l', 1L, -1L, 1);
+          else
+            bc_ctl.lines_per_exec = 1;
+          /* -l excludes -i -n.  */
+          if (bc_ctl.args_per_exec != 0)
+            {
+              warn_mutually_exclusive ("--max-lines/-l", "--max-args");
+              bc_ctl.args_per_exec = 0;
+            }
+          if (bc_ctl.replace_pat != NULL)
+            {
+              warn_mutually_exclusive ("--max-lines/-l", "--replace");
+              bc_ctl.replace_pat = NULL;
+            }
+          break;
 
-	case 'n':
-	  bc_ctl.args_per_exec = parse_num (optarg, 'n', 1L, -1L, 1);
-	  /* -n excludes -i -l.  */
-	  if (bc_ctl.lines_per_exec != 0)
-	    {
-	      warn_mutually_exclusive ("--max-args/-n", "--max-lines");
-	      bc_ctl.lines_per_exec = 0;
-	    }
-	  if (bc_ctl.replace_pat != NULL)
-	    {
-	      if (bc_ctl.args_per_exec == 1)
-		{
-		  /* ignore -n1 in '-i -n1' - https://sv.gnu.org/patch/?1500 */
-		  bc_ctl.args_per_exec = 0;
-		}
-	      else
-		{
-		  warn_mutually_exclusive ("--max-args/-n", "--replace");
-		  bc_ctl.replace_pat = NULL;
-		}
-	    }
-	  break;
+        case 'n':
+          bc_ctl.args_per_exec = parse_num (optarg, 'n', 1L, -1L, 1);
+          /* -n excludes -i -l.  */
+          if (bc_ctl.lines_per_exec != 0)
+            {
+              warn_mutually_exclusive ("--max-args/-n", "--max-lines");
+              bc_ctl.lines_per_exec = 0;
+            }
+          if (bc_ctl.replace_pat != NULL)
+            {
+              if (bc_ctl.args_per_exec == 1)
+                {
+                  /* ignore -n1 in '-i -n1' - https://sv.gnu.org/patch/?1500 */
+                  bc_ctl.args_per_exec = 0;
+                }
+              else
+                {
+                  warn_mutually_exclusive ("--max-args/-n", "--replace");
+                  bc_ctl.replace_pat = NULL;
+                }
+            }
+          break;
 
-	  /* The POSIX standard specifies that it is not an error
-	   * for the -s option to specify a size that the implementation
-	   * cannot support - in that case, the relevant limit is used.
-	   */
-	case 's':
-	  {
-	    size_t arg_size;
-	    act_on_init_result ();
-	    arg_size = parse_num (optarg, 's', 1L,
-				  bc_ctl.posix_arg_size_max, 0);
-	    if (arg_size > bc_ctl.posix_arg_size_max)
-	      {
-		error (0, 0,
-		       _("warning: value %ld for -s option is too large, "
-			 "using %ld instead"),
-		       (long) arg_size, (long) bc_ctl.posix_arg_size_max);
-		arg_size = bc_ctl.posix_arg_size_max;
-	      }
-	    bc_ctl.arg_max = arg_size;
-	  }
-	  break;
+          /* The POSIX standard specifies that it is not an error
+           * for the -s option to specify a size that the implementation
+           * cannot support - in that case, the relevant limit is used.
+           */
+        case 's':
+          {
+            size_t arg_size;
+            act_on_init_result ();
+            arg_size = parse_num (optarg, 's', 1L,
+                                  bc_ctl.posix_arg_size_max, 0);
+            if (arg_size > bc_ctl.posix_arg_size_max)
+              {
+                error (0, 0,
+                       _("warning: value %ld for -s option is too large, "
+                         "using %ld instead"),
+                       (long) arg_size, (long) bc_ctl.posix_arg_size_max);
+                arg_size = bc_ctl.posix_arg_size_max;
+              }
+            bc_ctl.arg_max = arg_size;
+          }
+          break;
 
-	case 'S':
-	  show_limits = true;
-	  break;
+        case 'S':
+          show_limits = true;
+          break;
 
-	case 't':
-	  print_command = true;
-	  break;
+        case 't':
+          print_command = true;
+          break;
 
-	case 'x':
-	  bc_ctl.exit_if_size_exceeded = true;
-	  break;
+        case 'x':
+          bc_ctl.exit_if_size_exceeded = true;
+          break;
 
-	case 'o':
-	  open_tty = true;
-	  break;
+        case 'o':
+          open_tty = true;
+          break;
 
-	case 'p':
-	  query_before_executing = true;
-	  print_command = true;
-	  break;
+        case 'p':
+          query_before_executing = true;
+          print_command = true;
+          break;
 
-	case 'r':
-	  always_run_command = 0;
-	  break;
+        case 'r':
+          always_run_command = 0;
+          break;
 
-	case 'P':
-	  /* Allow only up to MAX_PROC_MAX child processes. */
-	  proc_max = parse_num (optarg, 'P', 0L, MAX_PROC_MAX, 1);
+        case 'P':
+          /* Allow only up to MAX_PROC_MAX child processes. */
+          proc_max = parse_num (optarg, 'P', 0L, MAX_PROC_MAX, 1);
 #if defined SIGUSR1 && defined SIGUSR2
-	  catch_usr_signals = true;
+          catch_usr_signals = true;
 #else
-	  error (0, 0, _("SIGUSR1 and SIGUSR2 are not both defined, so the -P option does nothing."));
-	  proc_max = 1;
+          error (0, 0, _("SIGUSR1 and SIGUSR2 are not both defined, so the -P option does nothing."));
+          proc_max = 1;
 #endif
-	  break;
+          break;
 
         case 'a':
           input_file = optarg;
           break;
 
-	case 'v':
-	  display_findutils_version ("xargs");
-	  return 0;
+        case 'v':
+          display_findutils_version ("xargs");
+          return 0;
 
-	case PROCESS_SLOT_VAR:
-	  if (strchr (optarg, '='))
-	    {
-	      error (EXIT_FAILURE, 0,
-		     _("option --%s may not be set to a value which includes `='"),
-		     longopts[option_index].name);
-	    }
-	  slot_var_name = optarg;
-	  if (0 != unsetenv (slot_var_name))
-	    {
-	      /* This is a fatal error, otherwise some child process
-		 may not be able to guarantee that no two children
-		 have the same value for this variable; see
-		 set_slot_var.
-	      */
-	      error (EXIT_FAILURE, errno,
-		     _("failed to unset environment variable %s"),
-		     slot_var_name);
-	    }
-	  break;
+        case PROCESS_SLOT_VAR:
+          if (strchr (optarg, '='))
+            {
+              error (EXIT_FAILURE, 0,
+                     _("option --%s may not be set to a value which includes `='"),
+                     longopts[option_index].name);
+            }
+          slot_var_name = optarg;
+          if (0 != unsetenv (slot_var_name))
+            {
+              /* This is a fatal error, otherwise some child process
+                 may not be able to guarantee that no two children
+                 have the same value for this variable; see
+                 set_slot_var.
+              */
+              error (EXIT_FAILURE, errno,
+                     _("failed to unset environment variable %s"),
+                     slot_var_name);
+            }
+          break;
 
-	default:
-	  usage (EXIT_FAILURE);
-	}
+        default:
+          usage (EXIT_FAILURE);
+        }
     }
 
   if (eof_str && (read_args == read_string))
     {
       error (0, 0,
-	     _("warning: the -E option has no effect if -0 or -d is used.\n"));
+             _("warning: the -E option has no effect if -0 or -d is used.\n"));
     }
 
   /* If we had deferred failing due to problems in bc_init_controlinfo (),
@@ -736,19 +736,19 @@ main (int argc, char **argv)
       struct sigaction sigact;
 
       /* Accept signals to increase or decrease the number of running
-	 child processes.  Do this as early as possible after setting
-	 proc_max.  */
+         child processes.  Do this as early as possible after setting
+         proc_max.  */
       sigact.sa_handler = increment_proc_max;
       sigemptyset(&sigact.sa_mask);
       sigact.sa_flags = SA_RESTART;
       if (0 != sigaction (SIGUSR1, &sigact, (struct sigaction *)NULL))
-	error (0, errno, _("Cannot set SIGUSR1 signal handler"));
+        error (0, errno, _("Cannot set SIGUSR1 signal handler"));
 
       sigact.sa_handler = decrement_proc_max;
       sigemptyset(&sigact.sa_mask);
       sigact.sa_flags = SA_RESTART;
       if (0 != sigaction (SIGUSR2, &sigact, (struct sigaction *)NULL))
-	error (0, errno, _("Cannot set SIGUSR2 signal handler"));
+        error (0, errno, _("Cannot set SIGUSR2 signal handler"));
 # endif /* SIGUSR2 */
 #endif /* SIGUSR1 */
     }
@@ -759,14 +759,14 @@ main (int argc, char **argv)
     }
   else
     {
-      keep_stdin = 1;		/* see prep_child_for_exec () */
+      keep_stdin = 1;           /* see prep_child_for_exec () */
       input_stream = fopen_cloexec_for_read_only (input_file);
       if (NULL == input_stream)
-	{
-	  error (EXIT_FAILURE, errno,
-	         _("Cannot open input file %s"),
-	         quotearg_n_style (0, locale_quoting_style, input_file));
-	}
+        {
+          error (EXIT_FAILURE, errno,
+                 _("Cannot open input file %s"),
+                 quotearg_n_style (0, locale_quoting_style, input_file));
+        }
     }
 
   if (bc_ctl.replace_pat || bc_ctl.lines_per_exec)
@@ -783,41 +783,41 @@ main (int argc, char **argv)
   if (show_limits)
     {
       fprintf (stderr,
-	      _("Your environment variables take up %" PRIuMAX " bytes\n"),
-	      (uintmax_t)bc_size_of_environment ());
+              _("Your environment variables take up %" PRIuMAX " bytes\n"),
+              (uintmax_t)bc_size_of_environment ());
       fprintf (stderr,
-	      _("POSIX upper limit on argument length (this system): %" PRIuMAX "\n"),
-	      (uintmax_t)bc_ctl.posix_arg_size_max);
+              _("POSIX upper limit on argument length (this system): %" PRIuMAX "\n"),
+              (uintmax_t)bc_ctl.posix_arg_size_max);
       fprintf (stderr,
-	      _("POSIX smallest allowable upper limit on argument length (all systems): %" PRIuMAX "\n"),
-	      (uintmax_t)bc_ctl.posix_arg_size_min);
+              _("POSIX smallest allowable upper limit on argument length (all systems): %" PRIuMAX "\n"),
+              (uintmax_t)bc_ctl.posix_arg_size_min);
       fprintf (stderr,
-	      _("Maximum length of command we could actually use: %" PRIuMAX "\n"),
-	      (uintmax_t)(bc_ctl.posix_arg_size_max - bc_size_of_environment ()));
+              _("Maximum length of command we could actually use: %" PRIuMAX "\n"),
+              (uintmax_t)(bc_ctl.posix_arg_size_max - bc_size_of_environment ()));
       fprintf (stderr,
-	      _("Size of command buffer we are actually using: %" PRIuMAX "\n"),
-	      (uintmax_t)bc_ctl.arg_max);
+              _("Size of command buffer we are actually using: %" PRIuMAX "\n"),
+              (uintmax_t)bc_ctl.arg_max);
       fprintf (stderr,
-	      _("Maximum parallelism (--max-procs must be no greater): %" PRIuMAX "\n"),
-	      (uintmax_t)MAX_PROC_MAX);
+              _("Maximum parallelism (--max-procs must be no greater): %" PRIuMAX "\n"),
+              (uintmax_t)MAX_PROC_MAX);
 
       if (isatty (STDIN_FILENO))
-	{
-	  fprintf (stderr,
-		  _("\n"
-		    "Execution of xargs will continue now, and it will "
-		    "try to read its input and run commands; if this is "
-		    "not what you wanted to happen, please type the "
-		    "end-of-file keystroke.\n"));
-	  if (always_run_command)
-	    {
-	      fprintf (stderr,
-		      _("Warning: %s will be run at least once.  "
-			"If you do not want that to happen, then press "
-			"the interrupt keystroke.\n"),
-		      argv[optind]);
-	    }
-	}
+        {
+          fprintf (stderr,
+                  _("\n"
+                    "Execution of xargs will continue now, and it will "
+                    "try to read its input and run commands; if this is "
+                    "not what you wanted to happen, please type the "
+                    "end-of-file keystroke.\n"));
+          if (always_run_command)
+            {
+              fprintf (stderr,
+                      _("Warning: %s will be run at least once.  "
+                        "If you do not want that to happen, then press "
+                        "the interrupt keystroke.\n"),
+                      argv[optind]);
+            }
+        }
     }
 
   linebuf = xmalloc (bc_ctl.arg_max + 1);
@@ -829,10 +829,10 @@ main (int argc, char **argv)
   if (!bc_ctl.replace_pat)
     {
       for (; optind < argc; optind++)
-	bc_push_arg (&bc_ctl, &bc_state,
-		     argv[optind], strlen (argv[optind]) + 1,
-		     NULL, 0,
-		     initial_args);
+        bc_push_arg (&bc_ctl, &bc_state,
+                     argv[optind], strlen (argv[optind]) + 1,
+                     NULL, 0,
+                     initial_args);
       initial_args = false;
       bc_ctl.initial_argc = bc_state.cmd_argc;
       bc_state.cmd_initial_argv_chars = bc_state.cmd_argv_chars;
@@ -840,17 +840,17 @@ main (int argc, char **argv)
       /*fprintf (stderr, "setting initial_argc=%d\n", bc_state.cmd_initial_argc);*/
 
       while ((*read_args) () != -1)
-	if (bc_ctl.lines_per_exec && lineno >= bc_ctl.lines_per_exec)
-	  {
-	    bc_do_exec (&bc_ctl, &bc_state);
-	    lineno = 0;
-	  }
+        if (bc_ctl.lines_per_exec && lineno >= bc_ctl.lines_per_exec)
+          {
+            bc_do_exec (&bc_ctl, &bc_state);
+            lineno = 0;
+          }
 
       /* SYSV xargs seems to do at least one exec, even if the
          input is empty.  */
       if (bc_state.cmd_argc != bc_ctl.initial_argc
-	  || (always_run_command && procs_executed==0))
-	bc_do_exec (&bc_ctl, &bc_state);
+          || (always_run_command && procs_executed==0))
+        bc_do_exec (&bc_ctl, &bc_state);
 
     }
   else
@@ -859,30 +859,30 @@ main (int argc, char **argv)
       size_t *arglen = xmalloc (sizeof (size_t) * argc);
 
       for (i = optind; i < argc; i++)
-	arglen[i] = strlen (argv[i]);
+        arglen[i] = strlen (argv[i]);
       bc_ctl.rplen = strlen (bc_ctl.replace_pat);
       while ((args = (*read_args) ()) != -1)
-	{
-	  size_t len = (size_t) args;
-	  /* Don't do insert on the command name.  */
-	  bc_clear_args (&bc_ctl, &bc_state);
-	  bc_state.cmd_argv_chars = 0; /* begin at start of buffer */
+        {
+          size_t len = (size_t) args;
+          /* Don't do insert on the command name.  */
+          bc_clear_args (&bc_ctl, &bc_state);
+          bc_state.cmd_argv_chars = 0; /* begin at start of buffer */
 
-	  bc_push_arg (&bc_ctl, &bc_state,
-		       argv[optind], arglen[optind] + 1,
-		       NULL, 0,
-		       initial_args);
-	  len--;
-	  initial_args = false;
+          bc_push_arg (&bc_ctl, &bc_state,
+                       argv[optind], arglen[optind] + 1,
+                       NULL, 0,
+                       initial_args);
+          len--;
+          initial_args = false;
 
-	  for (i = optind + 1; i < argc; i++)
-	    bc_do_insert (&bc_ctl, &bc_state,
-			  argv[i], arglen[i],
-			  NULL, 0,
-			  linebuf, len,
-			  initial_args);
-	  bc_do_exec (&bc_ctl, &bc_state);
-	}
+          for (i = optind + 1; i < argc; i++)
+            bc_do_insert (&bc_ctl, &bc_state,
+                          argv[i], arglen[i],
+                          NULL, 0,
+                          linebuf, len,
+                          initial_args);
+          bc_do_exec (&bc_ctl, &bc_state);
+        }
     }
 
   original_exit_value = child_error;
@@ -911,10 +911,10 @@ read_line (void)
   static bool eof = false;
   /* Start out in mode SPACE to always strip leading spaces (even with -i).  */
   enum read_line_state state = SPACE; /* The type of character we last read.  */
-  int prevc;			/* The previous value of c.  */
-  int quotc = 0;		/* The last quote character read.  */
+  int prevc;                    /* The previous value of c.  */
+  int quotc = 0;                /* The last quote character read.  */
   int c = EOF;
-  bool first = true;		/* true if reading first arg on line.  */
+  bool first = true;            /* true if reading first arg on line.  */
   bool seen_arg = false;      /* true if we have seen any arg (or part of one) yet */
   int len;
   char *p = linebuf;
@@ -929,148 +929,148 @@ read_line (void)
       c = getc (input_stream);
 
       if (c == EOF)
-	{
-	  if (EINTR == errno)
-	    continue;
-	  /* COMPAT: SYSV seems to ignore stuff on a line that
-	     ends without a \n; we don't.  */
-	  eof = true;
-	  if (p == linebuf)
-	    return -1;
-	  *p++ = '\0';
-	  len = p - linebuf;
-	  if (state == QUOTE)
-	    {
-	      exec_if_possible ();
-	      error (EXIT_FAILURE, 0,
-		     _("unmatched %s quote; by default quotes are special to "
-		       "xargs unless you use the -0 option"),
-		     quotc == '"' ? _("double") : _("single"));
-	    }
-	  if (first && EOF_STR (linebuf))
-	    return -1;
-	  if (!bc_ctl.replace_pat)
-	    bc_push_arg (&bc_ctl, &bc_state,
-			 linebuf, len,
-			 NULL, 0,
-			 initial_args);
-	  return len;
-	}
+        {
+          if (EINTR == errno)
+            continue;
+          /* COMPAT: SYSV seems to ignore stuff on a line that
+             ends without a \n; we don't.  */
+          eof = true;
+          if (p == linebuf)
+            return -1;
+          *p++ = '\0';
+          len = p - linebuf;
+          if (state == QUOTE)
+            {
+              exec_if_possible ();
+              error (EXIT_FAILURE, 0,
+                     _("unmatched %s quote; by default quotes are special to "
+                       "xargs unless you use the -0 option"),
+                     quotc == '"' ? _("double") : _("single"));
+            }
+          if (first && EOF_STR (linebuf))
+            return -1;
+          if (!bc_ctl.replace_pat)
+            bc_push_arg (&bc_ctl, &bc_state,
+                         linebuf, len,
+                         NULL, 0,
+                         initial_args);
+          return len;
+        }
       switch (state)
-	{
-	case SPACE:
-	  if (ISSPACE (c))
-	    continue;
-	  state = NORM;
-	  FALLTHROUGH;  /* aaahhhh....  */
+        {
+        case SPACE:
+          if (ISSPACE (c))
+            continue;
+          state = NORM;
+          FALLTHROUGH;  /* aaahhhh....  */
 
-	case NORM:
-	  if (c == '\n')
-	    {
-	      if (!ISBLANK (prevc))
-		lineno++;	/* For -l.  */
-	      if (p == linebuf)
-		{
-		  if (seen_arg)
-		    {
-		      /* An empty argument, add it to the list as normal. */
-		    }
-		  else
-		    {
-		      /* Blank line.  */
-		      state = SPACE;
-		      continue;
-		    }
-		}
-	      *p++ = '\0';
-	      len = p - linebuf;
-	      if (EOF_STR (linebuf))
-		{
-		  eof = true;
-		  return first ? -1 : len;
-		}
-	      if (!bc_ctl.replace_pat)
-		bc_push_arg (&bc_ctl, &bc_state,
-			     linebuf, len,
-			     NULL, 0,
-			     initial_args);
-	      return len;
-	    }
-	  seen_arg = true;
+        case NORM:
+          if (c == '\n')
+            {
+              if (!ISBLANK (prevc))
+                lineno++;       /* For -l.  */
+              if (p == linebuf)
+                {
+                  if (seen_arg)
+                    {
+                      /* An empty argument, add it to the list as normal. */
+                    }
+                  else
+                    {
+                      /* Blank line.  */
+                      state = SPACE;
+                      continue;
+                    }
+                }
+              *p++ = '\0';
+              len = p - linebuf;
+              if (EOF_STR (linebuf))
+                {
+                  eof = true;
+                  return first ? -1 : len;
+                }
+              if (!bc_ctl.replace_pat)
+                bc_push_arg (&bc_ctl, &bc_state,
+                             linebuf, len,
+                             NULL, 0,
+                             initial_args);
+              return len;
+            }
+          seen_arg = true;
 
-	  /* POSIX: In the POSIX locale, the separators are <SPC> and
-	   * <TAB>, but not <FF> or <VT>.
-	   */
-	  if (!bc_ctl.replace_pat && ISBLANK (c))
-	    {
-	      *p++ = '\0';
-	      len = p - linebuf;
-	      if (EOF_STR (linebuf))
-		{
-		  eof = true;
-		  return first ? -1 : len;
-		}
-	      bc_push_arg (&bc_ctl, &bc_state,
-			   linebuf, len,
-			   NULL, 0,
-			   initial_args);
-	      p = linebuf;
-	      state = SPACE;
-	      first = false;
-	      continue;
-	    }
-	  switch (c)
-	    {
-	    case '\\':
-	      state = BACKSLASH;
-	      continue;
+          /* POSIX: In the POSIX locale, the separators are <SPC> and
+           * <TAB>, but not <FF> or <VT>.
+           */
+          if (!bc_ctl.replace_pat && ISBLANK (c))
+            {
+              *p++ = '\0';
+              len = p - linebuf;
+              if (EOF_STR (linebuf))
+                {
+                  eof = true;
+                  return first ? -1 : len;
+                }
+              bc_push_arg (&bc_ctl, &bc_state,
+                           linebuf, len,
+                           NULL, 0,
+                           initial_args);
+              p = linebuf;
+              state = SPACE;
+              first = false;
+              continue;
+            }
+          switch (c)
+            {
+            case '\\':
+              state = BACKSLASH;
+              continue;
 
-	    case '\'':
-	    case '"':
-	      state = QUOTE;
-	      quotc = c;
-	      continue;
-	    }
-	  break;
+            case '\'':
+            case '"':
+              state = QUOTE;
+              quotc = c;
+              continue;
+            }
+          break;
 
-	case QUOTE:
-	  if (c == '\n')
-	    {
-	      exec_if_possible ();
-	      error (EXIT_FAILURE, 0,
-		     _("unmatched %s quote; by default quotes are special to "
-		       "xargs unless you use the -0 option"),
-		     quotc == '"' ? _("double") : _("single"));
-	    }
-	  if (c == quotc)
-	    {
-	      state = NORM;
-	      seen_arg = true; /* Makes a difference for e.g. just '' or "" as the first arg on a line */
-	      continue;
-	    }
-	  break;
+        case QUOTE:
+          if (c == '\n')
+            {
+              exec_if_possible ();
+              error (EXIT_FAILURE, 0,
+                     _("unmatched %s quote; by default quotes are special to "
+                       "xargs unless you use the -0 option"),
+                     quotc == '"' ? _("double") : _("single"));
+            }
+          if (c == quotc)
+            {
+              state = NORM;
+              seen_arg = true; /* Makes a difference for e.g. just '' or "" as the first arg on a line */
+              continue;
+            }
+          break;
 
-	case BACKSLASH:
-	  state = NORM;
-	  break;
-	}
+        case BACKSLASH:
+          state = NORM;
+          break;
+        }
 
       if ( (0 == c) && !nullwarning_given )
-	{
-	  /* This is just a warning message.  We only issue it once. */
-	  error (0, 0,
-		 _("WARNING: a NUL character occurred in the input.  "
-		   "It cannot be passed through in the argument list.  "
-		   "Did you mean to use the --null option?"));
-	  nullwarning_given = 1;
-	}
+        {
+          /* This is just a warning message.  We only issue it once. */
+          error (0, 0,
+                 _("WARNING: a NUL character occurred in the input.  "
+                   "It cannot be passed through in the argument list.  "
+                   "Did you mean to use the --null option?"));
+          nullwarning_given = 1;
+        }
 
 #if 1
       if (p >= endbuf)
         {
-	  exec_if_possible ();
-	  error (EXIT_FAILURE, 0, _("argument line too long"));
-	}
+          exec_if_possible ();
+          error (EXIT_FAILURE, 0, _("argument line too long"));
+        }
       *p++ = c;
 #else
       append_char_to_buf (&linebuf, &endbuf, &p, c);
@@ -1106,38 +1106,38 @@ read_string (void)
     {
       int c = getc (input_stream);
       if (c == EOF)
-	{
-	  if (EINTR == errno)
-	    continue;
-	  eof = true;
-	  if (p == linebuf)
-	    return -1;
-	  *p++ = '\0';
-	  len = p - linebuf;
-	  if (!bc_ctl.replace_pat)
-	    bc_push_arg (&bc_ctl, &bc_state,
-			 linebuf, len,
-			 NULL, 0,
-			 initial_args);
-	  return len;
-	}
+        {
+          if (EINTR == errno)
+            continue;
+          eof = true;
+          if (p == linebuf)
+            return -1;
+          *p++ = '\0';
+          len = p - linebuf;
+          if (!bc_ctl.replace_pat)
+            bc_push_arg (&bc_ctl, &bc_state,
+                         linebuf, len,
+                         NULL, 0,
+                         initial_args);
+          return len;
+        }
       if (c == input_delimiter)
-	{
-	  lineno++;		/* For -l.  */
-	  *p++ = '\0';
-	  len = p - linebuf;
-	  if (!bc_ctl.replace_pat)
-	    bc_push_arg (&bc_ctl, &bc_state,
-			 linebuf, len,
-			 NULL, 0,
-			 initial_args);
-	  return len;
-	}
+        {
+          lineno++;             /* For -l.  */
+          *p++ = '\0';
+          len = p - linebuf;
+          if (!bc_ctl.replace_pat)
+            bc_push_arg (&bc_ctl, &bc_state,
+                         linebuf, len,
+                         NULL, 0,
+                         initial_args);
+          return len;
+        }
       if (p >= endbuf)
         {
-	  exec_if_possible ();
-	  error (EXIT_FAILURE, 0, _("argument line too long"));
-	}
+          exec_if_possible ();
+          error (EXIT_FAILURE, 0, _("argument line too long"));
+        }
       *p++ = c;
     }
 }
@@ -1155,10 +1155,10 @@ print_args (bool ask)
   for (i = 0; i < bc_state.cmd_argc - 1; i++)
     {
       if (fprintf (stderr, "%s%s",
-	           (i == 0 ? "" : " "),
-	           quotearg_n_style (0, shell_escape_quoting_style,
-		                     bc_state.cmd_argv[i])) < 0)
-	error (EXIT_FAILURE, errno, _("Failed to write to stderr"));
+                   (i == 0 ? "" : " "),
+                   quotearg_n_style (0, shell_escape_quoting_style,
+                                     bc_state.cmd_argv[i])) < 0)
+        error (EXIT_FAILURE, errno, _("Failed to write to stderr"));
     }
 
   if (ask)
@@ -1167,23 +1167,23 @@ print_args (bool ask)
       int c, savec;
 
       if (!tty_stream)
-	{
-	  tty_stream = fopen_cloexec_for_read_only ("/dev/tty");
-	  if (!tty_stream)
-	    error (EXIT_FAILURE, errno,
-		   _("failed to open /dev/tty for reading"));
-	}
+        {
+          tty_stream = fopen_cloexec_for_read_only ("/dev/tty");
+          if (!tty_stream)
+            error (EXIT_FAILURE, errno,
+                   _("failed to open /dev/tty for reading"));
+        }
       fputs ("?...", stderr);
       if (fflush (stderr) != 0)
-	error (EXIT_FAILURE, errno, _("Failed to write to stderr"));
+        error (EXIT_FAILURE, errno, _("Failed to write to stderr"));
 
       c = savec = getc (tty_stream);
       while (c != EOF && c != '\n')
-	c = getc (tty_stream);
+        c = getc (tty_stream);
       if (EOF == c)
-	error (EXIT_FAILURE, errno, _("Failed to read from stdin"));
+        error (EXIT_FAILURE, errno, _("Failed to read from stdin"));
       if (savec == 'y' || savec == 'Y')
-	return true;
+        return true;
     }
   else
     putc ('\n', stderr);
@@ -1215,10 +1215,10 @@ set_slot_var (unsigned int n)
   if (slot_var_name)
     {
       if (setenv (slot_var_name, buf, 1) < 0)
-	{
-	  error (0, errno,
-	         _("failed to set environment variable %s"), slot_var_name);
-	}
+        {
+          error (0, errno,
+                 _("failed to set environment variable %s"), slot_var_name);
+        }
     }
 }
 
@@ -1249,31 +1249,31 @@ prep_child_for_exec (void)
 
       close (0);
       if ((fd = open (inputfile, O_RDONLY)) < 0)
-	{
-	  /* Treat a failure to open /dev/tty as fatal.
-	   * The other case is not entirely fatal, since
-	   * executing the child with a closed
-	   * stdin is almost as good as executing it
-	   * with its stdin attached to /dev/null.
-	   */
-	  if (open_tty)
-	    {
-	      error (EXIT_FAILURE, errno, "%s",
-		     quotearg_n_style (0, locale_quoting_style, inputfile));
-	    }
-	  else
-	    {
-	      error (0, errno, "%s",
-		     quotearg_n_style (0, locale_quoting_style, inputfile));
-	    }
-	}
+        {
+          /* Treat a failure to open /dev/tty as fatal.
+           * The other case is not entirely fatal, since
+           * executing the child with a closed
+           * stdin is almost as good as executing it
+           * with its stdin attached to /dev/null.
+           */
+          if (open_tty)
+            {
+              error (EXIT_FAILURE, errno, "%s",
+                     quotearg_n_style (0, locale_quoting_style, inputfile));
+            }
+          else
+            {
+              error (0, errno, "%s",
+                     quotearg_n_style (0, locale_quoting_style, inputfile));
+            }
+        }
       if (STDIN_FILENO < fd)
-	{
-	  if (dup2(fd, STDIN_FILENO) != 0)
-	    error (EXIT_FAILURE, errno,
-	           _("failed to redirect standard input of the child process"));
-	  close(fd);
-	}
+        {
+          if (dup2(fd, STDIN_FILENO) != 0)
+            error (EXIT_FAILURE, errno,
+                   _("failed to redirect standard input of the child process"));
+          close(fd);
+        }
     }
 }
 
@@ -1309,151 +1309,151 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc, char *
   if (!query_before_executing || print_args (true))
     {
       if (!query_before_executing && print_command)
-	print_args (false);
+        print_args (false);
 
       /* Before forking, reap any already-exited child. We do this so
-	 that we don't leave unreaped children around while we build a
-	 new command line.  For example this command will spend most
-	 of its time waiting for sufficient arguments to launch
-	 another command line:
+         that we don't leave unreaped children around while we build a
+         new command line.  For example this command will spend most
+         of its time waiting for sufficient arguments to launch
+         another command line:
 
-	 seq 1 1000 | fmt | while read x ; do echo $x; sleep 1 ; done |
-	 ./xargs -P 200 -n 20  sh -c 'echo "$@"; sleep $((1 + $RANDOM % 5))' sleeper
+         seq 1 1000 | fmt | while read x ; do echo $x; sleep 1 ; done |
+         ./xargs -P 200 -n 20  sh -c 'echo "$@"; sleep $((1 + $RANDOM % 5))' sleeper
       */
       wait_for_proc (false, 0u);
 
       if (pipe (fd))
-	error (EXIT_FAILURE, errno, _("could not create pipe before fork"));
+        error (EXIT_FAILURE, errno, _("could not create pipe before fork"));
       fcntl (fd[1], F_SETFD, FD_CLOEXEC);
 
       /* If we run out of processes, wait for a child to return and
          try again.  */
       while ((child = fork ()) < 0 && errno == EAGAIN && procs_executing)
-	wait_for_proc (false, 1u);
+        wait_for_proc (false, 1u);
 
       switch (child)
-	{
-	case -1:
-	  error (EXIT_FAILURE, errno, _("cannot fork"));
+        {
+        case -1:
+          error (EXIT_FAILURE, errno, _("cannot fork"));
 
-	case 0:		/* Child.  */
-	  {
-	    close (fd[0]);
-	    child_error = EXIT_SUCCESS;
+        case 0:         /* Child.  */
+          {
+            close (fd[0]);
+            child_error = EXIT_SUCCESS;
 
-	    prep_child_for_exec ();
+            prep_child_for_exec ();
 
-	    if (bc_args_exceed_testing_limit (argv))
-	      errno = E2BIG;
-	    else
-	      execvp (argv[0], argv);
-	    if (errno)
-	      {
-		/* Write errno value to parent.  We do this even if
-		 * the error was not E2BIG, because we need to
-		 * distinguish successful execs from unsuccessful
-		 * ones.  The reason we need to do this is to know
-		 * whether to reap the child here (preventing the
-		 * exit status processing in wait_for_proc () from
-		 * changing the value of child_error) or leave it
-		 * for wait_for_proc () to handle.  We need to have
-		 * wait_for_proc () handle the exit values from the
-		 * utility if we run it, for POSIX compliance on the
-		 * handling of exit values.
-		 */
-		write (fd[1], &errno, sizeof (int));
-	      }
+            if (bc_args_exceed_testing_limit (argv))
+              errno = E2BIG;
+            else
+              execvp (argv[0], argv);
+            if (errno)
+              {
+                /* Write errno value to parent.  We do this even if
+                 * the error was not E2BIG, because we need to
+                 * distinguish successful execs from unsuccessful
+                 * ones.  The reason we need to do this is to know
+                 * whether to reap the child here (preventing the
+                 * exit status processing in wait_for_proc () from
+                 * changing the value of child_error) or leave it
+                 * for wait_for_proc () to handle.  We need to have
+                 * wait_for_proc () handle the exit values from the
+                 * utility if we run it, for POSIX compliance on the
+                 * handling of exit values.
+                 */
+                write (fd[1], &errno, sizeof (int));
+              }
 
-	    close (fd[1]);
-	    if (E2BIG != errno)
-	      {
-		error (0, errno, "%s", argv[0]);
-	      }
-	    /* The actual value returned here should be irrelevant,
-	     * because the parent will test our value of errno.
-	     */
-	    _exit (errno == ENOENT ? XARGS_EXIT_COMMAND_NOT_FOUND : XARGS_EXIT_COMMAND_CANNOT_BE_RUN);
+            close (fd[1]);
+            if (E2BIG != errno)
+              {
+                error (0, errno, "%s", argv[0]);
+              }
+            /* The actual value returned here should be irrelevant,
+             * because the parent will test our value of errno.
+             */
+            _exit (errno == ENOENT ? XARGS_EXIT_COMMAND_NOT_FOUND : XARGS_EXIT_COMMAND_CANNOT_BE_RUN);
 
-	  /*NOTREACHED*/
-	  } /* child */
+          /*NOTREACHED*/
+          } /* child */
 
-	default:
-	  {
-	    /* Parent */
-	    close (fd[1]);
-	  }
+        default:
+          {
+            /* Parent */
+            close (fd[1]);
+          }
 
-	} /* switch (child) */
+        } /* switch (child) */
       /*fprintf (stderr, "forked child (bc_state.cmd_argc=%d) -> ", bc_state.cmd_argc);*/
 
       /* We use safe_read here in order to avoid an error if
-	 SIGUSR[12] is handled during the read system call. */
+         SIGUSR[12] is handled during the read system call. */
       switch (r = safe_read (fd[0], &buf, sizeof (int)))
-	{
-	case SAFE_READ_ERROR:
-	  {
-	    close (fd[0]);
-	    error (0, errno,
-		   _("errno-buffer safe_read failed in xargs_do_exec "
-		     "(this is probably a bug, please report it)"));
-	    break;
-	  }
+        {
+        case SAFE_READ_ERROR:
+          {
+            close (fd[0]);
+            error (0, errno,
+                   _("errno-buffer safe_read failed in xargs_do_exec "
+                     "(this is probably a bug, please report it)"));
+            break;
+          }
 
-	case sizeof (int):
-	  {
-	    /* Failure */
-	    int childstatus;
+        case sizeof (int):
+          {
+            /* Failure */
+            int childstatus;
 
-	    close (fd[0]);
+            close (fd[0]);
 
-	    /* we know the child is about to exit, so wait for that.
-	     * We have to do this so that wait_for_proc () does not
-	     * change the value of child_error on the basis of the
-	     * return value -- since in this case we did not launch
-	     * the utility.
-	     *
-	     * We do the wait before deciding if we failed in order to
-	     * avoid creating a zombie, even briefly.
-	     */
-	    waitpid (child, &childstatus, 0);
+            /* we know the child is about to exit, so wait for that.
+             * We have to do this so that wait_for_proc () does not
+             * change the value of child_error on the basis of the
+             * return value -- since in this case we did not launch
+             * the utility.
+             *
+             * We do the wait before deciding if we failed in order to
+             * avoid creating a zombie, even briefly.
+             */
+            waitpid (child, &childstatus, 0);
 
 
-	    if (E2BIG == buf)
-	      {
-		return 0; /* Failure; caller should pass fewer args */
-	      }
-	    else if (ENOENT == buf)
-	      {
-		exit (XARGS_EXIT_COMMAND_NOT_FOUND); /* command cannot be found */
-	      }
-	    else
-	      {
-		exit (XARGS_EXIT_COMMAND_CANNOT_BE_RUN); /* command cannot be run */
-	      }
-	    break;
-	  }
+            if (E2BIG == buf)
+              {
+                return 0; /* Failure; caller should pass fewer args */
+              }
+            else if (ENOENT == buf)
+              {
+                exit (XARGS_EXIT_COMMAND_NOT_FOUND); /* command cannot be found */
+              }
+            else
+              {
+                exit (XARGS_EXIT_COMMAND_CANNOT_BE_RUN); /* command cannot be run */
+              }
+            break;
+          }
 
-	case 0:
-	  {
-	    /* Failed to read data from pipe; the exec must have
-	     * succeeded.  We call add_proc only in this case,
-	     * because it increments procs_executing, and we only
-	     * want to do that if we didn't already wait for the
-	     * child.
-	     */
-	    add_proc (child);
-	    break;
-	  }
-	default:
-	  {
-	    error (EXIT_FAILURE, errno,
-		   _("read returned unexpected value %"PRIuMAX"; "
-		     "this is probably a bug, please report it"), r);
-	  }
-	} /* switch on bytes read */
+        case 0:
+          {
+            /* Failed to read data from pipe; the exec must have
+             * succeeded.  We call add_proc only in this case,
+             * because it increments procs_executing, and we only
+             * want to do that if we didn't already wait for the
+             * child.
+             */
+            add_proc (child);
+            break;
+          }
+        default:
+          {
+            error (EXIT_FAILURE, errno,
+                   _("read returned unexpected value %"PRIuMAX"; "
+                     "this is probably a bug, please report it"), r);
+          }
+        } /* switch on bytes read */
       close (fd[0]);
     }
-  return 1;			/* Success */
+  return 1;                     /* Success */
 }
 
 /* Execute the command if possible.  */
@@ -1486,7 +1486,7 @@ add_proc (pid_t pid)
 
       /* Zero out the new slots. */
       for (j=i; j<pids_alloc; ++j)
-	pids[j] = (pid_t)0;
+        pids[j] = (pid_t)0;
     }
   /* Verify that we are not destroying the record of some existing child. */
   assert (0 == pids[i]);
@@ -1518,73 +1518,73 @@ wait_for_proc (bool all, unsigned int minreap)
       int wflags = 0;
 
       if (!all)
-	{
-	  if (reaped >= minreap)
-	    {
-	      /* We already reaped enough children.  To save system
-	       * resources, reap any dead children anyway, but do not
-	       * wait for any currently executing children to exit.
+        {
+          if (reaped >= minreap)
+            {
+              /* We already reaped enough children.  To save system
+               * resources, reap any dead children anyway, but do not
+               * wait for any currently executing children to exit.
 
-	       */
-	      wflags = WNOHANG;
-	    }
-	}
+               */
+              wflags = WNOHANG;
+            }
+        }
 
       stop_waiting = 0;
       do
-	{
-	  /* Wait for any child.   We used to use wait () here, but it's
-	   * unlikely that that offers any portability advantage over
-	   * wait these days.
-	   */
-	  while ((pid = waitpid (-1, &status, wflags)) == (pid_t) -1)
-	    {
-	      if (errno != EINTR)
-		error (EXIT_FAILURE, errno,
-		       _("error waiting for child process"));
+        {
+          /* Wait for any child.   We used to use wait () here, but it's
+           * unlikely that that offers any portability advantage over
+           * wait these days.
+           */
+          while ((pid = waitpid (-1, &status, wflags)) == (pid_t) -1)
+            {
+              if (errno != EINTR)
+                error (EXIT_FAILURE, errno,
+                       _("error waiting for child process"));
 
-	      if (stop_waiting && !all)
-		{
-		  /* Receipt of SIGUSR1 gave us an extra slot and we
-		   * don't need to wait for all processes to finish.
-		   * We can stop reaping now, but in any case check for
-		   * further dead children without waiting for another
-		   * to exit.
-		   */
-		  wflags = WNOHANG;
-		}
-	    }
+              if (stop_waiting && !all)
+                {
+                  /* Receipt of SIGUSR1 gave us an extra slot and we
+                   * don't need to wait for all processes to finish.
+                   * We can stop reaping now, but in any case check for
+                   * further dead children without waiting for another
+                   * to exit.
+                   */
+                  wflags = WNOHANG;
+                }
+            }
 
-	  /* Find the entry in `pids' for the child process
-	     that exited.  */
-	  if (pid)
-	    {
-	      for (i = 0; i < pids_alloc && pid != pids[i]; i++)
-		;
-	    }
-	}
-      while (pid && i == pids_alloc);	/* A child died that we didn't start? */
+          /* Find the entry in `pids' for the child process
+             that exited.  */
+          if (pid)
+            {
+              for (i = 0; i < pids_alloc && pid != pids[i]; i++)
+                ;
+            }
+        }
+      while (pid && i == pids_alloc);   /* A child died that we didn't start? */
 
       if (!pid)
-	{
-	  if (!(wflags & WNOHANG))
-	    {
-	      /* Nothing remained to be reaped.  This should not
-	       * happen, because procs_executing should contain the
-	       * number of child processes still executing, so the
-	       * loop should have terminated.
-	       */
-	      error (0, 0, _("WARNING: Lost track of %lu child processes"),
-		     procs_executing);
-	    }
-	  else
-	    {
-	      /* Children are (probably) executing but are not ready
-	       * to be reaped at the moment.
-	       */
-	    }
-	  break;
-	}
+        {
+          if (!(wflags & WNOHANG))
+            {
+              /* Nothing remained to be reaped.  This should not
+               * happen, because procs_executing should contain the
+               * number of child processes still executing, so the
+               * loop should have terminated.
+               */
+              error (0, 0, _("WARNING: Lost track of %lu child processes"),
+                     procs_executing);
+            }
+          else
+            {
+              /* Children are (probably) executing but are not ready
+               * to be reaped at the moment.
+               */
+            }
+          break;
+        }
 
       /* Remove the child from the list.  */
       pids[i] = 0;
@@ -1594,36 +1594,36 @@ wait_for_proc (bool all, unsigned int minreap)
 #define set_deferred_exit_status(n) \
       do \
       { \
-	if (deferred_exit_status < n)  \
-	  { \
-	    deferred_exit_status = n; \
-	  } \
+        if (deferred_exit_status < n)  \
+          { \
+            deferred_exit_status = n; \
+          } \
       } while (0)
 
       if (WEXITSTATUS (status) == CHILD_EXIT_PLEASE_STOP_IMMEDIATELY)
-	{
-	  error (0, 0, _("%s: exited with status 255; aborting"), bc_state.cmd_argv[0]);
-	  set_deferred_exit_status(XARGS_EXIT_CLIENT_EXIT_255);
-	}
+        {
+          error (0, 0, _("%s: exited with status 255; aborting"), bc_state.cmd_argv[0]);
+          set_deferred_exit_status(XARGS_EXIT_CLIENT_EXIT_255);
+        }
       if (WIFSTOPPED (status))
-	{
-	  error (0, 0, _("%s: stopped by signal %d"), bc_state.cmd_argv[0], WSTOPSIG (status));
-	  set_deferred_exit_status(XARGS_EXIT_CLIENT_FATAL_SIG);
-	}
+        {
+          error (0, 0, _("%s: stopped by signal %d"), bc_state.cmd_argv[0], WSTOPSIG (status));
+          set_deferred_exit_status(XARGS_EXIT_CLIENT_FATAL_SIG);
+        }
       if (WIFSIGNALED (status))
-	{
-	  error (0, 0,
-		 _("%s: terminated by signal %d"), bc_state.cmd_argv[0], WTERMSIG (status));
-	  set_deferred_exit_status(XARGS_EXIT_CLIENT_FATAL_SIG);
-	}
+        {
+          error (0, 0,
+                 _("%s: terminated by signal %d"), bc_state.cmd_argv[0], WTERMSIG (status));
+          set_deferred_exit_status(XARGS_EXIT_CLIENT_FATAL_SIG);
+        }
       if (WEXITSTATUS (status) != 0)
-	{
-	  child_error = XARGS_EXIT_CLIENT_EXIT_NONZERO;
-	}
+        {
+          child_error = XARGS_EXIT_CLIENT_EXIT_NONZERO;
+        }
       if (deferred_exit_status && !all)
-	{
-	  break;
-	}
+        {
+          break;
+        }
     }
   if (deferred_exit_status)
     {
@@ -1679,20 +1679,20 @@ static void
 increment_proc_max (int ignore)
 {
         (void) ignore;
-	/* If user increments from 0 to 1, we'll take it and serialize. */
-	if (proc_max < MAX_PROC_MAX)
-	  proc_max++;
-	/* If we're waiting for a process to die before doing something,
-	   no need to wait any more. */
-	stop_waiting = 1;
+        /* If user increments from 0 to 1, we'll take it and serialize. */
+        if (proc_max < MAX_PROC_MAX)
+          proc_max++;
+        /* If we're waiting for a process to die before doing something,
+           no need to wait any more. */
+        stop_waiting = 1;
 }
 
 static void
 decrement_proc_max (int ignore)
 {
         (void) ignore;
-	if (proc_max > 1)
-		proc_max--;
+        if (proc_max > 1)
+                proc_max--;
 }
 
 
@@ -1712,25 +1712,25 @@ parse_num (char *str, int option, long int min, long int max, int fatal)
   if (eptr == str || *eptr)
     {
       fprintf (stderr, _("%s: invalid number \"%s\" for -%c option\n"),
-	       program_name, str, option);
+               program_name, str, option);
       usage (EXIT_FAILURE);
       exit (EXIT_FAILURE);
     }
   else if (val < min)
     {
       fprintf (stderr, _("%s: value %s for -%c option should be >= %ld\n"),
-	       program_name, str, option, min);
+               program_name, str, option, min);
       if (fatal)
-	usage (EXIT_FAILURE);
+        usage (EXIT_FAILURE);
 
       val = min;
     }
   else if (max >= 0 && val > max)
     {
       fprintf (stderr, _("%s: value %s for -%c option should be <= %ld\n"),
-	       program_name, str, option, max);
+               program_name, str, option, max);
       if (fatal)
-	usage (EXIT_FAILURE);
+        usage (EXIT_FAILURE);
 
       val = max;
     }
@@ -1758,14 +1758,14 @@ usage (int status)
          "mandatory or optional for the corresponding short option.\n"));
   HTL (_("  -0, --null                   items are separated by a null, not whitespace;\n"
          "                                 disables quote and backslash processing and\n"
-	 "                                 logical EOF processing\n"));
+         "                                 logical EOF processing\n"));
   HTL (_("  -a, --arg-file=FILE          read arguments from FILE, not standard input\n"));
   HTL (_("  -d, --delimiter=CHARACTER    items in input stream are separated by CHARACTER,\n"
          "                                 not by whitespace; disables quote and backslash\n"
          "                                 processing and logical EOF processing\n"));
   HTL (_("  -E END                       set logical EOF string; if END occurs as a line\n"
-	 "                                 of input, the rest of the input is ignored\n"
-	 "                                 (ignored if -0 or -d was specified)\n"));
+         "                                 of input, the rest of the input is ignored\n"
+         "                                 (ignored if -0 or -d was specified)\n"));
   HTL (_("  -e, --eof[=END]              equivalent to -E END if END is specified;\n"
          "                                 otherwise, there is no end-of-file string\n"));
   HTL (_("  -I R                         same as --replace=R\n"));

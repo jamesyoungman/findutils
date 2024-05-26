@@ -17,7 +17,7 @@
 #ifndef FDLEAK_H
 # define FDLEAK_H
 
-# include <stdbool.h>		/* for bool */
+# include <stdbool.h>           /* for bool */
 
 void remember_non_cloexec_fds (void);
 void forget_non_cloexec_fds (void);
