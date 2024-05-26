@@ -30,13 +30,15 @@ test "$VERSION" \
 
 # Extract version from --version output of the first program
 for i in $built_programs; do
+  version_source="${i}"
   v=$(set -x; env $i --version | sed -n '1s/.* //p;q')
   break
 done
 
 # Ensure that it matches $VERSION.
 test "x$v" = "x$VERSION" \
-  || fail_ "--version-\$VERSION mismatch"
+    || fail_ \
+	   "--version-\$VERSION mismatch (${v} (being the output from ${version_source} --version) should match the environment variable VERSION, which has the value ${VERSION})"
 
 for i in $built_programs; do
   # Make sure they exit successfully, under normal conditions.
