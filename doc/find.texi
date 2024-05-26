@@ -778,7 +778,8 @@ dereference the link.  This can mean that even if you specify the
 properties of the file that the link points to (because you don't have
 sufficient permission).  In this situation, @code{find} uses the
 properties of the link itself.  This also occurs if a symbolic link
-exists but points to a file that is missing.
+exists but points to a file that is missing, or where the symbolic
+link points to itself (directly or indirectly).
 
 The options controlling the behaviour of @code{find} with respect to
 links are as follows:
@@ -1206,17 +1207,20 @@ represent any letter except @samp{l}):
 
 @table @samp
 @item @samp{-P -xtype l}
-True if the symbolic link is broken
+True if the symbolic link is broken or has an infinite loop
 @item @samp{-P -xtype X}
 True if the (ultimate) target file is of type @samp{X}.
 @item @samp{-L -xtype l}
 Always true
 @item @samp{-L -xtype X}
-False unless the symbolic link is broken
+False unless the symbolic link is broken or has an infinite loop
 @end table
 
-In other words, for symbolic links, @samp{-xtype} checks the type of
-the file that @samp{-type} does not check.
+In other words, for non-broken symbolic links, @samp{-xtype} checks
+the type of the file that @samp{-type} does not check.  For broken
+symbolic links (or loops), @samp{-xtype} behaves like @samp{-type}
+does.  Symbolic links pointing to things the user has no access to are
+not considered to be broken.
 
 The @samp{-H} option also affects the behaviour of @samp{-xtype}.
 When @samp{-H} is in effect, @samp{-xtype} behaves as if @samp{-L} had

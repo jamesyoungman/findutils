@@ -1164,11 +1164,17 @@ link to a file of type
 if the
 .B \-L
 option has been given, true
-if \fIc\fR is `l'.  In other words, for symbolic links,
+if \fIc\fR is `l'.
+In other words, for symbolic links,
 .B \-xtype
 checks the type of the file that
 .B \-type
 does not check.
+If a symbolic link is broken (because the thing it points to does not
+exist or the link points to itself) then
+.B \-xtype
+will behave the same as
+.BR \-type .
 .IP "\-context \fIpattern\fR"
 (SELinux only) Security context of the file matches glob
 .IR pattern .
