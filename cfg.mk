@@ -274,6 +274,20 @@ sc_prohibit_unhyphenated_eof:
 	halt='use "end-of-file", not "e''nd of file"' \
 	  $(_sc_search_regexp)
 
+# Prohibit the use of tabs in findutils C source files (but not
+# gnulib).  This is not the same as sc_space_tab which prohibits only
+# tabs which follow spaces.
+sc_spaces_not_tabs:
+	@cd $(srcdir) \
+	  && GIT_PAGER= git grep -n '	' -- \
+		"find/*.[ch]" \
+		"lib/*.[ch]" \
+		"locate/*.[ch]" \
+		"tests/*.[ch]" \
+		"xargs/*.[ch]" \
+	  && { echo '$(ME): Indent C sources with spaces, not tabs (fix with build-aux/tabs-to-spaces.sh)' 1>&2; exit 1; } \
+	  || :
+
 # Now that we have better tests, make this the default.
 export VERBOSE = yes
 
