@@ -3,20 +3,25 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
 ** Bug Fixes
+
   Find now defaults to optimisation level 1 rather than 2 and the
   cost-based optimizer will only run at level 2 and above.  This
   should prevent changes of operation order which result in
-  user-visible differences in behaviour.
+  user-visible differences in behaviour. [#58427]
 
   If the -P option to xargs is not used, xargs will not change the way
-  in which the SIGUSR1 and SIGUSR2 signals are handled.  This means that
-  they will cause the program to terminate if the signals were not
-  ignored in the process which started xargs.  If you want to depend
-  on xargs not being killed by these signals but don't want
-  parallel execution, use "-P 1".
+  in which the SIGUSR1 and SIGUSR2 signals are handled.  This means
+  that they will cause the program to terminate if the signals were
+  not ignored in the process which started xargs.  If you want to
+  depend on xargs not being killed by these signals but don't want
+  parallel execution, use "-P 1".  This change improved xargs' POSIX
+  compliance.
 
   xargs -P now waits for all its child processes to compete before
   exiting, even if one of them exits with status 255. [#64451]
+
+  If the -P option of xargs is in use, input reads interrupted by a
+  signal are re-started. [#64442]
 
   'find -name /' no longer outputs a warning, because that is a valid pattern
   to match the root directory "/".  Previously, a diagnostic falsely claimed
@@ -30,6 +35,9 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   'find -user' and 'find -group' now allow to specify larger UIDs/GIDs.
   Previously, that was limited to INT_MAX, although the types uid_t and gid_t
   are larger on many systems, including x86_64 GNU/Linux. [#64900]
+
+  find -xtype l no longer fails on symbolic links that point to
+  themselves.  These are treated similarly to broken links. [#51926]
 
 ** Improvements
 
