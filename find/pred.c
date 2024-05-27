@@ -468,7 +468,7 @@ pred_name_common (const char *pathname, const char *str, int flags)
 {
   bool b;
   /* We used to use last_component() here, but that would not allow us to modify the
-   * input string, which is const.   We could optimise by duplicating the string only
+   * input string, which is const.   We could optimize by duplicating the string only
    * if we need to modify it, and I'll do that if there is a measurable
    * performance difference on a machine built after 1990...
    */

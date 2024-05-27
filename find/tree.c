@@ -296,7 +296,7 @@ predicate_is_cost_free (const struct predicate *p)
       pred_is(p, pred_ipath))
     {
       /* Traditionally (at least 4.1.7 through 4.2.x) GNU find always
-       * optimised these cases.
+       * optimized these cases.
        */
       return true;
     }

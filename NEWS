@@ -4,7 +4,7 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 ** Bug Fixes
   Find now defaults to optimisation level 1 rather than 2 and the
-  cost-based optimiser will only run at level 2 and above.  This
+  cost-based optimizer will only run at level 2 and above.  This
   should prevent changes of operation order which result in
   user-visible differences in behaviour.
 

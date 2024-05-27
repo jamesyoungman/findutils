@@ -2283,7 +2283,7 @@ parse_samefile (const struct parser_table* entry, char **argv, int *arg_ptr)
   our_pred->args.samefileid.fd  = fd;
   our_pred->need_type = false;
   /* smarter way: compare type and inode number first. */
-  /* TODO: maybe optimise this away by being optimistic */
+  /* TODO: maybe optimize this away by being optimistic */
   our_pred->need_stat = true;
   our_pred->est_success_rate = 0.01f;
   return true;

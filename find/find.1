@@ -252,7 +252,7 @@ system calls.  The
 .B find
 program tries to minimise such calls.
 .IP tree
-Show the expression tree in its original and optimised form.
+Show the expression tree in its original and optimized form.
 .IP all
 Enable all of the other debug options (but
 .BR help ).
@@ -298,7 +298,7 @@ which is not known (that is, present in `/etc/mtab') at the time
 starts, that predicate is equivalent to
 .BR \-false .
 .IP 3
-At this optimisation level, the full cost-based query optimiser is
+At this optimisation level, the full cost-based query optimizer is
 enabled.  The order of tests is modified so that cheap (i.e.\& fast)
 tests are performed first and more expensive ones are performed later,
 if necessary.  Within each cost band, predicates are evaluated earlier
@@ -309,13 +309,13 @@ predicates which are likely to succeed are evaluated earlier, and for
 predicates which are likely to fail are evaluated earlier.
 .RE
 .IP
-The cost-based optimiser has a fixed idea of how likely any given test
+The cost-based optimizer has a fixed idea of how likely any given test
 is to succeed.  In some cases the probability takes account of the
 specific nature of the test (for example,
 .B \-type\ f
 is assumed to be more likely to succeed than
 .BR "\-type\ c" ).
-The cost-based optimiser is currently being evaluated.
+The cost-based optimizer is currently being evaluated.
 If it does not actually improve the performance of
 .BR find ,
 it will be removed again.  Conversely, optimisations that prove to be
@@ -326,7 +326,7 @@ findutils test suite runs all the tests on
 .B find
 at each optimisation level and ensures that the result is the same.
 
-The re-ordering of operations performed by the cost-based optimiser
+The re-ordering of operations performed by the cost-based optimizer
 can result in user-visible behaviour change.  For example, the
 .B \-readable
 and
@@ -2075,7 +2075,7 @@ GNU
 complies with these requirements.  The link count of
 directories which contain entries which are hard links to an ancestor
 will often be lower than they otherwise should be.  This can mean that
-GNU find will sometimes optimise away the visiting of a subdirectory
+GNU find will sometimes optimize away the visiting of a subdirectory
 which is actually a link to an ancestor.  Since
 .B find
 does not actually enter such a subdirectory, it is allowed to avoid

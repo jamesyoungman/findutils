@@ -3555,7 +3555,7 @@ type @samp{FOO} which is not known (that is, present in
 equivalent to @samp{-false}.
 
 @item 3
-At this optimisation level, the full cost-based query optimiser is
+At this optimisation level, the full cost-based query optimizer is
 enabled.  The order of tests is modified so that cheap (i.e., fast)
 tests are performed first and more expensive ones are performed later,
 if necessary.  Within each cost band, predicates are evaluated earlier
@@ -3565,7 +3565,7 @@ earlier, and for @samp{-a}, predicates which are likely to fail are
 evaluated earlier.
 @end table
 
-The re-ordering of operations performed by the cost-based optimiser
+The re-ordering of operations performed by the cost-based optimizer
 can result in user-visible behaviour change.  For example, the
 @samp{-readable} and @samp{-empty} predicates are sensitive to
 re-ordering.  If they are run in the order @samp{-empty -readable}, an
@@ -3589,7 +3589,7 @@ For a complete list of valid debug options, see the output of
 Valid debug options include:
 @table @samp
 @item tree
-Show the expression tree in its original and optimised form.
+Show the expression tree in its original and optimized form.
 @item stat
 Print messages as files are examined with the stat and lstat system
 calls.  The find program tries to minimise such calls.
