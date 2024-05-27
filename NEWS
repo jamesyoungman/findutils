@@ -68,6 +68,15 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   The TexInfo manual now uses upper-case 'B' as birthtime for the -newerXY
   comparison consistently.  [#65378]
 
+** Translations
+
+Updated the following translations: Belarusian, Brazilian Portuguese,
+Bulgarian, Catalan, Chinese (simplified), Chinese (traditional),
+Croatian, Czech, Danish, Dutch, Esperanto, Estonian, Finnish, French,
+Galician, Georgian, German, Greek, Hungarian, Indonesian, Irish,
+Italian, Japanese, Korean, Lithuanian, Luganda, Malay, Norwegian
+Bokmaal, Polish, Portuguese, Romanian, Russian, Serbian, Slovak,
+Slovenian, Spanish, Swedish, Turkish, Ukrainian, Vietnamese.
 
 * Noteworthy changes in release 4.9.0 (2022-02-22) [stable]
 
