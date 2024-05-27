@@ -3526,12 +3526,13 @@ Use of an unrecognised formatting directive with @samp{-fprintf}
 The @samp{-O@var{level}} option sets @code{find}'s optimisation level
 to @var{level}.  The default optimisation level is 1.
 
-At certain optimisation levels, @code{find} reorders tests to speed up
-execution while preserving the overall effect; that is, predicates
-with side effects are not reordered relative to each other.  The
-optimisations performed at each optimisation level are as follows.
+At certain optimisation levels (but not by default), @code{find}
+reorders tests to speed up execution while preserving the overall
+effect; that is, predicates with side effects are not reordered
+relative to each other.  The optimisations performed at each
+optimisation level are as follows.
 
-@table @samp
+@table @asis
 @item 0
 Currently equivalent to optimisation level 1.
 
@@ -3553,7 +3554,6 @@ type @samp{FOO} which is not known (that is, present in
 @file{/etc/mtab}) at the time @code{find} starts, that predicate is
 equivalent to @samp{-false}.
 
-
 @item 3
 At this optimisation level, the full cost-based query optimiser is
 enabled.  The order of tests is modified so that cheap (i.e., fast)
@@ -3565,6 +3565,14 @@ earlier, and for @samp{-a}, predicates which are likely to fail are
 evaluated earlier.
 @end table
 
+The re-ordering of operations performed by the cost-based optimiser
+can result in user-visible behaviour change.  For example, the
+@samp{-readable} and @samp{-empty} predicates are sensitive to
+re-ordering.  If they are run in the order @samp{-empty -readable}, an
+error message will be issued for unreadable directories.  If they are
+run in the order @samp{-readable -empty}, no error message will be
+issued. This is the reason why such operation re-ordering is not
+performed at the default optimisation level.
 
 @node Debug Options
 @subsection Debug Options

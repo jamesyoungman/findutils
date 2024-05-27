@@ -325,6 +325,19 @@ level 1) will not be changed in the 4.3.x release series.  The
 findutils test suite runs all the tests on
 .B find
 at each optimisation level and ensures that the result is the same.
+
+The re-ordering of operations performed by the cost-based optimiser
+can result in user-visible behaviour change.  For example, the
+.B \-readable
+and
+.B \-empty
+predicates are sensitive to re-ordering.  If they are run in the order
+.BR "\-empty \-readable" ,
+an error message will be issued for unreadable directories.  If they
+are run in the order
+.B \-readable \-empty
+no error message will be issued. This is the reason why such operation
+re-ordering is not performed at the default optimisation level.
 .
 .SH EXPRESSION
 The part of the command line after the list of starting points is the

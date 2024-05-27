@@ -3,6 +3,11 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
 ** Bug Fixes
+  Find now defaults to optimisation level 1 rather than 2 and the
+  cost-based optimiser will only run at level 2 and above.  This
+  should prevent changes of operation order which result in
+  user-visible differences in behaviour.
+
   If the -P option to xargs is not used, xargs will not change the way
   in which the SIGUSR1 and SIGUSR2 signals are handled.  This means that
   they will cause the program to terminate if the signals were not

@@ -1430,7 +1430,10 @@ build_expression_tree (int argc, char *argv[], int end_of_leading_options)
   /* Check that the tree is in normalised order (opt_expr does this) */
   check_normalization (eval_tree, true);
 
-  do_arm_swaps (eval_tree);
+  if (options.optimisation_level > 1)
+    {
+      do_arm_swaps (eval_tree);
+    }
 
   /* Check that the tree is still in normalised order */
   check_normalization (eval_tree, true);
