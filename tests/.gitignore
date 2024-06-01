@@ -1,4 +1,6 @@
 /*/*.log
 /*/*.trs
 /test-suite.log
+/xargs/.dirstamp
 /xargs/test-sigusr
+/xargs/test-sigusr.o
