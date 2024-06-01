@@ -20,7 +20,9 @@ built_programs = find xargs frcode locate updatedb
 # Indirections required so that we'll still be able to know the
 # complete list of our tests even if the user overrides TESTS
 # from the command line (as permitted by the test harness API).
-TESTS = $(sh_tests) $(binary_tests)
+# The check 'sc_tests_list_consistency' also uses 'all_tests'.
+all_tests = $(sh_tests) $(binary_tests)
+TESTS = $(all_tests)
 root_tests = $(all_root_tests)
 
 EXTRA_DIST += $(sh_tests)
