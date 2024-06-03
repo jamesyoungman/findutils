@@ -2453,7 +2453,7 @@ should consider the following line to be part of this one.
 
 Instead of blank-delimited names, it is safer to use @samp{find
 -print0} or @samp{find -fprint0} and process the output by giving the
-@samp{-0} or @samp{--null} option to GNU @code{xargs}, GNU @code{tar},
+@samp{-0} or @samp{--null} option to @code{xargs}, GNU @code{tar},
 GNU @code{cpio}, or @code{perl}.  The @code{locate} command also has a
 @samp{-0} or @samp{--null} option which does the same thing.
 
@@ -2565,6 +2565,9 @@ used by other programs without being mangled or misinterpreted.  You
 can process file names generated this way by giving the @samp{-0} or
 @samp{--null} option to GNU @code{xargs}, GNU @code{tar}, GNU
 @code{cpio}, or @code{perl}.
+
+Both @code{find . -print0} and @code{xargs -0} will be
+POSIX-conforming, starting from the currently-expected Issue 8.
 
 @deffn Action -print0
 True; print the entire file name on the standard output, followed by a
@@ -3908,8 +3911,8 @@ when commands are run. Otherwise, stdin is redirected from
 @itemx -0
 Input file names are terminated by a null character instead of by
 whitespace, and any quotes and backslash characters are not considered
-special (every character is taken literally).  Disables the end of
-file string, which is treated like any other argument.
+special (every character is taken literally). Disables the end of file
+string, which is treated like any other argument.
 
 @item --delimiter @var{delim}
 @itemx -d @var{delim}
@@ -4719,13 +4722,16 @@ this command:
 find /var/tmp/stuff -mtime +90 -print0 | xargs -0 /bin/rm
 @end smallexample
 
-The result is an efficient way of proceeding that
-correctly handles all the possible characters that could appear in the
-list of files to delete.  This is good news.  However, there is, as
-I'm sure you're expecting, also more bad news.  The problem is that
-this is not a portable construct; although other versions of Unix
-(notably BSD-derived ones) support @samp{-print0}, it's not
-universal.  So, is there a more universal mechanism?
+The result is an efficient way of proceeding that correctly handles
+all the possible characters that could appear in the list of files to
+delete.  This is good news.  However, there is, as I'm sure you're
+expecting, also more bad news.  The problem is that this is not a
+portable construct.  Support for @samp{-print0} is not universal.
+
+Although some other versions of Unix (notably BSD-derived ones)
+support @samp{-print0}, this is only required in POSIX from Issue 8
+(which as of 2024-06-03 has not yet been published). So, is there a
+more universal mechanism?
 
 @subsection Going back to @code{-exec}
 
@@ -5600,9 +5606,10 @@ The only ways to avoid this problem are either to avoid all use of
 available) @samp{find -execdir}, or to use the @samp{-0} option, which
 ensures that @code{xargs} considers file names to be separated by
 ASCII NUL characters rather than whitespace.  However, useful as this
-option is, the POSIX standard does not make it mandatory.
+option is, the POSIX standard did not make it mandatory prior to Issue
+8.
 
-POSIX also specifies that @code{xargs} interprets quoting and trailing
+POSIX also specifies that @code{xargs} without @code{-0} interprets quoting and trailing
 whitespace specially in filenames, too.  This means that using
 @code{find ... -print | xargs ...} can cause the commands run by
 @code{xargs} to receive a list of file names which is not the same as
