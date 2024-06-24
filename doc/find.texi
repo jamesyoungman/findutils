@@ -3911,8 +3911,8 @@ when commands are run. Otherwise, stdin is redirected from
 @itemx -0
 Input file names are terminated by a null character instead of by
 whitespace, and any quotes and backslash characters are not considered
-special (every character is taken literally). Disables the end of file
-string, which is treated like any other argument.
+special (every character is taken literally).
+Disables the end-of-file string, which is treated like any other argument.
 
 @item --delimiter @var{delim}
 @itemx -d @var{delim}
