@@ -960,26 +960,6 @@ process_leading_options (int argc, char *argv[])
   return end_of_leading_options;
 }
 
-static struct timespec
-now(void)
-{
-  struct timespec retval;
-  struct timeval tv;
-  time_t t;
-
-  if (0 == gettimeofday (&tv, NULL))
-    {
-      retval.tv_sec  = tv.tv_sec;
-      retval.tv_nsec = tv.tv_usec * 1000; /* convert unit from microseconds to nanoseconds */
-      return retval;
-    }
-  t = time (NULL);
-  assert (t != (time_t)-1);
-  retval.tv_sec = t;
-  retval.tv_nsec = 0;
-  return retval;
-}
-
 void
 set_option_defaults (struct options *p)
 {
@@ -1021,7 +1001,7 @@ set_option_defaults (struct options *p)
   p->explicit_depth = false;
   p->maxdepth = p->mindepth = -1;
 
-  p->start_time = now ();
+  p->start_time = current_timespec ();
   p->cur_day_start.tv_sec = p->start_time.tv_sec - DAYSECS;
   p->cur_day_start.tv_nsec = p->start_time.tv_nsec;
 
