@@ -35,7 +35,7 @@ nodist_locate_TEXINFOS = dblocation.texi
 
 AM_CPPFLAGS = -I$(top_srcdir)/lib -I../gl/lib -I$(top_srcdir)/gl/lib -DLOCATE_DB=\"$(LOCATE_DB)\" -DLOCALEDIR=\"$(localedir)\"
 
-LDADD = ../lib/libfind.a ../gl/lib/libgnulib.a $(LIB_CLOSE) $(LIBINTL) $(LIB_SETLOCALE_NULL) $(LIB_MBRTOWC)
+LDADD = ../lib/libfind.a ../gl/lib/libgnulib.a $(LIBINTL) $(LIB_SETLOCALE_NULL) $(LIB_MBRTOWC)
 
 $(PROGRAMS) $(LIBPROGRAMS): ../lib/libfind.a ../gl/lib/libgnulib.a
 
