@@ -14,6 +14,7 @@ Prerequisites
    on a POSIX system should work.
  * GNU Autoconf
  * GNU Automake
+ * GNU Bison
  * GNU m4
  * GNU gettext
  * GNU Dejagnu

@@ -21,6 +21,9 @@ gendocs_options_ = -s find.texi -I $(abs_builddir)/doc
 
 local-checks-to-skip :=
 
+# Tools used to bootstrap this package, used for "announcement".
+bootstrap-tools = autoconf,automake,gnulib,bison
+
 # Errors I think are too picky anyway.
 local-checks-to-skip += sc_error_message_period sc_error_message_uppercase \
 	sc_file_system sc_indent
