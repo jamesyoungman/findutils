@@ -1353,8 +1353,6 @@ search_one_database (int argc,
 }
 
 
-extern char *version_string;
-
 static void _GL_ATTRIBUTE_NORETURN
 usage (int status)
 {

@@ -1570,7 +1570,7 @@ struct cost_assoc
   enum EvaluationCost cost;
   const char *name;
 };
-struct cost_assoc cost_table[] =
+static struct cost_assoc cost_table[] =
   {
     { NeedsNothing,         "Nothing" },
     { NeedsInodeNumber,     "InodeNumber" },

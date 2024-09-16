@@ -34,7 +34,7 @@
 #endif
 
 extern char *program_name;
-const char *version_string = VERSION;
+static const char *version_string = VERSION;
 
 void
 display_findutils_version (const char *official_name)

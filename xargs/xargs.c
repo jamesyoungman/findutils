@@ -84,8 +84,6 @@
 /* Return nonzero if S is the EOF string.  */
 #define EOF_STR(s) (eof_str && *eof_str == *s && !strcmp (eof_str, s))
 
-extern char *version_string;
-
 static FILE *input_stream;
 
 /* Buffer for reading arguments from input.  */

@@ -130,8 +130,6 @@ static struct option const longopts[] =
   {NULL, no_argument, NULL, 0}
 };
 
-extern char *version_string;
-
 static void _GL_ATTRIBUTE_NORETURN
 usage (int status)
 {
