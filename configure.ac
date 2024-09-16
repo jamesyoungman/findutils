@@ -116,7 +116,6 @@ AC_ARG_ENABLE(compiler-warnings,
 
   # Set up the list of the pointless, undesired warnings.
   findutils_nw=
-  findutils_nw="$findutils_nw -Wsystem-headers"	 # Don't let system headers trigger warnings
   findutils_nw="$findutils_nw -Wundef"           # All compiler preprocessors support #if UNDEF
   findutils_nw="$findutils_nw -Wtraditional"     # All compilers nowadays support ANSI C
   findutils_nw="$findutils_nw -Wconversion"      # These warnings usually don't point to mistakes.
