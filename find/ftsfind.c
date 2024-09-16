@@ -355,6 +355,10 @@ consider_visiting (FTS *p, FTSENT *ent)
             }
           else
             {
+             /* Ignore unlink() error for vanished files.  */
+             if (ENOENT == ent->fts_errno && options.ignore_readdir_race)
+                 return;
+
               nonfatal_target_file_error (ent->fts_errno, ent->fts_path);
               /* Continue despite the error, as file name without stat info
                * might be better than not even processing the file name. This
