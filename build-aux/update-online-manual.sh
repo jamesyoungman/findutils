@@ -209,7 +209,7 @@ send other questions to
 
 <P>
 Copyright &copy; 1997, 1998, 2003, 2005, 2006, 2008 Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,  USA
+&lt;<A HREF="https://fsf.org/">https://fsf.org/</A>&gt;
 
 <P>
 Verbatim copying and distribution of this entire article is
