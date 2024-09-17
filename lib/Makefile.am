@@ -24,7 +24,7 @@ noinst_LIBRARIES = libfind.a
 check_PROGRAMS = regexprops test_splitstring
 check_SCRIPTS = check-regexprops
 regexprops_SOURCES = regexprops.c regextype.c
-regexprops_LDADD = $(LDADD) $(LIB_SETLOCALE_NULL) $(LIB_MBRTOWC)
+regexprops_LDADD = $(LDADD) $(SETLOCALE_NULL_LIB) $(MBRTOWC_LIB)
 
 TESTS =
 if CROSS_COMPILING

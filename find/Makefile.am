@@ -28,7 +28,7 @@ man_MANS         = find.1
 
 EXTRA_DIST = defs.h sharefile.h print.h $(man_MANS)
 AM_CPPFLAGS = -I../gl/lib -I$(top_srcdir)/lib -I$(top_srcdir)/gl/lib -DLOCALEDIR=\"$(localedir)\"
-LDADD = libfindtools.a ../lib/libfind.a ../gl/lib/libgnulib.a $(LIBINTL) $(CLOCK_TIME_LIB) $(EUIDACCESS_LIBGEN) $(LIB_SELINUX) $(MODF_LIBM) $(FINDLIBS) $(GETHOSTNAME_LIB) $(LIB_EACCESS) $(LIB_SETLOCALE_NULL) $(LIB_MBRTOWC)
+LDADD = libfindtools.a ../lib/libfind.a ../gl/lib/libgnulib.a $(LIBINTL) $(CLOCK_TIME_LIB) $(EUIDACCESS_LIBGEN) $(LIB_SELINUX) $(MODF_LIBM) $(FINDLIBS) $(GETHOSTNAME_LIB) $(EUIDACCESS_LIBGEN) $(SETLOCALE_NULL_LIB) $(MBRTOWC_LIB)
 # gnulib advises we link against <first> because we use <second>:
 # $(GETHOSTNAME_LIB)            uname
 # $(CLOCK_TIME_LIB)             gettime

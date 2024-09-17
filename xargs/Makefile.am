@@ -19,7 +19,7 @@ localedir = $(datadir)/locale
 bin_PROGRAMS = xargs
 man_MANS = xargs.1
 AM_CPPFLAGS = -I.. -I../gl/lib -I$(top_srcdir)/gl/lib -I$(top_srcdir)/lib -DLOCALEDIR=\"$(localedir)\"
-LDADD = ../lib/libfind.a ../gl/lib/libgnulib.a $(LIBINTL) $(LIB_SETLOCALE_NULL) $(LIB_MBRTOWC)
+LDADD = ../lib/libfind.a ../gl/lib/libgnulib.a $(LIBINTL) $(SETLOCALE_NULL_LIB) $(MBRTOWC_LIB)
 EXTRA_DIST = $(man_MANS)
 SUBDIRS = . testsuite
 
