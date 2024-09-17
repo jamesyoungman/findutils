@@ -156,7 +156,7 @@ struct status
 
 /* Run xargs and return its exit status */
 static struct status
-run_xargs(const char *option, const char *optarg, int send_signal)
+run_xargs(const char *option, const char *opt_arg, int send_signal)
 {
   int i = 0;
   enum { ARGV_MAX = 9 };
@@ -172,9 +172,9 @@ run_xargs(const char *option, const char *optarg, int send_signal)
     {
       argv[i++] = (char*)option;
     }
-  if (optarg)
+  if (opt_arg)
     {
-      argv[i++] = (char*)optarg;
+      argv[i++] = (char*)opt_arg;
     }
   argv[i++] = (char*)"sh";
   argv[i++] = (char*)"-c";
