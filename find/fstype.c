@@ -27,9 +27,6 @@
 /* system headers. */
 #include <errno.h>
 #include <fcntl.h>
-#if HAVE_MNTENT_H
-# include <mntent.h>
-#endif
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
