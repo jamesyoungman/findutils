@@ -18,7 +18,7 @@
 built_programs = find xargs frcode locate updatedb
 
 AM_CPPFLAGS = -I$(top_srcdir)/gl/lib
-LDADD = $(top_srcdir)/gl/lib/libgnulib.a
+LDADD = $(top_builddir)/gl/lib/libgnulib.a
 
 # Indirections required so that we'll still be able to know the
 # complete list of our tests even if the user overrides TESTS
