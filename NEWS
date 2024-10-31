@@ -7,6 +7,12 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
  'find -ignore_readdir_race' now has a race between FTS read and the visiting
  of the entry when the file was removed. [#45930]
 
+ To fix a POSIX compatibility bug, -exec foo Z{} + is no longer a
+ complete predicate, because '+' is only a terminator when it follows
+ an argument which is exactly '{}'.  The findutils documentation
+ already states this, and now find's behaviour matches the
+ documentation.
+
 ** Documentation Changes
 
  The forthcoming Issue 8 of the POSIX standard will standardise "find
