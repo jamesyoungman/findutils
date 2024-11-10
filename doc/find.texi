@@ -3351,7 +3351,7 @@ useful or which are not obvious are explained here.
 @section Leaf Optimisation
 
 Files in Unix file systems have a link count which indicates how many
-names point to the same inode.  Directories in Unix filssytems have a
+names point to the same inode.  Directories in Unix filesystems have a
 @file{..} entry which functions as a hard link to the parent directory
 and a @file{.} entry which functions as a link to the directory itself.
 The @file{..} entry of the root directory also points to the root.
