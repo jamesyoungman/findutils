@@ -2321,6 +2321,8 @@ takes all arguments after @samp{-execdir} to be part of the command until
 an argument consisting of @samp{;} is reached.
 It replaces the string @samp{@{@}} by the current file name being processed
 everywhere it occurs in the command.
+Each file name except for the root directory @samp{/} is prepended with
+@samp{./}.
 Both of these constructions need to be escaped (with a @samp{\}) or quoted to
 protect them from expansion by the shell.
 The command is executed in the directory which @code{find} was searching at the
@@ -2392,6 +2394,8 @@ command lines containing as many matched files as possible.
 This works as for @samp{-execdir command ;}, except that the result is always
 true, and the @samp{@{@}} at the end of the command is expanded to a list of
 names of matching files.
+Each file name except for the root directory @samp{/} is prepended with
+@samp{./}.
 This expansion is done in such a way as to avoid exceeding the maximum command
 line length available on the system.
 Only one @samp{@{@}} is allowed within the command, and it must appear at the

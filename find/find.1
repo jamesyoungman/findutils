@@ -1314,6 +1314,8 @@ but the specified command is run from the subdirectory
 containing the matched file, which is not normally the directory in
 which you started
 .BR find .
+Each selected file name except for the root directory \fI"/"\fR is
+prepended with \fI"./"\fR.
 As with \-exec, the {} should be quoted if find is being invoked from
 a shell.
 This a much more secure method for invoking commands, as it avoids
