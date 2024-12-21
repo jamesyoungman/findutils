@@ -304,6 +304,9 @@ consider_visiting (FTS *p, FTSENT *ent)
     }
   if (ent->fts_info == FTS_DNR)
     {
+      /* Ignore ENOENT error for vanished directories.  */
+      if (ENOENT == ent->fts_errno && options.ignore_readdir_race)
+        return;
       nonfatal_target_file_error (ent->fts_errno, ent->fts_path);
       if (options.do_dir_first)
         {
@@ -355,7 +358,7 @@ consider_visiting (FTS *p, FTSENT *ent)
             }
           else
             {
-             /* Ignore unlink() error for vanished files.  */
+             /* Ignore ENOENT error for vanished files.  */
              if (ENOENT == ent->fts_errno && options.ignore_readdir_race)
                  return;
 
