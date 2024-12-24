@@ -126,7 +126,7 @@ impl_pred_exec (const char *pathname,
       target = buf = base_name (state.rel_pathname);
       if ('/' == target[0])
         {
-          /* find / execdir ls -d {} \; */
+          /* find / -execdir ls -d {} \; */
           prefix = NULL;
           pfxlen = 0;
         }
