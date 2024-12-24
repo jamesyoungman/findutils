@@ -2318,13 +2318,14 @@ Here is how to run a command on one file at a time.
 @deffn Action -execdir command ;
 Execute @var{command}; true if @var{command} returns zero.  @code{find}
 takes all arguments after @samp{-execdir} to be part of the command until
-an argument consisting of @samp{;} is reached.  It replaces the string
-@samp{@{@}} by the current file name being processed everywhere it
-occurs in the command.  Both of these constructions need to be escaped
-(with a @samp{\}) or quoted to protect them from expansion by the
-shell.  The command is executed in the directory which @code{find}
-was searching at the time the action was executed (that is, @{@} will
-expand to a file in the local directory).
+an argument consisting of @samp{;} is reached.
+It replaces the string @samp{@{@}} by the current file name being processed
+everywhere it occurs in the command.
+Both of these constructions need to be escaped (with a @samp{\}) or quoted to
+protect them from expansion by the shell.
+The command is executed in the directory which @code{find} was searching at the
+time the action was executed (that is, @{@} will expand to a file in the local
+directory).
 
 For example, to compare each C header file in or below the current
 directory with the file @file{/tmp/master}:
@@ -2388,15 +2389,15 @@ The @samp{-execdir} and @samp{-exec} actions have variants that build
 command lines containing as many matched files as possible.
 
 @deffn Action -execdir command @{@} +
-This works as for @samp{-execdir command ;}, except that the result is
-always true, and the @samp{@{@}} at the end of the command is expanded
-to a list of names of matching files.  This expansion is done in such
-a way as to avoid exceeding the maximum command line length available
-on the system.  Only one @samp{@{@}} is allowed within the command,
-and it must appear at the end, immediately before the @samp{+}.  A
-@samp{+} appearing in any position other than immediately after
-@samp{@{@}} is not considered to be special (that is, it does not
-terminate the command).
+This works as for @samp{-execdir command ;}, except that the result is always
+true, and the @samp{@{@}} at the end of the command is expanded to a list of
+names of matching files.
+This expansion is done in such a way as to avoid exceeding the maximum command
+line length available on the system.
+Only one @samp{@{@}} is allowed within the command, and it must appear at the
+end, immediately before the @samp{+}.
+A @samp{+} appearing in any position other than immediately after @samp{@{@}}
+is not considered to be special (that is, it does not terminate the command).
 @end deffn
 
 
