@@ -1,6 +1,6 @@
 # A library of shell functions for autopull.sh, autogen.sh, and bootstrap.
 
-scriptlibversion=2024-04-28.09; # UTC
+scriptlibversion=2024-11-25.15; # UTC
 
 # Copyright (C) 2003-2025 Free Software Foundation, Inc.
 #
@@ -468,11 +468,10 @@ prepare_GNULIB_SRCDIR ()
       # if the GNULIB_REVISION is a commit hash that only exists in
       # origin. In this case, we need a 'git fetch' and then retry
       # 'git checkout "$GNULIB_REVISION"'.
-      (cd "$GNULIB_SRCDIR" \
-       && { git checkout "$GNULIB_REVISION" 2>/dev/null \
-            || { git fetch origin && git checkout "$GNULIB_REVISION"; }
-          }
-      ) || exit $?
+      git -C "$GNULIB_SRCDIR" checkout "$GNULIB_REVISION" 2>/dev/null \
+      || { git -C "$GNULIB_SRCDIR" fetch origin \
+           && git -C "$GNULIB_SRCDIR" checkout "$GNULIB_REVISION"; } \
+      || exit $?
     fi
   else
     if ! $use_git; then
@@ -491,7 +490,7 @@ prepare_GNULIB_SRCDIR ()
       if test -n "$GNULIB_REFDIR" && test -d "$GNULIB_REFDIR"/.git; then
         # Use GNULIB_REFDIR as a reference.
         echo "$0: getting gnulib files..."
-        git submodule update --init --reference "$GNULIB_REFDIR" "$gnulib_path" \
+        git submodule update --init --reference "$GNULIB_REFDIR" "$gnulib_path"\
           || exit $?
       else
         # GNULIB_REFDIR is not set or not usable. Ignore it.
@@ -509,33 +508,65 @@ prepare_GNULIB_SRCDIR ()
         # The subdirectory 'gnulib' does not yet exist. Clone into it.
         echo "$0: getting gnulib files..."
         trap cleanup_gnulib HUP INT PIPE TERM
-        shallow=
-        if test -z "$GNULIB_REVISION"; then
-          if git clone -h 2>&1 | grep -- --depth > /dev/null; then
-            shallow='--depth 2'
-          fi
-          git clone $shallow ${GNULIB_URL:-$default_gnulib_url} "$gnulib_path" \
-            || cleanup_gnulib
+        gnulib_url=${GNULIB_URL:-$default_gnulib_url}
+        if test -n "$GNULIB_REFDIR" && test -d "$GNULIB_REFDIR"/.git; then
+          # Use GNULIB_REFDIR as a reference.
+          git clone "$GNULIB_REFDIR" "$gnulib_path" \
+          && git -C "$gnulib_path" remote set-url origin "$gnulib_url" \
+          && if test -z "$GNULIB_REVISION"; then
+               git -C "$gnulib_path" pull origin \
+               && {
+                 # We want the default branch of "$gnulib_url" (since that's
+                 # the behaviour if GNULIB_REFDIR is not specified), not the
+                 # current branch of "$GNULIB_REFDIR".
+                 default_branch=`LC_ALL=C git -C "$gnulib_path" \
+                                              remote show origin \
+                                 | sed -n -e 's/^ *HEAD branch: //p'`
+                 test -n "$default_branch" || default_branch='master'
+                 git -C "$gnulib_path" checkout "$default_branch"
+               }
+             else
+               # The 'git checkout "$GNULIB_REVISION"' command succeeds if the
+               # GNULIB_REVISION is a commit hash that exists locally, or if it
+               # is a branch name that can be fetched from origin. It fails,
+               # however, if the GNULIB_REVISION is a commit hash that only
+               # exists in origin. In this case, we need a 'git fetch' and then
+               # retry 'git checkout "$GNULIB_REVISION"'.
+               git -C "$gnulib_path" checkout "$GNULIB_REVISION" 2>/dev/null \
+               || { git -C "$gnulib_path" fetch origin \
+                    && git -C "$gnulib_path" checkout "$GNULIB_REVISION"; }
+             fi \
+          || cleanup_gnulib
         else
-          if git fetch -h 2>&1 | grep -- --depth > /dev/null; then
-            shallow='--depth 2'
+          # GNULIB_REFDIR is not set or not usable. Ignore it.
+          shallow=
+          if test -z "$GNULIB_REVISION"; then
+            if git clone -h 2>&1 | grep -- --depth > /dev/null; then
+              shallow='--depth 2'
+            fi
+            git clone $shallow "$gnulib_url" "$gnulib_path" \
+              || cleanup_gnulib
+          else
+            if git fetch -h 2>&1 | grep -- --depth > /dev/null; then
+              shallow='--depth 2'
+            fi
+            mkdir -p "$gnulib_path"
+            # Only want a shallow checkout of $GNULIB_REVISION, but git does not
+            # support cloning by commit hash. So attempt a shallow fetch by
+            # commit hash to minimize the amount of data downloaded and changes
+            # needed to be processed, which can drastically reduce download and
+            # processing time for checkout. If the fetch by commit fails, a
+            # shallow fetch cannot be performed because we do not know what the
+            # depth of the commit is without fetching all commits. So fall back
+            # to fetching all commits.
+            git -C "$gnulib_path" init
+            git -C "$gnulib_path" remote add origin "$gnulib_url"
+            git -C "$gnulib_path" fetch $shallow origin "$GNULIB_REVISION" \
+              || git -C "$gnulib_path" fetch origin \
+              || cleanup_gnulib
+            git -C "$gnulib_path" reset --hard FETCH_HEAD
+            git -C "$gnulib_path" checkout "$GNULIB_REVISION" || cleanup_gnulib
           fi
-          mkdir -p "$gnulib_path"
-          # Only want a shallow checkout of $GNULIB_REVISION, but git does not
-          # support cloning by commit hash. So attempt a shallow fetch by commit
-          # hash to minimize the amount of data downloaded and changes needed to
-          # be processed, which can drastically reduce download and processing
-          # time for checkout. If the fetch by commit fails, a shallow fetch can
-          # not be performed because we do not know what the depth of the commit
-          # is without fetching all commits. So fall back to fetching all
-          # commits.
-          git -C "$gnulib_path" init
-          git -C "$gnulib_path" remote add origin ${GNULIB_URL:-$default_gnulib_url}
-          git -C "$gnulib_path" fetch $shallow origin "$GNULIB_REVISION" \
-            || git -C "$gnulib_path" fetch origin \
-            || cleanup_gnulib
-          git -C "$gnulib_path" reset --hard FETCH_HEAD
-          (cd "$gnulib_path" && git checkout "$GNULIB_REVISION") || cleanup_gnulib
         fi
         trap - HUP INT PIPE TERM
       else
@@ -543,16 +574,15 @@ prepare_GNULIB_SRCDIR ()
         if test -n "$GNULIB_REVISION"; then
           if test -d "$gnulib_path/.git"; then
             # The 'git checkout "$GNULIB_REVISION"' command succeeds if the
-            # GNULIB_REVISION is a commit hash that exists locally, or if it is
-            # branch name that can be fetched from origin. It fails, however,
-            # if the GNULIB_REVISION is a commit hash that only exists in
-            # origin. In this case, we need a 'git fetch' and then retry
-            # 'git checkout "$GNULIB_REVISION"'.
-            (cd "$gnulib_path" \
-             && { git checkout "$GNULIB_REVISION" 2>/dev/null \
-                  || { git fetch origin && git checkout "$GNULIB_REVISION"; }
-                }
-            ) || exit $?
+            # GNULIB_REVISION is a commit hash that exists locally, or if it
+            # is a branch name that can be fetched from origin. It fails,
+            # however, if the GNULIB_REVISION is a commit hash that only
+            # exists in origin. In this case, we need a 'git fetch' and then
+            # retry 'git checkout "$GNULIB_REVISION"'.
+            git -C "$gnulib_path" checkout "$GNULIB_REVISION" 2>/dev/null \
+            || { git -C "$gnulib_path" fetch origin \
+                 && git -C "$gnulib_path" checkout "$GNULIB_REVISION"; } \
+            || exit $?
           else
             die "Error: GNULIB_REVISION is specified in bootstrap.conf," \
                 "but '$gnulib_path' contains no git history"
@@ -682,7 +712,8 @@ Gnulib sources can be fetched in various ways:
 
  * Otherwise, if the 'gnulib' directory does not exist, Gnulib sources
    are cloned into that directory using git from \$GNULIB_URL, defaulting
-   to $default_gnulib_url.
+   to $default_gnulib_url; if GNULIB_REFDIR is set and is a git repository
+   its contents may be used to accelerate the process.
    If the configuration variable GNULIB_REVISION is set in bootstrap.conf,
    then that revision is checked out.
 
@@ -850,9 +881,7 @@ update_po_files() {
     && ls "$ref_po_dir"/*.po 2>/dev/null |
       sed 's|.*/||; s|\.po$||' > "$po_dir/LINGUAS" || return
 
-  langs=$(cd $ref_po_dir && echo *.po | sed 's/\.po//g')
-  test "$langs" = '*' && langs=x
-  for po in $langs; do
+  for po in x $(ls $ref_po_dir | sed -n 's/\.po$//p'); do
     case $po in x) continue;; esac
     new_po="$ref_po_dir/$po.po"
     cksum_file="$ref_po_dir/$po.s1"
@@ -1216,6 +1245,20 @@ autogen()
     $gnulib_tool $gnulib_tool_options --import $gnulib_modules \
       || die "gnulib-tool failed"
 
+    if test $with_gettext = yes && test ! -f $m4_base/gettext.m4; then
+      # The gnulib-tool invocation has removed $m4_base/gettext.m4, that the
+      # AUTOPOINT invocation had installed. This can occur when the gnulib
+      # module 'gettext' was previously present but is now not present any more.
+      # Repeat the AUTOPOINT invocation and the gnulib-tool invocation.
+
+      echo "$0: $AUTOPOINT --force"
+      $AUTOPOINT --force || return
+
+      echo "$0: $gnulib_tool $gnulib_tool_options --import ..."
+      $gnulib_tool $gnulib_tool_options --import $gnulib_modules \
+        || die "gnulib-tool failed"
+    fi
+
     for file in $gnulib_files; do
       symlink_to_dir "$GNULIB_SRCDIR" $file \
         || die "failed to symlink $file"
@@ -1301,7 +1344,7 @@ autogen()
       || die 'cannot generate runtime-po/Makevars'
 
       # Copy identical files from po to runtime-po.
-      (cd po && cp -p Makefile.in.in *-quot *.header *.sed *.sin ../runtime-po)
+      cp -p po/Makefile.in.in po/*-quot po/*.header po/*.sed po/*.sin runtime-po
     fi
   fi
 
@@ -1313,7 +1356,7 @@ autogen()
 # ----------------------------------------------------------------------------
 
 # Local Variables:
-# eval: (add-hook 'before-save-hook 'time-stamp)
+# eval: (add-hook 'before-save-hook 'time-stamp nil t)
 # time-stamp-start: "scriptlibversion="
 # time-stamp-format: "%:y-%02m-%02d.%02H"
 # time-stamp-time-zone: "UTC0"
