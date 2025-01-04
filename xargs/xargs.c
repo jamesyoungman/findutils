@@ -1290,7 +1290,7 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc, char *
   pid_t child;
   int fd[2];
   int buf;
-  size_t r;
+  ptrdiff_t r;
 
   (void) ctl;
   (void) argc;
@@ -1386,70 +1386,54 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc, char *
 
       /* We use safe_read here in order to avoid an error if
          SIGUSR[12] is handled during the read system call. */
-      switch (r = safe_read (fd[0], &buf, sizeof (int)))
-        {
-        case SAFE_READ_ERROR:
-          {
-            close (fd[0]);
-            error (0, errno,
-                   _("errno-buffer safe_read failed in xargs_do_exec "
-                     "(this is probably a bug, please report it)"));
-            break;
-          }
-
-        case sizeof (int):
-          {
-            /* Failure */
-            int childstatus;
-
-            close (fd[0]);
-
-            /* we know the child is about to exit, so wait for that.
-             * We have to do this so that wait_for_proc () does not
-             * change the value of child_error on the basis of the
-             * return value -- since in this case we did not launch
-             * the utility.
-             *
-             * We do the wait before deciding if we failed in order to
-             * avoid creating a zombie, even briefly.
-             */
-            waitpid (child, &childstatus, 0);
-
-
-            if (E2BIG == buf)
-              {
-                return 0; /* Failure; caller should pass fewer args */
-              }
-            else if (ENOENT == buf)
-              {
-                exit (XARGS_EXIT_COMMAND_NOT_FOUND); /* command cannot be found */
-              }
-            else
-              {
-                exit (XARGS_EXIT_COMMAND_CANNOT_BE_RUN); /* command cannot be run */
-              }
-            break;
-          }
-
-        case 0:
-          {
-            /* Failed to read data from pipe; the exec must have
-             * succeeded.  We call add_proc only in this case,
-             * because it increments procs_executing, and we only
-             * want to do that if we didn't already wait for the
-             * child.
-             */
-            add_proc (child);
-            break;
-          }
-        default:
-          {
-            error (EXIT_FAILURE, errno,
-                   _("read returned unexpected value %"PRIuMAX"; "
-                     "this is probably a bug, please report it"), r);
-          }
-        } /* switch on bytes read */
+      r = safe_read (fd[0], &buf, sizeof (int));
       close (fd[0]);
+
+      if (r < 0)
+        {
+          error (0, errno,
+                 _("errno-buffer safe_read failed in xargs_do_exec "
+                   "(this is probably a bug, please report it)"));
+        }
+      else if (0 < r)
+        {
+          /* Failure - the child passed the error via BUF.  */
+          int childstatus;
+
+          /* we know the child is about to exit, so wait for that.
+           * We have to do this so that wait_for_proc () does not
+           * change the value of child_error on the basis of the
+           * return value -- since in this case we did not launch
+           * the utility.
+           *
+           * We do the wait before deciding if we failed in order to
+           * avoid creating a zombie, even briefly.
+           */
+          waitpid (child, &childstatus, 0);
+
+          if (E2BIG == buf)
+            {
+              return 0; /* Failure; caller should pass fewer args */
+            }
+          else if (ENOENT == buf)
+            {
+              exit (XARGS_EXIT_COMMAND_NOT_FOUND); /* command cannot be found */
+            }
+          else
+            {
+              exit (XARGS_EXIT_COMMAND_CANNOT_BE_RUN); /* command cannot be run */
+            }
+        }
+      else /* 0 == r => success */
+        {
+          /* Failed to read data from pipe; the exec must have
+           * succeeded.  We call add_proc only in this case,
+           * because it increments procs_executing, and we only
+           * want to do that if we didn't already wait for the
+           * child.
+           */
+          add_proc (child);
+        }
     }
   return 1;                     /* Success */
 }
