@@ -2,7 +2,7 @@
 # Test that find -exec ... + treats the + as a terminator only when it
 # immediately follows a {}.  See Savannah bug #66365.
 
-# Copyright (C) 2024 Free Software Foundation, Inc.
+# Copyright (C) 2024-2025 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

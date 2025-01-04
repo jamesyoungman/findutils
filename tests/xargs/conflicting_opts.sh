@@ -2,7 +2,7 @@
 # Test mutually exclusive options --max-args, --max-lines, --replace, and
 # their short-option aliases (-L, -l -I -i -n).
 
-# Copyright (C) 2021-2024 Free Software Foundation, Inc.
+# Copyright (C) 2021-2025 Free Software Foundation, Inc.
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
