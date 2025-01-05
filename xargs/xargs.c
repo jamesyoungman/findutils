@@ -1729,7 +1729,7 @@ usage (int status)
     }
 
   fprintf (stdout,
-           _("Usage: %s [OPTION]... COMMAND [INITIAL-ARGS]...\n"),
+           _("Usage: %s [OPTION]... [COMMAND [INITIAL-ARGS]...]\n"),
            program_name);
 
 #define HTL(t) fputs (t, stdout);
@@ -1775,6 +1775,7 @@ usage (int status)
 
   HTL (_("      --help                   display this help and exit\n"));
   HTL (_("      --version                output version information and exit\n\n"));
+  HTL (_("If COMMAND is omitted, the default is 'echo'.\n\n"));
   explain_how_to_report_bugs (stdout, program_name);
   exit (status);
 }
