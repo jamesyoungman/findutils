@@ -3864,6 +3864,10 @@ Print the version number of @code{updatedb} and exit.
 xargs @r{[}@var{option}@dots{}@r{]} @r{[}@var{command} @r{[}@var{initial-arguments}@r{]}@r{]}
 @end example
 
+@code{xargs} executes the @var{command} - the default is @file{echo} - one or
+more times with any @var{initial-arguments} followed by arguments read from
+standard input.
+
 @code{xargs} exits with the following status:
 
 @table @asis
