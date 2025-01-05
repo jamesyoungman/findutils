@@ -38,6 +38,11 @@
 # define MIN(a,b) (a<b?a:b)
 #endif
 
+/* Silence GCC 14.  */
+#if 14 <= __GNUC__
+# pragma GCC diagnostic ignored "-Wanalyzer-out-of-bounds"
+#endif
+
 /* Add one to the absolute value of the number whose textual
    representation is BUF + 1.  Do this in-place, in the buffer.
    Return a pointer to the result, which is normally BUF + 1, but is
