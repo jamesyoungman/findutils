@@ -277,6 +277,27 @@ pred_delete (const char *pathname, struct stat *stat_buf, struct predicate *pred
     }
 }
 
+static bool
+compare_num (enum comparison_type kind, uintmax_t l_val, uintmax_t val)
+{
+  switch (kind)
+    {
+    case COMP_GT:
+      if (val > l_val)
+        return true;
+      break;
+    case COMP_LT:
+      if (val < l_val)
+        return true;
+      break;
+    case COMP_EQ:
+      if (val == l_val)
+        return true;
+      break;
+    }
+  return false;
+}
+
 bool
 pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
 {
@@ -424,22 +445,9 @@ pred_gid (const char *pathname, struct stat *stat_buf, struct predicate *pred_pt
 {
   (void) pathname;
 
-  switch (pred_ptr->args.numinfo.kind)
-    {
-    case COMP_GT:
-      if (stat_buf->st_gid > pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    case COMP_LT:
-      if (stat_buf->st_gid < pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    case COMP_EQ:
-      if (stat_buf->st_gid == pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    }
-  return (false);
+  return compare_num (pred_ptr->args.numinfo.kind,
+                      pred_ptr->args.numinfo.l_val,
+                      stat_buf->st_gid);
 }
 
 bool
@@ -496,22 +504,9 @@ pred_inum (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
 {
   (void) pathname;
 
-  switch (pred_ptr->args.numinfo.kind)
-    {
-    case COMP_GT:
-      if (stat_buf->st_ino > pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    case COMP_LT:
-      if (stat_buf->st_ino < pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    case COMP_EQ:
-      if (stat_buf->st_ino == pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    }
-  return (false);
+  return compare_num (pred_ptr->args.numinfo.kind,
+                      pred_ptr->args.numinfo.l_val,
+                      stat_buf->st_ino);
 }
 
 bool
@@ -529,22 +524,9 @@ pred_links (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 {
   (void) pathname;
 
-  switch (pred_ptr->args.numinfo.kind)
-    {
-    case COMP_GT:
-      if (stat_buf->st_nlink > pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    case COMP_LT:
-      if (stat_buf->st_nlink < pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    case COMP_EQ:
-      if (stat_buf->st_nlink == pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    }
-  return (false);
+  return compare_num (pred_ptr->args.numinfo.kind,
+                      pred_ptr->args.numinfo.l_val,
+                      stat_buf->st_nlink);
 }
 
 bool
@@ -908,22 +890,10 @@ pred_size (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
   (void) pathname;
   f_val = ((stat_buf->st_size / pred_ptr->args.size.blocksize)
            + (stat_buf->st_size % pred_ptr->args.size.blocksize != 0));
-  switch (pred_ptr->args.size.kind)
-    {
-    case COMP_GT:
-      if (f_val > pred_ptr->args.size.size)
-        return (true);
-      break;
-    case COMP_LT:
-      if (f_val < pred_ptr->args.size.size)
-        return (true);
-      break;
-    case COMP_EQ:
-      if (f_val == pred_ptr->args.size.size)
-        return (true);
-      break;
-    }
-  return (false);
+
+  return compare_num (pred_ptr->args.size.kind,
+                      pred_ptr->args.size.size,
+                      f_val);
 }
 
 bool
@@ -1076,22 +1046,9 @@ bool
 pred_uid (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
 {
   (void) pathname;
-  switch (pred_ptr->args.numinfo.kind)
-    {
-    case COMP_GT:
-      if (stat_buf->st_uid > pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    case COMP_LT:
-      if (stat_buf->st_uid < pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    case COMP_EQ:
-      if (stat_buf->st_uid == pred_ptr->args.numinfo.l_val)
-        return (true);
-      break;
-    }
-  return (false);
+  return compare_num (pred_ptr->args.numinfo.kind,
+                      pred_ptr->args.numinfo.l_val,
+                      stat_buf->st_uid);
 }
 
 bool
