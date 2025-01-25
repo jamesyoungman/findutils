@@ -4,6 +4,10 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 ** Bug Fixes
 
+  find no longer crashes when diagnosing a directory cycle (without a symlink
+  being involved pointing to a parent directory).
+  [Bug present since the FTS implementation.]
+
   'find -ignore_readdir_race' now better handles races between FTS reading a
   directory and visiting its entries when the file or directory was meanwhile
   removed. [#45930]
