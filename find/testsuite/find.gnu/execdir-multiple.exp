@@ -22,8 +22,7 @@ set -e
 here=`pwd`
 d=`basename $here`
 
-for arg;
-do
+for arg; do
   echo "$d" "$arg"
 done | LC_ALL=C sort
 }
