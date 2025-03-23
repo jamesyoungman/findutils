@@ -662,6 +662,20 @@ find_parser (const char *search_name)
     {
       if (strcmp (parse_table[i].parser_name, search_name) == 0)
         {
+          /* FIXME >4.11: fix parser to disallow dashed operators like '-!'.
+           * Meanwhile, issue a warning.  */
+          if (   (original_arg < search_name) /* with '-' */
+              && (ARG_PUNCTUATION == parse_table[i].type)
+              && (   search_name[0] == '!' || search_name[0] == ','
+                  || search_name[0] == '(' || search_name[0] == ')')
+              && (search_name[1] == '\0'))
+            {
+              error (0, 0,
+                     _("warning: operator '%s' (with leading dash '-') will "
+                       "no longer be accepted in future findutils releases!"),
+                    original_arg);
+            }
+
           return found_parser (original_arg, &parse_table[i]);
         }
     }

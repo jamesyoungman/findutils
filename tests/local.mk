@@ -122,6 +122,7 @@ sh_tests = \
   tests/find/printf_escapechars.sh \
   tests/find/printf_escape_c.sh \
   tests/find/printf_inode.sh \
+  tests/find/operators-wrong-with-dash.sh \
   tests/find/execdir-fd-leak.sh \
   tests/find/exec-plus-last-file.sh \
   tests/find/files0-from.sh \

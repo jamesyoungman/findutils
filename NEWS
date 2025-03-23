@@ -24,6 +24,10 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   argument of the command to be run.  While POSIX allows this for -exec, this is
   deemed insecure as an attacker could influence which files could be found.
 
+  find now issues a warning when the punctuation operators '(', ')', '!' and ','
+  are passed with a leading dash, e.g. '-!'.  Future releases will not accept
+  that any more.  Accepting that was rather a bug "since the beginning".
+
 ** Documentation Changes
 
   The forthcoming Issue 8 of the POSIX standard will standardise "find
