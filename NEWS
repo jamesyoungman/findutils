@@ -33,6 +33,8 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   The forthcoming Issue 8 of the POSIX standard will standardise "find
   -print0" and "xargs -0".  Our documentation now points this out.
 
+  Translators contributed numerous fixes for issues in the find.1 man page.
+
 
 * Noteworthy changes in release 4.10.0 (2024-06-01) [stable]
 
