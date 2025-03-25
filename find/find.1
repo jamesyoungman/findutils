@@ -4,8 +4,9 @@
 find \- search for files in a directory hierarchy
 .SH SYNOPSIS
 .B find
-[\-H] [\-L] [\-P] [\-D debugopts] [\-Olevel] [starting-point...\&] [expression]
-.
+[\-H] [\-L] [\-P] [\-D debugopts] [\-O\fIlevel\fP] [starting-point...\&] \
+[expression]
+ .
 .SH DESCRIPTION
 This manual page
 documents the GNU version of
@@ -70,8 +71,8 @@ could theoretically be used to signal that any remaining arguments
 are not options, but this does not really work due to the way
 .B find
 determines the end of the following path arguments: it does that by reading
-until an expression argument comes (which also starts with a `-').
-Now, if a path argument would start with a `-', then
+until an expression argument comes (which also starts with a `\-').
+Now, if a path argument would start with a `\-', then
 .B find
 would treat it as expression argument instead.
 Thus, to ensure that all start points are taken as such, and especially to
@@ -259,7 +260,7 @@ Enable all of the other debug options (but
 .IP help
 Explain the debugging options.
 .RE
-.IP \-Olevel
+.IP "\-O\fIlevel\fP \&"
 Enables query optimisation.
 The
 .B find
@@ -336,8 +337,9 @@ predicates are sensitive to re-ordering.  If they are run in the order
 an error message will be issued for unreadable directories.  If they
 are run in the order
 .B \-readable \-empty
-no error message will be issued. This is the reason why such operation
-re-ordering is not performed at the default optimisation level.
+no error message will be issued.
+This is the reason why such operation re-ordering is not performed at the
+default optimisation level.
 .
 .SH EXPRESSION
 The part of the command line after the list of starting points is the
@@ -431,7 +433,7 @@ and
 from the beginning of today rather than from 24 hours ago.  This
 option only affects tests which appear later on the command line.
 
-.IP \-follow
+.IP "\-follow \&"
 Deprecated; use the
 .B \-L
 option instead.  Dereference symbolic links.
@@ -543,7 +545,7 @@ The \fIfile\fR argument is mandatory.
 One can use
 .B \-files0\-from\ \-
 to read the list of starting points from the \fIstandard input\fR stream,
-and e.g. from a pipe.
+and e.g.\& from a pipe.
 In this case, the actions
 .B \-ok
 and
@@ -562,7 +564,7 @@ arguments.
 This is unlike the standard invocation where \fBfind\fR assumes the current
 directory as starting point if no path argument is passed.
 
-The processing of the starting points is otherwise as usual, e.g.
+The processing of the starting points is otherwise as usual, e.g.\&
 .B find
 will recurse into subdirectories unless otherwise prevented.
 To process only the starting points, one can additionally pass
@@ -635,7 +637,7 @@ for compatibility with some other versions of
 Turns off the effect of
 .BR \-ignore_readdir_race .
 
-.IP "\-noleaf"
+.IP "\-noleaf \&"
 Do not optimize by assuming that directories contain 2 fewer
 subdirectories than their hard link count.  This option is needed when
 searching filesystems that do not follow the Unix directory-link
@@ -687,7 +689,7 @@ A numeric argument \fIn\fR can be specified to tests (like
 .BR \-inum ,
 .BR \-links ,
 .BR \-size ,
-.BR \-uid
+.B \-uid
 and
 .BR \-used )
 as
@@ -704,7 +706,7 @@ for exactly
 .P
 Supported tests:
 
-.IP "\-amin \fIn\fR"
+.IP "\-amin \fIn\fR \&"
 File was last accessed less than, more than or exactly \fIn\fR minutes ago.
 
 .IP "\-anewer \fIreference\fR"
@@ -730,7 +732,7 @@ a file has to have been accessed at least
 .I two
 days ago.
 
-.IP "\-cmin \fIn\fR"
+.IP "\-cmin \fIn\fR \&"
 File's status was last changed less than, more than or exactly \fIn\fR minutes
 ago.
 
@@ -814,7 +816,7 @@ patterns `fo*' and `F??' match the file names `Foo', `FOO', `foo',
 `fOo', etc.
 The pattern `*foo*` will also match a file called '.foobar'.
 
-.IP "\-inum \fIn\fR"
+.IP "\-inum \fIn\fR \&"
 File has inode number smaller than, greater than or exactly
 .IR n .
 It is normally easier to use the
@@ -849,7 +851,7 @@ option or the
 option is in effect, this test returns false unless the symbolic link
 is broken.
 
-.IP "\-mmin \fIn\fR"
+.IP "\-mmin \fIn\fR \&"
 File's data was last modified less than, more than or exactly \fIn\fR minutes
 ago.
 
@@ -872,11 +874,11 @@ should not include a slash, because `\-name a/b' will never match anything
 (and you probably want to use
 .B \-path
 instead).
-An exception to this is when using only a slash as \fIpattern\fR (`-name /'),
+An exception to this is when using only a slash as \fIpattern\fR (`\-name /'),
 because that is a valid string for matching the root directory "/" (because the
 base name of "/" is "/").
-A warning is issued if you try to pass a pattern containing a - but not
-consisting solely of one - slash, unless the environment variable
+A warning is issued if you try to pass a pattern containing a \- but not
+consisting solely of one \- slash, unless the environment variable
 .B POSIXLY_CORRECT
 is set or the option
 .B \-nowarn
@@ -955,9 +957,9 @@ File name matches shell pattern
 .IR pattern .
 The metacharacters do not treat `/' or `.\&' specially;
 so, for example,
-.in +4m
+.in +4n
 .nf
-find . \-path \(dq./sr*sc\(dq
+find .\& \-path \(dq./sr*sc\(dq
 .fi
 .in
 will print an entry for a directory called
@@ -972,7 +974,7 @@ would only make sense to use an absolute path name here if the
 relevant start point is also an absolute path.  This means that this
 command will never match anything:
 .br
-.in +4m
+.in +4n
 .nf
 find bar \-path /foo/bar/myfile \-print
 .fi
@@ -1045,7 +1047,7 @@ File name matches regular expression
 .IR pattern .
 This is a match on the whole path, not a search.
 For example, to match a file named
-.IR ./fubar3,
+.IR ./fubar3 ,
 you can use the regular expression `.*bar.\&' or `.*b.*3',
 but not `f.*r3'.
 The regular expressions understood by
@@ -1092,7 +1094,7 @@ differently.  The `b' suffix always denotes 512-byte blocks and never
 1024-byte blocks, which is different to the behaviour of
 .BR \-ls .
 .IP
-The + and - prefixes signify greater than and less than, as usual;
+The + and \- prefixes signify greater than and less than, as usual;
 i.e., an exact size of \fIn\fR units does not match.
 Bear in mind that the size is rounded up to the next unit.
 Therefore
@@ -1104,7 +1106,7 @@ The former only matches empty files, the latter matches files from 0 to
 .IP \-true
 Always true.
 
-.IP "\-type \fIc\fR"
+.IP "\-type \fIc\fR \&"
 File is of type
 .IR c :
 .RS
@@ -1140,7 +1142,7 @@ type letters separated by a comma `,' (GNU extension).
 File's numeric user ID is less than, more than or exactly
 .IR n .
 
-.IP "\-used \fIn\fR"
+.IP "\-used \fIn\fR \&"
 File was last accessed less than, more than or exactly \fIn\fR days after its
 status was last changed.
 
@@ -1151,7 +1153,7 @@ File is owned by user \fIuname\fR (numeric user ID allowed).
 See \-path.  This alternative is less portable than
 .BR \-path .
 
-.IP "\-writable"
+.IP \-writable
 Matches files which are writable by the current user.  This takes into
 account access control lists and other permissions artefacts which the
 .B \-perm
@@ -1193,7 +1195,7 @@ will behave the same as
 .IR pattern .
 
 .SS ACTIONS
-.IP "\-delete\fR"
+.IP "\-delete \&"
 Delete files or directories; true if removal succeeded.
 If the removal failed, an error message is issued and
 .BR find 's
@@ -1410,7 +1412,7 @@ section for information about how unusual characters in filenames are handled.
 True; list current file in
 .B ls \-dils
 format on standard output.
-The block counts are of 1\ KB blocks, unless the environment variable
+The block counts are of 1\ KiB blocks, unless the environment variable
 .B POSIXLY_CORRECT
 is set, in which case 512-byte blocks are used.
 See the
@@ -1476,7 +1478,7 @@ See the
 .B UNUSUAL FILENAMES
 section for information about how unusual characters in filenames are handled.
 
-.IP \-print0
+.IP "\-print0 \&"
 True; print the full file name on the standard output, followed by a
 null character (instead of the newline character that
 .B \-print
@@ -1543,7 +1545,8 @@ The following shows an incomplete list of possible values for \fIk\fR.
 Please refer to the documentation of
 .BR strftime (3)
 for the full list.
-Some of the conversion specification characters might not be available on all systems,
+Some of the conversion specification characters might not be available on
+all systems,
 due to differences in the implementation of the
 .BR strftime (3)
 library function.
@@ -1677,7 +1680,7 @@ Starting-point under which file was found.
 .IP %i
 File's inode number (in decimal).
 .IP %k
-The amount of disk space used for this file in 1\ KB blocks.
+The amount of disk space used for this file in 1\ KiB blocks.
 Since disk space is allocated in multiples of the filesystem block
 size this is usually greater than %s/1024,
 but it can also be smaller if the file is a sparse file.
@@ -1792,14 +1795,14 @@ For example, to skip the directory
 .I src/emacs
 and all files and directories under it, and print the names of the other files
 found, do something like this:
-.in +4m
+.in +4n
 .nf
-find . \-path ./src/emacs \-prune \-o \-print
+find .\& \-path ./src/emacs \-prune \-o \-print
 .fi
 .in
 
 
-.IP "\-quit"
+.IP \-quit
 Exit immediately (with return value zero if no errors have occurred).
 This is different to
 .B \-prune
@@ -1827,9 +1830,9 @@ One common use of
 is to stop searching the file system once we have
 found what we want.  For example, if we want to find just a single
 file we can do this:
-.in +4m
+.in +4n
 .nf
-find / -name needle -print -quit
+find / \-name needle \-print \-quit
 .fi
 .in
 
@@ -1893,7 +1896,7 @@ an explicit operator between them) or explicitly has higher precedence
 than
 .BR \-o .
 This means that
-.B find . \-name afile \-o \-name bfile \-print
+.B find .\& \-name afile \-o \-name bfile \-print
 will never print
 .IR afile .
 .
@@ -1965,7 +1968,7 @@ and
 .B \-okdir
 actions print the current filename as-is.  This may change in a future release.
 .
-.SH "STANDARDS CONFORMANCE"
+.SH STANDARDS CONFORMANCE
 For closest compliance to the POSIX standard, you should set the
 .B POSIXLY_CORRECT
 environment variable.
@@ -2117,7 +2120,7 @@ or
 .B \-iregex
 tests because those tests aren't specified in the POSIX standard.
 .
-.SH "ENVIRONMENT VARIABLES"
+.SH ENVIRONMENT VARIABLES
 
 .IP LANG
 Provides a default value for the internationalization variables that
@@ -2172,7 +2175,7 @@ the response to the prompt made by the
 .B \-ok
 action.
 
-.IP NLSPATH
+.IP "NLSPATH \&"
 Determines the location of the internationalisation message catalogues.
 
 .IP PATH
@@ -2230,10 +2233,15 @@ directives of
 and
 .BR \-fprintf .
 .
-.SH "EXAMPLES"
+.SH EXAMPLES
 .\" A bulleted \[bu] list of examples.
 .SS Simple `find|xargs` approach
-.IP \[bu]
+.\.".nr margin_n \n[an-margin]u/1n
+.\"an-margin is \n[margin_n]n
+.\".nr prev-indent_n \n[an-prevailing-indent]u/1n
+.\"an-prevailing-indent] is \n[prev-indent_n]n
+.\".br
+.IP \[bu] 4n
 Find files named
 .I core
 in or below the directory
@@ -2241,7 +2249,7 @@ in or below the directory
 and delete them.
 .nf
 \&
-.in +4m
+.in +4n
 .B $ find /tmp \-name core \-type f \-print | xargs /bin/rm \-f
 .in
 \&
@@ -2249,15 +2257,15 @@ and delete them.
 Note that this will work incorrectly if there are
 any filenames containing newlines, single or double quotes, or spaces.
 .
-.SS Safer `find -print0 | xargs -0` approach
-.IP \[bu]
+.SS Safer `find \-print0 | xargs \-0` approach
+.IP \[bu] 4n
 Find files named \fIcore\fP in or below the directory \fI/tmp\fP
 and delete them, processing filenames in such a way that file or
 directory names containing single or double quotes, spaces or newlines
 are correctly handled.
 .nf
 \&
-.in +4m
+.in +4n
 .B $ find /tmp \-name core \-type f \-print0 | xargs \-0 /bin/rm \-f
 .in
 \&
@@ -2278,13 +2286,13 @@ process executed by
 works with that file.
 .
 .SS Processing arbitrary starting points
-.IP \[bu]
+.IP \[bu] 4n
 Given that another program \fIproggy\fR pre-filters and creates a huge
 NUL-separated list of files, process those as starting points, and find
 all regular, empty files among them:
 .nf
 \&
-.in +4m
+.in +4n
 .B $ proggy | find \-files0\-from \- \-maxdepth 0 \-type f \-empty
 .in
 \&
@@ -2299,14 +2307,14 @@ into directories (in the case one of the starting points is one).
 .
 .SS
 Executing a command for each file
-.IP \[bu]
+.IP \[bu] 4n
 Run
 .I file
 on every file in or below the current directory.
 .nf
 \&
-.in +4m
-.B $ find . \-type f \-exec file \(aq{}\(aq \e;
+.in +4n
+.B $ find .\& \-type f \-exec file \(aq{}\(aq \e;
 .in
 \&
 .fi
@@ -2321,8 +2329,8 @@ or better the
 .B `\-execdir\ \&...\&\ +`
 syntax for performance and security reasons.
 .
-.SS Traversing the filesystem just once - for 2 different actions
-.IP \[bu]
+.SS Traversing the filesystem just once \(en for 2 different actions
+.IP \[bu] 4n
 Traverse the filesystem just once, listing set-user-ID files and
 directories into
 .I /root/suid.txt
@@ -2330,14 +2338,14 @@ and large files into
 .IR /root/big.txt .
 .nf
 \&
-.in +4m
+.in +4n
 .B $ find / \e
-.in +4m
+.in +4n
 .B \e( \-perm \-4000 \-fprintf /root/suid.txt \(aq%#m %u %p\en\(aq \e) , \e
 .br
 .B \e( \-size +100M \-fprintf /root/big.txt  \(aq%\-10s %p\en\(aq \e)
-.in -4m
-.in -4m
+.in -4n
+.in -4n
 \&
 .fi
 This example uses the line-continuation character \(aq\e\(aq on the first two
@@ -2345,12 +2353,12 @@ lines to instruct the shell to continue reading the command on the next line.
 .
 .SS
 Searching files by age
-.IP \[bu]
+.IP \[bu] 4n
 Search for files in your home directory which have been modified in
 the last twenty-four hours.
 .nf
 \&
-.in +4m
+.in +4n
 .B $ find $HOME  \-mtime 0
 .in
 \&
@@ -2365,23 +2373,23 @@ a file will have to have a modification in the past which is less than
 .
 .SS
 Searching files by permissions
-.IP \[bu]
+.IP \[bu] 4n
 Search for files which are executable but not readable.
 .nf
 \&
-.in +4m
+.in +4n
 .B $ find /sbin /usr/sbin \-executable \e! \-readable \-print
 .in
 \&
 .fi
 .
-.IP \[bu]
+.IP \[bu] 4n
 Search for files which have read and write permission for their owner,
 and group, but which other users can read but not write to.
 .nf
 \&
-.in +4m
-.B $ find . \-perm 664
+.in +4n
+.B $ find .\& \-perm 664
 .in
 \&
 .fi
@@ -2395,8 +2403,8 @@ presence of any extra permission bits (for example the executable
 bit).
 .nf
 \&
-.in +4m
-.B $ find . \-perm \-664
+.in +4n
+.B $ find .\& \-perm \-664
 .in
 \&
 .fi
@@ -2409,8 +2417,8 @@ Search for files which are writable by somebody (their owner, or
 their group, or anybody else).
 .nf
 \&
-.in +4m
-.B $ find . \-perm /222
+.in +4n
+.B $ find .\& \-perm /222
 .in
 \&
 .fi
@@ -2419,10 +2427,10 @@ their group, or anybody else).
 Search for files which are writable by either their owner or their group.
 .nf
 \&
-.in +4m
-.B $ find . \-perm /220
-.B $ find . \-perm /u+w,g+w
-.B $ find . \-perm /u=w,g=w
+.in +4n
+.B $ find .\& \-perm /220
+.B $ find .\& \-perm /u+w,g+w
+.B $ find .\& \-perm /u=w,g=w
 .in
 \&
 .fi
@@ -2436,9 +2444,9 @@ either will do.
 Search for files which are writable by both their owner and their group.
 .nf
 \&
-.in +4m
-.B $ find . \-perm \-220
-.B $ find . \-perm \-g+w,u+w
+.in +4n
+.B $ find .\& \-perm \-220
+.B $ find .\& \-perm \-g+w,u+w
 .in
 \&
 .fi
@@ -2448,9 +2456,9 @@ Both these commands do the same thing.
 A more elaborate search on permissions.
 .nf
 \&
-.in +4m
-.B $ find . \-perm \-444 \-perm /222 \e! \-perm /111
-.B $ find . \-perm \-a+r \-perm /a+w \e! \-perm /a+x
+.in +4n
+.B $ find .\& \-perm \-444 \-perm /222 \e! \-perm /111
+.B $ find .\& \-perm \-a+r \-perm /a+w \e! \-perm /a+x
 .in
 \&
 .fi
@@ -2464,14 +2472,14 @@ set
 or
 .BR "\-perm /a+w" )
 but are not executable for anybody
-.RB ( "! \-perm /111"
+.RB ( "!\& \-perm /111"
 or
-.B ! \-perm /a+x
+.B !\& \-perm /a+x
 respectively).
 .
 .SS
-Pruning - omitting files and subdirectories
-.IP \[bu]
+Pruning \(en omitting files and subdirectories
+.IP \[bu] 4n
 Copy the contents of
 .I /source-dir
 to
@@ -2482,14 +2490,14 @@ but omit files and directories named
 `\(ti', but not their contents.
 .nf
 \&
-.in +4m
+.in +4n
 .B $ cd /source-dir
-.B $ find . \-name .snapshot \-prune \-o \e( \e! \-name \(aq*~\(aq \-print0 \e) \e
+.B $ find .\& \-name .snapshot \-prune \-o \e( \e! \-name \(aq*~\(aq \-print0 \e) \e
 .br
-.in +4m
+.in +4n
 .B | cpio \-pmd0  /dest-dir
-.in -4m
-.in -4m
+.in -4n
+.in -4n
 \&
 .fi
 The construct
@@ -2515,27 +2523,27 @@ binds more tightly than
 this is the default anyway, but the parentheses help to show
 what is going on.
 .
-.IP \[bu]
+.IP \[bu] 4n
 Given the following directory of projects and their associated SCM
 administrative directories, perform an efficient search for the
 projects' roots:
 .nf
 \&
-.in +4m
+.in +4n
 .B $ find repo/ \e
-.in +4m
+.in +4n
 .B \e( \-exec test \-d \(aq{}/.svn\(aq \e; \e
 .B \-or \-exec test \-d \(aq{}/.git\(aq \e; \e
 .B \-or \-exec test \-d \(aq{}/CVS\(aq \e; \e
 .B \e) \-print \-prune
-.in -4m
-.in -4m
+.in -4n
+.in -4n
 \&
 .fi
 Sample output:
 .nf
 \&
-.in +4m
+.in +4n
 .B repo/project1/CVS
 .B repo/gnu/project2/.svn
 .B repo/gnu/project3/.svn
@@ -2559,11 +2567,11 @@ are found.
 .
 .SS
 Other useful examples
-.IP \[bu]
+.IP \[bu] 4n
 Search for several file types.
 .nf
 \&
-.in +4m
+.in +4n
 .B $ find /tmp \-type f,d,l
 .in
 \&
@@ -2574,25 +2582,25 @@ passing these types as a comma-separated list (GNU extension),
 which is otherwise equivalent to the longer, yet more portable:
 .nf
 \&
-.in +4m
+.in +4n
 .B $ find /tmp \e( \-type f \-o \-type d \-o \-type l \e)
 .in
 \&
 .fi
 .
-.IP \[bu]
+.IP \[bu] 4n
 Search for files with the particular name
 .I needle
 and stop immediately when we find the first one.
 .nf
 \&
-.in +4m
-.B $ find / -name needle -print -quit
+.in +4n
+.B $ find / \-name needle \-print \-quit
 .in
 \&
 .fi
 .
-.IP \[bu]
+.IP \[bu] 4n
 Demonstrate the interpretation of the
 .B %f
 and
@@ -2603,8 +2611,9 @@ action for some corner-cases.
 Here is an example including some output.
 .nf
 \&
-.in +4m
-.B $ find . .. / /tmp /tmp/TRACE compile compile/64/tests/find -maxdepth 0 -printf '[%h][%f]\en'
+.in +4n
+.B $ find .\& .. / /tmp /tmp/TRACE compile compile/64/tests/find \e
+.B "  \-maxdepth 0 \-printf '[%h][%f]\en'"
 .B [.][.]
 .B [.][..]
 .B [][/]
@@ -2632,17 +2641,18 @@ For example, some starting points may not have been examined or some
 pending program invocations for
 .B \-exec\ \&...\&\ {}\ +
 or
-.B "\-execdir\ \&...\&\ {}\ +
+.B \-execdir\ \&...\&\ {}\ +
 may not have been performed.
 .
-.SH "HISTORY"
+.SH HISTORY
 
 A
 .B find
 program appeared in Version 5 Unix as part of the
 Programmer's Workbench project and was written by Dick Haight.  Doug
 McIlroy's
-.I A Research UNIX Reader: Annotated Excerpts from the Programmer’s Manual, 1971-1986
+.I A Research UNIX Reader: Annotated Excerpts from the Programmer’s \
+Manual, 1971\(en1986
 provides some additional details; you can read it on-line at
 <https://www.cs.dartmouth.edu/~doug/reader.pdf>.
 
@@ -2651,12 +2661,12 @@ GNU
 was originally written by Eric Decker, with
 enhancements by David MacKenzie, Jay Plett, and Tim Wood.  The idea
 for
-.B find -print0
+.B find \-print0
 and
-.B xargs -0
+.B xargs \-0
 came from Dan Bernstein.
 .
-.SH "COMPATIBILITY"
+.SH COMPATIBILITY
 As of findutils-4.2.2, shell metacharacters (`*', `?' or `[]' for
 example) used in filename patterns match a leading `.', because
 IEEE POSIX interpretation 126 requires this.
@@ -2679,6 +2689,7 @@ will not exit immediately.  Previously,
 .BR find 's
 exit status was unaffected by the failure of
 .BR \-delete .
+
 .TS
 l l l .
 Feature	Added in	Also occurs in
@@ -2690,7 +2701,7 @@ Feature	Added in	Also occurs in
 \-writable	4.3.0
 \-executable	4.3.0
 \-regextype	4.2.24
-\-exec ... +	4.2.12	POSIX
+\-exec ...\& +	4.2.12	POSIX
 \-execdir	4.2.12	BSD
 \-okdir	4.2.12
 \-samefile	4.2.11
@@ -2712,23 +2723,23 @@ Feature	Added in	Also occurs in
 .TE
 .P
 The syntax
-\.B \-perm +MODE
+.B \-perm +MODE
 was removed in findutils-4.5.12, in favour of
-\.B \-perm
+.B \-perm
 .BR /MODE .
 The
 .B +MODE
 syntax had been deprecated since findutils-4.2.21
 which was released in 2005.
 .
-.SH "NON-BUGS"
+.SH NON-BUGS
 .SS Operator precedence surprises
 The command
-.B find . \-name afile \-o \-name bfile \-print
+.B find .\& \-name afile \-o \-name bfile \-print
 will never print
 .I afile
 because this is actually equivalent to
-.BR "find . \-name afile \-o \e( \-name bfile \-a \-print \e)" .
+.BR "find .\& \-name afile \-o \e( \-name bfile \-a \-print \e)" .
 Remember that the precedence of
 .B \-a
 is higher than that of
@@ -2738,9 +2749,9 @@ and when there is no operator specified between tests,
 is assumed.
 .SS \(lqpaths must precede expression\(rq error message
 .nf
-.B $ find . \-name *.c \-print
+.B $ find .\& \-name *.c \-print
 find: paths must precede expression
-find: possible unquoted pattern after predicate `-name'?
+find: possible unquoted pattern after predicate `\-name'?
 .fi
 .P
 This happens when the shell could expand the pattern
@@ -2751,7 +2762,7 @@ and passing the resulting file names in the command line to
 like this:
 .nf
 .
-.B find . \-name frcode.c locate.c word_io.c \-print
+.B find .\& \-name frcode.c locate.c word_io.c \-print
 .
 .fi
 That command is of course not going to work, because the
@@ -2763,11 +2774,11 @@ allowing
 to use the pattern with the wildcard during the search for file name matching
 instead of file names expanded by the parent shell:
 .nf
-.B $ find . \-name \(aq*.c\(aq \-print
-.B $ find . \-name \e*.c \-print
+.B $ find .\& \-name \(aq*.c\(aq \-print
+.B $ find .\& \-name \e*.c \-print
 .fi
 .
-.SH "BUGS"
+.SH BUGS
 There are security problems inherent in the behaviour that the POSIX
 standard specifies for
 .BR find ,
@@ -2785,7 +2796,7 @@ has no effect on the
 .B \-ok
 action.
 .
-.SH "REPORTING BUGS"
+.SH REPORTING BUGS
 GNU findutils online help: <https://www.gnu.org/software/findutils/#get-help>
 .br
 Report any translation bugs to <https://translationproject.org/team/>
@@ -2808,7 +2819,7 @@ License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
 .
-.SH "SEE ALSO"
+.SH SEE ALSO
 .BR chmod (1),
 .BR locate (1),
 .BR ls (1),
@@ -2819,7 +2830,7 @@ There is NO WARRANTY, to the extent permitted by law.
 .BR ctime (3)
 .BR fnmatch (3),
 .BR printf (3),
-.BR strftime (3),
+.BR \%strftime (3),
 .BR locatedb (5),
 .BR regex (7)
 .PP
