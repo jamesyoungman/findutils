@@ -462,11 +462,6 @@ PREDICATEFUNCTION pred_context;
 bool pred_quit (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
   _GL_ATTRIBUTE_NORETURN;
 
-
-
-char *find_pred_name (PRED_FUNC pred_func);
-
-
 void print_predicate (FILE *fp, const struct predicate *p);
 void print_tree (FILE*, struct predicate *node, int indent);
 void print_list (FILE*, struct predicate *node);

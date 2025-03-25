@@ -2487,9 +2487,6 @@ parse_context (const struct parser_table* entry, char **argv, int *arg_ptr)
   our_pred = insert_primary (entry, NULL);
   our_pred->est_success_rate = 0.01f;
   our_pred->need_stat = false;
-#ifdef DEBUG
-  our_pred->p_name = find_pred_name (pred_context);
-#endif /*DEBUG*/
   our_pred->args.scontext = argv[*arg_ptr];
 
   (*arg_ptr)++;
