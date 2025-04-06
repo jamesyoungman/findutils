@@ -161,6 +161,16 @@ printf '%s\0' a ENOENT b \
 compare exp out || fail=1
 grep 'ENOENT' err || fail=1
 
+# Exercise passing -files0-from multiple times: only the last FILE shall be
+# taken, and the former one(s) shall silently be ignored.
+printf '%s\0' m1 > m1 || framework_failure_
+printf '%s\0' m2 > m2 || framework_failure_
+printf '%s\0' m3 > m3 || framework_failure_
+tr '\0' '\n' < m3 > exp || framework_failure_
+find -files0-from m1 -files0-from m2 -files0-from m3 > out 2> err || fail=1
+compare exp out || fail=1
+compare /dev/null err || fail=1
+
 # Demonstrate (the usual!) recursion ...
 mkdir d1 d1/d2 d1/d2/d3 && touch d1/d2/d3/file || framework_failure_
 printf '%s\n' d1 d1/d2 d1/d2/d3 d1/d2/d3/file > exp || framework_failure_
