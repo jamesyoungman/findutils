@@ -2540,7 +2540,7 @@ projects' roots:
 .in -4n
 \&
 .fi
-Sample output:
+Sample directories:
 .nf
 \&
 .in +4n
@@ -2552,10 +2552,21 @@ Sample output:
 .in
 \&
 .fi
+Output:
+.nf
+\&
+.in +4n
+.B repo/project1
+.B repo/gnu/project2
+.B repo/gnu/project3
+.B repo/project4
+.in
+\&
+.fi
 In this example,
 .B \-prune
 prevents unnecessary descent into directories that have already been
-discovered (for example we do not search
+discovered (here we do not search
 .I project3/src
 because we already found
 .IR project3/.svn ),
