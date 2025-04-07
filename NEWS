@@ -33,6 +33,10 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   The forthcoming Issue 8 of the POSIX standard will standardise "find
   -print0" and "xargs -0".  Our documentation now points this out.
 
+  The code example for "Finding the Shallowest Instance" in the Texinfo manual
+  and the corresponding one in the EXAMPLES section in the find.1 man page have
+  been fixed.  [#62259]
+
   Translators contributed numerous fixes for issues in the find.1 man page.
 
 
