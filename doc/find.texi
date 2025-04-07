@@ -5183,13 +5183,24 @@ already found.
 
 @smallexample
 find repo/ \
--exec test -d @{@}/.svn \; -or \
--exec test -d @{@}/.git \; -or \
--exec test -d @{@}/CVS \; -print -prune
+  \( \
+    -exec test -d @{@}/.svn \; -or \
+    -exec test -d @{@}/.git \; -or \
+    -exec test -d @{@}/CVS \; \
+  \) -print -prune
+@end smallexample
+
+Output:
+
+@smallexample
+repo/project1
+repo/gnu/project2
+repo/gnu/project3
+repo/project4
 @end smallexample
 
 In this example, @command{test} is used to tell if we are currently
-examining a directory which appears to the a project's root directory
+examining a directory which appears to be a project's root directory
 (because it has an SCM subdirectory).  When we find a project root,
 there is no need to search inside it, and @code{-prune} makes sure
 that we descend no further.
