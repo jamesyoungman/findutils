@@ -712,8 +712,10 @@ Supported tests:
 File was last accessed less than, more than or exactly \fIn\fR minutes ago.
 
 .IP "\-anewer \fIreference\fR"
-Time of the last access of the current file is more recent than that
-of the last data modification of the \fIreference\fR file.
+Like
+.BR \-newer ,
+but test if the time of the last access of the current file is more recent than
+that of the last data modification of the \fIreference\fR file.
 If \fIreference\fR is a symbolic link and the
 .B \-H
 option or the
@@ -739,8 +741,10 @@ File's status was last changed less than, more than or exactly \fIn\fR minutes
 ago.
 
 .IP "\-cnewer \fIreference\fR"
-Time of the last status change of the current file is more recent than that
-of the last data modification of the \fIreference\fR file.
+Like
+.BR \-newer ,
+but test if the time of the last status change of the current file is more
+recent than that of the last data modification of the \fIreference\fR file.
 If \fIreference\fR is a symbolic link and the
 .B \-H
 option or the
