@@ -47,15 +47,15 @@ struct tagRegexTypeMap
 static struct tagRegexTypeMap regex_map[] =
   {
    { "findutils-default",     CONTEXT_FINDUTILS, RE_SYNTAX_EMACS|RE_DOT_NEWLINE  },
+   { "awk",                   CONTEXT_ALL,       RE_SYNTAX_AWK                   },
    { "ed",                    CONTEXT_GENERIC,   RE_SYNTAX_ED                    },
+   { "egrep",                 CONTEXT_ALL,       RE_SYNTAX_EGREP                 },
    { "emacs",                 CONTEXT_ALL,       RE_SYNTAX_EMACS                 },
    { "gnu-awk",               CONTEXT_ALL,       RE_SYNTAX_GNU_AWK               },
    { "grep",                  CONTEXT_ALL,       RE_SYNTAX_GREP                  },
    { "posix-awk",             CONTEXT_ALL,       RE_SYNTAX_POSIX_AWK             },
-   { "awk",                   CONTEXT_ALL,       RE_SYNTAX_AWK                   },
    { "posix-basic",           CONTEXT_ALL,       RE_SYNTAX_POSIX_BASIC           },
    { "posix-egrep",           CONTEXT_ALL,       RE_SYNTAX_POSIX_EGREP           },
-   { "egrep",                 CONTEXT_ALL,       RE_SYNTAX_EGREP                 },
    { "posix-extended",        CONTEXT_ALL,       RE_SYNTAX_POSIX_EXTENDED        },
    { "posix-minimal-basic",   CONTEXT_GENERIC,   RE_SYNTAX_POSIX_MINIMAL_BASIC   },
    { "sed",                   CONTEXT_GENERIC,   RE_SYNTAX_SED                   },
