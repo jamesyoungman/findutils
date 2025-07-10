@@ -39,7 +39,7 @@ Written by Eric B. Decker, James Youngman, and Kevin Dalley.
 # character encoding errors in text-based tools like "sort".  To avoid
 # this, we set LC_ALL=C.  This will, presumably, not work perfectly on
 # systems where LC_ALL is not the way to do locale configuration or
-# some other seting can override this.
+# some other setting can override this.
 LC_ALL=C
 export LC_ALL
 
@@ -147,7 +147,7 @@ select_shell() {
 # Any global options for find?
 : ${FINDOPTIONS=}
 
-# What shell shoud we use?  We should use a POSIX-ish sh.
+# What shell should we use?  We should use a POSIX-ish sh.
 : ${SHELL="/bin/sh"}
 
 # Non-network directories to put in the database.

@@ -1,6 +1,6 @@
 #!/bin/sh
 # This test verifies that find invokes the given command for the
-# multiple-argument sytax '-exec CMD {} +'.  Between FINDUTILS-4.2.12
+# multiple-argument syntax '-exec CMD {} +'.  Between FINDUTILS-4.2.12
 # and v4.6.0, find(1) would have failed to execute CMD another time
 # if there was only one last single file argument.
 # See Savannah bug #48030.

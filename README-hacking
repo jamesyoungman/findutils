@@ -106,7 +106,7 @@ proc_max.
 MAX_PROC_MAX.
 --- example ends ---
 
-There are several things to notice about this checkin message.  Most
+There are several things to notice about this check-in message.  Most
 importantly, it begins with a single line summary of the whole change.
 This needs to be short.  It would be used as the subject line of
 patches mailed by "git send-email".  Some people begin that line with

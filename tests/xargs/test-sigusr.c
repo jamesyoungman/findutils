@@ -215,7 +215,7 @@ run_xargs(const char *option, const char *opt_arg, int send_signal)
       close(pipefd[1]);         /* close write end */
       if (read(pipefd[0], &child_errno, sizeof child_errno) < sizeof child_errno)
         {
-          /* The exec succeded in the child, and its write end of the pipe was closed. */
+          /* The exec succeeded in the child, and its write end of the pipe was closed. */
         }
       else
         {

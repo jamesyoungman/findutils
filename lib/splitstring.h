@@ -23,7 +23,7 @@
 /* Split a string into fields.   The string is never modified.
  *
  * A false return value indicates that there are no more fields.
- * Otherwise the next field is at the poisition indicated by *POS and
+ * Otherwise the next field is at the position indicated by *POS and
  * has length *LEN.
  *
  * Set FIRST to true only on the first call for any given value of s.

@@ -2875,7 +2875,7 @@ delaying for a few seconds between signals (unless your system is very
 heavily loaded).
 
 Whether or not parallel execution will work well for you depends on
-the nature of the commmand you are running in parallel, on the
+the nature of the command you are running in parallel, on the
 configuration of the system on which you are running the command, and
 on the other work being done on the system at the time.
 
@@ -3571,7 +3571,7 @@ information from the inode.  On many modern versions of Unix, file
 types are returned by @code{readdir()} and so these predicates are
 faster to evaluate than predicates which need to stat the file first.
 
-If you use the @samp{-fstype FOO} predicate and specify a filsystem
+If you use the @samp{-fstype FOO} predicate and specify a filesystem
 type @samp{FOO} which is not known (that is, present in
 @file{/etc/mtab}) at the time @code{find} starts, that predicate is
 equivalent to @samp{-false}.

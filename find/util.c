@@ -973,7 +973,7 @@ set_option_defaults (struct options *p)
     p->posixly_correct = false;
 
   /* We call check_nofollow() before setlocale() because the numbers
-   * for which we check (in the results of uname) definitiely have "."
+   * for which we check (in the results of uname) definitely have "."
    * as the decimal point indicator even under locales for which that
    * is not normally true.   Hence atof would do the wrong thing
    * if we call it after setlocale().

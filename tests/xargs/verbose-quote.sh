@@ -27,7 +27,7 @@ printf "%s\n" \
   && chmod +x 'my command' \
   || framework_failure_
 
-# Run xargs with -t for verious commands which require quoting.
+# Run xargs with -t for various commands which require quoting.
 # (Use NL because dash as /bin/sh does not know $'\n' syntax.)
 nl='
 '

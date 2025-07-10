@@ -21,7 +21,7 @@ for f; do echo "$f"; done
 close $script
 exec chmod 0500 tmp/list.sh
 
-send_log "creeating files $file_list\n"
+send_log "creating files $file_list\n"
 foreach filename $file_list {
 }
 

@@ -96,6 +96,13 @@ exclude_file_name_regexp--sc_bindtextdomain = \
 exclude_file_name_regexp--sc_unmarked_diagnostics = \
   ^(tests/xargs/test-sigusr)\.c$$
 
+# Things that 'codespell' mistakenly flags as typos.
+codespell_ignore_words_list = afile,bu,debbugs,filll,fo,hel,ois,siz,ublic,TE,
+
+# Files to exclude from sc_codespell
+exclude_file_name_regexp--sc_codespell = \
+  ^(THANKS|build-aux/git-log-fix)$$
+
 # sc_prohibit_strcmp is broken because it gives false positives for
 # cases where neither argument is a string literal.
 local-checks-to-skip += sc_prohibit_strcmp

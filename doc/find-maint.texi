@@ -87,7 +87,7 @@ This manual aims to be useful without necessarily being verbose.  It's
 also a recent document, so there will be a many areas in which
 improvements can be made.  If you find that the document misses out
 important information or any part of the document is be so terse as to
-be unuseful, please ask for help on the @email{bug-findutils@@gnu.org}
+be useless, please ask for help on the @email{bug-findutils@@gnu.org}
 mailing list.  We'll try to improve this document too.
 
 
@@ -537,7 +537,7 @@ Make sure your editor follows symbolic links so that your changes to
 directory you checked out earlier.   Observe that your test now passes.
 @item Prepare a Gnulib patch
 In the gnulib subdirectory, use @code{git format-patch} to prepare the
-patch.  Follow the normal usage for checkin comments (take a look at
+patch.  Follow the normal usage for check-in comments (take a look at
 the output of @code{git log}).  Check that the patch conforms with the
 GNU coding standards, and email it to the Gnulib mailing list.
 @item Wait for the patch to be applied
@@ -674,7 +674,7 @@ changes).  The level of detail used for this file should be sufficient
 to answer the questions ``what changed?'' and ``why was it changed?''.
 The file is generated from the git commit messages during @code{make dist}.
 If a change fixes a bug, always give the bug reference number in the
-@file{NEWS} file and of course also in the checkin message.
+@file{NEWS} file and of course also in the check-in message.
 In general, it should be possible to enumerate all
 material changes to a function by searching for its name in
 @file{ChangeLog}.  Mention when each release is made.
@@ -947,7 +947,7 @@ VI. VENDOR RESPONSE
 The GNU project discovered the problem while 'locate' was being worked
 on; this is the first public announcement of the problem.
 
-The GNU findutils mantainer has issued a patch as part of this
+The GNU findutils maintainer has issued a patch as part of this
 announcement.  The patch appears below.
 
 A source release of findutils-4.2.31 will be issued on 2007-05-30.

@@ -35,7 +35,7 @@
    8, No 1, February/March, 1983, p. 8.
 
    However, latterly code changes to provide additional functionality
-   became dificult to make with the existing reading scheme, and so
+   became difficult to make with the existing reading scheme, and so
    we no longer perform the matching as efficiently as we used to (that is,
    we no longer use the same algorithm).
 
@@ -1033,7 +1033,7 @@ search_one_database (int argc,
    * We ensure that we can return to the previous behaviour
    * by using two variables, do_check_existence (which we act on)
    * and check_existence (which indicates the default before we
-   * adjust it on the bassis of what kind of database we;re using
+   * adjust it on the basis of what kind of database we're using
    */
   do_check_existence = check_existence;
 

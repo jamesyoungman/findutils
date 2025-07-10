@@ -515,7 +515,7 @@ posix-egrep.  This is the result of a change to gnulib to bring it
 into line with GNU grep (see https://debbugs.gnu.org/20974#22).
 
 ** Translations
-Updated translations: Estonian, Swedish, Polish, Vietnamese, Ukranian,
+Updated translations: Estonian, Swedish, Polish, Vietnamese, Ukrainian,
 Norwegian Bokmaal, Czech, Russian, French, Hungarian.
 
 ** Bug Fixes:
@@ -544,7 +544,7 @@ Norwegian Bokmaal, Czech, Russian, French, Hungarian.
 #45062: Enabling CACHE_IDS causes segfaults (this bug affects many
         historic releases, probably since release 3.0 in 1991).  You
         would not have been affected by this problem unless you used
-        the option --enable-id-cache when invoking confgure.
+        the option --enable-id-cache when invoking configure.
 
 #42903: checklists.py now supports Python 3.
 
@@ -592,7 +592,7 @@ Some minor documentation improvements are listed in "Bug Fixes" below.
 
 ** Translations
 
-Updated translations: Estonian, Polish, Ukranian.
+Updated translations: Estonian, Polish, Ukrainian.
 
 
 * Major changes in release 4.5.12, 2013-09-22
@@ -691,7 +691,7 @@ For example use "xargs /bin/echo < foo" rather than "xargs < foo".
 
 A new option is provided, --process-slot-var.  If you set this, xargs
 will set the indicated environment variable in each child.  The values
-are re-used, but no executing child process will have the same value
+are reused, but no executing child process will have the same value
 as another executing child process.  This wishlist item was Savannah
 bug #29512.
 
@@ -721,7 +721,7 @@ expression types selected by the -regextype option have slightly
 changed, to bring them into line with the behaviour of the GNU C
 library.  For "awk", character classes (such as [[:digit:]]) are now
 supported.  For "gnu-awk" and "posix-awk", intervals are supported and
-invalid interval specifcations are treated as literals (for example
+invalid interval specifications are treated as literals (for example
 'a{1' is treated as 'a\{1').
 
 
@@ -804,7 +804,7 @@ Updated Vietnamese, Czech, Dutch, Polish, Russian translations.
 
 ** Performance changes
 
-If you use the -fstype FOO predicate and specify a filsystem type FOO
+If you use the -fstype FOO predicate and specify a filesystem type FOO
 which is not known (e.g. present in /etc/mtab) at the time find
 starts, that predicate is now equivalent to -false.  This substitution
 currently occurs at optimisation level 2 and above.
@@ -880,7 +880,7 @@ in the text).
 
 #22708: Exit status 126 and 127 from the utility invoked from xargs
 now makes xargs return 123, meaning that exit status values 126 and
-127 now unambigously mean that the utility could not be run or could
+127 now unambiguously mean that the utility could not be run or could
 not be found, respectively.
 
 ** Documentation Changes
@@ -920,13 +920,13 @@ unknown user or is missing.
 #25154: Allow compilation with C compilers that don't allow
 declarations to follow statements.
 
-#24342: -inum predicate shoud use dirent.d_ino instead of stat.st_ino
+#24342: -inum predicate should use dirent.d_ino instead of stat.st_ino
 (this is a performance bug).
 
 ** Translations
 
 Updated translations for Bulgarian, German, Irish, Hungarian,
-Lithuanian, Dutch, Polish, Slovenian, Swedish, Turkish, Ukranian,
+Lithuanian, Dutch, Polish, Slovenian, Swedish, Turkish, Ukrainian,
 Vietnamese.
 
 ** Documentation Changes
@@ -944,7 +944,7 @@ The file README-CVS has been renamed to README-hacking and improved.
 Changes to gnulib's fts code should provide performance improvements
 in find when processing very large directories (for example
 directories containing significantly more than 10000 filenames).
-Performance imporvements may only exist for some find command lines
+Performance improvements may only exist for some find command lines
 (performance testing was done for the fts implementation itself but
 we haven't done the analogous performance tests in find).
 
@@ -1407,7 +1407,7 @@ servers.
 
 #11668: FreeBSD extensions for time specification are now
 implemented.  In fact, these were included in findutils-4.3.3.  The
-change was listed as a functional change (whcih it is) and this bug
+change was listed as a functional change (which it is) and this bug
 report was not mentioned.
 
 ** Documentation Fixes
@@ -1632,7 +1632,7 @@ problem was worse for -exec.
 Savannah bug #16579: Updatedb now works if it is running as a user
 whose login shell is not actually a shell.
 
-There have also been a number of documentation improvements (includng
+There have also been a number of documentation improvements (including
 Savannah bug #16269).
 
 ** Functional changes
@@ -1952,7 +1952,7 @@ Some typos in the manual pages have been fixed.  Various parts of the
 manual now point out that it is good practice to quote the argument of
 "-name".  The manpage now has a "NON-BUGS" section which explains some
 symptoms that look like bugs but aren't.  The explanations of the "%k"
-and "%b" directives to "find -printf" have been imrpoved.
+and "%b" directives to "find -printf" have been improved.
 
 
 * Major changes in release 4.2.21, 2005-06-07
@@ -2168,7 +2168,7 @@ New Vietnamese message translation.
     have it.
 *** Bugfix to the findutils 4.2.6 automount handling (which hadn't been enabled
     on Solaris).
-*** Reenabled internationalisation support (which had been accidentally
+*** Re-enabled internationalisation support (which had been accidentally
     disabled in findutils-4.2.5).
 
 * Major changes in release 4.2.6, 2004-11-21
@@ -2206,7 +2206,7 @@ New Vietnamese message translation.
 *** If you specify a 'find' option after non-option, a warning message
     is now issued.  Options should be specified immediately after the
     list of paths to search.  These warnings are enabled if you
-    specify the -warn option, or if stdin is a tty.  They are diabled
+    specify the -warn option, or if stdin is a tty.  They are disabled
     by the use of the -nowarn option.
 *** Like find, the locate program now supports an option --null (short form -0)
     which changes the result separator from newline to NULL.

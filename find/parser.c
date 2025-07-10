@@ -2170,7 +2170,7 @@ parse_samefile (const struct parser_table* entry, char **argv, int *arg_ptr)
     return false;
 
   set_stat_placeholders (&fst);
-  /* POSIX systems are free to re-use the inode number of a deleted
+  /* POSIX systems are free to reuse the inode number of a deleted
    * file.  To ensure that we are not fooled by inode reuse, we hold
    * the file open if we can.  This would prevent the system reusing
    * the file.
@@ -3056,7 +3056,7 @@ get_relative_timestamp (const char *str,
           assert (nanosec < nanosec_per_sec);
 
           /* Perform the subtraction, and then check for overflow.
-           * On systems where signed aritmetic overflow does not
+           * On systems where signed arithmetic overflow does not
            * wrap, this check may be unreliable.   The C standard
            * does not require this approach to work, but I am aware
            * of no platforms where it fails.

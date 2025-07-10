@@ -90,8 +90,8 @@ fi
 
 # Exercise a directory argument.
 # On most modern systems like GNU/Linux, read(2)-ing from a directory file
-# descriptor will fail with EISDIR.  Skip on other plaforms where that succeeds,
-# e.g. on GNU/Hurd and AIX.
+# descriptor will fail with EISDIR.  Skip on other platforms where that
+# succeeds, e.g. on GNU/Hurd and AIX.
 if returns_ 1 cat / >/dev/null; then
   returns_ 1 find -files0-from / > out 2> err \
     && grep 'read error' err \

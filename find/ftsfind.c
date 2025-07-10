@@ -618,7 +618,7 @@ process_all_startpoints (int argc, char *argv[])
     {
       if (!argv_starting_points)
         {
-          /* If no starting points are given on the comman line, then
+          /* If no starting points are given on the command line, then
            * fall back to processing the current directory, i.e., ".".
            * We use a temporary variable here because some actions modify
            * the path temporarily.  Hence if we use a string constant,

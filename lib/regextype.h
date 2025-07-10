@@ -40,7 +40,7 @@ enum {
 const char * get_regex_type_name(unsigned int ix);
 
 
-/* Returns the option mask name corresponding to regular expresion
+/* Returns the option mask name corresponding to regular expression
  * type index IX.  Indexes start at 0.  Behaviour is undefined if IX
  * has a value which would cause get_regex_type_name to return NULL.
  */

@@ -588,7 +588,7 @@ format_date (struct timespec ts, int kind)
    * For example, some systems return junk in the tv_nsec part of
    * st_birthtime.  An example of this is the NetBSD-4.0-RELENG kernel
    * (at Sat Mar 24 18:46:46 2007) running a NetBSD-3.1-RELEASE
-   * runtime and examining files on an msdos filesytem.  So for that
+   * runtime and examining files on an msdos filesystem.  So for that
    * reason we set NS_BUF_LEN to 32, which is simply "long enough" as
    * opposed to "exactly the right size".  Note that the behaviour of
    * NetBSD appears to be a result of the use of uninitialized data,
@@ -698,7 +698,7 @@ format_date (struct timespec ts, int kind)
         *--p = '-'; /* XXX: Ugh, relying on internal details of human_readable(). */
 
       /* Add the nanoseconds part.  Because we cannot enforce a
-       * particlar implementation of human_readable, we cannot assume
+       * particular implementation of human_readable, we cannot assume
        * any particular value for (p-buf).  So we need to be careful
        * that there is enough space remaining in the buffer.
        */
