@@ -1,5 +1,5 @@
 # tests for -execdir ... \+
-# Specifically, ensure that output for separate directoires is not mixed.
+# Specifically, ensure that output for separate directories is not mixed.
 if { [ safe_path ] } {
     exec rm -rf tmp
     exec mkdir tmp tmp/two

@@ -819,7 +819,7 @@ Actions that can cause symbolic links to become broken while
 confusing behaviour.  Take for example the command line
 @samp{find -L . -type d -delete}.   This will delete empty
 directories.  If a subtree includes only directories and symbolic
-links to directoires, this command may still not successfully delete
+links to directories, this command may still not successfully delete
 it, since deletion of the target of the symbolic link will cause the
 symbolic link to become broken and @samp{-type d} is false for broken
 symbolic links.
