@@ -508,6 +508,9 @@ Because the leading directories are removed, the file names considered
 for a match with @samp{-name} will never include a slash, so
 @samp{-name a/b} will never match anything (you probably need to use
 @samp{-path} instead).
+
+The @samp{-iname} option appeared first only in POSIX Issue 8 while
+GNU @code{find} supports it since version 3.8 (1993).
 @end deffn
 
 
