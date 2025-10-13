@@ -188,8 +188,8 @@ Tests (N can be +N or -N or N):\n\
       -ctime N -empty -false -fstype TYPE -gid N -group NAME -ilname PATTERN\n\
       -iname PATTERN -inum N -iwholename PATTERN -iregex PATTERN\n\
       -links N -lname PATTERN -mmin N -mtime N -name PATTERN -newer FILE\n\
-      -nouser -nogroup -path PATTERN -perm [-/]MODE -regex PATTERN\n\
-      -readable -writable -executable\n\
+      -newerXY REFERENCE -nouser -nogroup -path PATTERN -perm [-/]MODE\n\
+      -regex PATTERN -readable -writable -executable\n\
       -wholename PATTERN -size N[bcwkMG] -true -type [bcdpflsD] -uid N\n\
       -used N -user NAME -xtype [bcdpfls]\n"));
   HTL (_("\n\
@@ -203,6 +203,10 @@ Actions:\n\
 Other common options:\n"));
   HTL (_("      --help                   display this help and exit\n"));
   HTL (_("      --version                output version information and exit\n\n"));
+
+  HTL (_("\n\
+In -newerXY, XY stands for the combination [aBcm][aBcmt]; see find(1).\n\
+\n"));
 
   show_valid_debug_options (0);
   HTL (_("\n\
