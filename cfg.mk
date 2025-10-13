@@ -299,6 +299,18 @@ sc_spaces_not_tabs:
 	  && { echo '$(ME): Indent C sources with spaces, not tabs (fix with build-aux/tabs-to-spaces.sh)' 1>&2; exit 1; } \
 	  || :
 
+# Enforce standard references "standard input/output/error".
+sc_standard_outputs:
+	@cd $(srcdir) || exit 1; \
+	  GIT_PAGER= git grep -En '_\("[^"]*std(in|out|err)' -- '*/*.c' \
+	    && { echo '$@: use "standard ....." in translated strings' 1>&2; \
+		 fail=1; } || :; \
+	  GIT_PAGER= git grep -En '[^/]std(in|out|err)' -- \
+			'*/*.1' '*/*.5' 'doc/*.texi' \
+	    && { echo '$@: use "standard ....." in user docs' 1>&2; \
+		 fail=1; } || :; \
+	  exit $$fail
+
 # Now that we have better tests, make this the default.
 export VERBOSE = yes
 

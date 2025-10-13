@@ -63,7 +63,7 @@ option does this for you.
 If any invocation of the command exits with a status of 255,
 .B xargs
 will stop immediately without reading any further input.
-An error message is issued on stderr when this happens.
+An error message is issued on standard error when this happens.
 .
 .SH OPTIONS
 .TP
@@ -81,8 +81,8 @@ The GNU find (and from POSIX Issue 8, IEEE Std 1003.1\-2024)
 Read items from
 .I file
 instead of standard input.
-If you use this option, stdin remains unchanged when commands are run.
-Otherwise, stdin is redirected from
+If you use this option, standard input remains unchanged when commands are run.
+Otherwise, standard input is redirected from
 .IR /dev/null .
 
 .TP
@@ -243,7 +243,7 @@ was started).
 .B Please note
 that it is up to the called processes to properly manage parallel
 access to shared resources.
-For example, if more than one of them tries to print to stdout,
+For example, if more than one of them tries to print to standard output,
 the output will be produced in an indeterminate order (and very
 likely mixed up) unless the processes collaborate in some way to
 prevent this.
@@ -255,7 +255,7 @@ arrange for each process to produce a separate output file (or
 otherwise use separate resources).
 .TP
 .B \-o, \-\-open\-tty
-Reopen stdin as
+Reopen standard input as
 .I /dev/tty
 in the child process before executing the command.
 This is useful if you want
@@ -361,8 +361,7 @@ i.e., it will reset the value of the offending option (given before)
 to its default value.
 Additionally,
 .B xargs
-will issue a warning diagnostic on
-.IR stderr .
+will issue a warning diagnostic on standard error.
 The exception to this rule is that the special
 .I max-args
 value

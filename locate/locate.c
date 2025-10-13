@@ -1756,7 +1756,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
               if (did_stdin)
                 {
                   error (0, 0,
-                         _("warning: the locate database can only be read from stdin once."));
+                         _("warning: the locate database can only be read from standard input once."));
                   return 0;
                 }
               else

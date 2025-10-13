@@ -1769,7 +1769,7 @@ you are searching might contain a newline, you should use
 @c @item -fls
 @c Escaped if @samp{how} is @samp{safe}
 @c @item -print
-@c Always quoted if stdout is a tty,
+@c Always quoted if standard output is a tty,
 @c @samp{-show-control-chars} is ignored
 @c @item -print0
 @c Always literal, never escaped
@@ -1782,7 +1782,7 @@ you are searching might contain a newline, you should use
 @c If the destination is a tty, the @samp{%f},
 @c @samp{%F}, @samp{%h}, @samp{%l}, @samp{%p},
 @c and @samp{%P} directives produce quoted
-@c strings if stdout is a tty and are treated
+@c strings if standard output is a tty and are treated
 @c literally otherwise.
 @c @item -printf
 @c As for @code{-fprintf}.
@@ -2811,16 +2811,17 @@ if @code{xargs} is running commands that are waiting for a response from a
 distant network connection, running a few in parallel may reduce the
 overall latency by overlapping their waiting time.
 
-If you are running commands in parallel, you need to think about how
-they should arbitrate access to any resources that they share.  For
-example, if more than one of them tries to print to stdout, the output
-will be produced in an indeterminate order (and very likely mixed up)
-unless the processes collaborate in some way to prevent this.  Using
-some kind of locking scheme is one way to prevent such problems.  In
-general, using a locking scheme will help ensure correct output but
-reduce performance.  If you don't want to tolerate the performance
-difference, simply arrange for each process to produce a separate output
-file (or otherwise use separate resources).
+If you are running commands in parallel, you need to think about how they should
+arbitrate access to any resources that they share.
+For example, if more than one of them tries to print to standard output, the
+output will be produced in an indeterminate order (and very likely mixed up)
+unless the processes collaborate in some way to prevent this.
+Using some kind of locking scheme is one way to prevent such problems.
+In general, using a locking scheme will help ensure correct output but reduce
+performance.
+If you don't want to tolerate the performance difference, simply arrange for
+each process to produce a separate output file (or otherwise use separate
+resources).
 
 @code{xargs} also allows ``turning up'' or ``turning down'' its parallelism
 in the middle of a run.  Suppose you are keeping your four-processor
@@ -3680,7 +3681,7 @@ database file names.  You can also use the environment variable
 option overrides the environment variable if both are used.  Empty
 elements in @var{path} (that is, a leading or trailing colon, or two
 colons in a row) are taken to stand for the default database.
-A database can be supplied on stdin, using @samp{-} as an element
+A database can be supplied on standard input, using @samp{-} as an element
 of @samp{path}. If more than one element of @samp{path} is @samp{-},
 later instances are ignored (but a warning message is printed).
 
@@ -3930,8 +3931,8 @@ rejecting this as unrecognized option.
 @itemx -a @r{@var{inputfile}}
 Read names from the file @var{inputfile} instead of standard input.
 If you use this option, the standard input stream remains unchanged
-when commands are run. Otherwise, stdin is redirected from
-@file{/dev/null}.
+when commands are run.
+Otherwise, standard input is redirected from @file{/dev/null}.
 
 @item --null
 @itemx -0
@@ -4008,7 +4009,7 @@ case @code{xargs} will exit.
 
 @item --open-tty
 @itemx -o
-Reopen stdin as @file{/dev/tty} in the child process before executing
+Reopen standard input as @file{/dev/tty} in the child process before executing
 the command, thus allowing that command to be associated to the terminal
 while @code{xargs} reads from a different stream, e.g. from a pipe.
 This is useful if you want @code{xargs} to run an interactive application.
@@ -4077,7 +4078,7 @@ The options @samp{--max-lines} (@samp{-L}, @samp{-l}), @samp{--replace}
 If some of them are specified at the same time, then @code{xargs} will
 generally use the option specified last on the command line, i.e., it will
 reset the value of the offending option (given before) to its default value.
-Additionally, @code{xargs} will issue a warning diagnostic on @file{stderr}.
+Additionally, @code{xargs} will issue a warning diagnostic on standard error.
 
 @example
 $ seq 4 | xargs -L2 -n3
@@ -4177,7 +4178,7 @@ process creation.
 
 Although GNU @code{xargs} and the implementations on some other platforms
 like BSD support the @samp{-o} option to achieve the same, the above is
-the portable way to redirect stdin to @file{/dev/tty}.
+the portable way to redirect standard input to @file{/dev/tty}.
 
 Sometimes, though, it can be helpful to keep the shell process around:
 
@@ -4276,7 +4277,7 @@ they are units of 1024 bytes.
 
 Setting this variable also turns off warning messages (that is, implies
 @samp{-nowarn}) by default, because POSIX requires that apart from
-the output for @samp{-ok}, all messages printed on stderr are
+the output for @samp{-ok}, all messages printed on standard error are
 diagnostics and must result in a non-zero exit status.
 
 When @env{POSIXLY_CORRECT} is set, the response to the prompt made by the
@@ -4357,7 +4358,7 @@ nothing).  The capitalised @samp{Emacs} on the command line is used as
 
 Please note that the implementations in GNU @code{xargs} and at least BSD
 support the @samp{-o} option as extension to achieve the same, while the
-above is the portable way to redirect stdin to @file{/dev/tty}.
+above is the portable way to redirect standard input to @file{/dev/tty}.
 
 @node Archiving
 @section Archiving
@@ -5888,8 +5889,8 @@ If you don't plan to send it those signals, this warning can be ignored
 why @code{xargs} is confused by your operating system).
 
 @item failed to redirect standard input of the child process
-@code{xargs} redirects the stdin stream of the command to be run to either
-@file{/dev/null} or to @file{/dev/tty} for the @samp{-o} option.
+@code{xargs} redirects the standard input stream of the command to be run to
+either @file{/dev/null} or to @file{/dev/tty} for the @samp{-o} option.
 See the manual of the system call @code{dup2(2)}.
 @end table
 

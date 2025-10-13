@@ -1156,7 +1156,7 @@ print_args (bool ask)
                    (i == 0 ? "" : " "),
                    quotearg_n_style (0, shell_escape_quoting_style,
                                      bc_state.cmd_argv[i])) < 0)
-        error (EXIT_FAILURE, errno, _("Failed to write to stderr"));
+        error (EXIT_FAILURE, errno, _("Failed to write to standard error"));
     }
 
   if (ask)
@@ -1173,13 +1173,13 @@ print_args (bool ask)
         }
       fputs ("?...", stderr);
       if (fflush (stderr) != 0)
-        error (EXIT_FAILURE, errno, _("Failed to write to stderr"));
+        error (EXIT_FAILURE, errno, _("Failed to write to standard error"));
 
       c = savec = getc (tty_stream);
       while (c != EOF && c != '\n')
         c = getc (tty_stream);
       if (EOF == c)
-        error (EXIT_FAILURE, errno, _("Failed to read from stdin"));
+        error (EXIT_FAILURE, errno, _("Failed to read from standard input"));
       if (savec == 'y' || savec == 'Y')
         return true;
     }
@@ -1759,9 +1759,9 @@ usage (int status)
   HTL (_("  -l[MAX-LINES]                similar to -L but defaults to at most one non-\n"
          "                                 blank input line if MAX-LINES is not specified\n"));
   HTL (_("  -n, --max-args=MAX-ARGS      use at most MAX-ARGS arguments per command line\n"));
-  HTL (_("  -o, --open-tty               Reopen stdin as /dev/tty in the child process\n"
-         "                                 before executing the command; useful to run an\n"
-         "                                 interactive application.\n"));
+  HTL (_("  -o, --open-tty               Reopen standard input as /dev/tty in the child\n"
+         "                                 process before executing the command; useful to\n"
+         "                                 run an interactive application.\n"));
   HTL (_("  -P, --max-procs=MAX-PROCS    run at most MAX-PROCS processes at a time\n"));
   HTL (_("  -p, --interactive            prompt before running commands\n"));
   HTL (_("      --process-slot-var=VAR   set environment variable VAR in child processes\n"));
