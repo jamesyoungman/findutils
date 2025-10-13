@@ -148,7 +148,7 @@ show_valid_debug_options (int full)
     {
       for (i=0; i<N_DEBUGASSOC; ++i)
         {
-          fprintf (stdout, "%s%s", (i>0 ? ", " : ""), debugassoc[i].name);
+          fprintf (stdout, "%s%s", (i>0 ? ", " : "      "), debugassoc[i].name);
         }
     }
 }
@@ -206,7 +206,7 @@ Other common options:\n"));
 
   show_valid_debug_options (0);
   HTL (_("\n\
-Use '-D help' for a description of the options, or see find(1)\n\
+Use '-D help' for a description of the options, or see find(1).\n\
 \n"));
 
   explain_how_to_report_bugs (stdout, program_name);
