@@ -30,7 +30,7 @@ usage: $0 location-of-${PACKAGE}-build-directory
 EOF
 }
 
-checkfiles="CVS dvi ${TEXIBASE}.html html_node html_mono info ps texi text ${TEXIBASE}.pdf"
+checkfiles="CVS ${TEXIBASE}.html html_node html_mono info ps texi text ${TEXIBASE}.pdf"
 
 if [ $# -ne 1 ]; then
 	usage >&2
@@ -98,9 +98,6 @@ then
     make -C "$BUILDDIR" web-manual
     cp ${BUILDDIR}/doc/manual/${TEXIBASE}.texi.tar.gz texi/${TEXIBASE}.texi.tar.gz
     cp ${BUILDDIR}/doc/manual/${TEXIBASE}.info.tar.gz info/${TEXIBASE}-info.tar.gz
-
-    echo Collecting the DVI file...
-    cp  $BUILDDIR/doc/manual/${TEXIBASE}.dvi.gz dvi/${TEXIBASE}.dvi.gz
 
     echo Collecting the PDF file...
     cp  $BUILDDIR/doc/manual/${TEXIBASE}.pdf .
@@ -177,9 +174,6 @@ This manual is available in the following formats:
   </LI>
   <LI>
       $(linkfor "text/${TEXIBASE}.txt.gz" "gzipped characters" "ASCII text")
-  </LI>
-  <LI>
-      $(linkfor "dvi/${TEXIBASE}.dvi.gz" "gzipped" "a TeX dvi file")
   </LI>
   <LI>
       $(linkfor "${TEXIBASE}.pdf" "PDF file" PDF)
