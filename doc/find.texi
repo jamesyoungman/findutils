@@ -1036,8 +1036,9 @@ command line.
 
 @deffn Test -newerXY reference
 Succeeds if timestamp @samp{X} of the file being considered is newer
-than timestamp @samp{Y} of the file @file{reference}.   The letters
-@samp{X} and @samp{Y} can be any of the following letters:
+than timestamp @samp{Y} of the file @file{reference}.
+Fails if the timestamps are @emph{equal}.
+The letters @samp{X} and @samp{Y} can be any of the following letters:
 
 @table @samp
 @item a
@@ -1077,7 +1078,8 @@ not UFS1 file systems.
 
 
 There are two ways to list files in @file{/usr} modified after
-February 1 of the current year.  One uses @samp{-newermt}:
+@emph{the start} of February 1 of the current year.  One uses
+@samp{-newermt}:
 
 @example
 find /usr -newermt "Feb 1"
@@ -1098,6 +1100,7 @@ rm -f /tmp/stamp$$
 True if the time of the last access (or status change or data modification)
 of the current file is more recent than that of the last data modification
 of the @var{reference} file.
+False if the timestamps are equal.
 As such, @samp{-anewer} is equivalent to @samp{-neweram},
 @samp{-cnewer} to @samp{-newercm}, and @samp{-newer} to @samp{-newermm}.
 
@@ -5059,7 +5062,8 @@ find subdir -newer timestamp -and \
 @end smallexample
 
 Here, the @samp{-newer} test excludes all the files which are
-definitely older than the timestamp, but all the files which are newer
+definitely older than or the same age as
+the timestamp, but all the files which are newer
 than the old value of the timestamp are compared against the current
 updated timestamp.
 
@@ -5132,7 +5136,8 @@ find subdir -newer timestamp -printf "%A@@:%p\0" |
 @end smallexample
 
 The first @code{find} command generates a list of files which are
-newer than the original timestamp file, and prints a list of them with
+newer than (and not the same age as) the original timestamp file,
+and prints a list of them with
 their timestamps.  The @file{newest.pl} script simply filters out all
 the filenames which have timestamps which are older than whatever the
 newest file is:

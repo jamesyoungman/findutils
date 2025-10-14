@@ -716,6 +716,8 @@ Like
 .BR \-newer ,
 but test if the time of the last access of the current file is more recent than
 that of the last data modification of the \fIreference\fR file.
+Fails if the timestamps are
+.BR equal .
 If \fIreference\fR is a symbolic link and the
 .B \-H
 option or the
@@ -745,6 +747,8 @@ Like
 .BR \-newer ,
 but test if the time of the last status change of the current file is more
 recent than that of the last data modification of the \fIreference\fR file.
+Fails if the timestamps are
+.BR equal .
 If \fIreference\fR is a symbolic link and the
 .B \-H
 option or the
@@ -905,8 +909,11 @@ Don't forget to enclose the pattern in quotes in order to protect it
 from expansion by the shell.
 
 .IP "\-newer \fIreference\fR"
-Time of the last data modification of the current file is more recent than that
+Succeeds if the
+time of the last data modification of the current file is more recent than that
 of the last data modification of the \fIreference\fR file.
+Fails if the timestamps are
+.BR equal .
 If \fIreference\fR is a symbolic link and the
 .B \-H
 option or the
@@ -916,8 +923,11 @@ it points to is always used.
 
 .IP "\-newerXY \fIreference\fR"
 Succeeds if timestamp \fIX\fR of the file being considered is newer
-than timestamp \fIY\fR of the file
+than
+the timestamp \fIY\fR of the file
 .IR reference .
+Fails if the timestamps are
+.BR equal .
 The letters \fIX\fR and \fIY\fR can be any of the following letters:
 
 .TS
