@@ -108,7 +108,7 @@ get_regex_type_name (unsigned int ix)
   if (ix < N_REGEX_MAP_ENTRIES)
     return regex_map[ix].name;
   else
-    return NULL;
+    return nullptr;
 }
 
 int

@@ -82,7 +82,7 @@ make_segment (struct segment **segment,
   (*segment)->segkind = kind;
   (*segment)->format_char[0] = format_char;
   (*segment)->format_char[1] = aux_format_char;
-  (*segment)->next = NULL;
+  (*segment)->next = nullptr;
   (*segment)->text_len = len;
 
   fmt = (*segment)->text = xmalloc (len + sizeof "d");
@@ -312,7 +312,7 @@ insert_fprintf (struct format_val *vec,
   our_pred->p_cost    = NeedsNothing;
 
   segmentp = &our_pred->args.printf_vec.segment;
-  *segmentp = NULL;
+  *segmentp = nullptr;
 
   for (fmt_editpos = segstart; *fmt_editpos; fmt_editpos++)
     {
@@ -473,9 +473,9 @@ scan_for_digit_differences (const char *p, const char *q,
 static char*
 do_time_format (const char *fmt, const struct tm *p, const char *ns, size_t ns_size)
 {
-  static char *buf = NULL;
+  static char *buf = nullptr;
   static size_t buf_size;
-  char *timefmt = NULL;
+  char *timefmt = nullptr;
   struct tm altered_time;
 
 
@@ -502,7 +502,7 @@ do_time_format (const char *fmt, const struct tm *p, const char *ns, size_t ns_s
    * on Solaris, since it unconditionally writes the terminating null
    * character.
    */
-  if (buf == NULL)
+  if (buf == nullptr)
     {
       buf_size = 1u;
       buf = xmalloc (buf_size);
@@ -968,7 +968,7 @@ do_fprintf (struct format_val *dest,
               *(s+1) = '\0';
 
             s = strrchr (pname, '/');
-            if (s == NULL)     /* No leading directories. */
+            if (s == nullptr)     /* No leading directories. */
               {
                 /* If there is no slash in the pathname, we still
                  * print the string because it contains characters
@@ -1019,12 +1019,12 @@ do_fprintf (struct format_val *dest,
           /* sanitised */
 #ifdef S_ISLNK
           {
-            char *linkname = NULL;
+            char *linkname = nullptr;
 
             if (S_ISLNK (stat_buf->st_mode))
               {
                 linkname = areadlinkat (state.cwd_dir_fd, state.rel_pathname);
-                if (linkname == NULL)
+                if (linkname == nullptr)
                   {
                     nonfatal_target_file_error (errno, pathname);
                     state.exit_status = EXIT_FAILURE;

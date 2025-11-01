@@ -68,7 +68,7 @@ print_quoted (FILE *fp,
       if (buf != smallbuf)
         {
           free (buf);
-          buf = NULL;
+          buf = nullptr;
         }
     }
   else

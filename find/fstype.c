@@ -110,7 +110,7 @@ static struct mount_entry *
 get_file_system_list (bool need_fs_type)
 {
   /* Local cache for the mount list.  */
-  static struct mount_entry *mount_list = NULL;
+  static struct mount_entry *mount_list = nullptr;
 
   /* Remember if the list contains the ME_TYPE members.  */
   static bool has_fstype = false;
@@ -118,7 +118,7 @@ get_file_system_list (bool need_fs_type)
   if (mount_list && ! has_fstype && need_fs_type)
     {
       free_file_system_list (mount_list);
-      mount_list = NULL;
+      mount_list = nullptr;
     }
   if (! mount_list)
     {
@@ -139,10 +139,10 @@ filesystem_type (const struct stat *statp, const char *path)
   /* Nonzero if the current file system's type is known.  */
   static bool fstype_known = false;
 
-  static char *current_fstype = NULL;
+  static char *current_fstype = nullptr;
   static dev_t current_dev;
 
-  if (current_fstype != NULL)
+  if (current_fstype != nullptr)
     {
       if (fstype_known && statp->st_dev == current_dev)
         return current_fstype;  /* Cached value.  */
@@ -225,9 +225,9 @@ file_system_type_uncached (const struct stat *statp, const char *path,
     }
 #endif
 
-  best = NULL;
+  best = nullptr;
   entries = get_file_system_list (true);
-  if (NULL == entries)
+  if (nullptr == entries)
     {
       /* We cannot determine for sure which file we were trying to
        * use because gnulib has abstracted all that stuff away.
@@ -235,7 +235,7 @@ file_system_type_uncached (const struct stat *statp, const char *path,
        */
       error (EXIT_FAILURE, 0, _("Cannot read mounted file system list"));
     }
-  for (type=NULL, entry=entries; entry; entry=entry->me_next)
+  for (type=nullptr, entry=entries; entry; entry=entry->me_next)
     {
 #ifdef MNTTYPE_IGNORE
       if (!strcmp (entry->me_type, MNTTYPE_IGNORE))
@@ -261,7 +261,7 @@ file_system_type_uncached (const struct stat *statp, const char *path,
     }
 
   /* Don't cache unknown values. */
-  *fstype_known = (type != NULL);
+  *fstype_known = (type != nullptr);
 
   return type ? type : xstrdup (_("unknown"));
 }
@@ -273,7 +273,7 @@ get_mounted_devices (size_t *n)
   size_t alloc_size = 0u;
   size_t used = 0u;
   struct mount_entry *entries, *entry;
-  dev_t *result = NULL;
+  dev_t *result = nullptr;
 
   /* Ignore read_file_system_list () not returning a valid list
    * because on some system this is always called at startup,
@@ -298,7 +298,7 @@ get_mounted_devices (size_t *n)
       else
         {
           free (result);
-          result = NULL;
+          result = nullptr;
         }
     }
   free_file_system_list (entries);

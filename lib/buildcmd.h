@@ -24,11 +24,11 @@
 
 struct buildcmd_state
 {
-  /* Number of valid elements in `cmd_argv', including terminating NULL.  */
+  /* Number of valid elements in `cmd_argv', including terminating null.  */
   size_t cmd_argc;                      /* 0 */
 
   /* The list of args being built.  */
-  char **cmd_argv; /* NULL */
+  char **cmd_argv; /* nullptr */
 
   /* Number of elements allocated for `cmd_argv'.  */
   size_t cmd_argv_alloc;

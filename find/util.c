@@ -75,7 +75,7 @@ static struct debug_option_assoc debugassoc[] =
    Fills in the following cells of the new predicate node:
 
    pred_func        PRED_FUNC
-   args(.str)       NULL
+   args(.str)       nullptr
    p_type           PRIMARY_TYPE
    p_prec           NO_PREC
 
@@ -94,7 +94,7 @@ insert_primary_withpred (const struct parser_table *entry,
   new_pred = get_new_pred_chk_op (entry, arg);
   new_pred->pred_func = pred_func;
   new_pred->p_name = entry->parser_name;
-  new_pred->args.str = NULL;
+  new_pred->args.str = nullptr;
   new_pred->p_type = PRIMARY_TYPE;
   new_pred->p_prec = NO_PREC;
   return new_pred;
@@ -107,7 +107,7 @@ insert_primary_withpred (const struct parser_table *entry,
    Fills in the following cells of the new predicate node:
 
    pred_func        PRED_FUNC
-   args(.str)       NULL
+   args(.str)       nullptr
    p_type           PRIMARY_TYPE
    p_prec           NO_PREC
 
@@ -118,14 +118,14 @@ insert_primary_withpred (const struct parser_table *entry,
 struct predicate *
 insert_primary (const struct parser_table *entry, const char *arg)
 {
-  assert (entry->pred_func != NULL);
+  assert (entry->pred_func != nullptr);
   return insert_primary_withpred (entry, entry->pred_func, arg);
 }
 
 struct predicate *
 insert_primary_noarg (const struct parser_table *entry)
 {
-  return insert_primary (entry, NULL);
+  return insert_primary (entry, nullptr);
 }
 
 
@@ -379,7 +379,7 @@ do_exec (struct exec_val *execp)
     {
       free_cwd (execp->wd_for_exec);
       free (execp->wd_for_exec);
-      execp->wd_for_exec = NULL;
+      execp->wd_for_exec = nullptr;
     }
 }
 
@@ -392,7 +392,7 @@ do_exec (struct exec_val *execp)
 static void
 do_complete_pending_execdirs (struct predicate *p)
 {
-  if (NULL == p)
+  if (nullptr == p)
     return;
 
   assert (state.execdirs_outstanding);
@@ -443,7 +443,7 @@ complete_pending_execdirs (void)
 void
 complete_pending_execs (struct predicate *p)
 {
-  if (NULL == p)
+  if (nullptr == p)
     return;
   complete_pending_execs (p->pred_left);
 
@@ -488,7 +488,7 @@ cleanup_initial_cwd (void)
     {
       free_cwd (initial_wd);
       free (initial_wd);
-      initial_wd = NULL;
+      initial_wd = nullptr;
     }
   else
     {
@@ -517,7 +517,7 @@ traverse_tree (struct predicate *tree,
 
 /* After sharefile_destroy is called, our output file
  * pointers will be dangling (fclose will already have
- * been called on them).  NULL these out.
+ * been called on them).  Null these out.
  */
 static void
 undangle_file_pointers (struct predicate *p)
@@ -528,7 +528,7 @@ undangle_file_pointers (struct predicate *p)
       || pred_is (p, pred_fprint0))
     {
       /* The file was already fclose()d by sharefile_destroy. */
-      p->args.printf_vec.stream = NULL;
+      p->args.printf_vec.stream = nullptr;
     }
 }
 
@@ -545,7 +545,7 @@ cleanup (void)
       complete_pending_execdirs ();
     }
 
-  /* Close output files and NULL out references to them. */
+  /* Close output files and null out references to them. */
   sharefile_destroy (state.shared_files);
   if (eval_tree)
     traverse_tree (eval_tree, undangle_file_pointers);
@@ -765,7 +765,7 @@ digest_mode (mode_t *mode,
 bool
 default_prints (struct predicate *pred)
 {
-  while (pred != NULL)
+  while (pred != nullptr)
     {
       if (pred->no_default_print)
         return (false);
@@ -812,7 +812,7 @@ static void
 process_debug_options (char *arg)
 {
   const char *p;
-  char *token_context = NULL;
+  char *token_context = nullptr;
   const char delimiters[] = ",";
   bool empty = true;
   size_t i;
@@ -835,7 +835,7 @@ process_debug_options (char *arg)
           error (0, 0, _("Ignoring unrecognised debug flag %s"),
                  quotearg_n_style (0, options.err_quoting_style, arg));
         }
-      p = strtok_r (NULL, delimiters, &token_context);
+      p = strtok_r (nullptr, delimiters, &token_context);
     }
   if (empty)
     {
@@ -1041,7 +1041,7 @@ set_option_defaults (struct options *p)
 
   p->err_quoting_style = locale_quoting_style;
 
-  p->files0_from = NULL;
+  p->files0_from = nullptr;
   p->ok_prompt_stdin = false;
 }
 

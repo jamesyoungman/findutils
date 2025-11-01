@@ -29,4 +29,4 @@
 
 struct options options;
 struct state state;
-struct saved_cwd *initial_wd = NULL;
+struct saved_cwd *initial_wd = nullptr;

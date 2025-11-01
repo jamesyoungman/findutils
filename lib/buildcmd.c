@@ -57,7 +57,7 @@ static void
 bc_args_complete (struct buildcmd_control *ctl,
                   struct buildcmd_state *state)
 {
-  bc_push_arg (ctl, state, special_terminating_arg, 0, NULL, 0, 0);
+  bc_push_arg (ctl, state, special_terminating_arg, 0, nullptr, 0, 0);
 }
 
 
@@ -145,7 +145,7 @@ bc_do_insert (struct buildcmd_control *ctl,
 
   bc_push_arg (ctl, state,
                insertbuf, p - insertbuf,
-               NULL, 0,
+               nullptr, 0,
                initial_args);
 }
 
@@ -239,7 +239,7 @@ copy_args (struct buildcmd_control *ctl,
       working_args[dst_pos++] = state->cmd_argv[src_pos++];
     }
   assert (dst_pos >= ctl->initial_argc);
-  working_args[dst_pos] = NULL;
+  working_args[dst_pos] = nullptr;
   return dst_pos;
 }
 
@@ -258,7 +258,7 @@ bc_do_exec (struct buildcmd_control *ctl,
     bc_args_complete (ctl, state);
     /* Verify that the argument list is terminated. */
     assert (state->cmd_argc > 0);
-    assert (state->cmd_argv[state->cmd_argc-1] == NULL);
+    assert (state->cmd_argv[state->cmd_argc-1] == nullptr);
 
     working_args = xmalloc ((1+state->cmd_argc) * sizeof (char*));
     done = 0;
@@ -290,7 +290,7 @@ bc_do_exec (struct buildcmd_control *ctl,
           }
       }
     while ((done + 1) < (state->cmd_argc - ctl->initial_argc));
-    /* (state->cmd_argc - ctl->initial_argc) includes the terminating NULL,
+    /* (state->cmd_argc - ctl->initial_argc) includes the terminating null,
      * which is why we add 1 to done in the test above. */
 
     free (working_args);
@@ -337,7 +337,7 @@ bc_push_arg (struct buildcmd_control *ctl,
 {
   const int terminate = (arg == special_terminating_arg);
 
-  assert (arg != NULL);
+  assert (arg != nullptr);
 
   if (!terminate)
     {
@@ -384,7 +384,7 @@ bc_push_arg (struct buildcmd_control *ctl,
     }
 
   if (terminate)
-    state->cmd_argv[state->cmd_argc++] = NULL;
+    state->cmd_argv[state->cmd_argc++] = nullptr;
   else
     {
       state->cmd_argv[state->cmd_argc++] = state->argbuf + state->cmd_argv_chars;
@@ -520,7 +520,7 @@ bc_init_controlinfo (struct buildcmd_control *ctl,
   ctl->max_arg_count = (ctl->posix_arg_size_max / sizeof (char*)) - 2u;
   assert (ctl->max_arg_count > 0);
   ctl->rplen = 0u;
-  ctl->replace_pat = NULL;
+  ctl->replace_pat = nullptr;
   ctl->initial_argc = 0;
   ctl->exec_callback = cb_exec_noop;
   ctl->lines_per_exec = 0;
@@ -562,7 +562,7 @@ bc_init_state (const struct buildcmd_control *ctl,
 {
   state->cmd_argc = 0;
   state->cmd_argv_chars = 0;
-  state->cmd_argv = NULL;
+  state->cmd_argv = nullptr;
   state->cmd_argv_alloc = 0;
   state->largest_successful_arg_count = 0;
   state->smallest_failed_arg_count = 0;
@@ -604,7 +604,7 @@ exceeds (const char *env_var_name, size_t quantity)
       char *tmp;
       unsigned long limit;
 
-      if (xstrtoul (val, &tmp, 10, &limit, NULL) == LONGINT_OK)
+      if (xstrtoul (val, &tmp, 10, &limit, nullptr) == LONGINT_OK)
         {
           if (quantity > limit)
             return 1;

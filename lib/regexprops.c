@@ -463,7 +463,7 @@ copying (void)
       ,"A copy of the license is included in the ``GNU Free"
       ,"Documentation License'' file as part of this distribution."
       ""
-      ,NULL
+      ,nullptr
     };
   const char **s = copy_para;
   while (*s)
@@ -511,7 +511,7 @@ get_next (unsigned int ix, unsigned int context)
       if (!ignore (ix, context))
         {
           next = get_regex_type_name (ix);
-          if (NULL == next)
+          if (nullptr == next)
             return "";
           else
             return next;
@@ -556,7 +556,7 @@ describe_all (const char *contextname,
         }
 
       next = get_next (i+1, context);
-      if (NULL == next)
+      if (nullptr == next)
         next = "";
       begin_subsection (name, next, previous, up);
       parent = get_regex_type_synonym (i, context);

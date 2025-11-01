@@ -148,7 +148,7 @@ pred_amin (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
 bool
 pred_and (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
 {
-  if (pred_ptr->pred_left == NULL
+  if (pred_ptr->pred_left == nullptr
       || apply_predicate (pathname, stat_buf, pred_ptr->pred_left))
     {
       return apply_predicate (pathname, stat_buf, pred_ptr->pred_right);
@@ -201,7 +201,7 @@ pred_cnewer (const char *pathname, struct stat *stat_buf, struct predicate *pred
 bool
 pred_comma (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
 {
-  if (pred_ptr->pred_left != NULL)
+  if (pred_ptr->pred_left != nullptr)
     {
       apply_predicate (pathname, stat_buf,pred_ptr->pred_left);
     }
@@ -323,7 +323,7 @@ pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_
           return false;
         }
       d = fdopendir (fd);
-      if (d == NULL)
+      if (d == nullptr)
         {
           error (0, errno, "%s", safely_quote_err_filename (0, pathname));
           state.exit_status = EXIT_FAILURE;
@@ -653,7 +653,7 @@ pred_nogroup (const char *pathname, struct stat *stat_buf, struct predicate *pre
 {
   (void) pathname;
   (void) pred_ptr;
-  return getgrgid (stat_buf->st_gid) == NULL;
+  return getgrgid (stat_buf->st_gid) == nullptr;
 }
 
 bool
@@ -661,7 +661,7 @@ pred_nouser (const char *pathname, struct stat *stat_buf, struct predicate *pred
 {
   (void) pathname;
   (void) pred_ptr;
-  return getpwuid (stat_buf->st_uid) == NULL;
+  return getpwuid (stat_buf->st_uid) == nullptr;
 }
 
 
@@ -723,7 +723,7 @@ pred_openparen (const char *pathname, struct stat *stat_buf, struct predicate *p
 bool
 pred_or (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
 {
-  if (pred_ptr->pred_left == NULL
+  if (pred_ptr->pred_left == nullptr
       || !apply_predicate (pathname, stat_buf, pred_ptr->pred_left))
     {
       return apply_predicate (pathname, stat_buf, pred_ptr->pred_right);
@@ -841,7 +841,7 @@ pred_prune (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 
   if (options.do_dir_first == true) { /* no effect with -depth */
     assert (state.have_stat);
-    if (stat_buf != NULL &&
+    if (stat_buf != nullptr &&
         S_ISDIR(stat_buf->st_mode))
       state.stop_at_current_level = true;
   }
@@ -877,7 +877,7 @@ pred_regex (const char *pathname, struct stat *stat_buf, struct predicate *pred_
   int len = strlen (pathname);
 (void) stat_buf;
   if (re_match (pred_ptr->args.regex, pathname, len, 0,
-                (struct re_registers *) NULL) == len)
+                (struct re_registers *) nullptr) == len)
     return (true);
   return (false);
 }
@@ -1170,8 +1170,8 @@ blank_rtrim (const char *str, char *buf)
 {
   int i;
 
-  if (str == NULL)
-    return (NULL);
+  if (str == nullptr)
+    return (nullptr);
   strcpy (buf, str);
   i = strlen (buf) - 1;
   while ((i >= 0) && ((buf[i] == ' ') || buf[i] == '\t'))
@@ -1188,7 +1188,7 @@ print_list (FILE *fp, struct predicate *node)
   char name[256];
 
   cur = node;
-  while (cur != NULL)
+  while (cur != nullptr)
     {
       fprintf (fp, "[%s] ", blank_rtrim (cur->p_name, name));
       cur = cur->pred_next;
@@ -1205,7 +1205,7 @@ print_parenthesised (FILE *fp, struct predicate *node)
   if (node)
     {
       if ((pred_is (node, pred_or) || pred_is (node, pred_and))
-          && node->pred_left == NULL)
+          && node->pred_left == nullptr)
         {
           /* We print "<nothing> or  X" as just "X"
            * We print "<nothing> and X" as just "X"
@@ -1286,17 +1286,17 @@ pred_sanity_check (const struct predicate *predicates)
 {
   const struct predicate *p;
 
-  for (p=predicates; p != NULL; p=p->pred_next)
+  for (p=predicates; p != nullptr; p=p->pred_next)
     {
       /* All predicates must do something. */
-      assert (p->pred_func != NULL);
+      assert (p->pred_func != nullptr);
 
       /* All predicates must have a parser table entry. */
-      assert (p->parser_entry != NULL);
+      assert (p->parser_entry != nullptr);
 
       /* If the parser table tells us that just one predicate function is
        * possible, verify that that is still the one that is in effect.
-       * If the parser has NULL for the predicate function, that means that
+       * If the parser has nullptr for the predicate function, that means that
        * the parse_xxx function fills it in, so we can't check it.
        */
       if (p->parser_entry->pred_func)

@@ -65,6 +65,10 @@ local-checks-to-skip += sc_two_space_separator_in_usage
 # 9e  1855268  67844 0.11
 export XZ_OPT = -7e
 
+# Partial substitutes for GNU extensions \< and \> in regexps.
+begword = (^|[^_[:alnum:]])
+endword = ($$|[^_[:alnum:]])
+
 # Some test inputs/outputs have trailing blanks.
 exclude_file_name_regexp--sc_trailing_blank = \
  ^COPYING|(po/.*\.po)|(find/testsuite/find.gnu/printf\.xo)|(xargs/testsuite/(inputs/.*\.xi|xargs\.(gnu|posix|sysv)/.*\.(x[oe])))$$
@@ -310,6 +314,12 @@ sc_standard_outputs:
 	    && { echo '$@: use "standard ....." in user docs' 1>&2; \
 		 fail=1; } || :; \
 	  exit $$fail
+
+sc_prohibit_NULL:
+	@prohibit='$(begword)NULL$(endword)'                            \
+	in_vc_files='\.[ch]$$'                                          \
+	halt='use nullptr instead'                                      \
+	  $(_sc_search_regexp)
 
 # Now that we have better tests, make this the default.
 export VERBOSE = yes

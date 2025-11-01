@@ -75,7 +75,7 @@ get_proc_max_fd (void)
         {
           errno = 0;
           dent = readdir (dir);
-          if (NULL == dent)
+          if (nullptr == dent)
             {
               if (errno)
                 {
@@ -229,7 +229,7 @@ remember_non_cloexec_fds (void)
 {
   int max_fd = get_max_fd ();
   struct remember_fd_context cb_data;
-  cb_data.buf = NULL;
+  cb_data.buf = nullptr;
   cb_data.used = cb_data.allocated = 0;
 
   if (max_fd < INT_MAX)
@@ -361,7 +361,7 @@ void
 forget_non_cloexec_fds (void)
 {
   free (non_cloexec_fds);
-  non_cloexec_fds = NULL;
+  non_cloexec_fds = nullptr;
   num_cloexec_fds = 0;
 }
 

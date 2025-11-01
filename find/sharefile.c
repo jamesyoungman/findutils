@@ -106,7 +106,7 @@ sharefile_init (const char *mode)
       p->mode = strdup (mode);
       if (p->mode)
         {
-          p->table = hash_initialize (DefaultHashTableSize, NULL,
+          p->table = hash_initialize (DefaultHashTableSize, nullptr,
                                       entry_hashfunc,
                                       entry_comparator,
                                       entry_free);
@@ -125,7 +125,7 @@ sharefile_init (const char *mode)
           free (p);
         }
     }
-  return NULL;
+  return nullptr;
 }
 
 void
@@ -145,19 +145,19 @@ sharefile_fopen (sharefile_handle h, const char *filename)
 
   new_entry = malloc (sizeof (struct SharefileEntry));
   if (!new_entry)
-    return NULL;
+    return nullptr;
 
   new_entry->name = strdup (filename);
-  if (NULL == new_entry->name)
+  if (nullptr == new_entry->name)
     {
       free (new_entry);
-      return NULL;
+      return nullptr;
     }
 
-  if (NULL == (new_entry->fp = fopen (filename, p->mode)))
+  if (nullptr == (new_entry->fp = fopen (filename, p->mode)))
     {
       entry_free (new_entry);
-      return NULL;
+      return nullptr;
     }
   else
     {
@@ -169,7 +169,7 @@ sharefile_fopen (sharefile_handle h, const char *filename)
       if (fstat (fd, &st) < 0)
         {
           entry_free (new_entry);
-          return NULL;
+          return nullptr;
         }
       else
         {
@@ -195,7 +195,7 @@ sharefile_fopen (sharefile_handle h, const char *filename)
                   const int save_errno = errno;
                   entry_free (new_entry);
                   errno = save_errno;
-                  return NULL;
+                  return nullptr;
                 }
             }
         }

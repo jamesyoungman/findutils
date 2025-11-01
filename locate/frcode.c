@@ -124,10 +124,10 @@ prefix_length (char *s1, char *s2)
 
 static struct option const longopts[] =
 {
-  {"help", no_argument, NULL, 'h'},
-  {"version", no_argument, NULL, 'v'},
-  {"null", no_argument, NULL, '0'},
-  {NULL, no_argument, NULL, 0}
+  {"help", no_argument, nullptr, 'h'},
+  {"version", no_argument, nullptr, 'v'},
+  {"null", no_argument, nullptr, '0'},
+  {nullptr, no_argument, nullptr, 0}
 };
 
 static void _GL_ATTRIBUTE_NORETURN

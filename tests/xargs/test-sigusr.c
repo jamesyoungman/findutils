@@ -36,7 +36,7 @@
 
 enum { FLAGFILE_MAX = 128 };
 static char flagfile_name[FLAGFILE_MAX];
-static const char* tmpdir = NULL;
+static const char* tmpdir = nullptr;
 
 
 static void
@@ -47,7 +47,7 @@ remove_temporary_files(void)
       unlink(flagfile_name);
       rmdir(tmpdir);
     }
-  tmpdir = NULL;
+  tmpdir = nullptr;
 }
 
 static void
@@ -84,7 +84,7 @@ ignore_signal(int signum)
   sa.sa_handler = SIG_IGN;
   sa.sa_flags = 0;
   sigemptyset(&sa.sa_mask);
-  if (0 != sigaction(signum, &sa, (struct sigaction*)NULL))
+  if (0 != sigaction(signum, &sa, (struct sigaction*)nullptr))
     {
       error(2, errno, "sigaction failed");
     }
@@ -102,7 +102,7 @@ catch_signal(int signum)
   struct sigaction sa;
   sa.sa_handler = handler;
   sa.sa_flags = 0;
-  if (0 != sigaction(signum, &sa, (struct sigaction*)NULL))
+  if (0 != sigaction(signum, &sa, (struct sigaction*)nullptr))
     {
       error(2, errno, "sigaction failed");
     }
@@ -181,7 +181,7 @@ run_xargs(const char *option, const char *opt_arg, int send_signal)
   argv[i++] = (char*)"touch \"$1\" && sleep 4";
   argv[i++] = (char*)"fnord";
   argv[i++] = flagfile_name;
-  argv[i++] = NULL;
+  argv[i++] = nullptr;
   assert(i <= ARGV_MAX);
 
   /* Create a pipe so that we can detect an exec call. */
@@ -283,7 +283,7 @@ verify_signal_ignored(int signum)
   fflush(stdout);
 
   ignore_signal(signum);
-  status = run_xargs(NULL, NULL, signum);
+  status = run_xargs(nullptr, nullptr, signum);
   if (status.fatalsig)
     {
       fprintf(stderr, "xargs should not have exited fatally on receipt of signal %d\n", signum);
@@ -304,7 +304,7 @@ verify_signal_is_fatal(int signum)
   printf("verifying that signal %d will kill xargs (without -P) if it is not blocked when xargs starts...", signum);
   fflush(stdout);
   catch_signal(signum);
-  status = run_xargs(NULL, NULL, signum);
+  status = run_xargs(nullptr, nullptr, signum);
   if (!status.fatalsig)
     {
       fprintf(stderr, "xargs should have exited fatally on receipt of signal %d\n", signum);
@@ -334,7 +334,7 @@ main(int argc, char *argv[])
 {
   char tmpdir_tmpl[] = "/tmp/test-sigusr.XXXXXX";
   tmpdir = mkdtemp(tmpdir_tmpl);
-  if (NULL == tmpdir)
+  if (nullptr == tmpdir)
     {
       error(2, errno, "failed to create temporary directory");
     }

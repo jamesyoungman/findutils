@@ -32,13 +32,13 @@
 
 
 /* All predicates for each path to process. */
-static struct predicate *predicates = NULL;
+static struct predicate *predicates = nullptr;
 
 /* The root of the evaluation tree. */
-static struct predicate *eval_tree  = NULL;
+static struct predicate *eval_tree  = nullptr;
 
 /* The last predicate allocated. */
-static struct predicate *last_pred = NULL;
+static struct predicate *last_pred = nullptr;
 
 /* The starting points. */
 static char **start_points;
@@ -106,10 +106,10 @@ get_expr (struct predicate **input,
           short int prev_prec,
           const struct predicate* prev_pred)
 {
-  struct predicate *next = NULL;
+  struct predicate *next = nullptr;
   struct predicate *this_pred = (*input);
 
-  if (*input == NULL)
+  if (*input == nullptr)
     error (EXIT_FAILURE, 0, _("invalid expression"));
 
   switch ((*input)->p_type)
@@ -126,7 +126,7 @@ get_expr (struct predicate **input,
       break;
 
     case CLOSE_PAREN:
-      if (prev_pred == NULL)
+      if (prev_pred == nullptr)
         {
           /* Happens with e.g. "find -files0-from - ')' -print" */
           error (EXIT_FAILURE, 0,
@@ -171,7 +171,7 @@ get_expr (struct predicate **input,
       break;
 
     case OPEN_PAREN:
-      if ( (NULL == (*input)->pred_next) || (*input)->pred_next->artificial )
+      if ( (nullptr == (*input)->pred_next) || (*input)->pred_next->artificial )
         {
           /* user typed something like "find . (", and so the ) we are
            * looking at is from the artificial "( ) -print" that we
@@ -196,7 +196,7 @@ get_expr (struct predicate **input,
                  _("invalid expression; empty parentheses are not allowed."));
         }
       next = get_expr (input, NO_PREC, prev_pred);
-      if ((*input == NULL)
+      if ((*input == nullptr)
           || ((*input)->p_type != CLOSE_PAREN))
         error (EXIT_FAILURE, 0,
                _("invalid expression; I was expecting to find a ')' somewhere "
@@ -211,16 +211,16 @@ get_expr (struct predicate **input,
     }
 
   /* We now have the first expression and are positioned to check
-     out the next operator.  If NULL, all done.  Otherwise, if
+     out the next operator.  If nullptr, all done.  Otherwise, if
      PREV_PREC < the current node precedence, we must continue;
      the expression we just nabbed is more tightly bound to the
      following expression than to the previous one. */
-  if (*input == NULL)
+  if (*input == nullptr)
     return (next);
   if ((int) (*input)->p_prec > (int) prev_prec)
     {
       next = scan_rest (input, next, prev_prec);
-      if (next == NULL)
+      if (next == nullptr)
         error (EXIT_FAILURE, 0, _("invalid expression"));
     }
   return (next);
@@ -246,10 +246,10 @@ scan_rest (struct predicate **input,
 {
   struct predicate *tree;       /* The new tree we are building. */
 
-  if ((*input == NULL) || ((*input)->p_type == CLOSE_PAREN))
-    return (NULL);
+  if ((*input == nullptr) || ((*input)->p_type == CLOSE_PAREN))
+    return (nullptr);
   tree = head;
-  while ((*input != NULL) && ((int) (*input)->p_prec > (int) prev_prec))
+  while ((*input != nullptr) && ((int) (*input)->p_prec > (int) prev_prec))
     {
       switch ((*input)->p_type)
         {
@@ -339,7 +339,7 @@ struct predlist
 static void
 predlist_init (struct predlist *p)
 {
-  p->head = p->tail = NULL;
+  p->head = p->tail = nullptr;
 }
 
 static void
@@ -352,7 +352,7 @@ predlist_insert (struct predlist *list,
   *pprev = curr->pred_left;
   curr->pred_left = (*insertpos);
   (*insertpos) = curr;
-  if (NULL == list->tail)
+  if (nullptr == list->tail)
     list->tail = list->head;
 }
 
@@ -382,7 +382,7 @@ predlist_merge_sort (struct predlist *list,
   struct predlist new_list;
   struct predicate *p, *q;
 
-  if (NULL == list->head)
+  if (nullptr == list->head)
     return;                     /* nothing to do */
 
   if (options.debug_options & DebugTreeOpt)
@@ -398,7 +398,7 @@ predlist_merge_sort (struct predlist *list,
       /* remove head of source list */
       q = list->head;
       list->head = list->head->pred_left;
-      q->pred_left = NULL;
+      q->pred_left = nullptr;
 
       /* insert it into the new list */
       for (p=new_list.head; p; p=p->pred_left)
@@ -420,7 +420,7 @@ predlist_merge_sort (struct predlist *list,
         {
           /* insert into existing list */
           q->pred_left = p->pred_left;
-          if (NULL == q->pred_left)
+          if (nullptr == q->pred_left)
             new_list.tail = q;
           p->pred_left = q;
         }
@@ -428,7 +428,7 @@ predlist_merge_sort (struct predlist *list,
         {
           q->pred_left = new_list.head; /* prepend */
           new_list.head = q;
-          if (NULL == new_list.tail)
+          if (nullptr == new_list.tail)
             new_list.tail = q; /* first item in new list */
         }
     }
@@ -528,21 +528,21 @@ static bool
 consider_arm_swap (struct predicate *p)
 {
   int left_cost, right_cost;
-  const char *reason = NULL;
-  struct predicate **pl = NULL, **pr = NULL;
+  const char *reason = nullptr;
+  struct predicate **pl = nullptr, **pr = nullptr;
 
   if (BI_OP != p->p_type)
     reason = "Not a binary operation";
 
   if (!reason)
     {
-      if (NULL == p->pred_left || NULL == p->pred_right)
+      if (nullptr == p->pred_left || nullptr == p->pred_right)
         reason = "Doesn't have two arms";
     }
 
   if (!reason)
     {
-      if (NULL == p->pred_left->pred_right)
+      if (nullptr == p->pred_left->pred_right)
         {
           reason = "Left arm has no child on RHS";
         }
@@ -693,7 +693,7 @@ do_arm_swaps (struct predicate *p)
 static bool
 opt_expr (struct predicate **eval_treep)
 {
-  struct predlist regex_list={NULL,NULL}, name_list={NULL,NULL};
+  struct predlist regex_list={nullptr,nullptr}, name_list={nullptr,nullptr};
   struct predlist cbo_list[NumEvaluationCosts];
   int i;
   struct predicate *curr;
@@ -705,7 +705,7 @@ opt_expr (struct predicate **eval_treep)
   enum predicate_precedence prev_prec, /* precedence of last BI_OP in branch */
                             biop_prec; /* topmost BI_OP precedence in branch */
 
-  if (eval_treep == NULL || *eval_treep == NULL)
+  if (eval_treep == nullptr || *eval_treep == nullptr)
     return (false);
 
   for (i=0; i<NumEvaluationCosts; i++)
@@ -717,7 +717,7 @@ opt_expr (struct predicate **eval_treep)
   prevp = eval_treep;
   prev_prec = AND_PREC;
   curr = *prevp;
-  while (curr->pred_left != NULL)
+  while (curr->pred_left != nullptr)
     {
       prevp = &curr->pred_left;
       prev_prec = curr->p_prec; /* must be a BI_OP */
@@ -740,7 +740,7 @@ opt_expr (struct predicate **eval_treep)
   biop_prec = NO_PREC; /* not COMMA_PREC */
   if ((*prevp) && (*prevp)->p_type == BI_OP)
     biop_prec = (*prevp)->p_prec;
-  while ((curr = *prevp) != NULL)
+  while ((curr = *prevp) != nullptr)
     {
       /* If there is a BI_OP of different precedence from the first
          in the pred_left chain, create a new parent of the
@@ -1155,7 +1155,7 @@ getrate (const struct predicate *p)
 float
 calculate_derived_rates (struct predicate *p)
 {
-  assert (NULL != p);
+  assert (nullptr != p);
 
   if (p->pred_right)
     calculate_derived_rates (p->pred_right);
@@ -1168,19 +1168,19 @@ calculate_derived_rates (struct predicate *p)
   switch (p->p_type)
     {
     case NO_TYPE:
-      assert (NULL == p->pred_right);
-      assert (NULL == p->pred_left);
+      assert (nullptr == p->pred_right);
+      assert (nullptr == p->pred_left);
       return p->est_success_rate;
 
     case PRIMARY_TYPE:
-      assert (NULL == p->pred_right);
-      assert (NULL == p->pred_left);
+      assert (nullptr == p->pred_right);
+      assert (nullptr == p->pred_left);
       return p->est_success_rate;
 
     case UNI_OP:
       /* Unary operators must have exactly one operand */
       assert (pred_is (p, pred_negate));
-      assert (NULL == p->pred_left);
+      assert (nullptr == p->pred_left);
       p->est_success_rate = (1.0 - p->pred_right->est_success_rate);
       return p->est_success_rate;
 
@@ -1252,7 +1252,7 @@ build_expression_tree (int argc, char *argv[], int end_of_leading_options)
   const struct parser_table *entry_close, *entry_print, *entry_open;
   int i, oldi;
 
-  predicates = NULL;
+  predicates = nullptr;
 
   /* Find where in ARGV the predicates begin by skipping the list of
    * start points.  As a side effect, also figure out which is the
@@ -1269,9 +1269,9 @@ build_expression_tree (int argc, char *argv[], int end_of_leading_options)
   entry_open  = find_parser ("(");
   entry_close = find_parser (")");
   entry_print = find_parser ("print");
-  assert (entry_open  != NULL);
-  assert (entry_close != NULL);
-  assert (entry_print != NULL);
+  assert (entry_open  != nullptr);
+  assert (entry_close != nullptr);
+  assert (entry_print != nullptr);
 
   parse_openparen (entry_open, argv, &argc);
   last_pred->p_name = "(";
@@ -1294,7 +1294,7 @@ build_expression_tree (int argc, char *argv[], int end_of_leading_options)
 
       predicate_name = argv[i];
       parse_entry = find_parser (predicate_name);
-      if (parse_entry == NULL)
+      if (parse_entry == nullptr)
         {
           /* Command line option not recognized */
           error (EXIT_FAILURE, 0, _("unknown predicate `%s'"), predicate_name);
@@ -1339,13 +1339,13 @@ build_expression_tree (int argc, char *argv[], int end_of_leading_options)
           if (i != oldi)
             last_pred->arg_text = argv[oldi];
           else
-            last_pred->arg_text = NULL;
+            last_pred->arg_text = nullptr;
         }
       pred_sanity_check(last_pred);
       pred_sanity_check(predicates); /* XXX: expensive */
     }
   parse_end_user_args (argv, argc, last_pred, predicates);
-  if (predicates->pred_next == NULL)
+  if (predicates->pred_next == nullptr)
     {
       /* No predicates that do something other than set a global variable
          were given; remove the unneeded initial `(' and add `-print'. */
@@ -1392,15 +1392,15 @@ build_expression_tree (int argc, char *argv[], int end_of_leading_options)
 
   /* Done parsing the predicates.  Build the evaluation tree. */
   cur_pred = predicates;
-  eval_tree = get_expr (&cur_pred, NO_PREC, NULL);
+  eval_tree = get_expr (&cur_pred, NO_PREC, nullptr);
   calculate_derived_rates (eval_tree);
 
   /* Check if we have any left-over predicates (this fixes
    * Debian bug #185202).
    */
-  if (cur_pred != NULL)
+  if (cur_pred != nullptr)
     {
-      /* cur_pred->p_name is often NULL here */
+      /* cur_pred->p_name is often nullptr here */
       if (pred_is (cur_pred, pred_closeparen))
         {
           /* e.g. "find \( -true \) \)" */
@@ -1466,7 +1466,7 @@ get_new_pred_noarg (const struct parser_table *entry)
   struct predicate *p = get_new_pred (entry);
   if (p)
     {
-      p->arg_text = NULL;
+      p->arg_text = nullptr;
     }
   return p;
 }
@@ -1492,7 +1492,7 @@ get_new_pred (const struct parser_table *entry)
 
   /* Allocate + initialize a new predicate.  */
   new_pred = xzalloc (sizeof (struct predicate));
-  if (predicates == NULL)
+  if (predicates == nullptr)
     {
       last_pred = predicates = new_pred;
     }
@@ -1522,14 +1522,14 @@ get_new_pred_chk_op (const struct parser_table *entry,
                      const char *arg)
 {
   struct predicate *new_pred;
-  static const struct parser_table *entry_and = NULL;
+  static const struct parser_table *entry_and = nullptr;
 
   /* Locate the entry in the parser table for the "and" operator */
-  if (NULL == entry_and)
+  if (nullptr == entry_and)
     entry_and = find_parser ("and");
 
   /* Check that it's actually there. If not, that is a bug.*/
-  assert (entry_and != NULL);
+  assert (entry_and != nullptr);
 
   if (last_pred)
     switch (last_pred->p_type)
@@ -1549,8 +1549,8 @@ get_new_pred_chk_op (const struct parser_table *entry,
         new_pred->need_stat = false;
         new_pred->need_type = false;
         new_pred->need_inum = false;
-        new_pred->arg_text = NULL;
-        new_pred->args.str = NULL;
+        new_pred->arg_text = nullptr;
+        new_pred->args.str = nullptr;
         new_pred->side_effects = false;
         new_pred->no_default_print = false;
         break;
@@ -1663,7 +1663,7 @@ print_tree (FILE *fp, struct predicate *node, int indent)
 {
   int i;
 
-  if (node == NULL)
+  if (node == nullptr)
     return;
   for (i = 0; i < indent; i++)
     fprintf (fp, "    ");
@@ -1701,7 +1701,7 @@ print_tree (FILE *fp, struct predicate *node, int indent)
 
   for (i = 0; i < indent; i++)
     fprintf (fp, "    ");
-  if (NULL == node->pred_left && NULL == node->pred_right)
+  if (nullptr == node->pred_left && nullptr == node->pred_right)
     {
       fprintf (fp, "no children.\n");
     }

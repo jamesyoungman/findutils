@@ -49,5 +49,5 @@ display_findutils_version (const char *official_name)
                _("Eric B. Decker"),
                _("James Youngman"),
                _("Kevin Dalley"),
-               (const char*) NULL);
+               (const char*) nullptr);
 }

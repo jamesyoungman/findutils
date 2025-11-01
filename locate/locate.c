@@ -133,12 +133,12 @@ static int follow_symlinks = 1;
 /* What to separate the results with. */
 static int separator = '\n';
 
-static struct quoting_options * quote_opts = NULL;
+static struct quoting_options * quote_opts = nullptr;
 static bool stdout_is_a_tty;
 static bool print_quoted_filename;
 static bool results_were_filtered;
 
-static const char *selected_secure_db = NULL;
+static const char *selected_secure_db = nullptr;
 
 static int dolocate (int argc, char **argv, int secure_db_fd);
 
@@ -209,7 +209,7 @@ static const char * const metacharacters = "*?[]\\";
 static int
 contains_metacharacter (const char *s)
 {
-  if (NULL == strpbrk (s, metacharacters))
+  if (nullptr == strpbrk (s, metacharacters))
     return 0;
   else
     return 1;
@@ -232,7 +232,7 @@ contains_metacharacter (const char *s)
 static int
 locate_read_str (char **buf, size_t *siz, FILE *fp, int delimiter, int offs)
 {
-  char * p = NULL;
+  char * p = nullptr;
   size_t sz = 0;
   int nread;
   size_t needed;
@@ -240,13 +240,13 @@ locate_read_str (char **buf, size_t *siz, FILE *fp, int delimiter, int offs)
   nread = getdelim (&p, &sz, delimiter, fp);
   if (nread >= 0)
     {
-      assert (p != NULL);
+      assert (p != nullptr);
 
       needed = offs + nread + 1u;
       if (needed > (*siz))
         {
           char *pnew = realloc (*buf, needed);
-          if (NULL == pnew)
+          if (nullptr == pnew)
             {
               return -1;        /* FAIL */
             }
@@ -318,9 +318,9 @@ struct visitor
 };
 
 
-static struct visitor *inspectors = NULL;
-static struct visitor *lastinspector = NULL;
-static struct visitor *past_pat_inspector = NULL;
+static struct visitor *inspectors = nullptr;
+static struct visitor *lastinspector = nullptr;
+static struct visitor *past_pat_inspector = nullptr;
 
 static inline int visit (const struct visitor *p,
                          int accept_flags,
@@ -340,7 +340,7 @@ static inline int visit (const struct visitor *p,
 static int
 process_simple (struct process_data *procdata)
 {
-  return visit (inspectors, (VISIT_CONTINUE|VISIT_ACCEPTED), procdata, NULL);
+  return visit (inspectors, (VISIT_CONTINUE|VISIT_ACCEPTED), procdata, nullptr);
 }
 
 /* Accept if any pattern matches. */
@@ -355,7 +355,7 @@ process_or (struct process_data *procdata)
   if (result & (VISIT_ABORT | VISIT_REJECTED))
     return result;
 
-  result = visit (past_pat_inspector, VISIT_CONTINUE, procdata, NULL);
+  result = visit (past_pat_inspector, VISIT_CONTINUE, procdata, nullptr);
   if (VISIT_CONTINUE == result)
     return VISIT_ACCEPTED;
   else
@@ -374,7 +374,7 @@ process_and (struct process_data *procdata)
   if (result & (VISIT_ABORT | VISIT_REJECTED))
     return result;
 
-  result = visit (past_pat_inspector, VISIT_CONTINUE, procdata, NULL);
+  result = visit (past_pat_inspector, VISIT_CONTINUE, procdata, nullptr);
   if (VISIT_CONTINUE == result)
     return VISIT_ACCEPTED;
   else
@@ -383,7 +383,7 @@ process_and (struct process_data *procdata)
 
 typedef int (*processfunc)(struct process_data *procdata);
 
-static processfunc mainprocessor = NULL;
+static processfunc mainprocessor = nullptr;
 
 static void
 add_visitor (visitfunc fn, void *context)
@@ -391,9 +391,9 @@ add_visitor (visitfunc fn, void *context)
   struct visitor *p = xmalloc (sizeof (struct visitor));
   p->inspector = fn;
   p->context   = context;
-  p->next = NULL;
+  p->next = nullptr;
 
-  if (NULL == lastinspector)
+  if (nullptr == lastinspector)
     {
       lastinspector = inspectors = p;
     }
@@ -675,7 +675,7 @@ visit_substring_match_nocasefold_wide (struct process_data *procdata, void *cont
 {
   const char *pattern = context;
 
-  if (NULL != mbsstr (procdata->munged_filename, pattern))
+  if (nullptr != mbsstr (procdata->munged_filename, pattern))
     return VISIT_ACCEPTED;
   else
     return VISIT_REJECTED;
@@ -686,7 +686,7 @@ visit_substring_match_nocasefold_narrow (struct process_data *procdata, void *co
 {
   const char *pattern = context;
   assert (MB_CUR_MAX == 1);
-  if (NULL != strstr (procdata->munged_filename, pattern))
+  if (nullptr != strstr (procdata->munged_filename, pattern))
     return VISIT_ACCEPTED;
   else
     return VISIT_REJECTED;
@@ -697,7 +697,7 @@ visit_substring_match_casefold_wide (struct process_data *procdata, void *contex
 {
   const char *pattern = context;
 
-  if (NULL != mbscasestr (procdata->munged_filename, pattern))
+  if (nullptr != mbscasestr (procdata->munged_filename, pattern))
     return VISIT_ACCEPTED;
   else
     return VISIT_REJECTED;
@@ -710,7 +710,7 @@ visit_substring_match_casefold_narrow (struct process_data *procdata, void *cont
   const char *pattern = context;
 
   assert (MB_CUR_MAX == 1);
-  if (NULL != strcasestr (procdata->munged_filename, pattern))
+  if (nullptr != strcasestr (procdata->munged_filename, pattern))
     return VISIT_ACCEPTED;
   else
     return VISIT_REJECTED;
@@ -747,7 +747,7 @@ visit_regex (struct process_data *procdata, void *context)
 
   int rv = re_search (&p->regex, procdata->munged_filename,
                       len, 0, len,
-                      (struct re_registers *) NULL);
+                      (struct re_registers *) nullptr);
   if (rv < 0)
     {
       return VISIT_REJECTED;    /* no match (-1), or internal error (-2) */
@@ -1049,9 +1049,9 @@ search_one_database (int argc,
   procdata.fp = fp;
 
   /* Set up the inspection regime */
-  inspectors = NULL;
-  lastinspector = NULL;
-  past_pat_inspector = NULL;
+  inspectors = nullptr;
+  lastinspector = nullptr;
+  past_pat_inspector = nullptr;
   results_were_filtered = false;
   procdata.pathsize = 128;      /* Increased as necessary by locate_read_str.  */
   procdata.original_filename = xmalloc (procdata.pathsize);
@@ -1110,7 +1110,7 @@ search_one_database (int argc,
               do_check_existence = ACCEPT_EXISTING;
             }
         }
-      add_visitor (visit_locate02_format, NULL);
+      add_visitor (visit_locate02_format, nullptr);
       format_name = "slocate";
       slocatedb_format = 1;
     }
@@ -1124,7 +1124,7 @@ search_one_database (int argc,
                       procdata.fp);
       if (looking_at_gnu_locatedb (procdata.original_filename, nread+nread2))
         {
-          add_visitor (visit_locate02_format, NULL);
+          add_visitor (visit_locate02_format, nullptr);
           format_name = "GNU LOCATE02";
         }
       else                              /* Use the old format */
@@ -1155,12 +1155,12 @@ search_one_database (int argc,
             }
           format_name = "old";
           oldformat = 1;
-          add_visitor (visit_old_format, NULL);
+          add_visitor (visit_old_format, nullptr);
         }
     }
 
   if (basename_only)
-    add_visitor (visit_basename, NULL);
+    add_visitor (visit_basename, nullptr);
 
   /* Add an inspector for each pattern we're looking for. */
   for ( argn = 0; argn < argc; argn++ )
@@ -1170,16 +1170,16 @@ search_one_database (int argc,
       if (regex)
         {
           struct regular_expression *p = xmalloc (sizeof (*p));
-          const char *error_message = NULL;
+          const char *error_message = nullptr;
 
           memset (&p->regex, 0, sizeof (p->regex));
 
           re_set_syntax (regex_options);
           p->regex.allocated = 100;
           p->regex.buffer = xmalloc (p->regex.allocated);
-          p->regex.fastmap = NULL;
+          p->regex.fastmap = nullptr;
           p->regex.syntax = regex_options;
-          p->regex.translate = NULL;
+          p->regex.translate = nullptr;
 
           error_message = re_compile_pattern (pathpart, strlen (pathpart),
                                               &p->regex);
@@ -1240,17 +1240,17 @@ search_one_database (int argc,
       case ACCEPT_EXISTING:
         results_were_filtered = true;
         if (follow_symlinks)    /* -L, default */
-          add_visitor (visit_existing_follow, NULL);
+          add_visitor (visit_existing_follow, nullptr);
         else                    /* -P */
-          add_visitor (visit_existing_nofollow, NULL);
+          add_visitor (visit_existing_nofollow, nullptr);
         break;
 
       case ACCEPT_NON_EXISTING:
         results_were_filtered = true;
         if (follow_symlinks)    /* -L, default */
-          add_visitor (visit_non_existing_follow, NULL);
+          add_visitor (visit_non_existing_follow, nullptr);
         else                    /* -P */
-          add_visitor (visit_non_existing_nofollow, NULL);
+          add_visitor (visit_non_existing_nofollow, nullptr);
         break;
 
       case ACCEPT_EITHER:       /* Default, neither -E nor -e */
@@ -1268,9 +1268,9 @@ search_one_database (int argc,
   if (enable_print)
     {
       if (print_quoted_filename)
-        add_visitor (visit_justprint_quoted,   NULL);
+        add_visitor (visit_justprint_quoted,   nullptr);
       else
-        add_visitor (visit_justprint_unquoted, NULL);
+        add_visitor (visit_justprint_unquoted, nullptr);
     }
 
 
@@ -1339,7 +1339,7 @@ search_one_database (int argc,
                        "is not obvious.\n"));
             }
         }
-      if (filesize || (database_mtime != NULL))
+      if (filesize || (database_mtime != nullptr))
         print_stats (argc, filesize, database_mtime);
     }
 
@@ -1385,29 +1385,29 @@ enum
 
 static struct option const longopts[] =
 {
-  {"database", required_argument, NULL, 'd'},
-  {"existing", no_argument, NULL, 'e'},
-  {"non-existing", no_argument, NULL, 'E'},
-  {"ignore-case", no_argument, NULL, 'i'},
-  {"all", no_argument, NULL, 'A'},
-  {"help", no_argument, NULL, 'h'},
-  {"version", no_argument, NULL, 'v'},
-  {"null", no_argument, NULL, '0'},
-  {"count", no_argument, NULL, 'c'},
-  {"wholename", no_argument, NULL, 'w'},
-  {"wholepath", no_argument, NULL, 'w'}, /* Synonym. */
-  {"basename", no_argument, NULL, 'b'},
-  {"print", no_argument, NULL, 'p'},
-  {"stdio", no_argument, NULL, 's'},
-  {"mmap",  no_argument, NULL, 'm'},
-  {"limit",  required_argument, NULL, 'l'},
-  {"regex",  no_argument, NULL, 'r'},
-  {"regextype",  required_argument, NULL, REGEXTYPE_OPTION},
-  {"statistics",  no_argument, NULL, 'S'},
-  {"follow",      no_argument, NULL, 'L'},
-  {"nofollow",    no_argument, NULL, 'P'},
-  {"max-database-age",    required_argument, NULL, MAX_DB_AGE},
-  {NULL, no_argument, NULL, 0}
+  {"database", required_argument, nullptr, 'd'},
+  {"existing", no_argument, nullptr, 'e'},
+  {"non-existing", no_argument, nullptr, 'E'},
+  {"ignore-case", no_argument, nullptr, 'i'},
+  {"all", no_argument, nullptr, 'A'},
+  {"help", no_argument, nullptr, 'h'},
+  {"version", no_argument, nullptr, 'v'},
+  {"null", no_argument, nullptr, '0'},
+  {"count", no_argument, nullptr, 'c'},
+  {"wholename", no_argument, nullptr, 'w'},
+  {"wholepath", no_argument, nullptr, 'w'}, /* Synonym. */
+  {"basename", no_argument, nullptr, 'b'},
+  {"print", no_argument, nullptr, 'p'},
+  {"stdio", no_argument, nullptr, 's'},
+  {"mmap",  no_argument, nullptr, 'm'},
+  {"limit",  required_argument, nullptr, 'l'},
+  {"regex",  no_argument, nullptr, 'r'},
+  {"regextype",  required_argument, nullptr, REGEXTYPE_OPTION},
+  {"statistics",  no_argument, nullptr, 'S'},
+  {"follow",      no_argument, nullptr, 'L'},
+  {"nofollow",    no_argument, nullptr, 'P'},
+  {"max-database-age",    required_argument, nullptr, MAX_DB_AGE},
+  {nullptr, no_argument, nullptr, 0}
 };
 
 
@@ -1529,7 +1529,7 @@ cleanup_quote_opts (void)
 static int
 dolocate (int argc, char **argv, int secure_db_fd)
 {
-  char *path_element = NULL;
+  char *path_element = nullptr;
   size_t path_element_pos, path_element_len;
   const char *user_selected_locate_path;
   const char *db_name;
@@ -1558,7 +1558,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
   bindtextdomain (PACKAGE, LOCALEDIR);
   textdomain (PACKAGE);
 
-  quote_opts = clone_quoting_options (NULL);
+  quote_opts = clone_quoting_options (nullptr);
   if (atexit (close_stdout) || atexit (cleanup_quote_opts))
     {
       error (EXIT_FAILURE, errno, _("The atexit library function failed"));
@@ -1606,7 +1606,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
 
         case 'd':
           user_selected_locate_path = optarg;
-          assert (optarg != NULL);
+          assert (optarg != nullptr);
           break;
 
         case 'e':
@@ -1671,7 +1671,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
           {
             char *end = optarg;
             strtol_error err = xstrtoumax (optarg, &end, 10, &limits.limit,
-                                           NULL);
+                                           nullptr);
             if (LONGINT_OK != err)
               xstrtol_fatal (err, opti, optc, longopts, optarg);
             use_limit = 1;
@@ -1849,7 +1849,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
         }
 
       fp = fdopen (fd, "r");
-      if (NULL == fp)
+      if (nullptr == fp)
         {
           error (0, errno, "%s",
                  quotearg_n_style (0, locale_quoting_style, db_name));
@@ -1859,7 +1859,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
       /* Search this database for all patterns simultaneously */
       found = search_one_database (argc - optind, &argv[optind],
                                    db_name, fp, filesize,
-                                   have_mtime ? (&database_mtime) : NULL,
+                                   have_mtime ? (&database_mtime) : nullptr,
                                    ignore_case, print, basename_only,
                                    use_limit, &limits, stats,
                                    op_and, regex, regex_options);
@@ -1874,7 +1874,7 @@ dolocate (int argc, char **argv, int secure_db_fd)
        if (path_element)
         {
           free (path_element);
-          path_element = NULL;
+          path_element = nullptr;
         }
 
        if (!user_selected_locate_path)
@@ -1912,7 +1912,7 @@ open_secure_db (void)
     {
       LOCATE_DB,
       "/var/lib/slocate/slocate.db",
-      NULL
+      nullptr
     };
   for (i=0; secure_db_list[i]; ++i)
     {

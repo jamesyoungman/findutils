@@ -49,7 +49,7 @@ static bool
 initialize_wd_for_exec (struct exec_val *execp, int cwd_fd, const char *dir)
 {
   execp->wd_for_exec = xmalloc (sizeof (*execp->wd_for_exec));
-  execp->wd_for_exec->name = NULL;
+  execp->wd_for_exec->name = nullptr;
   execp->wd_for_exec->desc = openat (cwd_fd, dir, O_RDONLY);
   if (execp->wd_for_exec->desc < 0)
     return false;
@@ -101,7 +101,7 @@ impl_pred_exec (const char *pathname,
                 struct predicate *pred_ptr)
 {
   struct exec_val *execp = &pred_ptr->args.exec_vec;
-  char *buf = NULL;
+  char *buf = nullptr;
   const char *target;
   bool result;
   const bool local = is_exec_in_local_dir (pred_ptr->pred_func);
@@ -127,7 +127,7 @@ impl_pred_exec (const char *pathname,
       if ('/' == target[0])
         {
           /* find / -execdir ls -d {} \; */
-          prefix = NULL;
+          prefix = nullptr;
           pfxlen = 0;
         }
       else
@@ -145,7 +145,7 @@ impl_pred_exec (const char *pathname,
       */
       assert (execp->wd_for_exec == initial_wd);
       target = pathname;
-      prefix = NULL;
+      prefix = nullptr;
       pfxlen = 0u;
     }
 
@@ -316,7 +316,7 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
   if (child_pid == 0)
     {
       /* We are the child. */
-      assert (NULL != execp->wd_for_exec);
+      assert (nullptr != execp->wd_for_exec);
       if (!prep_child_for_exec (execp->close_stdin, execp->wd_for_exec))
         {
           _exit (1);
