@@ -101,7 +101,6 @@ dnl AC_PROG_LIBTOOL
 AC_PROG_MAKE_SET
 AC_SYS_LARGEFILE
 
-
 gl_INIT
 
 AC_ARG_ENABLE(compiler-warnings,
@@ -296,6 +295,11 @@ AM_PATH_PYTHON(,, [:])
 AM_CONDITIONAL([HAVE_PYTHON], [test "$PYTHON" != :])
 AC_CHECK_PROGS([FAKETIME],[faketime],[:])
 AM_CONDITIONAL([HAVE_FAKETIME], [test "$FAKETIME" != :])
+
+dnl Manpage linting.
+AC_ARG_VAR(GROFF,[Location of GNU groff])
+AC_CHECK_PROGS([GROFF], [groff],[:])
+
 
 # This is necessary so that .o files in LIBOBJS are also built via
 # the ANSI2KNR-filtering rules.
