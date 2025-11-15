@@ -713,6 +713,7 @@ main (int argc, char **argv)
 
   if (eof_str && (read_args == read_string))
     {
+      /* TRANSLATORS: -0 == "--null", not option "o".  */
       error (0, 0,
              _("warning: the -E option has no effect if -0 or -d is used.\n"));
     }
@@ -940,6 +941,7 @@ read_line (void)
           if (state == QUOTE)
             {
               exec_if_possible ();
+              /* TRANSLATORS: -0 == "--null", not option "o".  */
               error (EXIT_FAILURE, 0,
                      _("unmatched %s quote; by default quotes are special to "
                        "xargs unless you use the -0 option"),
@@ -1035,6 +1037,7 @@ read_line (void)
           if (c == '\n')
             {
               exec_if_possible ();
+              /* TRANSLATORS: -0 == "--null", not option "o".  */
               error (EXIT_FAILURE, 0,
                      _("unmatched %s quote; by default quotes are special to "
                        "xargs unless you use the -0 option"),
