@@ -1394,7 +1394,9 @@ or the
 .B ;
 variant is being used;
 .B \-execdir\ \fIcommand\fP\ {}\ +
-always returns true, while
+always returns true (though failed commands will affect
+.BS find 's
+eventual exit status), while
 .B \-execdir\ \fIcommand\fP\ {}\ ;
 returns true only if
 .I command
@@ -1592,7 +1594,8 @@ due to differences in the implementation of the
 library function.
 .RS
 .IP @
-seconds since Jan.\& 1, 1970, 00:00 GMT, with fractional part.
+seconds since Jan.\& 1, 1970, 00:00 GMT, with fractional part (see
+below).
 .PP
 Time fields:
 .IP H
@@ -1610,21 +1613,32 @@ locale's AM or PM
 .IP r
 time, 12-hour (hh:mm:ss [AP]M)
 .IP S
-Second (00.00 \&..\& 61.00).  There is a fractional part.
+Second (00.00 \&..\& 61.00).  There is a fractional part (see below).
 .IP T
-time, 24-hour (hh:mm:ss.xxxxxxxxxx)
+time, 24-hour (hh:mm:ss.xxxxxxxxxx); see below for details of the
+fractional part of the seconds field.
 .IP +
 Date and time, separated by `+', for example
 `2004\-04\-28+22:22:05.0'.  This is a GNU extension.  The time is
 given in the current timezone (which may be affected by setting the
 .B TZ
-environment variable).  The seconds field includes a fractional part.
+environment variable).  The seconds field includes a fractional part
+(see below).
 .IP X
 locale's time representation (H:M:S).  The seconds field includes a
 fractional part.
 .IP Z
-time zone (e.g., EDT), or nothing if no time zone is determinable
-.PP
+time zone (e.g., EDT), or nothing if no time zone is determinable.
+.P
+The length of the fractional part of seconds fields is of
+unspecified length and precision.
+Its length will in general vary between findutils releases and between
+systems.
+This means that it is unwise to assume that field has any specific
+length.
+The length of this field is not usually a guide to the precision of
+timestamps in the underlying file system.
+.P
 Date fields:
 .IP a
 locale's abbreviated weekday name (Sun..Sat)
@@ -1919,7 +1933,11 @@ but not POSIX compliant.
 .
 .IP "\fIexpr1\fR , \fIexpr2\fR"
 List; both \fIexpr1\fR and \fIexpr2\fR are always evaluated.  The
-value of \fIexpr1\fR is discarded; the value of the list is the value
+value of \fIexpr1\fR is discarded; the value of the list
+.I expr1
+.B ,
+.I expr2
+is the value
 of
 .IR expr2 .
 The comma operator can be useful for searching for
@@ -1936,9 +1954,9 @@ an explicit operator between them) or explicitly has higher precedence
 than
 .BR \-o .
 This means that
-.B find .\& \-name afile \-o \-name bfile \-print
+.B find afile bfile \-name afile \-o \-name bfile \-print
 will never print
-.IR afile .
+.BR afile .
 .
 .SH "UNUSUAL FILENAMES"
 Many of the actions of
@@ -2161,7 +2179,87 @@ or
 .B \-iregex
 tests because those tests aren't specified in the POSIX standard.
 .
-.SH "ENVIRONMENT VARIABLES"
+.SH ERRORS
+The
+.B \-ok
+and
+.B \-okdir
+actions check for user confirmation by writing a prompt to the
+standard error output.
+These prommpts are not error messages.
+
+Most error messages produced by
+.B find
+are self-explanatory.
+Error messages sometimes include a filename.
+When this happens, the filename is quoted in order to prevent any
+unusual characters in the filename making unwanted changes in the
+state of the terminal.
+The error messages produced by
+.B find
+are intended to be largely self-explanatory.
+We provide short explanations here of some messages.
+This list is incomplete.
+
+.SS invalid predicate `-foo'
+
+This means that the
+.B find
+command line included something that started with a dash or
+other special character (in this case
+.BR \-foo ).
+The
+.B find
+program tried to interpret this as a test, action or option, but
+didn't recognise it.
+If it was intended to be a test, check what was specified against the
+documentation.
+If, on the other hand, the string is the name of a file which has
+been expanded from a wildcard (for example because you have a
+.B *
+on the command line), consider using
+.B ./*
+or just
+.B .
+instead.
+
+.SS unexpected extra predicate
+
+This usually happens if you have an extra parenthesis on the command
+line (for example
+.BR "find . -print )" ).
+
+.SS sanity check of the fnmatch() library function failed
+
+Please submit a bug report.
+You may well be asked questions about your system, and if you
+compiled the findutils code yourself, you should keep your
+copy of the build tree around.
+The likely explanation is that your system has a buggy
+implementation of
+.B fnmatch
+which looks enough like the GNU version to fool
+.BR configure ,
+but which doesn't work properly.
+
+.SS cannot fork
+
+This normally happens if you use the
+.B \-exec
+action or something similar
+.RB ( \-ok
+and so forth) but the system has run out
+of free process slots.  This is either because the system is very busy
+and the system has reached its maximum process limit, or because you
+have a resource limit in place and you've reached it.
+Check the system for runaway processes (with
+.B ps
+or
+.BR pstree ,
+if possible).
+Some process slots are normally reserved for use by root.
+
+.SH ENVIRONMENT VARIABLES
 .
 .IP LANG
 Provides a default value for the internationalization variables that
@@ -2708,6 +2806,44 @@ and
 .B xargs \-0
 came from Dan Bernstein.
 .
+.SH CAVEATS
+Many of the features of GNU
+.B find
+are not implemened in other systems.   See COMPATIBILITY for
+information about compatibility between this version of GNU
+.B find
+and older versions of GNU
+.BR find ,
+as well as other implementations of
+.BR find .
+Please see the NON-BUGS section for an explanation of some
+possibly-surprising behaviours which are not in fact bugs.
+.SS Future Directions for File Name Printing
+The
+.B \-ls
+action
+quotes non-printable characters in the file names using C-like
+backslash escapes.
+This may change in the future, if for example the treatment of
+unprintable characters is harmonised for
+.BR \-ls , \-fls , \-print , \-fprint , \-printf
+and
+.BR \-fprintf .
+.P
+Issue 8 of the POSIX standard states that in the future, requirements
+for handling newlines in printed file names may change:
+.IP
+.I If this utility is directed to display a pathname that contains any
+.I bytes that have the encoded value of a <newline> character when
+.I <newline> is a terminator or separator in the output format being
+.I used, implementations are encouraged to treat this as an error. A
+.I future version of this standard may require implementations to treat
+.I this as an error.
+.P
+One way to prevent future problems around this would be to use
+.B \-print0
+in situations where file names may contain newline characters.
+
 .SH COMPATIBILITY
 .SS "Feature Additions"
 .TS

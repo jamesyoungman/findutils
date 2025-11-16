@@ -505,9 +505,10 @@ matches a file named @file{foo@{1,2@}}, not the files @file{foo1} and
 @file{foo2}.
 
 Because the leading directories are removed, the file names considered
-for a match with @samp{-name} will never include a slash, so
-@samp{-name a/b} will never match anything (you probably need to use
-@samp{-path} instead).
+for a match with @samp{-name} will not include a slash (except for the
+root directory itself, @samp{/}).  So, @samp{-name /} will match the
+root directory, while @samp{-name a/b} will never match anything (you
+probably need to use @samp{-path a/b} instead).
 
 The @samp{-iname} option appeared first in POSIX Issue 8 (IEEE Std 1003.1-2024)
 while GNU @code{find} supports it since version 3.8 (1993).
@@ -781,8 +782,9 @@ the links and examine the file that each link points to, specify the
 @samp{-L} option to @code{find}.  You can explicitly specify the
 default behaviour by using the @samp{-P} option.  The @samp{-H}
 option is a half-way-between option which ensures that any symbolic
-links listed on the command line are dereferenced, but other symbolic
-links are not.
+links listed on the command line (such as in the list of files to
+search or with tests like @samp{-newer}) are dereferenced, but
+other symbolic links are not.
 
 Symbolic links are different from ``hard links'' in the sense that you
 need permission to search the directories
@@ -1335,8 +1337,6 @@ as @command{umask}).
 
 A @var{pmode} that starts with neither @samp{-} nor @samp{/} matches
 if @var{mode} exactly matches the file mode bits.
-(To avoid confusion with an obsolete GNU extension, @var{mode}
-must not start with a @samp{+} immediately followed by an octal digit.)
 
 A @var{pmode} that starts with @samp{-} matches if
 @emph{all} the file mode bits set in @var{mode} are set for the file;
@@ -1355,6 +1355,12 @@ set).  It is more likely that you will want to use the @samp{/} or
 @samp{-} forms, for example @samp{-perm -g=w}, which matches any file
 with group write permission.
 
+GNU @code{find} used to support @samp{-perm +mode}.  This was
+deprecated in findutils version 4.2.21 (2005), being replaced by
+@samp{-perm /mode}.  Support for @samp{-perm +mode} was removed
+entirely in findutils version 4.5.12 (2013). To avoid confusion with
+this obsolete GNU extension, @var{mode} must not start with a @samp{+}
+immediately followed by an octal digit.
 
 @table @samp
 @item -perm 664
@@ -1667,20 +1673,23 @@ Force precedence.  True if @var{expr} is true.
 @findex -not
 True if @var{expr} is false.  In some shells, it is necessary to
 protect the @samp{!} from shell interpretation by quoting it.
-
+The @samp{-not} operator does not exist in POSIX, so @samp{!} is an
+equivalent and more portable choice.
 @item @asis{@var{expr1 expr2}}
 @itemx @asis{@var{expr1} -a @var{expr2}}
 @itemx @asis{@var{expr1} -and @var{expr2}}
 @findex -and
 @findex -a
 And; @var{expr2} is not evaluated if @var{expr1} is false.
-
+The @samp{-and} operator does not exist in POSIX, so @samp{-a} is an
+equivalent and more portable choice.
 @item @asis{@var{expr1} -o @var{expr2}}
 @itemx @asis{@var{expr1} -or @var{expr2}}
 @findex -or
 @findex -o
 Or; @var{expr2} is not evaluated if @var{expr1} is true.
-
+The @samp{-or} operator does not exist in POSIX, so @samp{-o} is an
+equivalent and more portable choice.
 @item @asis{@var{expr1} , @var{expr2}}
 @findex ,
 List; both @var{expr1} and @var{expr2} are always evaluated.  True if
@@ -1692,6 +1701,13 @@ independent, since @var{expr1} might have side effects like touching
 or deleting files, or it might use @samp{-prune} which would also
 affect @var{expr2}.
 @end table
+
+Please note that @samp{-a} when specified implicitly (for example by
+two tests appearing without an explicit operator between them)
+or explicitly has higher precedence than @samp{-o}.
+This means that @samp{find afile bfile -name afile -o -name bfile -print}
+will never print @samp{afile} .
+
 
 @code{find} searches the directory tree rooted at each file name by
 evaluating the expression from left to right, according to the rules
@@ -1981,15 +1997,19 @@ it was encountered by @code{find} - that is, as a relative path from
 one of the starting points).
 @item %f
 File's name with any leading directories removed (only the last
-element).  That is, the basename of the file.
+element).  That is, the basename of the file. For @samp{/}, the result
+is @samp{/}.
+
 @c supports %-X.Yf
 @item %h
 Leading directories of file's name (all but the last element and the
-slash before it).  That is, the dirname of the file.  If the file's
-name contains no slashes (for example because it was named on the
+slash before it).  That is, the dirname of the file.
+For files which are themselves directories and contain a slash
+(including @file{/}), @samp{%h} expands to the empty string.
+If the file's name contains no slashes (for example because it was named on the
 command line and is in the current working directory), then ``%h''
 expands to ``.''.  This prevents ``%h/%f'' expanding to ``/foo'',
-which would be surprising and probably not desirable.
+which would be surprising and probably not desirable.   If
 @c supports %-X.Yh
 @item %P
 File's name with the name of the command line argument under which
@@ -2102,7 +2122,9 @@ File's inode number (in decimal).
 Number of hard links to file.
 @item %y
 Type of the file as used with @samp{-type}.  If the file is a symbolic
-link, @samp{l} will be printed.
+link, @samp{l} will be printed.  Prints
+.B U
+for files of unknown type.
 @item %Y
 Type of the file as used with @samp{-type}.  If the file is a symbolic
 link, it is dereferenced.  If the file is a broken symbolic link,
@@ -2695,7 +2717,8 @@ names, you should consider using @samp{-print0} instead of
 The @code{locate} program quotes and escapes unusual characters in
 file names in the same way as @code{find}'s @samp{-print} action.
 
-The behaviours described above may change soon, as the treatment of
+The behaviours described above may change in the future, as the
+treatment of
 unprintable characters is harmonised for @samp{-ls}, @samp{-fls},
 @samp{-print}, @samp{-fprint}, @samp{-printf} and @samp{-fprintf}.
 
@@ -3484,8 +3507,9 @@ of the @samp{-xtype} predicate.
 Always follow symbolic links, except in the case of the @samp{-xtype}
 predicate.
 @item -H
-Follow symbolic links specified in the list of files to search, or
-which are otherwise specified on the command line.
+Follow symbolic links specified on the command line
+(for example, in the list of files to search, or
+with tests like @samp{-newer}).
 @end table
 
 If @code{find} would follow a symbolic link, but cannot for any reason
@@ -3616,17 +3640,22 @@ For a complete list of valid debug options, see the output of
 
 Valid debug options include:
 @table @samp
-@item tree
-Show the expression tree in its original and optimized form.
-@item stat
-Print messages as files are examined with the stat and lstat system
-calls.  The find program tries to minimise such calls.
+@item exec
+Prints diagnostic information relating to @samp{-exec},
+@samp{-execdir}, @samp{-ok} and @samp{-okdir}.
 @item opt
 Prints diagnostic information relating to the optimisation of the
 expression tree; see the @samp{-O} option.
 @item rates
 Prints a summary indicating how often each predicate succeeded or
 failed.
+@item search
+Prints diagnostics releating to navigation through the file system.
+@item stat
+Print messages as files are examined with the stat and lstat system
+calls.  The find program tries to minimise such calls.
+@item tree
+Show the expression tree in its original and optimized form.
 @item all
 Enable all of the other debug options (but @samp{help}).
 @item help
@@ -4785,7 +4814,7 @@ new command lines while the previous command is still executing, and
 allows specifying a number of commands to run in parallel.
 However, the @code{find @dots{} -exec @dots{} +} construct has the advantage
 of wide portability.  GNU findutils did not support @samp{-exec @dots{} +}
-until version 4.2.12; one of the reasons for this is that it already
+until version 4.2.12 (2005); one of the reasons for this is that it already
 had the @samp{-print0} action in any case.
 
 
@@ -5757,6 +5786,9 @@ messages sometimes include a filename.  When this happens, the
 filename is quoted in order to prevent any unusual characters in the
 filename making unwanted changes in the state of the terminal.
 
+We provide short explanations here of some messages.
+This list is incomplete.
+
 @table @samp
 @item invalid predicate `-foo'
 This means that the @code{find} command line included something that
@@ -5769,61 +5801,15 @@ string is the name of a file which has been expanded from a wildcard
 consider using @samp{./*} or just @samp{.} instead.
 
 @item unexpected extra predicate
-This usually happens if you have an extra bracket on the command line
+This usually happens if you have an extra parenthesis on the command line
 (for example @samp{find . -print \)}).
-
-@item Warning: filesystem /path/foo has recently been mounted
-@itemx Warning: filesystem /path/foo has recently been unmounted
-These messages might appear when @code{find} moves into a directory
-and finds that the device number and inode are different from what it
-expected them to be.  If the directory @code{find} has moved into is
-on a network filesystem (NFS), it will not issue this message, because
-@code{automount} frequently mounts new filesystems on directories as
-you move into them (that is how it knows you want to use the
-filesystem).  So, if you do see this message, be wary --
-@code{automount} may not have been responsible.  Consider the
-possibility that someone else is manipulating the filesystem while
-@code{find} is running.  Some people might do this in order to mislead
-@code{find} or persuade it to look at one set of files when it thought
-it was looking at another set.
-
-@item /path/foo changed during execution of find (old device number 12345, new device number 6789, filesystem type is <whatever>) [ref XXX]
-This message is issued when @code{find} moves into a directory and ends up
-somewhere it didn't expect to be.  This happens in one of two
-circumstances.  Firstly, this happens when @code{automount} intervenes
-on a system where @code{find} doesn't know how to determine what
-the current set of mounted filesystems is.
-
-Secondly, this can happen when the device number of a directory
-appears to change during a change of current directory, but
-@code{find} is moving up the filesystem hierarchy rather than down into it.
-In order to prevent @code{find} wandering off into some unexpected
-part of the filesystem, we stop it at this point.
-
-@item Don't know how to use getmntent() to read `/etc/mtab'.  This is a bug.
-This message is issued when a problem similar to the above occurs on a
-system where @code{find} doesn't know how to figure out the current
-list of mount points.  Ask for help on @email{bug-findutils@@gnu.org}.
-
-@item /path/foo/bar changed during execution of find (old inode number 12345, new inode number 67893, filesystem type is <whatever>) [ref XXX]"),
-This message is issued when @code{find} moves into a directory and
-discovers that the inode number of that directory
-is different from the inode number that it obtained when it examined the
-directory previously.  This usually means that while
-@code{find} was deep in a directory hierarchy doing a
-time consuming operation, somebody has moved one of the parent directories to
-another location in the same filesystem.  This may or may not have been done
-maliciously.  In any case, @code{find} stops at this point
-to avoid traversing parts of the filesystem that it wasn't
-intended to.  You can use @code{ls -li} or @code{find /path -inum
-12345 -o -inum 67893} to find out more about what has happened.
 
 @item sanity check of the fnmatch() library function failed.
 Please submit a bug report.  You may well be asked questions about
 your system, and if you compiled the @code{findutils} code yourself,
 you should keep your copy of the build tree around.  The likely
 explanation is that your system has a buggy implementation of
-@code{fnmatch} that looks enough like the GNU version to fool
+@code{fnmatch} which looks enough like the GNU version to fool
 @code{configure}, but which doesn't work properly.
 
 @item cannot fork
@@ -5832,8 +5818,9 @@ something similar (@code{-ok} and so forth) but the system has run out
 of free process slots.  This is either because the system is very busy
 and the system has reached its maximum process limit, or because you
 have a resource limit in place and you've reached it.  Check the
-system for runaway processes (with @code{ps}, if possible).  Some process
-slots are normally reserved for use by @samp{root}.
+system for runaway processes (with @code{pstree} or @code{ps},
+if possible).
+Some process slots are normally reserved for use by @samp{root}.
 
 @item some-program terminated by signal 99
 Some program which was launched with @code{-exec} or similar was killed
