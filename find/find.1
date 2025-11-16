@@ -2081,12 +2081,14 @@ take the relevant time from the symbolic link; see the HISTORY section
 below.
 .
 .IP \fB\-perm\fR
-Supported.  If the
+Supported.  Unsetting the
 .B POSIXLY_CORRECT
-environment variable is not set,
-some mode arguments (for example +a+x) which are not valid in POSIX
-are supported for backward-compatibility.
-.
+environment variable no longer allows the legacy
+.B +mode
+variant of
+.B /mode
+to be accepted.
+
 .IP "Other primaries"
 The primaries
 .BR \-atime ,
