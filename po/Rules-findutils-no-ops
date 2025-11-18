@@ -1,0 +1,14 @@
+# Rules-findutils-no-ops: Special Makefile rules for recursive make
+# targets in findutils that don't need to do anything (but need not to
+# fail).
+
+# IMPORTANT: if you modify this file (Rules-findutils-no-ops), you may
+# need to manually run config.status (or configure) to re-generate the
+# Makefile in this directory; the generated Makefile doesn't
+# automatically incllude a rule for this.
+
+
+.PHONY: check-all-manpages-local
+
+check-all-manpages check-all-manpages-local:
+	true

@@ -302,6 +302,8 @@ AC_ARG_VAR(GROFF,[Location of GNU groff])
 AC_CHECK_PROGS([GROFF], [groff],[:])
 
 
+AM_EXTRA_RECURSIVE_TARGETS([check-all-manpages])
+
 # This is necessary so that .o files in LIBOBJS are also built via
 # the ANSI2KNR-filtering rules.
 #LIBOBJS=`echo $LIBOBJS|sed 's/\.o /\$U.o /g;s/\.o$/\$U.o/'`
