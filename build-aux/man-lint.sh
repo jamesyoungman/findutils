@@ -51,12 +51,12 @@ check_manpages_format_without_error_messages() {
     return 0
 }
 
-check_manpages_with_groff_checkstyle_2() {
+check_manpages_with_groff_checkstyle() {
     for manpage
     do
 	fixed_width_context_message_without_newline \
-		 'check_manpages_with_groff_checkstyle_2' "${manpage}"
-	messages="$( ${GROFF} -t -z -ww -rCHECKSTYLE=2 -man ${srcdir}/${manpage} 2>&1 )"
+		 'check_manpages_with_groff_checkstyle' "${manpage}"
+	messages="$( ${GROFF} -t -z -ww -rCHECKSTYLE=3 -man ${srcdir}/${manpage} 2>&1 )"
 	if test -z "$messages"
 	then
 	    printf 'OK\n'
@@ -70,4 +70,4 @@ check_manpages_with_groff_checkstyle_2() {
 
 rv=0
 check_manpages_format_without_error_messages "$@" &&
-check_manpages_with_groff_checkstyle_2       "$@"
+check_manpages_with_groff_checkstyle         "$@"
