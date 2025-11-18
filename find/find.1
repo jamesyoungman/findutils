@@ -2001,7 +2001,7 @@ This option is supported.
 This option is supported, but POSIX conformance depends on the
 POSIX conformance of the system's
 .BR fnmatch (3)
-library function.  As of findutils-4.2.2, shell metacharacters
+library function.  As of findutils-4.2.2 (2004), shell metacharacters
 (`*', `?' or `[]' for example) match a leading `.', because
 IEEE PASC interpretation 126 requires this.
 This is a change from previous versions of findutils.
@@ -2689,18 +2689,54 @@ and
 came from Dan Bernstein.
 .
 .SH COMPATIBILITY
-As of findutils-4.2.2, shell metacharacters (`*', `?' or `[]' for
-example) used in filename patterns match a leading `.', because
-IEEE POSIX interpretation 126 requires this.
-.P
-As of findutils-4.3.3,
-.B \-perm\ /000
-now matches all files instead of none.
-.P
-Nanosecond-resolution
-timestamps were implemented in findutils-4.3.3.
-.P
-As of findutils-4.3.11, the
+.SS Feature Additions
+.TS
+l l l l .
+Feature	Added in	Year	Also occurs in
+\-files0\-from	4.9.0	2022
+\-newerXY	4.3.3	2007	BSD
+\-D	4.3.1	2006
+\-O	4.3.1	2006
+\-readable	4.3.0	2005
+\-writable	4.3.0	2005
+\-executable	4.3.0	2005
+\-regextype	4.2.24	2004
+\-exec ...\& +	4.2.12	2005	POSIX
+\-execdir	4.2.12	2005	BSD
+\-okdir	4.2.12	2005
+\-samefile	4.2.11	2004
+\-H	4.2.5	2004	POSIX
+\-L	4.2.5	2004	POSIX
+\-P	4.2.5	2004	BSD
+\-delete	4.2.3	2004
+\-quit	4.2.3	2004
+\-d	4.2.3	2004	BSD
+\-wholename	4.2.0	2003
+\-iwholename	4.2.0	2003
+\-ignore_readdir_race	4.2.0	2003
+\-fls	4.0	1994
+\-ilname	3.8	1993
+\-iname	3.8	1993	POSIX (from Issue 8, IEEE Std 1003.1\-2024)
+\-ipath	3.8	1993
+\-iregex	3.8	1993
+\-print0	2.0	1990	POSIX (from Issue 8, IEEE Std 1003.1\-2024)
+.TE
+.SS Functional Changes
+.TS
+l l lx .
+Version	Year	Change
+4.5.12	2013	T{
+The syntax
+.B \-perm +MODE
+is removed, in favour of
+.B \-perm
+.BR /MODE .
+The
+.B +MODE
+syntax had been deprecated since findutils-4.2.21 (2005).
+T}
+4.3.11	2007	T{
+The
 .B \-delete
 action sets
 .BR find 's
@@ -2711,48 +2747,22 @@ will not exit immediately.  Previously,
 .BR find 's
 exit status was unaffected by the failure of
 .BR \-delete .
-
-.TS
-l l l .
-Feature	Added in	Also occurs in
-\-files0\-from	4.9.0
-\-newerXY	4.3.3	BSD
-\-D	4.3.1
-\-O	4.3.1
-\-readable	4.3.0
-\-writable	4.3.0
-\-executable	4.3.0
-\-regextype	4.2.24
-\-exec ...\& +	4.2.12	POSIX
-\-execdir	4.2.12	BSD
-\-okdir	4.2.12
-\-samefile	4.2.11
-\-H	4.2.5	POSIX
-\-L	4.2.5	POSIX
-\-P	4.2.5	BSD
-\-delete	4.2.3
-\-quit	4.2.3
-\-d	4.2.3	BSD
-\-wholename	4.2.0
-\-iwholename	4.2.0
-\-ignore_readdir_race	4.2.0
-\-fls	4.0
-\-ilname	3.8
-\-iname	3.8	POSIX (from Issue 8, IEEE Std 1003.1\-2024)
-\-ipath	3.8
-\-iregex	3.8
-\-print0	2.0	POSIX (from Issue 8, IEEE Std 1003.1\-2024)
+T}
+4.3.3	2007	T{
+Nanosecond-resolution timestamps; seconds fields are
+no longer integers.
+T}
+4.3.3	2007	T{
+.B \-perm\ /000
+now matches all files instead of none.
+T}
+4.2.2	2004	T{
+Shell metacharacters (`*', `?' or `[]' for example) used in filename
+patterns match a leading `.', because IEEE POSIX interpretation 126
+requires this.
+T}
 .TE
 .P
-The syntax
-.B \-perm +MODE
-was removed in findutils-4.5.12, in favour of
-.B \-perm
-.BR /MODE .
-The
-.B +MODE
-syntax had been deprecated since findutils-4.2.21
-which was released in 2005.
 .
 .SH NON-BUGS
 .SS Operator precedence surprises
