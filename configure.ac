@@ -138,6 +138,7 @@ AC_ARG_ENABLE(compiler-warnings,
   findutils_tmp_nowarning="$findutils_tmp_nowarning -Wsuggest-attribute=const"
   findutils_tmp_nowarning="$findutils_tmp_nowarning -Wsuggest-attribute=pure"
   findutils_tmp_nowarning="$findutils_tmp_nowarning -Wsuggest-attribute=format"
+  findutils_tmp_nowarning="$findutils_tmp_nowarning -Wuseless-cast"
   # And some other warnings that we should fix but haven't, yet.
   findutils_tmp_nowarning="$findutils_tmp_nowarning -Wsuggest-attribute=const"
 
