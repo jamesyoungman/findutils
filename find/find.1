@@ -913,8 +913,7 @@ instead).
 An exception to this is when using only a slash as \fIpattern\fR (`\-name /'),
 because that is a valid string for matching the root directory "/" (because the
 base name of "/" is "/").
-A warning is issued if you try to pass a pattern containing a \- but not
-consisting solely of one \- slash, unless the environment variable
+A warning is issued if a `\-name` pattern can never match, unless the environment variable
 .B POSIXLY_CORRECT
 is set or the option
 .B \-nowarn
