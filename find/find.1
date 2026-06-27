@@ -1394,7 +1394,7 @@ or the
 variant is being used;
 .B \-execdir\ \fIcommand\fP\ {}\ +
 always returns true (though failed commands will affect
-.BS find 's
+.BR find 's
 eventual exit status), while
 .B \-execdir\ \fIcommand\fP\ {}\ ;
 returns true only if
@@ -2087,7 +2087,7 @@ environment variable no longer allows the legacy
 variant of
 .B /mode
 to be accepted.
-
+.
 .IP "Other primaries"
 The primaries
 .BR \-atime ,
@@ -2188,7 +2188,6 @@ and
 actions check for user confirmation by writing a prompt to the
 standard error output.
 These prommpts are not error messages.
-
 Most error messages produced by
 .B find
 are self-explanatory.
@@ -2201,9 +2200,9 @@ The error messages produced by
 are intended to be largely self-explanatory.
 We provide short explanations here of some messages.
 This list is incomplete.
-
+.
 .SS invalid predicate `-foo'
-
+.
 This means that the
 .B find
 command line included something that started with a dash or
@@ -2223,15 +2222,14 @@ on the command line), consider using
 or just
 .B .
 instead.
-
+.
 .SS unexpected extra predicate
-
 This usually happens if you have an extra parenthesis on the command
 line (for example
 .BR "find . -print )" ).
-
+.
 .SS sanity check of the fnmatch() library function failed
-
+.
 Please submit a bug report.
 You may well be asked questions about your system, and if you
 compiled the findutils code yourself, you should keep your
@@ -2242,9 +2240,8 @@ implementation of
 which looks enough like the GNU version to fool
 .BR configure ,
 but which doesn't work properly.
-
+.
 .SS cannot fork
-
 This normally happens if you use the
 .B \-exec
 action or something similar
@@ -2259,7 +2256,7 @@ or
 .BR pstree ,
 if possible).
 Some process slots are normally reserved for use by root.
-
+.
 .SH ENVIRONMENT VARIABLES
 .
 .IP LANG
@@ -2844,7 +2841,7 @@ for handling newlines in printed file names may change:
 One way to prevent future problems around this would be to use
 .B \-print0
 in situations where file names may contain newline characters.
-
+.
 .SH COMPATIBILITY
 .SS "Feature Additions"
 .TS
