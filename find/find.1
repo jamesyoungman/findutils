@@ -2707,6 +2707,51 @@ and
 are found.
 .
 .SS
+The \-xdev and \-mount options
+.
+Normally,
+.B find
+will search inside directories which happen to be mount points.  In
+this example,
+.B tree/bound1
+is a mount point:
+.nf
+\&
+.in +4n
+.B $ find tree -printf 'device: %D path: %p\en'
+.B device: 40 path: tree
+.B device: 64770 path: tree/bound1
+.B device: 64770 path: tree/bound1/on-another-fs
+.in
+\&
+.fi
+.
+The
+.B \-xdev
+option causes
+.B find
+to visit the mount point, but not the items within that directory:
+.nf
+\&
+.in +4n
+.B $ find tree -xdev -printf 'device: %D path: %p\en'
+.B device: 40 path: tree
+.B device: 64770 path: tree/bound1
+.in
+\&
+.fi
+If we specify
+.B \-mount
+we will not visit the mount point at all:
+.nf
+\&
+.in +4n
+.B $ find tree -mount -printf 'device: %D path: %p\en'
+.B device: 40 path: tree
+.in
+\&
+.fi
+.SS
 Other useful examples
 .IP \(bu 4n
 Search for several file types.

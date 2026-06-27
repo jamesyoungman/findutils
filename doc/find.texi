@@ -1646,18 +1646,56 @@ filesystems can be slow, so it is common to make @code{find} avoid
 them.
 
 There are two ways to avoid searching certain filesystems.  One way is
-to tell @code{find} to only search one filesystem:
+to tell @code{find} to only search within the same filesystem as the
+start-point currently being searched:
 
 @deffn Option -mount
-Ignore files on other devices.
+Ignore files on other devices.  Do not visit or search inside mount
+points.  Do not search inside directories within other file systems
+even if they are the target of a symbolic link and @code{find} is
+following symbolic links (e.g. due to the @samp{-L} or @samp{-H}
+option).
 @end deffn
 
 @deffn Option -xdev
-Don't descend into directories on other devices.
+Visit mount points but not their children (that is,
+don't descend into directories on other devices).
+Using @code{-mount -xdev} has the same effect as @samp{-mount}.
 @end deffn
 
-The other way is to check the type of filesystem each file is on, and
-not descend directories that are on undesirable filesystem types:
+Here we see that normally, @code{find} will search inside a file
+system which is mounted at @samp{tree/bound1}:
+
+@example
+$ find tree -printf 'device: %5D path: %p\n'
+device:    40 path: tree
+device: 64770 path: tree/bound1
+device: 64770 path: tree/bound1/on-another-fs
+@end example
+
+If we specify @samp{-xdev} then we will visit the mount point but not
+search inside it:
+
+@example
+$ find tree -xdev -printf 'device: %5D path: %p\n'
+device:    40 path: tree
+device: 64770 path: tree/bound1
+@end example
+
+If we specify @samp{-mount} we will not visit the mount point at all:
+
+@example
+$ find tree -mount -printf 'device: %5D path: %p\n'
+device:    40 path: tree
+@end example
+
+We used the @samp{%D} directive of @samp{-printf} in those examples to
+shows the device number for each item, to illustrate that the files
+are on different devices.  @xref{Print File Information}.
+
+The other way to avoid particular filesystems is to check the type of
+filesystem each file is on, and not descend directories that are on
+undesirable filesystem types:
 
 @deffn Test -fstype type
 True if the file is on a filesystem of type @var{type}.  The valid
@@ -1668,8 +1706,7 @@ another is:
 autofs ext3 ext4 fuse.sshfs nfs proc sshfs sysfs ufs tmpfs xfs
 @end example
 You can use @samp{-printf} with the @samp{%F} directive to see the
-types of your filesystems.  The @samp{%D} directive shows the device
-number.  @xref{Print File Information}.  @samp{-fstype} is usually
+types of your filesystems.  @samp{-fstype} is usually
 used with @samp{-prune} to avoid searching remote filesystems
 (@pxref{Directories}).
 @end deffn
