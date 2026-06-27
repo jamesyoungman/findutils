@@ -575,8 +575,7 @@ process_all_startpoints (int argc, char *argv[])
           if (options.ok_prompt_stdin)
             {
               error (EXIT_FAILURE, 0,
-                     _("option -files0-from reading from standard input"
-                       " cannot be combined with -ok, -okdir"));
+                     _("when -ok or -okdir is in use, the option -files0-from cannot also read from standard input"));
             }
           files0_filename_quoted = safely_quote_err_filename (0, _("(standard input)"));
           stream = stdin;

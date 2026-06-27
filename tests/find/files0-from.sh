@@ -19,6 +19,8 @@
 . "${srcdir=.}/tests/init.sh"; fu_path_prepend_
 print_ver_ find
 
+stdin_conflict_error_re='[-]ok.*-okdir.*-files0-from.*also read from standard input'
+
 # Option -files0-from requires a file name argument.
 returns_ 1 find -files0-from > out 2> err \
   && grep 'missing argument.*files0' err \
@@ -41,13 +43,13 @@ compare /dev/null err || fail=1
 # Option -files0-from with argument "-" (=stdin) must not be combined with
 # the -ok action: getting the user confirmation would mess with stdin.
 returns_ 1 find -files0-from - -ok echo '{}' ';' < /dev/null > out 2> err \
-  && grep 'files0.* standard input .*cannot be combined with .*ok' err \
+  && grep -e "${stdin_conflict_error_re}" err \
   || { grep . out err; fail=1; }
 
 # Option -files0-from with argument "-" (=stdin) must not be combined with
 # the -okdir action: getting the user confirmation would mess with stdin.
 returns_ 1 find -files0-from - -okdir echo '{}' ';' < /dev/null > out 2> err \
-  && grep 'files0.* standard input .*cannot be combined with .*ok' err \
+  && grep -e "${stdin_conflict_error_re}" err \
   || { grep . out err; fail=1; }
 
 # File argument of -files0-from option must not refer to the same file as stdin.
