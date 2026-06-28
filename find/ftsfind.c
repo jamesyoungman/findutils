@@ -606,9 +606,7 @@ process_all_startpoints (int argc, char *argv[])
                     && SAME_INODE (sb1, sb2))
                 {
                   error (EXIT_FAILURE, 0,
-                         _("option -files0-from: standard input must not refer"
-                           " to the same file when combined with -ok, -okdir:"
-                           " %s"),
+			 _("when -ok or -okdir is in use, the option -files0-from cannot also read from standard input, but the file (%s) used for -files0-from appears to refer to the same file as the standard input"),
                          files0_filename_quoted);
                 }
             }

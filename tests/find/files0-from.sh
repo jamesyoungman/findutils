@@ -19,7 +19,61 @@
 . "${srcdir=.}/tests/init.sh"; fu_path_prepend_
 print_ver_ find
 
+# Expect each file's content to match the specified grep regex.  If
+# any file fails to match, signal a test failure.
+#
+# Arguments:
+# $1: some unique label for the test
+# $2: a grep regular expression
+# The remaining positional arguments (of which there must be at least one) are file names to check.
+expect_file_content() {
+    label="$1"
+    regex="$2"
+    shift 2
+    if [ $# -eq 0 ]
+    then
+	echo "expect_file_content: there were no files to check." >&2
+	fail=1
+	return 1
+    fi
+    for filename
+    do
+	if ! grep -e "${regex}"  < "${filename}" >/dev/null
+	then
+	   echo "failure: expected contents of ${filename} to match the grep regular expression ${regex} but it did not.  Actual contents of ${filename} were:" >&2
+	   cat "${filename}" >&2
+	   fail=1
+	   return 1
+	fi
+    done
+}
+
+expect_stdin_conflict_error() {
+    label="$1"
+    shift
+    if [ $# -eq 0 ]
+    then
+	echo "expect_stdin_conflict_error: there were no files to check." >&2
+	fail=1
+	return 1
+    fi
+    expect_file_content "${label}" '[-]ok.*-okdir.*-files0-from.*also read from standard input' "$@"
+}
+
+expect_stdin_samefile_error() {
+    label="$1"
+    shift
+    if [ $# -eq 0 ]
+    then
+	echo "expect_stdin_samefile_error: there were no files to check." >&2
+	fail=1
+	return 1
+    fi
+    expect_file_content "${label}" '[-]files0-from.*cannot.*standard input.*same file' "$@"
+}
+
 stdin_conflict_error_re='[-]ok.*-okdir.*-files0-from.*also read from standard input'
+stdin_samefile_error_re='[-]files0-from.*cannot.*standard input.*same file'
 
 # Option -files0-from requires a file name argument.
 returns_ 1 find -files0-from > out 2> err \
@@ -43,36 +97,49 @@ compare /dev/null err || fail=1
 # Option -files0-from with argument "-" (=stdin) must not be combined with
 # the -ok action: getting the user confirmation would mess with stdin.
 returns_ 1 find -files0-from - -ok echo '{}' ';' < /dev/null > out 2> err \
-  && grep -e "${stdin_conflict_error_re}" err \
+  && expect_stdin_conflict_error 'files-from-dash-with-ok' err \
   || { grep . out err; fail=1; }
 
 # Option -files0-from with argument "-" (=stdin) must not be combined with
 # the -okdir action: getting the user confirmation would mess with stdin.
 returns_ 1 find -files0-from - -okdir echo '{}' ';' < /dev/null > out 2> err \
-  && grep -e "${stdin_conflict_error_re}" err \
+  && expect_stdin_conflict_error 'files-from-dash-with-okdir' err \
   || { grep . out err; fail=1; }
 
 # File argument of -files0-from option must not refer to the same file as stdin.
 printf '.' > in || framework_failure_
 returns_ 1 find -files0-from in -ok echo '{}' ';' < in > out 2> err \
-    && grep 'files0.* standard input .*same file .*with -ok, -okdir' err \
+    && expect_stdin_samefile_error 'files-from-named-file-with-ok' err \
   || { grep . out err; fail=1; }
 
 # Likewise via a symlink.
 if ln -s in inlink; then
+  # ... for -ok, where -files0-from uses a symlink
   returns_ 1 find -files0-from inlink -ok echo '{}' ';' < in > out 2> err \
-    && grep 'files0.* standard input .*same file .*with -ok, -okdir' err \
+    && expect_stdin_samefile_error 'files-from-symlink-with-ok' err \
     || { grep . out err; fail=1; }
-  # ... and vice versa.
+  # ... for -ok, where stdin is redirected from the symlink
   returns_ 1 find -files0-from in -ok echo '{}' ';' < inlink > out 2> err \
-    && grep 'files0.* standard input .*same file .*with -ok, -okdir' err \
+    && expect_stdin_samefile_error 'files-from-named-file-with-ok-stdin-from-symlink' err \
+    || { grep . out err; fail=1; }
+
+  # ... for -okdir, where -files0-from uses a symlink
+  returns_ 1 find -files0-from inlink -okdir echo '{}' ';' < in > out 2> err \
+    && expect_stdin_samefile_error 'files-from-symlink-with-okdir' err \
+    || { grep . out err; fail=1; }
+  # ... for -okdir, where stdin is redirected from the symlink
+  returns_ 1 find -files0-from in -okdir echo '{}' ';' < inlink > out 2> err \
+    && expect_stdin_samefile_error 'files-from-named-file-with-okdir-stdin-from-symlink' err \
     || { grep . out err; fail=1; }
 fi
 
 # Likewise when the system provides the name '/dev/stdin'.
 if ls /dev/stdin >/dev/null 2>&1; then
   returns_ 1 find -files0-from /dev/stdin -ok echo '{}' ';' < in > out 2> err \
-    && grep 'files0.* standard input .*same file .*with -ok, -okdir' err \
+    && expect_stdin_samefile_error 'files-from-dev-stdin-with-ok' err \
+    || { grep . out err; fail=1; }
+  returns_ 1 find -files0-from /dev/stdin -okdir echo '{}' ';' < in > out 2> err \
+    && expect_stdin_samefile_error 'files-from-dev-stdin-with-okdir' err \
     || { grep . out err; fail=1; }
 fi
 
