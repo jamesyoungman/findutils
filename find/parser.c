@@ -1862,7 +1862,7 @@ parse_perm (const struct parser_table* entry, char **argv, int *arg_ptr)
        */
       error (0, 0,
              _("warning: you have specified a mode pattern %s (which is "
-               "equivalent to /000). The meaning of -perm /000 was changed"
+               "equivalent to /000). The meaning of -perm /000 was changed "
                "in 2007 to be consistent with -perm -000; that is, while it "
                "used to match no files, it now matches all files. "
                "This warning message will be removed in a future findutils release."),
