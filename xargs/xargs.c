@@ -1159,7 +1159,14 @@ print_args (bool ask)
                    (i == 0 ? "" : " "),
                    quotearg_n_style (0, shell_escape_quoting_style,
                                      bc_state.cmd_argv[i])) < 0)
-        error (EXIT_FAILURE, errno, _("Failed to write to standard error"));
+	{
+	  /* It seems unlikely a user will see this error message
+	   * (though there are circumstances in which they would), but
+	   * at least the nonzero exit status might help them to figure
+	   * out something is wrong.
+	   */
+	  error (EXIT_FAILURE, errno, _("Failed to write to standard error"));
+	}
     }
 
   if (ask)

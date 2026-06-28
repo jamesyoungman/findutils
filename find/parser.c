@@ -1229,7 +1229,7 @@ fnmatch_sanitycheck (void)
           || 0 != fnmatch ("Foo", "foo", FNM_CASEFOLD))
         {
           error (EXIT_FAILURE, 0,
-                 _("sanity check of the fnmatch() library function failed."));
+                 _("basic correctness check of the fnmatch() library function failed."));
           return false;
         }
       checked = true;
@@ -1538,7 +1538,7 @@ parse_newerXY (const struct parser_table* entry, char **argv, int *arg_ptr)
            */
           if (argv[1+*arg_ptr] == NULL)
             {
-              error (EXIT_FAILURE, 0, _("The %s test needs an argument"),
+              error (EXIT_FAILURE, 0, _("The %s test needs to be followed by an argument"),
                      quotearg_n_style (0, options.err_quoting_style, argv[*arg_ptr]));
             }
           else
@@ -1839,7 +1839,10 @@ parse_perm (const struct parser_table* entry, char **argv, int *arg_ptr)
   if (NULL == change
       || (perm_expr[0] == '+' && '0' <= perm_expr[1] && perm_expr[1] < '8'))
     {
-      error (EXIT_FAILURE, 0, _("invalid mode %s"),
+      /* TRANSLATORS: "mode" here is used in the same sense as we use
+       * for the "chmod" program.
+       */
+      error (EXIT_FAILURE, 0, _("invalid file mode %s"),
              quotearg_n_style (0, options.err_quoting_style, perm_expr));
     }
   perm_val[0] = mode_adjust (0, false, 0, change, NULL);

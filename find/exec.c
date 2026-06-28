@@ -267,9 +267,15 @@ prep_child_for_exec (bool close_stdin, const struct saved_cwd *wd)
    */
   if (0 != restore_cwd (wd))
     {
-      error (0, errno, _("Failed to change directory%s%s"),
-             (wd->desc < 0 && wd->name) ? ": " : "",
-             (wd->desc < 0 && wd->name) ? wd->name : "");
+      const char *wd_name = (wd->desc < 0 && wd->name) ? wd->name : NULL;
+      if (wd_name)
+	{
+	  error (0, errno, _("Failed to change directory to %s"), wd_name);
+	}
+      else
+	{
+	  error (0, errno, _("Failed to change directory"));
+	}
       ok = false;
     }
   return ok;
@@ -351,7 +357,7 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
     {
       if (errno != EINTR)
         {
-          error (0, errno, _("error waiting for %s"),
+          error (0, errno, _("error waiting for the command we executed for %s"),
                  safely_quote_err_filename (0, argv[0]));
           state.exit_status = EXIT_FAILURE;
           return 0;             /* FAIL */

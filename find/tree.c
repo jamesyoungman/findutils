@@ -206,7 +206,7 @@ get_expr (struct predicate **input,
       break;
 
     default:
-      error (EXIT_FAILURE, 0, _("oops -- invalid expression type!"));
+      error (EXIT_FAILURE, 0, _("oops -- invalid expression type! This is probably a bug."));
       break;
     }
 
@@ -278,7 +278,7 @@ scan_rest (struct predicate **input,
 
         default:
           error (EXIT_FAILURE, 0,
-                 _("oops -- invalid expression type (%d)!"),
+                 _("oops -- invalid expression type (%d)!  This is probably a bug."),
                  (int)(*input)->p_type);
           break;
         }
@@ -834,7 +834,7 @@ opt_expr (struct predicate **eval_treep)
              all of the user's parentheses. */
 
         default:
-          error (EXIT_FAILURE, 0, _("oops -- invalid expression type!"));
+          error (EXIT_FAILURE, 0, _("oops -- invalid expression type!  This is probably a bug."));
           break;
         }
 
@@ -1535,7 +1535,7 @@ get_new_pred_chk_op (const struct parser_table *entry,
     switch (last_pred->p_type)
       {
       case NO_TYPE:
-        error (EXIT_FAILURE, 0, _("oops -- invalid default insertion of and!"));
+        error (EXIT_FAILURE, 0, _("oops -- invalid default insertion of and!  This is probably a bug."));
         break;
 
       case PRIMARY_TYPE:
