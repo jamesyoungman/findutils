@@ -26,8 +26,8 @@
 #include <string.h>
 
 /* gnulib headers. */
-#include "byteswap.h"
-#include "quotearg.h"
+#include <byteswap.h>
+#include <quotearg.h>
 
 /* find headers. */
 #include "system.h"
