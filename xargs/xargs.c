@@ -1183,7 +1183,14 @@ print_args (bool ask)
         }
       fputs ("?...", stderr);
       if (fflush (stderr) != 0)
-        error (EXIT_FAILURE, errno, _("Failed to write to standard error"));
+	{
+	  /* It seems unlikely a user will see this error message
+	   * (though there are circumstances in which they would), but
+	   * at least the nonzero exit status might help them to
+	   * figure out something is wrong.
+	   */
+	  error (EXIT_FAILURE, errno, _("Failed to write to standard error"));
+	}
 
       c = savec = getc (tty_stream);
       while (c != EOF && c != '\n')

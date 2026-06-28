@@ -1036,6 +1036,9 @@ set_option_defaults (struct options *p)
 
   if (getenv ("FIND_BLOCK_SIZE"))
     {
+      /* Support for FIND_BLOCK_SIZE was removed in 2003
+       * (7da8b17cf1b690c8ef016eca2ae50c21e5a9d911).
+       */
       error (EXIT_FAILURE, 0,
              _("The environment variable FIND_BLOCK_SIZE is not supported, "
                "the only thing that affects the block size is the "
