@@ -133,13 +133,15 @@ sc_tests_list_consistency:
 
 # Ensure that all version-controlled test scripts are executable.
 sc_tests_executable:
-	@set -o noglob 2>/dev/null || set -f;				   \
-	find_ext="-name '' "`printf -- "-o -name *%s " $(TEST_EXTENSIONS)`;\
-	find $(srcdir)/tests \( $$find_ext \) \! -perm -u+x -print	   \
-	  | { sed "s|^$(srcdir)/||"; git ls-files $(srcdir)/tests/; }	   \
-	  | sort | uniq -d						   \
-	  | grep -Ev '^tests/.*\.c$$'					   \
-	  | sed -e "s/^/$(ME): Please make test executable: /" | grep .	   \
+	@set -o noglob 2>/dev/null || set -f;				    \
+	find_ext="-name '' "`printf -- "-o -name *%s " $(TEST_EXTENSIONS)`; \
+	( cd "$(srcdir)" &&                                                 \
+		{ find tests/ \( $$find_ext \) \! -perm -u+x -print	  ; \
+		  git ls-files tests/; }                                    \
+	)                                                                   \
+	  | sort | uniq -d						    \
+	  | grep -Ev '^tests/.*\.c$$'					    \
+	  | sed -e "s/^/$(ME): Please make test executable: /" | grep .	    \
 	    && exit 1; :
 
 # Avoid :>file which doesn't propagate errors
