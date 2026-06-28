@@ -474,10 +474,17 @@ record_initial_cwd (void)
   initial_wd = xmalloc (sizeof (*initial_wd));
   if (0 != save_cwd (initial_wd))
     {
-      error (EXIT_FAILURE, errno,
-             _("Failed to save initial working directory%s%s"),
-             (initial_wd->desc < 0 && initial_wd->name) ? ": " : "",
-             (initial_wd->desc < 0 && initial_wd->name) ? initial_wd->name : "");
+      const char *wd_name = (initial_wd->desc < 0 && initial_wd->name) ? initial_wd->name : NULL;
+      if (wd_name)
+	{
+	  error (EXIT_FAILURE, errno,
+		 _("Failed to save initial working directory %s"), wd_name);
+	}
+      else
+	{
+	  error (EXIT_FAILURE, errno,
+		 _("Failed to save initial working directory"));
+	}
     }
 }
 
@@ -492,11 +499,17 @@ cleanup_initial_cwd (void)
     }
   else
     {
+      const char *wd_name = (initial_wd->desc < 0 && initial_wd->name) ? initial_wd->name : NULL;
+      if (wd_name)
+	{
+	  error (0, errno,
+		 _("Failed to restore initial working directory %s"), wd_name);
+	}
+      else
+	{
+	  error (0, errno, _("Failed to restore initial working directory"));
+	}
       /* since we may already be in atexit, die with _exit(). */
-      error (0, errno,
-             _("Failed to restore initial working directory%s%s"),
-             (initial_wd->desc < 0 && initial_wd->name) ? ": " : "",
-             (initial_wd->desc < 0 && initial_wd->name) ? initial_wd->name : "");
       _exit (EXIT_FAILURE);
     }
 }
