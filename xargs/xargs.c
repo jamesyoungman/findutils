@@ -1159,14 +1159,14 @@ print_args (bool ask)
                    (i == 0 ? "" : " "),
                    quotearg_n_style (0, shell_escape_quoting_style,
                                      bc_state.cmd_argv[i])) < 0)
-	{
-	  /* It seems unlikely a user will see this error message
-	   * (though there are circumstances in which they would), but
-	   * at least the nonzero exit status might help them to figure
-	   * out something is wrong.
-	   */
-	  error (EXIT_FAILURE, errno, _("Failed to write to standard error"));
-	}
+        {
+          /* It seems unlikely a user will see this error message
+           * (though there are circumstances in which they would), but
+           * at least the nonzero exit status might help them to figure
+           * out something is wrong.
+           */
+          error (EXIT_FAILURE, errno, _("Failed to write to standard error"));
+        }
     }
 
   if (ask)
@@ -1183,14 +1183,14 @@ print_args (bool ask)
         }
       fputs ("?...", stderr);
       if (fflush (stderr) != 0)
-	{
-	  /* It seems unlikely a user will see this error message
-	   * (though there are circumstances in which they would), but
-	   * at least the nonzero exit status might help them to
-	   * figure out something is wrong.
-	   */
-	  error (EXIT_FAILURE, errno, _("Failed to write to standard error"));
-	}
+        {
+          /* It seems unlikely a user will see this error message
+           * (though there are circumstances in which they would), but
+           * at least the nonzero exit status might help them to
+           * figure out something is wrong.
+           */
+          error (EXIT_FAILURE, errno, _("Failed to write to standard error"));
+        }
 
       c = savec = getc (tty_stream);
       while (c != EOF && c != '\n')
@@ -1338,18 +1338,18 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc, char *
       wait_for_proc (false, 0u);
 
       if (pipe (fd))
-	{
-	  /* TRANSLATORS: The pipe being referred to is an
-	   * operating-system object for communicating between
-	   * processes (created by the "pipe" system call), not a
-	   * piece of plumbing.  These just happen to have the same
-	   * name in English.  Similarly, fork is also the name of a
-	   * specific system call (named by analogy to English idioms
-	   * such as "fork in the road") not a thing you might eat
-	   * with.
-	   */
-	  error (EXIT_FAILURE, errno, _("could not create pipe before fork"));
-	}
+        {
+          /* TRANSLATORS: The pipe being referred to is an
+           * operating-system object for communicating between
+           * processes (created by the "pipe" system call), not a
+           * piece of plumbing.  These just happen to have the same
+           * name in English.  Similarly, fork is also the name of a
+           * specific system call (named by analogy to English idioms
+           * such as "fork in the road") not a thing you might eat
+           * with.
+           */
+          error (EXIT_FAILURE, errno, _("could not create pipe before fork"));
+        }
       fcntl (fd[1], F_SETFD, FD_CLOEXEC);
 
       /* If we run out of processes, wait for a child to return and
@@ -1360,15 +1360,15 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc, char *
       switch (child)
         {
         case -1:
-	  {
-	    /* TRANSLATORS: fork is the name of a system call, and so it
-	     * doesn't necessarily require a translation.  But to make the
-	     * error message more easily understandable you might translate
-	     * this message as something like "cannot create a new process
-	     * because the system call 'fork' failed".
-	     */
-	    error (EXIT_FAILURE, errno, _("cannot fork"));
-	  }
+          {
+            /* TRANSLATORS: fork is the name of a system call, and so it
+             * doesn't necessarily require a translation.  But to make the
+             * error message more easily understandable you might translate
+             * this message as something like "cannot create a new process
+             * because the system call 'fork' failed".
+             */
+            error (EXIT_FAILURE, errno, _("cannot fork"));
+          }
 
         case 0:         /* Child.  */
           {

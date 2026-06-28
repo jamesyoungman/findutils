@@ -269,13 +269,13 @@ prep_child_for_exec (bool close_stdin, const struct saved_cwd *wd)
     {
       const char *wd_name = (wd->desc < 0 && wd->name) ? wd->name : NULL;
       if (wd_name)
-	{
-	  error (0, errno, _("Failed to change directory to %s"), wd_name);
-	}
+        {
+          error (0, errno, _("Failed to change directory to %s"), wd_name);
+        }
       else
-	{
-	  error (0, errno, _("Failed to change directory"));
-	}
+        {
+          error (0, errno, _("Failed to change directory"));
+        }
       ok = false;
     }
   return ok;

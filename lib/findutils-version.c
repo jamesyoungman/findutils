@@ -46,13 +46,13 @@ display_findutils_version (const char *official_name)
   fflush (stderr);
   version_etc (stdout,
                official_name, PACKAGE_NAME, version_string,
-	       /* TRANSLATORS: This is a proper name. */
+               /* TRANSLATORS: This is a proper name. */
                _("Eric B. Decker"),
-	       /* TRANSLATORS: This is a proper name. */
+               /* TRANSLATORS: This is a proper name. */
                _("James Youngman"),
-	       /* TRANSLATORS: This is a proper name. */
+               /* TRANSLATORS: This is a proper name. */
                _("Bernhard Voelker"),
-	       /* TRANSLATORS: This is a proper name. */
+               /* TRANSLATORS: This is a proper name. */
                _("Kevin Dalley"),
                (const char*) NULL);
 }
