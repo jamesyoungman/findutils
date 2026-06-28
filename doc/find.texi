@@ -3708,7 +3708,7 @@ expression tree; see the @samp{-O} option.
 Prints a summary indicating how often each predicate succeeded or
 failed.
 @item search
-Prints diagnostics releating to navigation through the file system.
+Prints diagnostics relating to navigation through the file system.
 @item stat
 Print messages as files are examined with the stat and lstat system
 calls.  The find program tries to minimise such calls.
