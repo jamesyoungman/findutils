@@ -70,6 +70,9 @@ safe_atoi (const char *s, enum quoting_style style)
     }
   else if (end == s)
     {
+      /* TRANSLATORS: the argument here is the thing we actually got
+       * instead of the integer we expected.
+       */
       error (EXIT_FAILURE, errno, _("Expected an integer: %s"),
              quotearg_n_style (0, style, s));
     }

@@ -312,7 +312,15 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
 
   child_pid = fork ();
   if (child_pid == -1)
-    error (EXIT_FAILURE, errno, _("cannot fork"));
+    {
+      /* TRANSLATORS: fork is the name of a system call, and so it
+       * doesn't necessarily require a translation.  But to make the
+       * error message more easily understandable you might translate
+       * this message as something like "cannot create a new process
+       * because the system call 'fork' failed".
+       */
+      error (EXIT_FAILURE, errno, _("cannot fork"));
+    }
   if (child_pid == 0)
     {
       /* We are the child. */

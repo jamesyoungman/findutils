@@ -1736,6 +1736,13 @@ insert_path_check (const struct parser_table* entry, char **argv, int *arg_ptr,
       if (!options.posixly_correct
           && !is_feasible_path_argument (name, foldcase))
         {
+	  /* TRANSLATORS: the first argument here (-%s) expands to the a test
+	   * which the user specified on the command line. The second is the
+	   * argument they gave for it.   These might be, for example:
+	   *
+	   * warning: -ipath foo/ will not match anything...
+	   * warning: -path z/q/ will not match anything...
+	   */
           error (0, 0, _("warning: -%s %s will not match anything "
                          "because it ends with /."),
                  predicate_name, name);

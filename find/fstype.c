@@ -263,6 +263,11 @@ file_system_type_uncached (const struct stat *statp, const char *path,
   /* Don't cache unknown values. */
   *fstype_known = (type != NULL);
 
+  /* TRANSLATORS: The "unknown" here is a placeholder for the type of
+   * a file system which we were not able to identify.  File system
+   * names are typically short, so something like "file system of
+   * unknown type" would be longer than ideal.
+   */
   return type ? type : xstrdup (_("unknown"));
 }
 
