@@ -1848,13 +1848,14 @@ parse_perm (const struct parser_table* entry, char **argv, int *arg_ptr)
        * Starting in 2005, we used to issue a warning message
        * informing the user that the behaviour would change in the
        * future.  We have now changed the behaviour and issue a
-       * warning message that the behaviour recently changed.
+       * warning message that the behaviour changed in 2007.
        */
       error (0, 0,
              _("warning: you have specified a mode pattern %s (which is "
-               "equivalent to /000). The meaning of -perm /000 has now been "
-               "changed to be consistent with -perm -000; that is, while it "
-               "used to match no files, it now matches all files."),
+               "equivalent to /000). The meaning of -perm /000 was changed"
+               "in 2007 to be consistent with -perm -000; that is, while it "
+               "used to match no files, it now matches all files. "
+	       "This warning message will be removed in a future findutils release."),
              perm_expr);
 
       kind = PERM_AT_LEAST;
