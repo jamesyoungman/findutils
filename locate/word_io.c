@@ -118,7 +118,7 @@ getword (FILE *fp,
        * Either condition is fatal.
        */
       if (feof (fp))
-        error (EXIT_FAILURE, 0, _("unexpected end of file in %s"), quoted_name);
+        error (EXIT_FAILURE, 0, _("unexpected end-of-file in %s"), quoted_name);
       else
         error (EXIT_FAILURE, errno,
                _("error reading a word from %s"), quoted_name);
