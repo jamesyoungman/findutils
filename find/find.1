@@ -2927,6 +2927,13 @@ Feature	Added in	Year	Also occurs in
 .TS
 l l l .
 Version	Year	Change
+4.11	2026	T{
+As required by newer POSIX (from Issue 8, IEEE Std 1003.1\-2024), the test
+.B \-mount
+is no longer a synonym for
+.BR \-xdev ,
+and now skips the mount points themselves.
+T}
 4.5.12	2013	T{
 The syntax
 .B \-perm +MODE
