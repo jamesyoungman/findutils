@@ -1678,7 +1678,7 @@ wait_for_proc_all (void)
 
   if (original_exit_value != child_error)
     {
-      /* wait_for_proc () changed the value of child_error ().  This
+      /* wait_for_proc () changed the value of child_error.  This
        * function is registered via atexit (), and so may have been
        * called from exit ().  We now know that the original value
        * passed to exit () is no longer the exit status we require.
