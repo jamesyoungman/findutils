@@ -148,6 +148,17 @@ If neither
 nor
 .B \-e
 is used, no end-of-file string is used.
+Other implementations of
+.B xargs
+may have a default logical end-of-file string, so if you want to
+portably ensure that no logical end-of-file string is in use, use
+." \[dq] below is a neutral double-quote, reflecting the use of this
+." punctuation in shell code.  \*(lq\*(rq would produce a left and right
+." double-quote, and so would not give the intended effect if the user
+." copies the text into a shell script.
+.B \-E \[dq]\[dq]
+to disable the logical end-of-file string.
+See also STANDARDS CONFORMANCE.
 .
 .TP
 .\" We use font selection escape sequences here because usage of `\c` in
@@ -163,15 +174,10 @@ option.
 Use
 .B \-E
 instead,
-because it is POSIX-compliant while this option is not.
-If
-.I eof-str
-is omitted, there is no end-of-file string.
-If neither
-.B \-E
-nor
+because it is still POSIX-compliant whereas the
 .B \-e
-is used, no end-of-file string is used.
+option was removed from the POSIX standard (IEEE Std 1003.1, 2004
+Edition).
 .
 .TP
 .BI \-I\*(~~ replace-str
@@ -209,7 +215,9 @@ argument is missing, the effect is the same as
 \*(rq.
 The
 .B \-i
-option is deprecated; use
+option was removed from the POSIX standard (IEEE Std 1003.1, 2004
+Edition).
+Use
 .B \-I
 instead.
 .
@@ -562,6 +570,11 @@ The long-standing
 option of
 .B xargs
 appeared first in Issue 8 (IEEE Std 1003.1\-2024) of the POSIX standard.
+The long-standing
+.B \-p
+option of GNU
+.B xargs
+was added to Issue 6 (IEEE Std 1003.1\-2004).
 .P
 As of GNU
 .I findutils
