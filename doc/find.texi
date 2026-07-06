@@ -3996,9 +3996,10 @@ if the command is not found
 if some other error occurred.
 @end table
 
-Exit codes greater than 128 are used by the shell to indicate that
-a program died due to a fatal signal.
 
+The commands run by @code{xargs} are not invoked via the shell.  The
+shell's @math{128 + n} convention for reporting that a process had
+been killed by a signal is not used by @code{xargs}.
 
 @menu
 * xargs options::

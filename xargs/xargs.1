@@ -549,8 +549,12 @@ if some other error occurred.
 .RE
 .
 .P
-Exit codes greater than 128 are used by the shell to indicate that
-a program died due to a fatal signal.
+The commands run by
+.B xargs
+are not invoked via the shell.
+The shell's (128 + signal) convention for reporting that a process had
+been killed by a signal is not used by
+.BR xargs .
 .
 .SH "STANDARDS CONFORMANCE"
 The long-standing
