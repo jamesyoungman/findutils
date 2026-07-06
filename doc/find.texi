@@ -514,7 +514,7 @@ find /usr/local/doc -name '*.texi'
 Notice that the wildcard must be enclosed in quotes in order to
 protect it from expansion by the shell.
 
-As of findutils version 4.2.2, patterns for @samp{-name} and
+As of findutils version 4.2.2 (2004), patterns for @samp{-name} and
 @samp{-iname} match a file name with a leading @samp{.}.  For
 example the command @samp{find /tmp -name \*bar} match the file
 @file{/tmp/.foobar}.  Braces within the pattern (@samp{@{@}}) are not
@@ -1108,7 +1108,8 @@ There are two ways to list files in @file{/usr} modified after
 find /usr -newermt "Feb 1"
 @end example
 
-The other way of doing this works on the versions of find before 4.3.3:
+The other way of doing this works on the versions of find before 4.3.3
+(2007):
 
 @c Idea from Rick Sladkey.
 @example
@@ -1432,8 +1433,8 @@ As above.
 @quotation Warning
 If you specify @samp{-perm /000} or @samp{-perm /mode} where the
 symbolic mode @samp{mode} has no bits set, the test matches all files.
-Versions of GNU @code{find} prior to 4.3.3 matched no files in this
-situation.
+Versions of GNU @code{find} prior to 4.3.3 (2007) matched no files in
+this situation.
 @end quotation
 
 @end deffn
@@ -2126,7 +2127,7 @@ semantics, you will see a difference between the mode as printed by
 
 @item %M
 File's type and mode bits (in symbolic form, as for @code{ls}).  This
-directive is supported in findutils 4.2.5 and later.
+directive is supported in findutils 4.2.5 (2004) and later.
 @end table
 
 @node Size Directives
@@ -2683,7 +2684,7 @@ True; like @samp{-print0} but write to @var{file} like @samp{-fprint}
 (@pxref{Print File Name}).  The output file is always created.
 @end deffn
 
-As of findutils version 4.2.4, the @code{locate} program also has a
+As of findutils version 4.2.4 (2004), the @code{locate} program also has a
 @samp{--null} option which does the same thing.  For similarity with
 @code{xargs}, the short form of the option @samp{-0} can also be used.
 
@@ -2853,8 +2854,8 @@ Run up to @var{max-procs} processes at a time; the default is 1.  If
 possible at a time.  Use the @samp{-n}, @samp{-s}, or @samp{-L} option
 with @samp{-P}; otherwise chances are that the command will be run
 only once. If a child process exits with status 255, @code{xargs} will
-still wait for all child processes to exit (before version 4.9.0 this
-might not happen).
+still wait for all child processes to exit. This would not necessarily
+happen in versions before 4.9.0 (2022).
 @end table
 
 If @code{xargs} is run without the @samp{-P} option, it will not
@@ -3246,8 +3247,9 @@ specify where to look (by using @samp{-d} or setting
 
 The file name databases contain lists of files that were in particular
 directory trees when the databases were last updated.  The file name
-database format changed starting with GNU @code{locate} version 4.0 to
-allow machines with different byte orderings to share the databases.
+database format changed starting with GNU @code{locate} version 4.0
+(1994) to allow machines with different byte orderings to share the
+databases.
 
 GNU @code{locate} can read both the old pre-findutils-4.0 database
 format and the @samp{LOCATE02} database format.  Support for the old
@@ -4054,7 +4056,7 @@ the input is ignored.  If @var{eof-str} is omitted (@samp{-e}) or blank
 (either @samp{-e} or @samp{-E}), there is no logical end-of-file marker
 string.  The @samp{-e} form of this option is deprecated in favour of
 the POSIX-compliant @samp{-E} option, which you should use instead.  As
-of GNU @code{xargs} version 4.2.9, the default behaviour of @code{xargs}
+of GNU @code{xargs} version 4.2.9 (2004), the default behaviour of @code{xargs}
 is not to have a logical end-of-file marker string.  The POSIX standard
 (IEEE Std 1003.1, 2004 Edition) allows this.
 
@@ -5052,7 +5054,7 @@ The @samp{-delete} action is not completely portable, but the only
 other possibility which is as secure (@samp{-execdir}) is no more
 portable.  The most efficient portable alternative is @samp{-exec
 @dots{}+}, but this is insecure and isn't supported by versions of GNU
-findutils prior to 4.2.12.
+findutils prior to 4.2.12 (2005).
 
 @node Copying A Subset of Files
 @section Copying A Subset of Files
