@@ -614,6 +614,55 @@ to terminate even if the
 .B \-P
 option was not used.
 .
+.P
+The POSIX standard specifies that certain kinds of problem must result
+in particular
+.B xargs
+return values.
+The table below summarizes how these requirements relate to the
+values listed in the EXIT STATUS section.
+.TS
+box,tab(|);
+CbS   |CbS
+Lb  Lb|Lb  Lb
+Lt  Nt|Nt  Ltx.
+POSIX requirement|GNU xargs behavior
+Situation|Exit status|Exit status | Details
+_|_|_|_
+Utility not found|127|127|T{
+.ad l
+.BR execvp (2)
+failed with
+.B errno
+value ENOENT
+T}
+_|_|_|_
+Utility could not be invoked|126|126|T{
+.ad l
+.BR execvp (2)
+failed with any other error
+T}
+_|_|_|_
+Any other non-success case|1 \- 125|125|T{
+.ad l
+Utility killed by a fatal signal
+T}
+\^|\^|124|T{
+Utility exited with status 255
+T}
+\^|\^|123|T{
+.ad l
+Utility exited with a status other than 0 or 255
+T}
+\^|\^|2 \- 122|May be used in the future
+\^|\^|1|T{
+.ad l
+Any other kind of error (such as a usage error)
+T}
+_|_|_|_
+Successful completion|0|0|
+.TE
+.
 .SH "HISTORY"
 .
 The
