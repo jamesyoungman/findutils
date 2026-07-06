@@ -2795,7 +2795,7 @@ limit.  The following options modify those values.
 @itemx -r
 If the standard input does not contain any nonblanks, do not run the
 command.  By default, the command is run once even if there is no
-input.  This option is a GNU extension.
+input.
 
 @item --max-lines@r{[}=@var{max-lines}@r{]}
 @itemx -L @var{max-lines}

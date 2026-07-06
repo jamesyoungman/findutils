@@ -368,7 +368,6 @@ This can be used in a rudimentary load distribution scheme, for example.
 If the standard input does not contain any nonblanks, do not run the
 command.
 Normally, the command is run once even if there is no input.
-This option is a GNU extension.
 .
 .TP
 .BI \-s\*(~~ max-chars
@@ -567,9 +566,11 @@ been killed by a signal is not used by
 .SH "STANDARDS CONFORMANCE"
 The long-standing
 .B \-0
-option of
+and
+.B \-r
+options of GNU
 .B xargs
-appeared first in Issue 8 (IEEE Std 1003.1\-2024) of the POSIX standard.
+were added to Issue 8 (IEEE Std 1003.1\-2024) of the POSIX standard.
 The long-standing
 .B \-p
 option of GNU
