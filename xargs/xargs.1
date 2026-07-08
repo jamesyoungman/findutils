@@ -540,9 +540,12 @@ Generates a compact listing of all the users on the system.
 exits with the following status:
 .RS
 .IP 0
-if it succeeds
+if it succeeds (and any commands run by
+.BR xargs ,
+if there were any, exited normally with exit status 0).
 .IP 123
-if any invocation of the command exited with status 1\*(en125
+if any invocation of the command exited with status other than 0 or
+255 (though see below).
 .IP 124
 if the command exited with status 255
 .IP 125
@@ -554,11 +557,22 @@ if the command is not found
 .IP 1
 if some other error occurred.
 .RE
+.P
+It is possible that future versions of
+.B xargs
+may exit with a status in the range 1\*(en125 when the command it
+launched fails in some specific way not listed above. Nevertheless,
+.B xargs
+will comply with POSIX.  The STANDARDS CONFORMANCE section explains
+the POSIX rules about the exit status of
+.BR xargs .
 .
 .P
 The commands run by
 .B xargs
-are not invoked via the shell.
+are run directly (with
+.BR execvp (2))
+rather than being invoked via the shell.
 The shell's (128 + signal) convention for reporting that a process had
 been killed by a signal is not used by
 .BR xargs .
