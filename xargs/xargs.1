@@ -97,7 +97,7 @@ Disables the end-of-file string, which is treated like any other argument.
 Useful when input items might contain white space, quote marks, or backslashes.
 The GNU
 .B find
-(and from POSIX Issue 8, IEEE Std 1003.1\-2024)
+(and from POSIX Issue 8, IEEE Std 1003.1, 2024)
 .B \-print0
 option produces input suitable for this mode.
 .
@@ -564,33 +564,75 @@ been killed by a signal is not used by
 .BR xargs .
 .
 .SH "STANDARDS CONFORMANCE"
-The long-standing
-.B \-0
+This section describes the relationship between GNU
+.B xargs
+and the standards with which it complies.  Some portability
+considerations are mentioned.
+
+.SS OPTIONS
+Options specified in IEEE Std 1003.1, 2024 are
+.BR \-E ,
+.BR \-I ,
+.BR \-L ,
+.BR \-n ,
+.BR \-p ,
+.BR \-r ,
+.BR \-s ,
+.BR \-t ,
+.B \-x
 and
-.B \-r
-options of GNU
+.BR \-0 .
+.
+.TP
+.B \-E
+Since findutils 4.2.9 (2004), GNU
 .B xargs
-appeared first in Issue 8 (IEEE Std 1003.1\-2024) of the POSIX standard.
-The long-standing
+has had no default logical end-of-file string.
+This may not be true of other implementations, so you should use
+.B \-E \*'\*'
+to be certain.
+.TP
+.B \-e
+Removed from POSIX in IEEE Std 1003.1, 2004.
+GNU
+.B xargs
+still supports this, but you should use
+.B \-E
+instead.
+.TP
+\-i
+Removed from POSIX in IEEE Std 1003.1, 2004.
+GNU
+.B xargs
+still supports this but you should use
+.B \-I
+instead.
+.TP
+.B \-l
+Removed from POSIX in IEEE Std 1003.1, 2004.
+GNU
+.B xargs
+still supports this but you should use
+.B \-L
+instead.
+.TP
+.B \-o
+An extension to the POSIX standard for better
+compatibility with BSD.  Not in POSIX.
+.TP
 .B \-p
-option of GNU
-.B xargs
-was added to Issue 6 (IEEE Std 1003.1\-2004).
-.P
-As of GNU
-.I findutils
-version 4.2.9 (2004), the default behaviour of
-.B xargs
-is not to have a logical end-of-file marker.
-POSIX (IEEE Std 1003.1, 2004 Edition and also later editions) allows
-this.
-.P
-The \-l and \-i options appeared in the 1997 edition of the POSIX
-standard, but do not appear in the 2004 or later editions.
-Therefore you should use \-L and \-I instead, respectively.
-.P
-The \-o option is an extension to the POSIX standard for better
-compatibility with BSD.
+A GNU extension since before 1994.
+Added to POSIX in IEEE Std 1003.1, 2004.
+.TP
+.B \-r
+A GNU extension since before 1994.
+Added to POSIX in IEEE Std 1003.1, 2024.
+.TP
+.B \-0
+A GNU extension since before 1994.
+Added to POSIX in IEEE Std 1003.1, 2024.
+.
+.SS EXEC SYSTEM CALL LIMITS
 .P
 The POSIX standard allows implementations to have a limit on the size
 of arguments to the
@@ -604,16 +646,8 @@ The
 .B \-\-show\-limits
 option can be used to discover the actual limits in force on the
 current system.
-.P
-In versions of
-.B xargs
-up to and including version 4.9.0 (2022), SIGUSR1 and SIGUSR2 would
-not cause
-.B xargs
-to terminate even if the
-.B \-P
-option was not used.
 .
+.SS POSIX EXIT STATUS REQUIREMENTS
 .P
 The POSIX standard specifies that certain kinds of problem must result
 in particular
@@ -637,13 +671,17 @@ failed with
 value ENOENT
 T}
 _|_|_|_
-Utility could not be invoked|126|126|T{
+T{
+Utility could not be invoked
+T}|126|126|T{
 .ad l
 .BR execvp (2)
 failed with any other error
 T}
 _|_|_|_
-Any other non-success case|1 \- 125|125|T{
+T{
+Any other non-success case
+T}|1 \- 125|125|T{
 .ad l
 Utility killed by a fatal signal
 T}
@@ -663,6 +701,23 @@ _|_|_|_
 Successful completion|0|0|
 .TE
 .
+.SS CONFORMANCE BUGS
+.TS
+tab(|);
+Lb Lb Lb
+L  L  Lx.
+Introduced|Fixed|Description
+4.5.10 (2011)|4.10.0 (2024)|T{
+SIGUSR1 should be a fatal signal by default, but
+SIGUSR1 would not kill
+.B xargs
+even if the
+.B \-P
+option was not in use.
+T}
+.TE
+.P See also the BUGS section, below.
+.
 .SH "HISTORY"
 .
 The
@@ -675,6 +730,7 @@ chapter
 for more information.
 .
 .SH "BUGS"
+.SS "SECURITY"
 It is not possible for
 .B xargs
 to be used securely, since there will always be a time gap between the
@@ -696,6 +752,8 @@ The
 option of
 .B find
 can often be used as a more secure alternative.
+.
+.SS "IMPLEMENTATION LIMITS"
 .P
 When you use the
 .B \-I
@@ -740,12 +798,6 @@ The problem doesn't occur with the output of
 .BR find (1)
 because it emits just one filename per line.
 .P
-In versions of
-.B xargs
-up to and including version 4.9.0 (2022),
-.B xargs -P
-would exit while some of its children were still running, if one of
-them exited with status 255.
 .
 .SH "REPORTING BUGS"
 GNU
