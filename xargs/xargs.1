@@ -655,15 +655,26 @@ in particular
 return values.
 The table below summarizes how these requirements relate to the
 values listed in the EXIT STATUS section.
+.ad l
 .TS
 box,tab(|);
-CbS   |CbS
+Cb  S |Cb  S
 Lb  Lb|Lb  Lb
-Lt  Nt|Nt  Ltx.
-POSIX requirement|GNU xargs behavior
-Situation|Exit status|Exit status | Details
+Lt  Nt|Nt  Lt.
+T{
+POSIX requirement
+T}|T{
+GNU xargs behavior
+T}
+Situation|T{
+Exit status
+T}|T{
+Exit status
+T}|Details
 _|_|_|_
-Utility not found|127|127|T{
+T{
+Utility not found
+T}|127|127|T{
 .ad l
 .BR execvp (2)
 failed with
@@ -692,14 +703,19 @@ T}
 .ad l
 Utility exited with a status other than 0 or 255
 T}
-\^|\^|2 \- 122|May be used in the future
+\^|\^|2 \- 122|T{
+May be used in the future
+T}
 \^|\^|1|T{
 .ad l
 Any other kind of error (such as a usage error)
 T}
 _|_|_|_
-Successful completion|0|0|
+T{
+Successful completion
+T}|0|0|
 .TE
+.ad n
 .
 .SS CONFORMANCE BUGS
 .TS
