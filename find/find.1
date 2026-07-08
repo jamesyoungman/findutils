@@ -743,6 +743,8 @@ Like
 .BR \-newer ,
 but test if the time of the last access of the current file is more recent than
 that of the last data modification of the \fIreference\fR file.
+In other words, this test is equivalent to
+.BR \-neweram .
 Fails if the timestamps are
 .BR equal .
 If \fIreference\fR is a symbolic link and the
@@ -774,6 +776,8 @@ Like
 .BR \-newer ,
 but test if the time of the last status change of the current file is more
 recent than that of the last data modification of the \fIreference\fR file.
+In other words, this test is equivalent to
+.BR \-newercm .
 Fails if the timestamps are
 .BR equal .
 If \fIreference\fR is a symbolic link and the
@@ -937,6 +941,11 @@ from expansion by the shell.
 Succeeds if the
 time of the last data modification of the current file is more recent than that
 of the last data modification of the \fIreference\fR file.
+In other words, this test is equivalent to
+.BR \-newermm ,
+though only
+.B \-newer
+is in the POSIX standard.
 Fails if the timestamps are
 .BR equal .
 If \fIreference\fR is a symbolic link and the
