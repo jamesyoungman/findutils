@@ -589,7 +589,7 @@ Since findutils 4.2.9 (2004), GNU
 .B xargs
 has had no default logical end-of-file string.
 This may not be true of other implementations, so you should use
-.B \-E \*'\*'
+.B \-E \[dq]\[dq]
 to be certain.
 .TP
 .B \-e
@@ -774,8 +774,8 @@ uses, and you can also use an extra invocation of
 to ensure that very long lines do not occur.
 For example:
 .P
-.B somecommand | xargs \-s 50000 echo | xargs \-I \*'{}\*' \-s 100000 \
-rm \*'{}\*'
+.B somecommand | xargs \-s 50000 echo | xargs \-I \[dq]{}\[dq] \-s 100000 \
+rm \[dq]{}\[dq]
 .P
 Here, the first invocation of
 .B xargs
