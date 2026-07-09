@@ -3981,9 +3981,11 @@ standard input.
 
 @table @asis
 @item 0
-if it succeeds
+if it succeeds (and any commands run by @code{xargs},
+if there were any, exited normally with exit status 0).
 @item 123
-if any invocation of the command exited with status 1-125
+if any invocation of the command exited with status other than 0 or
+255 (though see below).
 @item 124
 if the command exited with status 255
 @item 125
@@ -3996,9 +3998,14 @@ if the command is not found
 if some other error occurred.
 @end table
 
+It is possible that future versions of @code{xargs}
+may exit with a status in the range 1-125 when the command it
+launched fails in some specific way not listed above.
+Nevertheless, @code{xargs} will comply with POSIX.
 
-The commands run by @code{xargs} are not invoked via the shell.  The
-shell's @math{128 + n} convention for reporting that a process had
+The commands run by @code{xargs} are run directly (with @code{execvp()}
+rather than being invoked via the shell.
+The shell's @math{128 + n} convention for reporting that a process had
 been killed by a signal is not used by @code{xargs}.
 
 @menu
