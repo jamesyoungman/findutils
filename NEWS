@@ -58,8 +58,10 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 ** Documentation Changes
 
-  The forthcoming Issue 8 of the POSIX standard will standardise "find
-  -print0" and "xargs -0".  Our documentation now points this out.
+  The most recent version of the POSIX standard (IEEE Std 1003.1-2024,
+  also known as The Open Group Base Specifications, Issue 8) has
+  standardised "find -print0" and "xargs -0".  Our documentation now
+  points this out.  Similarly for 'find -iname'.
 
   The code example for "Finding the Shallowest Instance" in the Texinfo manual
   and the corresponding one in the EXAMPLES section in the find.1 man page have
@@ -70,7 +72,14 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   The list of actions that suppress the default -print action has been
   supplemented with the missing '-print0' and '-fprint0' actions.
 
+  The manual pages have been updated to give better and/or more
+  consistent output with manpage formatters other than GNU roff.
 
+** Future Changes
+
+  A future release will remove the warning message find prints about
+  the 2007 change in the meaning of "-perm /000".  Everybody who is
+  likely to care probably knows about this change by now.
 * Noteworthy changes in release 4.10.0 (2024-06-01) [stable]
 
 ** Bug Fixes
