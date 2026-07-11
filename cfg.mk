@@ -326,4 +326,4 @@ update-copyright-env = \
 # NEWS hash.  We use this to detect unintended edits to bits of the NEWS file
 # other than the most recent section.   If you do need to retrospectively update
 # a historic section, run "make update-NEWS-hash", which will then edit this file.
-old_NEWS_hash := d41d8cd98f00b204e9800998ecf8427e
+old_NEWS_hash := 108442c59cda84a20ea09b24dd8a0995
