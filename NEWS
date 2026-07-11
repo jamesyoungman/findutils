@@ -75,11 +75,21 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   The manual pages have been updated to give better and/or more
   consistent output with manpage formatters other than GNU roff.
 
+** Translations
+
+  Updated the following translations:
+  Arabic, Brazilian Portuguese, Bulgarian, Chinese (simplified), Croatian,
+  Czech, Dutch, Estonian, French, German, Indonesian, Korean, Polish,
+  Portuguese, Romanian, Spanish, Swedish, Ukrainian.
+
+
 ** Future Changes
 
   A future release will remove the warning message find prints about
   the 2007 change in the meaning of "-perm /000".  Everybody who is
   likely to care probably knows about this change by now.
+
+
 * Noteworthy changes in release 4.10.0 (2024-06-01) [stable]
 
 ** Bug Fixes
