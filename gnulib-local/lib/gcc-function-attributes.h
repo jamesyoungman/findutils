@@ -103,7 +103,7 @@ visibility    "default"
 #   define _GL_ATTRIBUTE_ALLOC_SIZE(args) __attribute__ ((__alloc_size__ args))
 #  else
 #   define _GL_ATTRIBUTE_ALLOC_SIZE(args)
-					/* unsupported */
+                                        /* unsupported */
 #  endif
 # endif
 
@@ -111,7 +111,7 @@ visibility    "default"
 #  if __GNUC_PREREQ(3,1)
 #   define _GL_ATTRIBUTE_DEPRECATED __attribute__ ((__deprecated__))
 #  else
-#   define _GL_ATTRIBUTE_DEPRECATED	/* empty */
+#   define _GL_ATTRIBUTE_DEPRECATED     /* empty */
 #  endif
 # endif
 
@@ -119,7 +119,7 @@ visibility    "default"
 #  if __GNUC_PREREQ(2,7)
 #   define _GL_ATTRIBUTE_FORMAT(spec)  __attribute__ ((__format__ spec))
 #  else
-#   define _GL_ATTRIBUTE_FORMAT(spec)	/* unsupported */
+#   define _GL_ATTRIBUTE_FORMAT(spec)   /* unsupported */
 #  endif
 # endif
 
@@ -128,7 +128,7 @@ visibility    "default"
 #   define _GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(formatstring_parameter, first_argument) \
     _GL_ATTRIBUTE_FORMAT ((__printf__, formatstring_parameter, first_argument))
 #  else
-#   define _GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(spec)	/* unsupported */
+#   define _GL_ATTRIBUTE_FORMAT_PRINTF_SYSTEM(spec)     /* unsupported */
 #  endif
 # endif
 
@@ -142,7 +142,7 @@ visibility    "default"
      _GL_ATTRIBUTE_FORMAT ((__printf__, formatstring_parameter, first_argument))
 #   endif
 #  else
-#   define _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD(spec)	/* unsupported */
+#   define _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD(spec)   /* unsupported */
 #  endif
 # endif
 
@@ -152,7 +152,7 @@ visibility    "default"
     _GL_ATTRIBUTE_FORMAT ((__scanf__, formatstring_parameter, first_argument))
 #  else
 #   define _GL_ATTRIBUTE_FORMAT_SCANF_SYSTEM(spec)
-						/* unsupported */
+                                                /* unsupported */
 #  endif
 # endif
 
@@ -166,7 +166,7 @@ visibility    "default"
      _GL_ATTRIBUTE_FORMAT ((__scanf__, formatstring_parameter, first_argument))
 #   endif
 #  else
-#   define _GL_ATTRIBUTE_FORMAT_SCANF(spec)	/* unsupported */
+#   define _GL_ATTRIBUTE_FORMAT_SCANF(spec)     /* unsupported */
 #  endif
 # endif
 
@@ -174,7 +174,7 @@ visibility    "default"
 #  if __GNUC_PREREQ(3,0)
 #   define _GL_ATTRIBUTE_MALLOC __attribute__ ((__malloc__))
 #  else
-#   define _GL_ATTRIBUTE_MALLOC	/* unsupported */
+#   define _GL_ATTRIBUTE_MALLOC /* unsupported */
 #  endif
 # endif
 
@@ -183,7 +183,7 @@ visibility    "default"
 #  if __GNUC_PREREQ(3,3)
 #   define _GL_ATTRIBUTE_NONNULL(m) __attribute__ ((__nonnull__ (m)))
 #  else
-#   define _GL_ATTRIBUTE_NONNULL(m)	/* unsupported */
+#   define _GL_ATTRIBUTE_NONNULL(m)     /* unsupported */
 #  endif
 # endif
 # ifndef _GL_ARG_NONNULL
@@ -197,7 +197,7 @@ visibility    "default"
 #   define _GL_ATTRIBUTE_NORETURN __attribute__ ((__noreturn__))
 #  else
 #   define _GL_ATTRIBUTE_NORETURN
-				/* unsupported */
+                                /* unsupported */
 #  endif
 # endif
 
@@ -205,7 +205,7 @@ visibility    "default"
 #  if __GNUC_PREREQ(2,96)
 #   define _GL_ATTRIBUTE_PURE __attribute__ ((__pure__))
 #  else
-#   define _GL_ATTRIBUTE_PURE	/* unsupported */
+#   define _GL_ATTRIBUTE_PURE   /* unsupported */
 #  endif
 # endif
 
@@ -217,7 +217,7 @@ visibility    "default"
    */
 #   define _GL_ATTRIBUTE_SENTINEL(backward_arg_num) __attribute__ ((__sentinel__(backward_arg_num)))
 #  else
-#   define _GL_ATTRIBUTE_SENTINEL(backward_arg_num)	/* unsupported */
+#   define _GL_ATTRIBUTE_SENTINEL(backward_arg_num)     /* unsupported */
 #  endif
 # endif
 
@@ -225,7 +225,7 @@ visibility    "default"
 #  if __GNUC_PREREQ(3,4)
 #   define _GL_ATTRIBUTE_WUR __attribute__ ((__warn__unused_result__))
 #  else
-#   define _GL_ATTRIBUTE_WUR	/* unsupported */
+#   define _GL_ATTRIBUTE_WUR    /* unsupported */
 #  endif
 # endif
 # ifndef _GL_ATTRIBUTE_RETURN_CHECK

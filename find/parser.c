@@ -411,7 +411,7 @@ fallback_getfilecon (int fd, const char *name, char **p, int prev_rv)
     case ELOOP:
     case ENAMETOOLONG:
 #ifdef EOVERFLOW
-    case EOVERFLOW:             /* EOVERFLOW is not #defined on UNICOS. */
+    case EOVERFLOW:            /* EOVERFLOW is not #defined on UNICOS. */
 #endif
     default:
       return prev_rv;
@@ -561,13 +561,13 @@ set_follow_state (enum SymlinkOption opt)
 {
   switch (opt)
     {
-    case SYMLINK_ALWAYS_DEREF:  /* -L */
+    case SYMLINK_ALWAYS_DEREF: /* -L */
       options.xstat = optionl_stat;
       options.x_getfilecon = optionl_getfilecon;
       options.no_leaf_check = true;
       break;
 
-    case SYMLINK_NEVER_DEREF:   /* -P (default) */
+    case SYMLINK_NEVER_DEREF:  /* -P (default) */
       options.xstat = optionp_stat;
       options.x_getfilecon = optionp_getfilecon;
       /* Can't turn no_leaf_check off because the user might have specified
@@ -575,7 +575,7 @@ set_follow_state (enum SymlinkOption opt)
        */
       break;
 
-    case SYMLINK_DEREF_ARGSONLY:        /* -H */
+    case SYMLINK_DEREF_ARGSONLY:       /* -H */
       options.xstat = optionh_stat;
       options.x_getfilecon = optionh_getfilecon;
       options.no_leaf_check = true;
@@ -1898,7 +1898,7 @@ parse_perm (const struct parser_table *entry, char **argv, int *arg_ptr)
       rate = 0.2;
       break;
 
-    case '/':                   /* GNU extension */
+    case '/':                  /* GNU extension */
       mode_start = 1;
       kind = PERM_ANY;
       rate = 0.3;
@@ -2170,12 +2170,12 @@ parse_size (const struct parser_table *entry, char **argv, int *arg_ptr)
       arg[len - 1] = '\0';
       break;
 
-    case 'M':                   /* Mebibytes */
+    case 'M':                  /* Mebibytes */
       blksize = 1024 * 1024;
       arg[len - 1] = '\0';
       break;
 
-    case 'G':                   /* Gibibytes */
+    case 'G':                  /* Gibibytes */
       blksize = 1024 * 1024 * 1024;
       arg[len - 1] = '\0';
       break;
@@ -2671,23 +2671,23 @@ insert_type (char **argv, int *arg_ptr,
 
       switch (*typeletter)
         {
-        case 'b':               /* block special */
+        case 'b':              /* block special */
           type_cell = FTYPE_BLK;
           rate = 0.000888f;
           break;
-        case 'c':               /* character special */
+        case 'c':              /* character special */
           type_cell = FTYPE_CHR;
           rate = 0.000443f;
           break;
-        case 'd':               /* directory */
+        case 'd':              /* directory */
           type_cell = FTYPE_DIR;
           rate = 0.0922f;
           break;
-        case 'f':               /* regular file */
+        case 'f':              /* regular file */
           type_cell = FTYPE_REG;
           rate = 0.875f;
           break;
-        case 'l':               /* symbolic link */
+        case 'l':              /* symbolic link */
 #ifdef S_IFLNK
           type_cell = FTYPE_LNK;
           rate = 0.0311f;
@@ -2699,7 +2699,7 @@ insert_type (char **argv, int *arg_ptr,
                  pred_string, (*typeletter));
 #endif
           break;
-        case 'p':               /* pipe */
+        case 'p':              /* pipe */
 #ifdef S_IFIFO
           type_cell = FTYPE_FIFO;
           rate = 7.554e-6f;
@@ -2711,7 +2711,7 @@ insert_type (char **argv, int *arg_ptr,
                  pred_string, (*typeletter));
 #endif
           break;
-        case 's':               /* socket */
+        case 's':              /* socket */
 #ifdef S_IFSOCK
           type_cell = FTYPE_SOCK;
           rate = 1.59e-5f;
@@ -2723,7 +2723,7 @@ insert_type (char **argv, int *arg_ptr,
                  pred_string, (*typeletter));
 #endif
           break;
-        case 'D':               /* Solaris door */
+        case 'D':              /* Solaris door */
 #ifdef S_IFDOOR
           type_cell = FTYPE_DOOR;
           /* There are no Solaris doors on the example system surveyed
@@ -2739,7 +2739,7 @@ insert_type (char **argv, int *arg_ptr,
                  pred_string, (*typeletter));
 #endif
           break;
-        default:                /* None of the above ... nuke 'em. */
+        default:               /* None of the above ... nuke 'em. */
           type_cell = 0;
           error (EXIT_FAILURE, 0,
                  _("Unknown argument to %s: %c"), pred_string, (*typeletter));

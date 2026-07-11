@@ -600,7 +600,7 @@ fallback_stat (const char *name, struct stat *p, int prev_rv)
     case ELOOP:
     case ENAMETOOLONG:
 #ifdef EOVERFLOW
-    case EOVERFLOW:             /* EOVERFLOW is not #defined on UNICOS. */
+    case EOVERFLOW:            /* EOVERFLOW is not #defined on UNICOS. */
 #endif
     default:
       return prev_rv;

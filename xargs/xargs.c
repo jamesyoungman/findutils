@@ -538,8 +538,8 @@ main (int argc, char **argv)
           input_delimiter = get_input_delimiter (optarg);
           break;
 
-        case 'E':               /* POSIX */
-        case 'e':               /* deprecated */
+        case 'E':              /* POSIX */
+        case 'e':              /* deprecated */
           if (optarg && (strlen (optarg) > 0))
             eof_str = optarg;
           else
@@ -549,8 +549,8 @@ main (int argc, char **argv)
         case 'h':
           usage (EXIT_SUCCESS);
 
-        case 'I':               /* POSIX */
-        case 'i':               /* deprecated */
+        case 'I':              /* POSIX */
+        case 'i':              /* deprecated */
           if (optarg)
             bc_ctl.replace_pat = optarg;
           else
@@ -568,7 +568,7 @@ main (int argc, char **argv)
             }
           break;
 
-        case 'L':               /* POSIX */
+        case 'L':              /* POSIX */
           bc_ctl.lines_per_exec = parse_num (optarg, 'L', 1L, -1L, 1);
           /* -L excludes -i -n.  */
           if (bc_ctl.args_per_exec != 0)
@@ -583,7 +583,7 @@ main (int argc, char **argv)
             }
           break;
 
-        case 'l':               /* deprecated */
+        case 'l':              /* deprecated */
           if (optarg)
             bc_ctl.lines_per_exec = parse_num (optarg, 'l', 1L, -1L, 1);
           else
@@ -1371,7 +1371,7 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc,
             error (EXIT_FAILURE, errno, _("cannot fork"));
           }
 
-        case 0:         /* Child.  */
+        case 0:                /* Child.  */
           {
             close (fd[0]);
             child_error = EXIT_SUCCESS;

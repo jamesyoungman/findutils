@@ -1261,7 +1261,7 @@ search_one_database (int argc,
         add_visitor (visit_non_existing_nofollow, NULL);
       break;
 
-    case ACCEPT_EITHER: /* Default, neither -E nor -e */
+    case ACCEPT_EITHER:        /* Default, neither -E nor -e */
       /* do nothing; no extra processing. */
       break;
     }
@@ -1683,8 +1683,8 @@ dolocate (int argc, char **argv, int secure_db_fd)
           }
           break;
 
-        case 's':               /* use stdio */
-        case 'm':               /* use mmap  */
+        case 's':              /* use stdio */
+        case 'm':              /* use mmap  */
           /* These options are implemented simply for
            * compatibility with FreeBSD
            */

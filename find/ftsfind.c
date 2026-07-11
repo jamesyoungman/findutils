@@ -659,7 +659,7 @@ process_all_startpoints (int argc, char *argv[])
             {
             case AI_ERR_EOF:
               goto argv_iter_done;
-            case AI_ERR_READ:   /* may only happen with -files0-from  */
+            case AI_ERR_READ:  /* may only happen with -files0-from  */
               error (0, errno, _("%s: read error"), files0_filename_quoted);
               state.exit_status = EXIT_FAILURE;
               ok = false;

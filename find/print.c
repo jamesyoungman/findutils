@@ -103,82 +103,82 @@ _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3);
   assert (kind == KIND_FORMAT);
   switch (format_char)
     {
-    case '%':                   /* literal % */
+    case '%':                  /* literal % */
       *fmt++ = '%';
       break;
 
-    case 'l':                   /* object of symlink */
+    case 'l':                  /* object of symlink */
       pred->need_stat = true;
       mycost = NeedsLinkName;
       *fmt++ = 's';
       break;
 
-    case 'y':                   /* file type */
+    case 'y':                  /* file type */
       pred->need_type = true;
       mycost = NeedsType;
       *fmt++ = 's';
       break;
 
-    case 'i':                   /* inode number */
+    case 'i':                  /* inode number */
       pred->need_inum = true;
       mycost = NeedsInodeNumber;
       *fmt++ = 's';
       break;
 
-    case 'a':                   /* atime in `ctime' format */
-    case 'A':                   /* atime in user-specified strftime format */
-    case 'B':                   /* birth time in user-specified strftime format */
-    case 'c':                   /* ctime in `ctime' format */
-    case 'C':                   /* ctime in user-specified strftime format */
-    case 'F':                   /* file system type */
-    case 'g':                   /* group name */
-    case 'M':                   /* mode in `ls -l' format (eg., "drwxr-xr-x") */
-    case 's':                   /* size in bytes */
-    case 't':                   /* mtime in `ctime' format */
-    case 'T':                   /* mtime in user-specified strftime format */
-    case 'u':                   /* user name */
+    case 'a':                  /* atime in `ctime' format */
+    case 'A':                  /* atime in user-specified strftime format */
+    case 'B':                  /* birth time in user-specified strftime format */
+    case 'c':                  /* ctime in `ctime' format */
+    case 'C':                  /* ctime in user-specified strftime format */
+    case 'F':                  /* file system type */
+    case 'g':                  /* group name */
+    case 'M':                  /* mode in `ls -l' format (eg., "drwxr-xr-x") */
+    case 's':                  /* size in bytes */
+    case 't':                  /* mtime in `ctime' format */
+    case 'T':                  /* mtime in user-specified strftime format */
+    case 'u':                  /* user name */
       pred->need_stat = true;
       mycost = NeedsStatInfo;
       *fmt++ = 's';
       break;
 
-    case 'S':                   /* sparseness */
+    case 'S':                  /* sparseness */
       pred->need_stat = true;
       mycost = NeedsStatInfo;
       *fmt++ = 'g';
       break;
 
-    case 'Y':                   /* symlink pointed file type */
+    case 'Y':                  /* symlink pointed file type */
       pred->need_stat = true;
       mycost = NeedsType;       /* true for amortised effect */
       *fmt++ = 's';
       break;
 
-    case 'f':                   /* basename of path */
-    case 'h':                   /* leading directories part of path */
-    case 'p':                   /* pathname */
-    case 'P':                   /* pathname with ARGV element stripped */
+    case 'f':                  /* basename of path */
+    case 'h':                  /* leading directories part of path */
+    case 'p':                  /* pathname */
+    case 'P':                  /* pathname with ARGV element stripped */
       *fmt++ = 's';
       break;
 
-    case 'Z':                   /* SELinux security context */
+    case 'Z':                  /* SELinux security context */
       mycost = NeedsAccessInfo;
       *fmt++ = 's';
       break;
 
-    case 'H':                   /* ARGV element file was found under */
+    case 'H':                  /* ARGV element file was found under */
       *fmt++ = 's';
       break;
 
       /* Numeric items that one might expect to honour
        * #, 0, + flags but which do not.
        */
-    case 'G':                   /* GID number */
-    case 'U':                   /* UID number */
-    case 'b':                   /* size in 512-byte blocks (NOT birthtime in ctime fmt) */
-    case 'D':                   /* Filesystem device on which the file exits */
-    case 'k':                   /* size in 1K blocks */
-    case 'n':                   /* number of links */
+    case 'G':                  /* GID number */
+    case 'U':                  /* UID number */
+    case 'b':                  /* size in 512-byte blocks (NOT birthtime in ctime fmt) */
+    case 'D':                  /* Filesystem device on which the file exits */
+    case 'k':                  /* size in 1K blocks */
+    case 'n':                  /* number of links */
       pred->need_stat = true;
       mycost = NeedsStatInfo;
       *fmt++ = 's';
@@ -186,11 +186,11 @@ _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3);
 
       /* Numeric items that DO honour #, 0, + flags.
        */
-    case 'd':                   /* depth in search tree (0 = ARGV element) */
+    case 'd':                  /* depth in search tree (0 = ARGV element) */
       *fmt++ = 'd';
       break;
 
-    case 'm':                   /* mode as octal number (perms only) */
+    case 'm':                  /* mode as octal number (perms only) */
       *fmt++ = 'o';
       pred->need_stat = true;
       mycost = NeedsStatInfo;
@@ -877,12 +877,12 @@ do_fprintf (struct format_val *dest,
 
   switch (segment->segkind)
     {
-    case KIND_PLAIN:            /* Plain text string (no % conversion). */
+    case KIND_PLAIN:           /* Plain text string (no % conversion). */
       /* trusted */
       checked_fwrite (segment->text, 1, segment->text_len, dest);
       break;
 
-    case KIND_STOP:             /* Terminate argument and flush output. */
+    case KIND_STOP:            /* Terminate argument and flush output. */
       /* trusted */
       checked_fwrite (segment->text, 1, segment->text_len, dest);
       checked_fflush (dest);
@@ -891,34 +891,34 @@ do_fprintf (struct format_val *dest,
     case KIND_FORMAT:
       switch (segment->format_char[0])
         {
-        case 'a':               /* atime in `ctime' format. */
+        case 'a':              /* atime in `ctime' format. */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text,
                            ctime_format (get_stat_atime (stat_buf)));
           break;
-        case 'b':               /* size in 512-byte blocks */
+        case 'b':              /* size in 512-byte blocks */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text,
                            human_readable ((uintmax_t) ST_NBLOCKS (*stat_buf),
                                            hbuf, human_ceiling,
                                            ST_NBLOCKSIZE, 512));
           break;
-        case 'c':               /* ctime in `ctime' format */
+        case 'c':              /* ctime in `ctime' format */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text,
                            ctime_format (get_stat_ctime (stat_buf)));
           break;
-        case 'd':               /* depth in search tree */
+        case 'd':              /* depth in search tree */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text, state.curdepth);
           break;
-        case 'D':               /* Device on which file exists (stat.st_dev) */
+        case 'D':              /* Device on which file exists (stat.st_dev) */
           /* trusted */
           checked_fprintf (dest, segment->text,
                            human_readable ((uintmax_t) stat_buf->st_dev, hbuf,
                                            human_ceiling, 1, 1));
           break;
-        case 'f':               /* base name of path */
+        case 'f':              /* base name of path */
           /* sanitised */
           {
             char *base = base_name (pathname);
@@ -926,12 +926,12 @@ do_fprintf (struct format_val *dest,
             free (base);
           }
           break;
-        case 'F':               /* file system type */
+        case 'F':              /* file system type */
           /* trusted */
           checked_print_quoted (dest, segment->text,
                                 filesystem_type (stat_buf, pathname));
           break;
-        case 'g':               /* group name */
+        case 'g':              /* group name */
           /* trusted */
           /* (well, the actual group is selected by the user but
            * its name was selected by the system administrator)
@@ -949,13 +949,13 @@ do_fprintf (struct format_val *dest,
           }
           FALLTHROUGH;          /*...sometimes, so 'G' case. */
 
-        case 'G':               /* GID number */
+        case 'G':              /* GID number */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text,
                            human_readable ((uintmax_t) stat_buf->st_gid, hbuf,
                                            human_ceiling, 1, 1));
           break;
-        case 'h':               /* leading directories part of path */
+        case 'h':              /* leading directories part of path */
           /* sanitised */
           {
             char *pname = xstrdup (pathname);
@@ -986,7 +986,7 @@ do_fprintf (struct format_val *dest,
           }
           break;
 
-        case 'H':               /* ARGV element file was found under */
+        case 'H':              /* ARGV element file was found under */
           /* trusted */
           {
             char *s = xmalloc (state.starting_path_length + 1);
@@ -997,7 +997,7 @@ do_fprintf (struct format_val *dest,
           }
           break;
 
-        case 'i':               /* inode number */
+        case 'i':              /* inode number */
           /* UNTRUSTED, but not exploitable I think */
           /* POSIX does not guarantee that ino_t is unsigned or even
            * integral (except as an XSI extension), but we'll work on
@@ -1008,14 +1008,14 @@ do_fprintf (struct format_val *dest,
                            human_readable ((uintmax_t) stat_buf->st_ino, hbuf,
                                            human_ceiling, 1, 1));
           break;
-        case 'k':               /* size in 1K blocks */
+        case 'k':              /* size in 1K blocks */
           /* UNTRUSTED, but not exploitable I think */
           checked_fprintf (dest, segment->text,
                            human_readable ((uintmax_t) ST_NBLOCKS (*stat_buf),
                                            hbuf, human_ceiling,
                                            ST_NBLOCKSIZE, 1024));
           break;
-        case 'l':               /* object of symlink */
+        case 'l':              /* object of symlink */
           /* sanitised */
 #ifdef S_ISLNK
           {
@@ -1046,7 +1046,7 @@ do_fprintf (struct format_val *dest,
 #endif /* S_ISLNK */
           break;
 
-        case 'M':               /* mode as 10 chars (eg., "-rwxr-x--x" */
+        case 'M':              /* mode as 10 chars (eg., "-rwxr-x--x" */
           /* UNTRUSTED, probably unexploitable */
           {
             char modestring[16];
@@ -1056,7 +1056,7 @@ do_fprintf (struct format_val *dest,
           }
           break;
 
-        case 'm':               /* mode as octal number (perms only) */
+        case 'm':              /* mode as octal number (perms only) */
           /* UNTRUSTED, probably unexploitable */
           {
             /* Output the mode portably using the traditional numbers,
@@ -1087,19 +1087,19 @@ do_fprintf (struct format_val *dest,
           }
           break;
 
-        case 'n':               /* number of links */
+        case 'n':              /* number of links */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text,
                            human_readable ((uintmax_t) stat_buf->st_nlink,
                                            hbuf, human_ceiling, 1, 1));
           break;
 
-        case 'p':               /* pathname */
+        case 'p':              /* pathname */
           /* sanitised */
           checked_print_quoted (dest, segment->text, pathname);
           break;
 
-        case 'P':               /* pathname with ARGV element stripped */
+        case 'P':              /* pathname with ARGV element stripped */
           /* sanitised */
           if (state.curdepth > 0)
             {
@@ -1118,25 +1118,25 @@ do_fprintf (struct format_val *dest,
           checked_print_quoted (dest, segment->text, cp);
           break;
 
-        case 's':               /* size in bytes */
+        case 's':              /* size in bytes */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text,
                            human_readable ((uintmax_t) stat_buf->st_size,
                                            hbuf, human_ceiling, 1, 1));
           break;
 
-        case 'S':               /* sparseness */
+        case 'S':              /* sparseness */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text, file_sparseness (stat_buf));
           break;
 
-        case 't':               /* mtime in `ctime' format */
+        case 't':              /* mtime in `ctime' format */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text,
                            ctime_format (get_stat_mtime (stat_buf)));
           break;
 
-        case 'u':               /* user name */
+        case 'u':              /* user name */
           /* trusted */
           /* (well, the actual user is selected by the user on systems
            * where chown is not restricted, but the user name was
@@ -1155,7 +1155,7 @@ do_fprintf (struct format_val *dest,
           }
           FALLTHROUGH;          /* .. to case U */
 
-        case 'U':               /* UID number */
+        case 'U':              /* UID number */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text,
                            human_readable ((uintmax_t) stat_buf->st_uid, hbuf,
@@ -1165,7 +1165,7 @@ do_fprintf (struct format_val *dest,
           /* %Y: type of file system entry like `ls -l`:
            *     (d,-,l,s,p,b,c,n) n=nonexistent (symlink)
            */
-        case 'Y':               /* in case of symlink */
+        case 'Y':              /* in case of symlink */
           /* trusted */
           {
 #ifdef S_ISLNK
@@ -1221,7 +1221,7 @@ do_fprintf (struct format_val *dest,
           }
           break;
 
-        case 'Z':               /* SELinux security context */
+        case 'Z':              /* SELinux security context */
           {
             char *scontext;
             int rv =

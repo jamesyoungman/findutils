@@ -207,13 +207,13 @@ run_xargs (const char *option, const char *opt_arg, int send_signal)
     case -1:
       error (EXIT_FAILURE, errno, "cannot fork");
       break;
-    case 0:                     /* child */
+    case 0:                    /* child */
       close (pipefd[0]);        /* close read end */
       /* The child will close the write end of the pipe on successful exec. */
       run_child (argv, pipefd[1]);
       abort ();
       break;
-    default:                    /* parent */
+    default:                   /* parent */
       close (pipefd[1]);        /* close write end */
       if (read (pipefd[0], &child_errno, sizeof child_errno) <
           sizeof child_errno)

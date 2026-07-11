@@ -301,6 +301,10 @@ sc_spaces_not_tabs:
 	  && { echo '$(ME): Indent C sources with spaces, not tabs (fix with build-aux/tabs-to-spaces.sh)' 1>&2; exit 1; } \
 	  || :
 
+# Ensure that the output of "make indent" is acceptable to
+# sc_spaces_not_tabs.
+indent_args = --no-tabs --ignore-profile --preprocessor-indentation 1
+
 # Enforce standard references "standard input/output/error".
 sc_standard_outputs:
 	@cd $(srcdir) || exit 1; \
