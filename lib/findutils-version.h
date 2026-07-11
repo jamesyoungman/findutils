@@ -25,6 +25,6 @@
  *                 or gfind).
  *
  */
-void display_findutils_version(const char *official_name);
+void display_findutils_version (const char *official_name);
 
 #endif

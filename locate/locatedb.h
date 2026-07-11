@@ -53,15 +53,14 @@
 # define LOCATEDB_OLD_OFFSET    14
 
 typedef enum
-  {
-    GetwordEndianStateInitial = 0,
-    GetwordEndianStateNative  = 1,
-    GetwordEndianStateSwab    = 2
-  } GetwordEndianState;
+{
+  GetwordEndianStateInitial = 0,
+  GetwordEndianStateNative = 1,
+  GetwordEndianStateSwab = 2
+} GetwordEndianState;
 
-int getword (FILE *fp, const char *filename,
-             size_t maxvalue,
-             GetwordEndianState *endian_state_flag);
+int getword (FILE * fp, const char *filename,
+             size_t maxvalue, GetwordEndianState * endian_state_flag);
 
 # define SLOCATE_DB_MAGIC_LEN 2
 

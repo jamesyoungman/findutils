@@ -33,7 +33,7 @@
 #  define __attribute_warn_unused_result__ \
     __attribute__ ((__warn_unused_result__))
 # else
-#  define __attribute_warn_unused_result__ /* empty */
+#  define __attribute_warn_unused_result__      /* empty */
 # endif
 
 #endif

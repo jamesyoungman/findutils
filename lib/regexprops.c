@@ -98,9 +98,7 @@ enum_item (const char *s)
 
 static void
 begin_subsection (const char *name,
-                  const char *next,
-                  const char *prev,
-                  const char *up)
+                  const char *next, const char *prev, const char *up)
 {
   (void) next;
   (void) prev;
@@ -166,13 +164,13 @@ describe_regex_syntax (int options)
 {
   newpara ();
   content ("The character @samp{.} matches any single character");
-  if ( (options & RE_DOT_NEWLINE)  == 0 )
+  if ((options & RE_DOT_NEWLINE) == 0)
     {
       content (" except newline");
     }
   if (options & RE_DOT_NOT_NULL)
     {
-      if ( (options & RE_DOT_NEWLINE)  == 0 )
+      if ((options & RE_DOT_NEWLINE) == 0)
         content (" and");
       else
         content (" except");
@@ -215,14 +213,15 @@ describe_regex_syntax (int options)
   newpara ();
 
   content ("Bracket expressions are used to match ranges of characters.  ");
-  literal ("Bracket expressions where the range is backward, for example @samp{[z-a]}, are ");
+  literal
+    ("Bracket expressions where the range is backward, for example @samp{[z-a]}, are ");
   if (options & RE_NO_EMPTY_RANGES)
     content ("invalid");
   else
     content ("ignored");
   content (".  ");
 
-  if (options &  RE_BACKSLASH_ESCAPE_IN_LISTS)
+  if (options & RE_BACKSLASH_ESCAPE_IN_LISTS)
     literal ("Within square brackets, @samp{\\} can be used to quote "
              "the following character.  ");
   else
@@ -238,7 +237,8 @@ describe_regex_syntax (int options)
 
   if (options & RE_HAT_LISTS_NOT_NEWLINE)
     {
-      literal ("Non-matching lists @samp{[^@dots{}]} do not ever match newline.\n");
+      literal
+        ("Non-matching lists @samp{[^@dots{}]} do not ever match newline.\n");
     }
   newpara ();
   if (options & RE_NO_GNU_OPS)
@@ -257,7 +257,8 @@ describe_regex_syntax (int options)
       enum_item ("@samp{\\<} matches the beginning of a word");
       enum_item ("@samp{\\>} matches the end of a word");
       enum_item ("@samp{\\b} matches a word boundary");
-      enum_item ("@samp{\\B} matches characters which are not a word boundary");
+      enum_item
+        ("@samp{\\B} matches characters which are not a word boundary");
       enum_item ("@samp{\\`} matches the beginning of the whole input");
       enum_item ("@samp{\\'} matches the end of the whole input");
       endenum ();
@@ -275,7 +276,8 @@ describe_regex_syntax (int options)
     }
   else
     {
-      literal ("Grouping is performed with backslashes followed by parentheses @samp{\\(}, @samp{\\)}.  ");
+      literal
+        ("Grouping is performed with backslashes followed by parentheses @samp{\\(}, @samp{\\)}.  ");
     }
 
   if (options & RE_NO_BK_REFS)
@@ -284,7 +286,8 @@ describe_regex_syntax (int options)
     }
   else
     {
-      literal ("A backslash followed by a digit acts as a back-reference and matches the same thing as the previous grouped expression indicated by that number.  For example @samp{\\2} matches the second group expression.  The order of group expressions is determined by the position of their opening parenthesis ");
+      literal
+        ("A backslash followed by a digit acts as a back-reference and matches the same thing as the previous grouped expression indicated by that number.  For example @samp{\\2} matches the second group expression.  The order of group expressions is determined by the position of their opening parenthesis ");
       if (options & RE_NO_BK_PARENS)
         literal ("@samp{(}");
       else
@@ -305,11 +308,13 @@ describe_regex_syntax (int options)
 
   if (options & RE_CONTEXT_INDEP_ANCHORS)
     {
-      literal ("The characters @samp{^} and @samp{$} always represent the beginning and end of a string respectively, except within square brackets.  Within brackets, @samp{^} can be used to invert the membership of the character class being specified.\n");
+      literal
+        ("The characters @samp{^} and @samp{$} always represent the beginning and end of a string respectively, except within square brackets.  Within brackets, @samp{^} can be used to invert the membership of the character class being specified.\n");
     }
   else
     {
-      literal ("The character @samp{^} only represents the beginning of a string when it appears:");
+      literal
+        ("The character @samp{^} only represents the beginning of a string when it appears:");
       beginenum ();
       enum_item ("At the beginning of a regular expression");
       if (options & RE_NO_BK_PARENS)
@@ -326,7 +331,7 @@ describe_regex_syntax (int options)
           if (options & RE_NEWLINE_ALT)
             enum_item ("After a newline");
 
-          if (options & RE_NO_BK_VBAR )
+          if (options & RE_NO_BK_VBAR)
             enum_item ("After the alternation operator @samp{|}");
           else
             enum_item ("After the alternation operator @samp{\\|}");
@@ -334,7 +339,8 @@ describe_regex_syntax (int options)
       endenum ();
 
       newpara ();
-      literal ("The character @samp{$} only represents the end of a string when it appears:");
+      literal
+        ("The character @samp{$} only represents the end of a string when it appears:");
       beginenum ();
       enum_item ("At the end of a regular expression");
       if (options & RE_NO_BK_PARENS)
@@ -358,12 +364,13 @@ describe_regex_syntax (int options)
       endenum ();
     }
   newpara ();
-  if (!(options & RE_LIMITED_OPS) )
+  if (!(options & RE_LIMITED_OPS))
     {
       if ((options & RE_CONTEXT_INDEP_OPS)
           && !(options & RE_CONTEXT_INVALID_OPS))
         {
-          literal ("The characters @samp{*}, @samp{+} and @samp{?} are special anywhere in a regular expression.\n");
+          literal
+            ("The characters @samp{*}, @samp{+} and @samp{?} are special anywhere in a regular expression.\n");
         }
       else
         {
@@ -374,11 +381,13 @@ describe_regex_syntax (int options)
 
           if (options & RE_CONTEXT_INVALID_OPS)
             {
-              content ("are special at any point in a regular expression except the following places, where they are not allowed:");
+              content
+                ("are special at any point in a regular expression except the following places, where they are not allowed:");
             }
           else
             {
-              content ("are special at any point in a regular expression except:");
+              content
+                ("are special at any point in a regular expression except:");
             }
 
           beginenum ();
@@ -414,23 +423,28 @@ describe_regex_syntax (int options)
           literal ("Intervals are specified by @samp{@{} and @samp{@}}.\n");
           if (options & RE_INVALID_INTERVAL_ORD)
             {
-              literal ("Invalid intervals are treated as literals, for example @samp{a@{1} is treated as @samp{a\\@{1}");
+              literal
+                ("Invalid intervals are treated as literals, for example @samp{a@{1} is treated as @samp{a\\@{1}");
             }
           else
             {
-              literal ("Invalid intervals such as @samp{a@{1z} are not accepted.\n");
+              literal
+                ("Invalid intervals such as @samp{a@{1z} are not accepted.\n");
             }
         }
       else
         {
-          literal ("Intervals are specified by @samp{\\@{} and @samp{\\@}}.\n");
+          literal
+            ("Intervals are specified by @samp{\\@{} and @samp{\\@}}.\n");
           if (options & RE_INVALID_INTERVAL_ORD)
             {
-              literal ("Invalid intervals are treated as literals, for example @samp{a\\@{1} is treated as @samp{a@{1}");
+              literal
+                ("Invalid intervals are treated as literals, for example @samp{a\\@{1} is treated as @samp{a@{1}");
             }
           else
             {
-              literal ("Invalid intervals such as @samp{a\\@{1z} are not accepted.\n");
+              literal
+                ("Invalid intervals such as @samp{a\\@{1z} are not accepted.\n");
             }
         }
     }
@@ -438,11 +452,13 @@ describe_regex_syntax (int options)
   newpara ();
   if (options & RE_NO_POSIX_BACKTRACKING)
     {
-      content ("Matching succeeds as soon as the whole pattern is matched, meaning that the result may not be the longest possible match.");
+      content
+        ("Matching succeeds as soon as the whole pattern is matched, meaning that the result may not be the longest possible match.");
     }
   else
     {
-      content ("The longest possible match is returned; this applies to the regular expression as a whole and (subject to this constraint) to subexpressions within groups.");
+      content
+        ("The longest possible match is returned; this applies to the regular expression as a whole and (subject to this constraint) to subexpressions within groups.");
     }
   newpara ();
 }
@@ -451,20 +467,16 @@ describe_regex_syntax (int options)
 static void
 copying (void)
 {
-  static const char *copy_para[]=
-    {
-      /* The copyright year number range is with "--" in Texinfo files.  */
-      "Copyright (C) 1994--2026 Free Software Foundation, Inc."
-      ,""
-      ,"Permission is granted to copy, distribute and/or modify this document"
-      ,"under the terms of the GNU Free Documentation License, Version 1.3 or"
-      ,"any later version published by the Free Software Foundation; with no"
-      ,"Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts."
-      ,"A copy of the license is included in the ``GNU Free"
-      ,"Documentation License'' file as part of this distribution."
-      ""
-      ,NULL
-    };
+  static const char *copy_para[] = {
+    /* The copyright year number range is with "--" in Texinfo files.  */
+    "Copyright (C) 1994--2026 Free Software Foundation, Inc.", "",
+    "Permission is granted to copy, distribute and/or modify this document",
+    "under the terms of the GNU Free Documentation License, Version 1.3 or",
+    "any later version published by the Free Software Foundation; with no",
+    "Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.",
+    "A copy of the license is included in the ``GNU Free",
+    "Documentation License'' file as part of this distribution." "", NULL
+  };
   const char **s = copy_para;
   while (*s)
     comment (*s++);
@@ -483,10 +495,7 @@ menu (unsigned int context)
   const char *name;
 
   output ("@menu\n", 0);
-  for (i=0;
-       get_regex_type_flags (i),
-         name=get_regex_type_name (i);
-       ++i)
+  for (i = 0; get_regex_type_flags (i), name = get_regex_type_name (i); ++i)
     {
       if (!ignore (i, context))
         {
@@ -523,9 +532,7 @@ get_next (unsigned int ix, unsigned int context)
 
 
 static void
-describe_all (const char *contextname,
-              unsigned int context,
-              const char *up)
+describe_all (const char *contextname, unsigned int context, const char *up)
 {
   const char *name, *next, *previous;
   int regopts;
@@ -541,10 +548,9 @@ describe_all (const char *contextname,
 
   previous = "";
 
-  for (i=0;
+  for (i = 0;
        regopts = get_regex_type_flags (i),
-         name=get_regex_type_name (i);
-       ++i)
+       name = get_regex_type_name (i); ++i)
     {
       if (ignore (i, context))
         {
@@ -555,7 +561,7 @@ describe_all (const char *contextname,
           continue;
         }
 
-      next = get_next (i+1, context);
+      next = get_next (i + 1, context);
       if (NULL == next)
         next = "";
       begin_subsection (name, next, previous, up);
@@ -603,8 +609,7 @@ main (int argc, char *argv[])
         context = CONTEXT_ALL;
       else
         {
-          fprintf (stderr, "Unexpected context %s",
-                   contextname);
+          fprintf (stderr, "Unexpected context %s", contextname);
           return 1;
         }
     }

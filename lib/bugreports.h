@@ -21,6 +21,6 @@
 # include <stdio.h>
 
 /* Interpreetation of the return code is as for fprintf. */
-int explain_how_to_report_bugs (FILE *f, const char *program_name);
+int explain_how_to_report_bugs (FILE * f, const char *program_name);
 
 #endif

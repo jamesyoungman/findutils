@@ -54,21 +54,21 @@
 #undef MAX
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
-static void checked_fprintf (struct format_val *dest, const char *fmt, ...)
-  _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD(2, 3);
+static void
+checked_fprintf (struct format_val *dest, const char *fmt, ...)
+_GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3);
 
 
 /* Create a new fprintf segment in *SEGMENT, with type KIND,
    from the text in FORMAT, which has length LEN.
    Return the address of the `next' pointer of the new segment. */
-struct segment **
-make_segment (struct segment **segment,
-              char *format,
-              int len,
-              int kind,
-              char format_char,
-              char aux_format_char,
-              struct predicate *pred)
+     struct segment **make_segment (struct segment **segment,
+                                    char *format,
+                                    int len,
+                                    int kind,
+                                    char format_char,
+                                    char aux_format_char,
+                                    struct predicate *pred)
 {
   enum EvaluationCost mycost = NeedsNothing;
   char *fmt;
@@ -89,8 +89,8 @@ make_segment (struct segment **segment,
   strncpy (fmt, format, len);
   fmt += len;
 
-  if (kind == KIND_PLAIN     /* Plain text string, no % conversion. */
-      || kind == KIND_STOP)  /* Terminate argument, no newline. */
+  if (kind == KIND_PLAIN        /* Plain text string, no % conversion. */
+      || kind == KIND_STOP)     /* Terminate argument, no newline. */
     {
       assert (0 == format_char);
       assert (0 == aux_format_char);
@@ -175,7 +175,7 @@ make_segment (struct segment **segment,
        */
     case 'G':                   /* GID number */
     case 'U':                   /* UID number */
-    case 'b':                   /* size in 512-byte blocks (NOT birthtime in ctime fmt)*/
+    case 'b':                   /* size in 512-byte blocks (NOT birthtime in ctime fmt) */
     case 'D':                   /* Filesystem device on which the file exits */
     case 'k':                   /* size in 1K blocks */
     case 'n':                   /* number of links */
@@ -210,12 +210,12 @@ is_octal_char (char ch)
 }
 
 static char
-parse_octal_escape(const char *p, size_t *consumed)
+parse_octal_escape (const char *p, size_t *consumed)
 {
   register int n, i;
   size_t pos = 0;
 
-  for (i = n = 0; i < 3 && is_octal_char(p[pos]); i++, pos++)
+  for (i = n = 0; i < 3 && is_octal_char (p[pos]); i++, pos++)
     {
       n = 8 * n + p[pos] - '0';
     }
@@ -225,7 +225,7 @@ parse_octal_escape(const char *p, size_t *consumed)
 }
 
 static int
-parse_escape_char(const char ch)
+parse_escape_char (const char ch)
 {
   char value = 0;
   switch (ch)
@@ -260,7 +260,7 @@ parse_escape_char(const char ch)
 
 
 static size_t
-get_format_flags_length(const char *p)
+get_format_flags_length (const char *p)
 {
   size_t n = 0;
   /* Scan past flags, width and precision, to verify kind. */
@@ -277,7 +277,7 @@ get_format_flags_length(const char *p)
 }
 
 static size_t
-get_format_specifer_length(char ch)
+get_format_specifer_length (char ch)
 {
   if (strchr ("abcdDfFgGhHiklmMnpPsStuUyYZ%", ch))
     {
@@ -296,12 +296,11 @@ get_format_specifer_length(char ch)
 
 bool
 insert_fprintf (struct format_val *vec,
-                const struct parser_table *entry,
-                char *format)
+                const struct parser_table *entry, char *format)
 {
   char *segstart = format;
-  char *fmt_editpos;       /* Current address in scanning `format'. */
-  struct segment **segmentp;      /* Address of current segment. */
+  char *fmt_editpos;            /* Current address in scanning `format'. */
+  struct segment **segmentp;    /* Address of current segment. */
   struct predicate *our_pred;
 
   our_pred = insert_primary_withpred (entry, pred_fprintf, format);
@@ -309,7 +308,7 @@ insert_fprintf (struct format_val *vec,
   our_pred->args.printf_vec = *vec;
   our_pred->need_type = false;
   our_pred->need_stat = false;
-  our_pred->p_cost    = NeedsNothing;
+  our_pred->p_cost = NeedsNothing;
 
   segmentp = &our_pred->args.printf_vec.segment;
   *segmentp = NULL;
@@ -319,8 +318,7 @@ insert_fprintf (struct format_val *vec,
       if (fmt_editpos[0] == '\\' && fmt_editpos[1] == 'c')
         {
           make_segment (segmentp, segstart, fmt_editpos - segstart,
-                        KIND_STOP, 0, 0,
-                        our_pred);
+                        KIND_STOP, 0, 0, our_pred);
           if (our_pred->need_stat && (our_pred->p_cost < NeedsStatInfo))
             our_pred->p_cost = NeedsStatInfo;
           return true;
@@ -330,19 +328,21 @@ insert_fprintf (struct format_val *vec,
           size_t readpos = 1;
           if (!fmt_editpos[readpos])
             {
-              error (0, 0, _("warning: escape `\\' followed by nothing at all"));
+              error (0, 0,
+                     _("warning: escape `\\' followed by nothing at all"));
               --readpos;
               /* (*fmt_editpos) is already '\\' and that's a reasonable result. */
             }
-          else if (is_octal_char(fmt_editpos[readpos]))
+          else if (is_octal_char (fmt_editpos[readpos]))
             {
               size_t consumed = 0;
-              *fmt_editpos = parse_octal_escape(fmt_editpos + readpos, &consumed);
+              *fmt_editpos =
+                parse_octal_escape (fmt_editpos + readpos, &consumed);
               readpos += consumed;
             }
           else
             {
-              const char val = parse_escape_char(fmt_editpos[readpos]);
+              const char val = parse_escape_char (fmt_editpos[readpos]);
               if (val)
                 {
                   fmt_editpos[0] = val;
@@ -357,10 +357,9 @@ insert_fprintf (struct format_val *vec,
             }
           segmentp = make_segment (segmentp,
                                    segstart, fmt_editpos - segstart + 1,
-                                   KIND_PLAIN, 0, 0,
-                                   our_pred);
+                                   KIND_PLAIN, 0, 0, our_pred);
           segstart = fmt_editpos + readpos + 1; /* Move past the escape. */
-          fmt_editpos += readpos;  /* Incremented immediately by `for'. */
+          fmt_editpos += readpos;       /* Incremented immediately by `for'. */
         }
       else if (fmt_editpos[0] == '%')
         {
@@ -372,14 +371,14 @@ insert_fprintf (struct format_val *vec,
                      _("error: %s at end of format string"), fmt_editpos);
             }
 
-          if (fmt_editpos[1] == '%') /* %% produces just %. */
+          if (fmt_editpos[1] == '%')    /* %% produces just %. */
             len = 1;
           else
-            len = get_format_flags_length(fmt_editpos);
+            len = get_format_flags_length (fmt_editpos);
           fmt_editpos += len;
 
           len = get_format_specifer_length (fmt_editpos[0]);
-          if (len && (fmt_editpos[len-1]))
+          if (len && (fmt_editpos[len - 1]))
             {
               const char fmt2 = (len == 2) ? fmt_editpos[1] : 0;
               segmentp = make_segment (segmentp, segstart,
@@ -393,10 +392,10 @@ insert_fprintf (struct format_val *vec,
               if (strchr ("{[(", fmt_editpos[0]))
                 {
                   error (EXIT_FAILURE, 0,
-                         _("error: the format directive `%%%c' is reserved for future use"),
-                         (int)fmt_editpos[0]);
-                  /*NOTREACHED*/
-                }
+                         _
+                         ("error: the format directive `%%%c' is reserved for future use"),
+                         (int) fmt_editpos[0]);
+                 /*NOTREACHED*/}
 
               if (len == 2 && !fmt_editpos[1])
                 {
@@ -414,16 +413,15 @@ insert_fprintf (struct format_val *vec,
                 }
               segmentp = make_segment (segmentp,
                                        segstart, fmt_editpos + 1 - segstart,
-                                       KIND_PLAIN, 0, 0,
-                                       our_pred);
+                                       KIND_PLAIN, 0, 0, our_pred);
             }
           segstart = fmt_editpos + 1;
         }
     }
 
   if (fmt_editpos > segstart)
-    make_segment (segmentp, segstart, fmt_editpos - segstart, KIND_PLAIN, 0, 0,
-                  our_pred);
+    make_segment (segmentp, segstart, fmt_editpos - segstart, KIND_PLAIN, 0,
+                  0, our_pred);
   return true;
 }
 
@@ -434,11 +432,12 @@ scan_for_digit_differences (const char *p, const char *q,
   bool seen = false;
   size_t i;
 
-  for (i=0; p[i] && q[i]; i++)
+  for (i = 0; p[i] && q[i]; i++)
     {
       if (p[i] != q[i])
         {
-          if (!isdigit ((unsigned char)p[i]) || !isdigit ((unsigned char)q[i]))
+          if (!isdigit ((unsigned char) p[i])
+              || !isdigit ((unsigned char) q[i]))
             return false;
 
           if (!seen)
@@ -449,7 +448,7 @@ scan_for_digit_differences (const char *p, const char *q,
             }
           else
             {
-              if (i-*first == *n)
+              if (i - *first == *n)
                 {
                   /* Still in the first sequence of differing digits. */
                   ++*n;
@@ -470,8 +469,9 @@ scan_for_digit_differences (const char *p, const char *q,
   return true;
 }
 
-static char*
-do_time_format (const char *fmt, const struct tm *p, const char *ns, size_t ns_size)
+static char *
+do_time_format (const char *fmt, const struct tm *p, const char *ns,
+                size_t ns_size)
 {
   static char *buf = NULL;
   static size_t buf_size;
@@ -515,12 +515,11 @@ do_time_format (const char *fmt, const struct tm *p, const char *ns, size_t ns_s
        */
       size_t buf_used = strftime (buf, buf_size, timefmt, p);
       if (buf_used              /* Conforming POSIX system */
-          && (buf_used < buf_size)) /* Solaris workaround */
+          && (buf_used < buf_size))     /* Solaris workaround */
         {
           char *altbuf;
           size_t i = 0, n = 0;
-          size_t final_len = (buf_used
-                              + 1u /* for \0 */
+          size_t final_len = (buf_used + 1u     /* for \0 */
                               + ns_size);
           buf = xrealloc (buf, final_len);
           buf_size = final_len;
@@ -534,10 +533,10 @@ do_time_format (const char *fmt, const struct tm *p, const char *ns, size_t ns_s
            * When that happens, we just avoid inserting the nanoseconds field.
            */
           if (scan_for_digit_differences (buf, altbuf, &i, &n)
-              && (2==n) && !isdigit ((unsigned char)buf[i+n]))
+              && (2 == n) && !isdigit ((unsigned char) buf[i + n]))
             {
               const size_t end_of_seconds = i + n;
-              const size_t suffix_len = buf_used-(end_of_seconds)+1;
+              const size_t suffix_len = buf_used - (end_of_seconds) + 1;
 
               /* Move the tail (including the \0).  Note that this
                * is a move of an overlapping memory block, so we
@@ -545,10 +544,9 @@ do_time_format (const char *fmt, const struct tm *p, const char *ns, size_t ns_s
                * the nanoseconds (but not its trailing \0).
                */
               assert (end_of_seconds + ns_size + suffix_len == final_len);
-              memmove (buf+end_of_seconds+ns_size,
-                       buf+end_of_seconds,
-                       suffix_len);
-              memcpy (buf+i+n, ns, ns_size);
+              memmove (buf + end_of_seconds + ns_size,
+                       buf + end_of_seconds, suffix_len);
+              memcpy (buf + i + n, ns, ns_size);
             }
           else
             {
@@ -559,7 +557,7 @@ do_time_format (const char *fmt, const struct tm *p, const char *ns, size_t ns_s
            */
           free (timefmt);
           free (altbuf);
-          return buf+1;
+          return buf + 1;
         }
       else
         {
@@ -594,14 +592,16 @@ format_date (struct timespec ts, int kind)
    * NetBSD appears to be a result of the use of uninitialized data,
    * as it's not 100% reproducible (more like 25%).
    */
-  enum {
+  enum
+  {
     NS_BUF_LEN = 32,
-    DATE_LEN_PERCENT_APLUS=21   /* length of result of %A+ (it's longer than %c)*/
+    DATE_LEN_PERCENT_APLUS = 21 /* length of result of %A+ (it's longer than %c) */
   };
-  static char buf[128u+10u + MAX(DATE_LEN_PERCENT_APLUS,
-                            MAX (LONGEST_HUMAN_READABLE + 2, NS_BUF_LEN+64+200))];
-  char ns_buf[NS_BUF_LEN]; /* -.9999999990 (- sign can happen!)*/
-  int  charsprinted, need_ns_suffix;
+  static char buf[128u + 10u + MAX (DATE_LEN_PERCENT_APLUS,
+                                    MAX (LONGEST_HUMAN_READABLE + 2,
+                                         NS_BUF_LEN + 64 + 200))];
+  char ns_buf[NS_BUF_LEN];      /* -.9999999990 (- sign can happen!) */
+  int charsprinted, need_ns_suffix;
   struct tm *tm;
   char fmt[12];
 
@@ -659,7 +659,8 @@ format_date (struct timespec ts, int kind)
        * The reason for discouraging this is that in the future, the
        * granularity may not be nanoseconds.
        */
-      charsprinted = snprintf (ns_buf, NS_BUF_LEN, ".%09ld0", (long int)ts.tv_nsec);
+      charsprinted =
+        snprintf (ns_buf, NS_BUF_LEN, ".%09ld0", (long int) ts.tv_nsec);
       assert (charsprinted < NS_BUF_LEN);
     }
   else
@@ -695,7 +696,7 @@ format_date (struct timespec ts, int kind)
       assert (p > buf);
       assert (p < (buf + (sizeof buf)));
       if (ts.tv_sec < 0)
-        *--p = '-'; /* XXX: Ugh, relying on internal details of human_readable(). */
+        *--p = '-';             /* XXX: Ugh, relying on internal details of human_readable(). */
 
       /* Add the nanoseconds part.  Because we cannot enforce a
        * particular implementation of human_readable, we cannot assume
@@ -705,15 +706,15 @@ format_date (struct timespec ts, int kind)
       if (need_ns_suffix)
         {
           len = strlen (p);
-          used = (p-buf) + len; /* Offset into buf of current end */
-          assert (sizeof buf > used); /* Ensure we can perform subtraction safely. */
-          remaining = sizeof buf - used - 1u; /* allow space for NUL */
+          used = (p - buf) + len;       /* Offset into buf of current end */
+          assert (sizeof buf > used);   /* Ensure we can perform subtraction safely. */
+          remaining = sizeof buf - used - 1u;   /* allow space for NUL */
 
           if (strlen (ns_buf) >= remaining)
             {
               error (0, 0,
                      "charsprinted=%ld but remaining=%lu: ns_buf=%s",
-                     (long)charsprinted, (unsigned long)remaining, ns_buf);
+                     (long) charsprinted, (unsigned long) remaining, ns_buf);
             }
           assert (strlen (ns_buf) < remaining);
           strcat (p, ns_buf);
@@ -722,21 +723,20 @@ format_date (struct timespec ts, int kind)
     }
 }
 
-static const char *weekdays[] =
-  {
-    "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-  };
-static const char * months[] =
-  {
-    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-  };
+static const char *weekdays[] = {
+  "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+};
+
+static const char *months[] = {
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+};
 
 
 static char *
 ctime_format (struct timespec ts)
 {
-  const struct tm * ptm;
+  const struct tm *ptm;
 #define TIME_BUF_LEN 1024
   static char resultbuf[TIME_BUF_LEN];
   int nout;
@@ -744,14 +744,14 @@ ctime_format (struct timespec ts)
   ptm = localtime (&ts.tv_sec);
   if (ptm)
     {
-      assert (ptm->tm_wday >=  0);
-      assert (ptm->tm_wday <   7);
-      assert (ptm->tm_mon  >=  0);
-      assert (ptm->tm_mon  <  12);
-      assert (ptm->tm_hour >=  0);
-      assert (ptm->tm_hour <  24);
-      assert (ptm->tm_min  <  60);
-      assert (ptm->tm_sec  <= 61); /* allows 2 leap seconds. */
+      assert (ptm->tm_wday >= 0);
+      assert (ptm->tm_wday < 7);
+      assert (ptm->tm_mon >= 0);
+      assert (ptm->tm_mon < 12);
+      assert (ptm->tm_hour >= 0);
+      assert (ptm->tm_hour < 24);
+      assert (ptm->tm_min < 60);
+      assert (ptm->tm_sec <= 61);       /* allows 2 leap seconds. */
 
       /* wkday mon mday hh:mm:ss.nnnnnnnnn yyyy */
       nout = snprintf (resultbuf, TIME_BUF_LEN,
@@ -762,8 +762,7 @@ ctime_format (struct timespec ts)
                        ptm->tm_hour,
                        ptm->tm_min,
                        ptm->tm_sec,
-                       (long int)ts.tv_nsec,
-                       1900 + ptm->tm_year);
+                       (long int) ts.tv_nsec, 1900 + ptm->tm_year);
 
       assert (nout < TIME_BUF_LEN);
       return resultbuf;
@@ -781,14 +780,14 @@ file_sparseness (const struct stat *p)
 {
   if (0 == p->st_size)
     {
-      if (0 == ST_NBLOCKS(*p))
+      if (0 == ST_NBLOCKS (*p))
         return 1.0;
       else
-        return ST_NBLOCKS(*p) < 0 ? -HUGE_VAL : HUGE_VAL;
+        return ST_NBLOCKS (*p) < 0 ? -HUGE_VAL : HUGE_VAL;
     }
   else
     {
-      double blklen = ST_NBLOCKSIZE * (double)ST_NBLOCKS(*p);
+      double blklen = ST_NBLOCKSIZE * (double) ST_NBLOCKS (*p);
       return blklen / p->st_size;
     }
 }
@@ -835,33 +834,33 @@ checked_fflush (struct format_val *dest)
     }
 }
 
-static const char*
+static const char *
 mode_to_filetype (mode_t m)
 {
 #define HANDLE_TYPE(t,letter) if (m==t) { return letter; }
 #ifdef S_IFREG
-  HANDLE_TYPE(S_IFREG,  "f");   /* regular file */
+  HANDLE_TYPE (S_IFREG, "f");   /* regular file */
 #endif
 #ifdef S_IFDIR
-  HANDLE_TYPE(S_IFDIR,  "d");   /* directory */
+  HANDLE_TYPE (S_IFDIR, "d");   /* directory */
 #endif
 #ifdef S_IFLNK
-  HANDLE_TYPE(S_IFLNK,  "l");   /* symbolic link */
+  HANDLE_TYPE (S_IFLNK, "l");   /* symbolic link */
 #endif
 #ifdef S_IFSOCK
-  HANDLE_TYPE(S_IFSOCK, "s");   /* Unix domain socket */
+  HANDLE_TYPE (S_IFSOCK, "s");  /* Unix domain socket */
 #endif
 #ifdef S_IFBLK
-  HANDLE_TYPE(S_IFBLK,  "b");   /* block device */
+  HANDLE_TYPE (S_IFBLK, "b");   /* block device */
 #endif
 #ifdef S_IFCHR
-  HANDLE_TYPE(S_IFCHR,  "c");   /* character device */
+  HANDLE_TYPE (S_IFCHR, "c");   /* character device */
 #endif
 #ifdef S_IFIFO
-  HANDLE_TYPE(S_IFIFO,  "p");   /* FIFO */
+  HANDLE_TYPE (S_IFIFO, "p");   /* FIFO */
 #endif
 #ifdef S_IFDOOR
-  HANDLE_TYPE(S_IFDOOR, "D");   /* Door (e.g. on Solaris) */
+  HANDLE_TYPE (S_IFDOOR, "D");  /* Door (e.g. on Solaris) */
 #endif
   return "U";                   /* Unknown */
 }
@@ -871,17 +870,16 @@ mode_to_filetype (mode_t m)
 static void
 do_fprintf (struct format_val *dest,
             struct segment *segment,
-            const char *pathname,
-            const struct stat *stat_buf)
+            const char *pathname, const struct stat *stat_buf)
 {
   char hbuf[LONGEST_HUMAN_READABLE + 1];
   const char *cp;
 
   switch (segment->segkind)
     {
-    case KIND_PLAIN:    /* Plain text string (no % conversion). */
+    case KIND_PLAIN:            /* Plain text string (no % conversion). */
       /* trusted */
-      checked_fwrite(segment->text, 1, segment->text_len, dest);
+      checked_fwrite (segment->text, 1, segment->text_len, dest);
       break;
 
     case KIND_STOP:             /* Terminate argument and flush output. */
@@ -895,7 +893,8 @@ do_fprintf (struct format_val *dest,
         {
         case 'a':               /* atime in `ctime' format. */
           /* UNTRUSTED, probably unexploitable */
-          checked_fprintf (dest, segment->text, ctime_format (get_stat_atime (stat_buf)));
+          checked_fprintf (dest, segment->text,
+                           ctime_format (get_stat_atime (stat_buf)));
           break;
         case 'b':               /* size in 512-byte blocks */
           /* UNTRUSTED, probably unexploitable */
@@ -906,7 +905,8 @@ do_fprintf (struct format_val *dest,
           break;
         case 'c':               /* ctime in `ctime' format */
           /* UNTRUSTED, probably unexploitable */
-          checked_fprintf (dest, segment->text, ctime_format (get_stat_ctime (stat_buf)));
+          checked_fprintf (dest, segment->text,
+                           ctime_format (get_stat_ctime (stat_buf)));
           break;
         case 'd':               /* depth in search tree */
           /* UNTRUSTED, probably unexploitable */
@@ -928,7 +928,8 @@ do_fprintf (struct format_val *dest,
           break;
         case 'F':               /* file system type */
           /* trusted */
-          checked_print_quoted (dest, segment->text, filesystem_type (stat_buf, pathname));
+          checked_print_quoted (dest, segment->text,
+                                filesystem_type (stat_buf, pathname));
           break;
         case 'g':               /* group name */
           /* trusted */
@@ -946,7 +947,7 @@ do_fprintf (struct format_val *dest,
                 break;
               }
           }
-          FALLTHROUGH; /*...sometimes, so 'G' case.*/
+          FALLTHROUGH;          /*...sometimes, so 'G' case. */
 
         case 'G':               /* GID number */
           /* UNTRUSTED, probably unexploitable */
@@ -960,15 +961,15 @@ do_fprintf (struct format_val *dest,
             char *pname = xstrdup (pathname);
 
             /* Remove trailing slashes - unless it's the root '/' directory.  */
-            char *s = pname + strlen (pname) -1;
-            for ( ; pname <= s; s--)
+            char *s = pname + strlen (pname) - 1;
+            for (; pname <= s; s--)
               if (*s != '/')
                 break;
-            if (pname < s && *(s+1) == '/')
-              *(s+1) = '\0';
+            if (pname < s && *(s + 1) == '/')
+              *(s + 1) = '\0';
 
             s = strrchr (pname, '/');
-            if (s == NULL)     /* No leading directories. */
+            if (s == NULL)      /* No leading directories. */
               {
                 /* If there is no slash in the pathname, we still
                  * print the string because it contains characters
@@ -988,7 +989,7 @@ do_fprintf (struct format_val *dest,
         case 'H':               /* ARGV element file was found under */
           /* trusted */
           {
-            char *s = xmalloc (state.starting_path_length+1);
+            char *s = xmalloc (state.starting_path_length + 1);
             memcpy (s, pathname, state.starting_path_length);
             s[state.starting_path_length] = 0;
             checked_fprintf (dest, segment->text, s);
@@ -1005,8 +1006,7 @@ do_fprintf (struct format_val *dest,
            * arithmetic type. */
           checked_fprintf (dest, segment->text,
                            human_readable ((uintmax_t) stat_buf->st_ino, hbuf,
-                                           human_ceiling,
-                                           1, 1));
+                                           human_ceiling, 1, 1));
           break;
         case 'k':               /* size in 1K blocks */
           /* UNTRUSTED, but not exploitable I think */
@@ -1043,13 +1043,13 @@ do_fprintf (struct format_val *dest,
               }
             free (linkname);
           }
-#endif                          /* S_ISLNK */
+#endif /* S_ISLNK */
           break;
 
         case 'M':               /* mode as 10 chars (eg., "-rwxr-x--x" */
           /* UNTRUSTED, probably unexploitable */
           {
-            char modestring[16] ;
+            char modestring[16];
             filemodestring (stat_buf, modestring);
             modestring[10] = '\0';
             checked_fprintf (dest, segment->text, modestring);
@@ -1070,30 +1070,28 @@ do_fprintf (struct format_val *dest,
                && S_IRGRP == 00040 && S_IWGRP == 00020 && S_IXGRP == 00010
                && S_IROTH == 00004 && S_IWOTH == 00002 && S_IXOTH == 00001);
             checked_fprintf (dest, segment->text,
-                     (traditional_numbering_scheme
-                      ? m & MODE_ALL
-                      : ((m & S_ISUID ? 04000 : 0)
-                         | (m & S_ISGID ? 02000 : 0)
-                         | (m & S_ISVTX ? 01000 : 0)
-                         | (m & S_IRUSR ? 00400 : 0)
-                         | (m & S_IWUSR ? 00200 : 0)
-                         | (m & S_IXUSR ? 00100 : 0)
-                         | (m & S_IRGRP ? 00040 : 0)
-                         | (m & S_IWGRP ? 00020 : 0)
-                         | (m & S_IXGRP ? 00010 : 0)
-                         | (m & S_IROTH ? 00004 : 0)
-                         | (m & S_IWOTH ? 00002 : 0)
-                         | (m & S_IXOTH ? 00001 : 0))));
+                             (traditional_numbering_scheme
+                              ? m & MODE_ALL
+                              : ((m & S_ISUID ? 04000 : 0)
+                                 | (m & S_ISGID ? 02000 : 0)
+                                 | (m & S_ISVTX ? 01000 : 0)
+                                 | (m & S_IRUSR ? 00400 : 0)
+                                 | (m & S_IWUSR ? 00200 : 0)
+                                 | (m & S_IXUSR ? 00100 : 0)
+                                 | (m & S_IRGRP ? 00040 : 0)
+                                 | (m & S_IWGRP ? 00020 : 0)
+                                 | (m & S_IXGRP ? 00010 : 0)
+                                 | (m & S_IROTH ? 00004 : 0)
+                                 | (m & S_IWOTH ? 00002 : 0)
+                                 | (m & S_IXOTH ? 00001 : 0))));
           }
           break;
 
         case 'n':               /* number of links */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text,
-                   human_readable ((uintmax_t) stat_buf->st_nlink,
-                                   hbuf,
-                                   human_ceiling,
-                                   1, 1));
+                           human_readable ((uintmax_t) stat_buf->st_nlink,
+                                           hbuf, human_ceiling, 1, 1));
           break;
 
         case 'p':               /* pathname */
@@ -1123,8 +1121,8 @@ do_fprintf (struct format_val *dest,
         case 's':               /* size in bytes */
           /* UNTRUSTED, probably unexploitable */
           checked_fprintf (dest, segment->text,
-                   human_readable ((uintmax_t) stat_buf->st_size,
-                                   hbuf, human_ceiling, 1, 1));
+                           human_readable ((uintmax_t) stat_buf->st_size,
+                                           hbuf, human_ceiling, 1, 1));
           break;
 
         case 'S':               /* sparseness */
@@ -1155,7 +1153,7 @@ do_fprintf (struct format_val *dest,
                 break;
               }
           }
-          FALLTHROUGH; /* .. to case U */
+          FALLTHROUGH;          /* .. to case U */
 
         case 'U':               /* UID number */
           /* UNTRUSTED, probably unexploitable */
@@ -1179,14 +1177,15 @@ do_fprintf (struct format_val *dest,
                  * (Actually we do not even come here when following_links()
                  *  other than the ENOENT case.)
                  */
-                if (fstatat (state.cwd_dir_fd, state.rel_pathname, &sbuf, 0) != 0)
+                if (fstatat (state.cwd_dir_fd, state.rel_pathname, &sbuf, 0)
+                    != 0)
                   {
-                    if ( (errno == ENOENT) || (errno == ENOTDIR) )
+                    if ((errno == ENOENT) || (errno == ENOTDIR))
                       {
                         checked_fprintf (dest, segment->text, "N");
                         break;
                       }
-                    else if ( errno == ELOOP )
+                    else if (errno == ELOOP)
                       {
                         checked_fprintf (dest, segment->text, "L");
                         break;
@@ -1208,7 +1207,8 @@ do_fprintf (struct format_val *dest,
 #endif /* S_ISLNK */
               {
                 checked_fprintf (dest, segment->text,
-                                 mode_to_filetype (stat_buf->st_mode & S_IFMT));
+                                 mode_to_filetype (stat_buf->st_mode &
+                                                   S_IFMT));
               }
           }
           break;
@@ -1224,8 +1224,9 @@ do_fprintf (struct format_val *dest,
         case 'Z':               /* SELinux security context */
           {
             char *scontext;
-            int rv = (*options.x_getfilecon) (state.cwd_dir_fd, state.rel_pathname,
-                                              &scontext);
+            int rv =
+              (*options.x_getfilecon) (state.cwd_dir_fd, state.rel_pathname,
+                                       &scontext);
             if (rv < 0)
               {
                 /* If getfilecon fails, there will in the general case
@@ -1234,7 +1235,7 @@ do_fprintf (struct format_val *dest,
                 checked_fprintf (dest, segment->text, "");
 
                 error (0, errno, _("getfilecon failed: %s"),
-                    safely_quote_err_filename (0, pathname));
+                       safely_quote_err_filename (0, pathname));
                 state.exit_status = EXIT_FAILURE;
               }
             else
@@ -1255,9 +1256,9 @@ do_fprintf (struct format_val *dest,
              simply to ensure that the error message matches the one
              in insert_fprintf, easing the translation burden.
            */
-          error (EXIT_FAILURE, 0, _("error: %s at end of format string"), "%");
-          /*NOTREACHED*/
-          break;
+          error (EXIT_FAILURE, 0, _("error: %s at end of format string"),
+                 "%");
+           /*NOTREACHED*/ break;
         }
       /* end of KIND_FORMAT case */
       break;
@@ -1265,14 +1266,15 @@ do_fprintf (struct format_val *dest,
 }
 
 bool
-pred_fprintf (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_fprintf (const char *pathname, struct stat *stat_buf,
+              struct predicate *pred_ptr)
 {
   struct format_val *dest = &pred_ptr->args.printf_vec;
   struct segment *segment;
 
   for (segment = dest->segment; segment; segment = segment->next)
     {
-      if ( (KIND_FORMAT == segment->segkind) && segment->format_char[1]) /* Component of date. */
+      if ((KIND_FORMAT == segment->segkind) && segment->format_char[1]) /* Component of date. */
         {
           struct timespec ts;
           int valid = 0;

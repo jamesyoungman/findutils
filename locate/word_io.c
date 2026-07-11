@@ -34,13 +34,13 @@
 #include "locatedb.h"
 
 
-enum { WORDBYTES=4 };
+enum
+{ WORDBYTES = 4 };
 
 static int
 decode_value (const unsigned char data[],
               int limit,
-              GetwordEndianState *endian_state_flag,
-              const char *filename)
+              GetwordEndianState *endian_state_flag, const char *filename)
 {
   int swapped;
   union
@@ -50,7 +50,7 @@ decode_value (const unsigned char data[],
   } u;
   u.ival = 0;
   memcpy (&u.data, data, WORDBYTES);
-  swapped = bswap_32(u.ival);   /* byteswapped */
+  swapped = bswap_32 (u.ival);  /* byteswapped */
 
   if (*endian_state_flag == GetwordEndianStateInitial)
     {
@@ -102,8 +102,7 @@ decode_value (const unsigned char data[],
 int
 getword (FILE *fp,
          const char *filename,
-         size_t maxvalue,
-         GetwordEndianState *endian_state_flag)
+         size_t maxvalue, GetwordEndianState *endian_state_flag)
 {
   unsigned char data[4];
   size_t bytes_read;
@@ -112,13 +111,14 @@ getword (FILE *fp,
   bytes_read = fread (data, WORDBYTES, 1, fp);
   if (bytes_read != 1)
     {
-      const char * quoted_name = quotearg_n_style (0, locale_quoting_style,
-                                                   filename);
+      const char *quoted_name = quotearg_n_style (0, locale_quoting_style,
+                                                  filename);
       /* Distinguish between a truncated database and an I/O error.
        * Either condition is fatal.
        */
       if (feof (fp))
-        error (EXIT_FAILURE, 0, _("unexpected end-of-file in %s"), quoted_name);
+        error (EXIT_FAILURE, 0, _("unexpected end-of-file in %s"),
+               quoted_name);
       else
         error (EXIT_FAILURE, errno,
                _("error reading a word from %s"), quoted_name);

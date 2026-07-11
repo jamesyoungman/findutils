@@ -25,7 +25,7 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <string.h>
-#include <sys/stat.h> /* for fstatat() */
+#include <sys/stat.h>           /* for fstatat() */
 #include <sys/time.h>
 #include <sys/utsname.h>
 
@@ -47,22 +47,25 @@
 struct debug_option_assoc
 {
   const char *name;
-  int    val;
+  int val;
   const char *docstring;
 };
-static struct debug_option_assoc debugassoc[] =
-  {
-    { "exec", DebugExec, "Show diagnostic information relating to -exec, -execdir, -ok and -okdir" },
-    { "opt",  DebugExpressionTree|DebugTreeOpt, "Show diagnostic information relating to optimisation" },
-    { "rates", DebugSuccessRates, "Indicate how often each predicate succeeded" },
-    { "search",DebugSearch, "Navigate the directory tree verbosely" },
-    { "stat", DebugStat, "Trace calls to stat(2) and lstat(2)" },
-    { "time", DebugTime, "Show diagnostic information relating to time-of-day and timestamp comparisons" },
-    { "tree", DebugExpressionTree, "Display the expression tree" },
+static struct debug_option_assoc debugassoc[] = {
+  {"exec", DebugExec,
+   "Show diagnostic information relating to -exec, -execdir, -ok and -okdir"},
+  {"opt", DebugExpressionTree | DebugTreeOpt,
+   "Show diagnostic information relating to optimisation"},
+  {"rates", DebugSuccessRates, "Indicate how often each predicate succeeded"},
+  {"search", DebugSearch, "Navigate the directory tree verbosely"},
+  {"stat", DebugStat, "Trace calls to stat(2) and lstat(2)"},
+  {"time", DebugTime,
+   "Show diagnostic information relating to time-of-day and timestamp comparisons"},
+  {"tree", DebugExpressionTree, "Display the expression tree"},
 
-    { "all", DebugAll, "Set all of the debug flags (but help)" },
-    { "help", DebugHelp, "Explain the various -D options" },
-  };
+  {"all", DebugAll, "Set all of the debug flags (but help)"},
+  {"help", DebugHelp, "Explain the various -D options"},
+};
+
 #define N_DEBUGASSOC (sizeof(debugassoc)/sizeof(debugassoc[0]))
 
 
@@ -86,8 +89,7 @@ static struct debug_option_assoc debugassoc[] =
 
 struct predicate *
 insert_primary_withpred (const struct parser_table *entry,
-                         PRED_FUNC pred_func,
-                         const char *arg)
+                         PRED_FUNC pred_func, const char *arg)
 {
   struct predicate *new_pred;
 
@@ -137,18 +139,18 @@ show_valid_debug_options (int full)
   fputs (_("Valid arguments for -D:\n"), stdout);
   if (full)
     {
-      for (i=0; i<N_DEBUGASSOC; ++i)
+      for (i = 0; i < N_DEBUGASSOC; ++i)
         {
           fprintf (stdout, "%-10s %s\n",
-                   debugassoc[i].name,
-                   debugassoc[i].docstring);
+                   debugassoc[i].name, debugassoc[i].docstring);
         }
     }
   else
     {
-      for (i=0; i<N_DEBUGASSOC; ++i)
+      for (i = 0; i < N_DEBUGASSOC; ++i)
         {
-          fprintf (stdout, "%s%s", (i>0 ? ", " : "      "), debugassoc[i].name);
+          fprintf (stdout, "%s%s", (i > 0 ? ", " : "      "),
+                   debugassoc[i].name);
         }
     }
 }
@@ -158,15 +160,15 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     {
-      fprintf (stderr, _("Try '%s --help' for more information.\n"), program_name);
+      fprintf (stderr, _("Try '%s --help' for more information.\n"),
+               program_name);
       exit (status);
     }
 
 #define HTL(t) fputs (t, stdout);
 
   fprintf (stdout, _("\
-Usage: %s [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]\n"),
-           program_name);
+Usage: %s [-H] [-L] [-P] [-Olevel] [-D debugopts] [path...] [expression]\n"), program_name);
 
   HTL (_("\n\
 Default path is the current directory; default expression is -print.\n\
@@ -202,7 +204,8 @@ Actions:\n\
   HTL (_("\n\
 Other common options:\n"));
   HTL (_("      --help                   display this help and exit\n"));
-  HTL (_("      --version                output version information and exit\n\n"));
+  HTL (_
+       ("      --version                output version information and exit\n\n"));
 
   HTL (_("\n\
 In -newerXY, XY stands for the combination [aBcm][aBcmt]; see find(1).\n\
@@ -220,7 +223,7 @@ Use '-D help' for a description of the options, or see find(1).\n\
 void
 set_stat_placeholders (struct stat *p)
 {
-  (void) p; /* silence warning for systems lacking these fields. */
+  (void) p;                     /* silence warning for systems lacking these fields. */
 #if HAVE_STRUCT_STAT_ST_BIRTHTIME
   p->st_birthtime = 0;
 #endif
@@ -265,7 +268,7 @@ get_statinfo (const char *pathname, const char *name, struct stat *p)
         }
       else
         {
-          if (!options.ignore_readdir_race || (errno != ENOENT) )
+          if (!options.ignore_readdir_race || (errno != ENOENT))
             {
               nonfatal_target_file_error (errno, pathname);
             }
@@ -283,9 +286,7 @@ get_statinfo (const char *pathname, const char *name, struct stat *p)
  * already known.   Returns 0 on success (or if we did nothing).
  */
 static int
-get_info (const char *pathname,
-          struct stat *p,
-          struct predicate *pred_ptr)
+get_info (const char *pathname, struct stat *p, struct predicate *pred_ptr)
 {
   bool todo = false;
 
@@ -306,7 +307,7 @@ get_info (const char *pathname,
         {
           todo = true;          /* need to stat to get the inode number */
         }
-      else if ((!state.have_type) || S_ISDIR(p->st_mode))
+      else if ((!state.have_type) || S_ISDIR (p->st_mode))
         {
           /* For now we decide not to trust struct dirent.d_ino for
            * directory entries that are subdirectories, in case this
@@ -331,7 +332,7 @@ bool
 check_nofollow (void)
 {
   struct utsname uts;
-  float  release;
+  float release;
 
   if (0 == O_NOFOLLOW)
     {
@@ -342,13 +343,13 @@ check_nofollow (void)
     {
       /* POSIX requires that atof ignores "unrecognised suffixes"; we specifically
        * want that behaviour. */
-      double (*conversion)(const char*) = atof;  /* avoid sc_prohibit_atoi_atof check. */
+      double (*conversion) (const char *) = atof;       /* avoid sc_prohibit_atoi_atof check. */
       release = conversion (uts.release);
 
       if (0 == strcmp ("Linux", uts.sysname))
         {
           /* Linux kernels 2.1.126 and earlier ignore the O_NOFOLLOW flag. */
-          return release >= 2.2f; /* close enough */
+          return release >= 2.2f;       /* close enough */
         }
       else if (0 == strcmp ("FreeBSD", uts.sysname))
         {
@@ -403,10 +404,10 @@ do_complete_pending_execdirs (struct predicate *p)
    * exec.  This is because the completion of work for -exec ... {} +
    * happens when the program exits, not when we leave a directory.
    */
-  if (pred_is(p, pred_okdir) || pred_is(p, pred_execdir))
+  if (pred_is (p, pred_okdir) || pred_is (p, pred_execdir))
     {
       /* It's an exec-family predicate.  p->args.exec_val is valid. */
-      assert(predicate_uses_exec(p));
+      assert (predicate_uses_exec (p));
       if (p->args.exec_vec.multiple)
         {
           struct exec_val *execp = &p->args.exec_vec;
@@ -430,7 +431,7 @@ complete_pending_execdirs (void)
 {
   if (state.execdirs_outstanding)
     {
-      do_complete_pending_execdirs (get_eval_tree());
+      do_complete_pending_execdirs (get_eval_tree ());
       state.execdirs_outstanding = false;
     }
 }
@@ -474,7 +475,8 @@ record_initial_cwd (void)
   initial_wd = xmalloc (sizeof (*initial_wd));
   if (0 != save_cwd (initial_wd))
     {
-      const char *wd_name = (initial_wd->desc < 0 && initial_wd->name) ? initial_wd->name : NULL;
+      const char *wd_name = (initial_wd->desc < 0
+                             && initial_wd->name) ? initial_wd->name : NULL;
       if (wd_name)
         {
           error (EXIT_FAILURE, errno,
@@ -499,11 +501,13 @@ cleanup_initial_cwd (void)
     }
   else
     {
-      const char *wd_name = (initial_wd->desc < 0 && initial_wd->name) ? initial_wd->name : NULL;
+      const char *wd_name = (initial_wd->desc < 0
+                             && initial_wd->name) ? initial_wd->name : NULL;
       if (wd_name)
         {
           error (0, errno,
-                 _("Failed to restore initial working directory %s"), wd_name);
+                 _("Failed to restore initial working directory %s"),
+                 wd_name);
         }
       else
         {
@@ -516,8 +520,7 @@ cleanup_initial_cwd (void)
 
 
 static void
-traverse_tree (struct predicate *tree,
-                          void (*callback)(struct predicate*))
+traverse_tree (struct predicate *tree, void (*callback) (struct predicate *))
 {
   if (tree->pred_left)
     traverse_tree (tree->pred_left, callback);
@@ -537,8 +540,7 @@ undangle_file_pointers (struct predicate *p)
 {
   if (pred_is (p, pred_fprint)
       || pred_is (p, pred_fprintf)
-      || pred_is (p, pred_fls)
-      || pred_is (p, pred_fprint0))
+      || pred_is (p, pred_fls) || pred_is (p, pred_fprint0))
     {
       /* The file was already fclose()d by sharefile_destroy. */
       p->args.printf_vec.stream = NULL;
@@ -588,15 +590,17 @@ fallback_stat (const char *name, struct stat *p, int prev_rv)
     case ENOENT:
     case ENOTDIR:
       if (options.debug_options & DebugStat)
-        fprintf(stderr, "fallback_stat(): stat(%s) failed; falling back on lstat()\n", name);
-      return fstatat(state.cwd_dir_fd, name, p, AT_SYMLINK_NOFOLLOW);
+        fprintf (stderr,
+                 "fallback_stat(): stat(%s) failed; falling back on lstat()\n",
+                 name);
+      return fstatat (state.cwd_dir_fd, name, p, AT_SYMLINK_NOFOLLOW);
 
     case EACCES:
     case EIO:
     case ELOOP:
     case ENAMETOOLONG:
 #ifdef EOVERFLOW
-    case EOVERFLOW:         /* EOVERFLOW is not #defined on UNICOS. */
+    case EOVERFLOW:             /* EOVERFLOW is not #defined on UNICOS. */
 #endif
     default:
       return prev_rv;
@@ -645,7 +649,7 @@ optionh_stat (const char *name, struct stat *p)
  * link points to, not the symbolic link itself.
  */
 int
-optionl_stat(const char *name, struct stat *p)
+optionl_stat (const char *name, struct stat *p)
 {
   int rv;
   if (AT_FDCWD != state.cwd_dir_fd)
@@ -666,7 +670,7 @@ optionl_stat(const char *name, struct stat *p)
 int
 optionp_stat (const char *name, struct stat *p)
 {
-  assert ((state.cwd_dir_fd >= 0) || (state.cwd_dir_fd==AT_FDCWD));
+  assert ((state.cwd_dir_fd >= 0) || (state.cwd_dir_fd == AT_FDCWD));
   set_stat_placeholders (p);
   return fstatat (state.cwd_dir_fd, name, p, AT_SYMLINK_NOFOLLOW);
 }
@@ -689,14 +693,13 @@ debug_stat (const char *file, struct stat *bufp)
     case SYMLINK_NEVER_DEREF:
       return optionp_stat (file, bufp);
     }
-  /*NOTREACHED*/
-  assert (0);
+   /*NOTREACHED*/ assert (0);
   return -1;
 }
 
 
 bool
-following_links(void)
+following_links (void)
 {
   switch (options.symlink_handling)
     {
@@ -716,16 +719,14 @@ following_links(void)
 bool
 digest_mode (mode_t *mode,
              const char *pathname,
-             const char *name,
-             struct stat *pstat,
-             bool leaf)
+             const char *name, struct stat *pstat, bool leaf)
 {
   /* If we know the type of the directory entry, and it is not a
    * symbolic link, we may be able to avoid a stat() or lstat() call.
    */
   if (*mode)
     {
-      if (S_ISLNK(*mode) && following_links())
+      if (S_ISLNK (*mode) && following_links ())
         {
           /* mode is wrong because we should have followed the symlink. */
           if (get_statinfo (pathname, name, pstat) != 0)
@@ -835,7 +836,7 @@ process_debug_options (char *arg)
     {
       empty = false;
 
-      for (i=0; i<N_DEBUGASSOC; ++i)
+      for (i = 0; i < N_DEBUGASSOC; ++i)
         {
           if (0 == strcmp (debugassoc[i].name, p))
             {
@@ -869,14 +870,15 @@ process_optimisation_option (const char *arg)
   if (0 == arg[0])
     {
       error (EXIT_FAILURE, 0,
-             _("The -O option must be immediately followed by a decimal integer"));
+             _
+             ("The -O option must be immediately followed by a decimal integer"));
     }
   else
     {
       unsigned long opt_level;
       char *end;
 
-      if (!isdigit ( (unsigned char) arg[0] ))
+      if (!isdigit ((unsigned char) arg[0]))
         {
           error (EXIT_FAILURE, 0,
                  _("Please specify a decimal number immediately after -O"));
@@ -884,20 +886,22 @@ process_optimisation_option (const char *arg)
       else
         {
           int prev_errno = errno;
-          errno  = 0;
+          errno = 0;
 
           opt_level = strtoul (arg, &end, 10);
-          if ( (0==opt_level) && (end==arg) )
+          if ((0 == opt_level) && (end == arg))
             {
               error (EXIT_FAILURE, 0,
-                     _("Please specify a decimal number immediately after -O"));
+                     _
+                     ("Please specify a decimal number immediately after -O"));
             }
           else if (*end)
             {
               /* unwanted trailing characters. */
-              error (EXIT_FAILURE, 0, _("Invalid optimisation level %s"), arg);
+              error (EXIT_FAILURE, 0, _("Invalid optimisation level %s"),
+                     arg);
             }
-          else if ( (ULONG_MAX==opt_level) && errno)
+          else if ((ULONG_MAX == opt_level) && errno)
             {
               error (EXIT_FAILURE, errno,
                      _("Invalid optimisation level %s"), arg);
@@ -910,8 +914,7 @@ process_optimisation_option (const char *arg)
               error (EXIT_FAILURE, 0,
                      _("Optimisation level %lu is too high.  "
                        "If you want to find files very quickly, "
-                       "consider using GNU locate."),
-                     opt_level);
+                       "consider using GNU locate."), opt_level);
             }
           else
             {
@@ -927,7 +930,7 @@ process_leading_options (int argc, char *argv[])
 {
   int i, end_of_leading_options;
 
-  for (i=1; (end_of_leading_options = i) < argc; ++i)
+  for (i = 1; (end_of_leading_options = i) < argc; ++i)
     {
       if (0 == strcmp ("-H", argv[i]))
         {
@@ -947,22 +950,22 @@ process_leading_options (int argc, char *argv[])
       else if (0 == strcmp ("--", argv[i]))
         {
           /* -- signifies the end of options. */
-          end_of_leading_options = i+1; /* Next time start with the next option */
+          end_of_leading_options = i + 1;       /* Next time start with the next option */
           break;
         }
       else if (0 == strcmp ("-D", argv[i]))
         {
-          if (argc <= i+1)
+          if (argc <= i + 1)
             {
               error (0, 0, _("Missing argument after the -D option."));
               usage (EXIT_FAILURE);
             }
-          process_debug_options (argv[i+1]);
+          process_debug_options (argv[i + 1]);
           ++i;                  /* skip the argument too. */
         }
       else if (0 == strncmp ("-O", argv[i], 2))
         {
-          process_optimisation_option (argv[i]+2);
+          process_optimisation_option (argv[i] + 2);
         }
       else
         {
@@ -970,7 +973,7 @@ process_leading_options (int argc, char *argv[])
            * (a) A path name
            * (b) A predicate
            */
-          end_of_leading_options = i; /* Next time start with this option */
+          end_of_leading_options = i;   /* Next time start with this option */
           break;
         }
     }
@@ -1053,7 +1056,7 @@ set_option_defaults (struct options *p)
   p->no_leaf_check = true;
 #endif
 
-  set_follow_state (SYMLINK_NEVER_DEREF); /* The default is equivalent to -P. */
+  set_follow_state (SYMLINK_NEVER_DEREF);       /* The default is equivalent to -P. */
 
   p->err_quoting_style = locale_quoting_style;
 
@@ -1066,17 +1069,18 @@ set_option_defaults (struct options *p)
  *
  */
 bool
-apply_predicate(const char *pathname, struct stat *stat_buf, struct predicate *p)
+apply_predicate (const char *pathname, struct stat *stat_buf,
+                 struct predicate *p)
 {
   ++p->perf.visits;
 
   if (p->need_stat || p->need_type || p->need_inum)
     {
       /* We may need a stat here. */
-      if (get_info(pathname, stat_buf, p) != 0)
-            return false;
+      if (get_info (pathname, stat_buf, p) != 0)
+        return false;
     }
-  if ((p->pred_func)(pathname, stat_buf, p))
+  if ((p->pred_func) (pathname, stat_buf, p))
     {
       ++(p->perf.successes);
       return true;
@@ -1109,8 +1113,8 @@ safely_quote_err_filename (int n, char const *arg)
 /* report_file_err
  */
 static void
-report_file_err(int exitval, int errno_value,
-                bool is_target_file, const char *name)
+report_file_err (int exitval, int errno_value,
+                 bool is_target_file, const char *name)
 {
   /* It is important that the errno value is passed in as a function
    * argument before we call safely_quote_err_filename(), because otherwise
@@ -1142,11 +1146,10 @@ nonfatal_target_file_error (int errno_value, const char *name)
  *
  */
 void
-fatal_target_file_error(int errno_value, const char *name)
+fatal_target_file_error (int errno_value, const char *name)
 {
   report_file_err (1, errno_value, true, name);
-  /*NOTREACHED*/
-  abort ();
+   /*NOTREACHED*/ abort ();
 }
 
 /* nonfatal_nontarget_file_error
@@ -1162,7 +1165,7 @@ nonfatal_nontarget_file_error (int errno_value, const char *name)
  *
  */
 void
-fatal_nontarget_file_error(int errno_value, const char *name)
+fatal_nontarget_file_error (int errno_value, const char *name)
 {
   /* We're going to exit fatally, so make sure we always issue the error
    * message, even if it will be duplicate.   Motivation: otherwise it may
@@ -1170,6 +1173,5 @@ fatal_nontarget_file_error(int errno_value, const char *name)
    */
   state.already_issued_stat_error_msg = false;
   report_file_err (1, errno_value, false, name);
-  /*NOTREACHED*/
-  abort ();
+   /*NOTREACHED*/ abort ();
 }

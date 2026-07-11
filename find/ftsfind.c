@@ -64,19 +64,23 @@
 /* FTS_TIGHT_CYCLE_CHECK tries to work around Savannah bug #17877
  * (but actually using it doesn't fix the bug).
  */
-static int ftsoptions = FTS_NOSTAT|FTS_TIGHT_CYCLE_CHECK|FTS_CWDFD|FTS_VERBATIM;
+static int ftsoptions =
+  FTS_NOSTAT | FTS_TIGHT_CYCLE_CHECK | FTS_CWDFD | FTS_VERBATIM;
 
-static int prev_depth = INT_MIN; /* fts_level can be < 0 */
+static int prev_depth = INT_MIN;        /* fts_level can be < 0 */
 static int curr_fd = -1;
 
 
-static bool find (char *arg) __attribute_warn_unused_result__;
-static bool process_all_startpoints (int argc, char *argv[]) __attribute_warn_unused_result__;
+static bool
+find (char *arg)
+  __attribute_warn_unused_result__;
+     static bool process_all_startpoints (int argc,
+                                          char *argv[])
+  __attribute_warn_unused_result__;
 
 
 
-static void
-left_dir (void)
+     static void left_dir (void)
 {
   if (ftsoptions & FTS_CWDFD)
     {
@@ -148,20 +152,20 @@ get_fts_info_name (int info)
   static char buf[1 + INT_BUFSIZE_BOUND (info) + 1];
   switch (info)
     {
-      HANDLECASE(FTS_D);
-      HANDLECASE(FTS_DC);
-      HANDLECASE(FTS_DEFAULT);
-      HANDLECASE(FTS_DNR);
-      HANDLECASE(FTS_DOT);
-      HANDLECASE(FTS_DP);
-      HANDLECASE(FTS_ERR);
-      HANDLECASE(FTS_F);
-      HANDLECASE(FTS_INIT);
-      HANDLECASE(FTS_NS);
-      HANDLECASE(FTS_NSOK);
-      HANDLECASE(FTS_SL);
-      HANDLECASE(FTS_SLNONE);
-      HANDLECASE(FTS_W);
+      HANDLECASE (FTS_D);
+      HANDLECASE (FTS_DC);
+      HANDLECASE (FTS_DEFAULT);
+      HANDLECASE (FTS_DNR);
+      HANDLECASE (FTS_DOT);
+      HANDLECASE (FTS_DP);
+      HANDLECASE (FTS_ERR);
+      HANDLECASE (FTS_F);
+      HANDLECASE (FTS_INIT);
+      HANDLECASE (FTS_NS);
+      HANDLECASE (FTS_NSOK);
+      HANDLECASE (FTS_SL);
+      HANDLECASE (FTS_SLNONE);
+      HANDLECASE (FTS_W);
     default:
       sprintf (buf, "[%d]", info);
       return buf;
@@ -175,7 +179,7 @@ visit (FTS *p, FTSENT *ent, struct stat *pstat)
 
   state.have_stat = (ent->fts_info != FTS_NS) && (ent->fts_info != FTS_NSOK);
   state.rel_pathname = ent->fts_accpath;
-  state.cwd_dir_fd   = p->fts_cwd_fd;
+  state.cwd_dir_fd = p->fts_cwd_fd;
 
   /* Apply the predicates to this path. */
   eval_tree = get_eval_tree ();
@@ -200,12 +204,13 @@ visit (FTS *p, FTSENT *ent, struct stat *pstat)
  *    will skip that directory entry.
  */
 static void
-issue_loop_warning (FTSENT * ent)
+issue_loop_warning (FTSENT *ent)
 {
-  if (S_ISLNK(ent->fts_statp->st_mode))
+  if (S_ISLNK (ent->fts_statp->st_mode))
     {
       error (0, 0,
-             _("Symbolic link %s is part of a loop in the directory hierarchy; we have already visited the directory to which it points."),
+             _
+             ("Symbolic link %s is part of a loop in the directory hierarchy; we have already visited the directory to which it points."),
              safely_quote_err_filename (0, ent->fts_path));
     }
   else
@@ -254,15 +259,16 @@ consider_visiting (FTS *p, FTSENT *ent)
              "fts_path=%s, fts_accpath=%s\n",
              quotearg_n_style (0, options.err_quoting_style, ent->fts_path),
              get_fts_info_name (ent->fts_info),
-             (int)ent->fts_level, prev_depth,
+             (int) ent->fts_level, prev_depth,
              quotearg_n_style (1, options.err_quoting_style, ent->fts_path),
-             quotearg_n_style (2, options.err_quoting_style, ent->fts_accpath));
+             quotearg_n_style (2, options.err_quoting_style,
+                               ent->fts_accpath));
 
   if (ent->fts_info == FTS_DP)
     {
       left_dir ();
     }
-  else if (ent->fts_level > prev_depth || ent->fts_level==0)
+  else if (ent->fts_level > prev_depth || ent->fts_level == 0)
     {
       left_dir ();
     }
@@ -333,9 +339,9 @@ consider_visiting (FTS *p, FTSENT *ent)
             }
           else
             {
-             /* Ignore ENOENT error for vanished files.  */
-             if (ENOENT == ent->fts_errno && options.ignore_readdir_race)
-                 return;
+              /* Ignore ENOENT error for vanished files.  */
+              if (ENOENT == ent->fts_errno && options.ignore_readdir_race)
+                return;
 
               nonfatal_target_file_error (ent->fts_errno, ent->fts_path);
               /* Continue despite the error, as file name without stat info
@@ -355,7 +361,7 @@ consider_visiting (FTS *p, FTSENT *ent)
 
   /* Cope with the usual cases. */
   if (ent->fts_info == FTS_NSOK
-      || ent->fts_info == FTS_NS /* e.g. symlink loop */)
+      || ent->fts_info == FTS_NS /* e.g. symlink loop */ )
     {
       assert (!state.have_stat);
       assert (ent->fts_info == FTS_NSOK || state.type == 0);
@@ -372,7 +378,8 @@ consider_visiting (FTS *p, FTSENT *ent)
         {
           /* Savannah bug #16378. */
           error (0, 0, _("WARNING: file %s appears to have mode 0000"),
-                 quotearg_n_style (0, options.err_quoting_style, ent->fts_path));
+                 quotearg_n_style (0, options.err_quoting_style,
+                                   ent->fts_path));
         }
     }
 
@@ -388,10 +395,9 @@ consider_visiting (FTS *p, FTSENT *ent)
 
   /* examine this item. */
   ignore = 0;
-  isdir = S_ISDIR(mode)
-    || (FTS_D  == ent->fts_info)
-    || (FTS_DP == ent->fts_info)
-    || (FTS_DC == ent->fts_info);
+  isdir = S_ISDIR (mode)
+    || (FTS_D == ent->fts_info)
+    || (FTS_DP == ent->fts_info) || (FTS_DC == ent->fts_info);
 
   if (isdir && (ent->fts_info == FTS_NSOK))
     {
@@ -408,19 +414,19 @@ consider_visiting (FTS *p, FTSENT *ent)
     {
       if (ent->fts_level >= options.maxdepth)
         {
-          fts_set (p, ent, FTS_SKIP); /* descend no further */
+          fts_set (p, ent, FTS_SKIP);   /* descend no further */
 
           if (ent->fts_level > options.maxdepth)
             ignore = 1;         /* don't even look at this one */
         }
     }
 
-  if ( (ent->fts_info == FTS_D) && !options.do_dir_first )
+  if ((ent->fts_info == FTS_D) && !options.do_dir_first)
     {
       /* this is the preorder visit, but user said -depth */
       ignore = 1;
     }
-  else if ( (ent->fts_info == FTS_DP) && options.do_dir_first )
+  else if ((ent->fts_info == FTS_DP) && options.do_dir_first)
     {
       /* this is the postorder visit, but user didn't say -depth */
       ignore = 1;
@@ -455,7 +461,7 @@ consider_visiting (FTS *p, FTSENT *ent)
 static bool
 find (char *arg)
 {
-  char * arglist[2];
+  char *arglist[2];
   FTS *p;
   FTSENT *ent;
 
@@ -468,11 +474,11 @@ find (char *arg)
   switch (options.symlink_handling)
     {
     case SYMLINK_ALWAYS_DEREF:
-      ftsoptions |= FTS_COMFOLLOW|FTS_LOGICAL;
+      ftsoptions |= FTS_COMFOLLOW | FTS_LOGICAL;
       break;
 
     case SYMLINK_DEREF_ARGSONLY:
-      ftsoptions |= FTS_COMFOLLOW|FTS_PHYSICAL;
+      ftsoptions |= FTS_COMFOLLOW | FTS_PHYSICAL;
       break;
 
     case SYMLINK_NEVER_DEREF:
@@ -497,9 +503,9 @@ find (char *arg)
     {
       int level = INT_MIN;
 
-      while ( (errno=0, ent=fts_read (p)) != NULL )
+      while ((errno = 0, ent = fts_read (p)) != NULL)
         {
-          if (state.execdirs_outstanding && ((int)ent->fts_level != level))
+          if (state.execdirs_outstanding && ((int) ent->fts_level != level))
             {
               /* If we changed level, perform any outstanding
                * execdirs.  If we see a sequence of directory entries
@@ -510,7 +516,7 @@ find (char *arg)
                */
               complete_pending_execdirs ();
             }
-          level = (int)ent->fts_level;
+          level = (int) ent->fts_level;
 
           state.already_issued_stat_error_msg = false;
           state.have_stat = false;
@@ -550,10 +556,11 @@ static bool
 process_all_startpoints (int argc, char *argv[])
 {
   /* Did the user pass starting points on the command line?  */
-  bool argv_starting_points = 0 < argc && !looks_like_expression (argv[0], true);
+  bool argv_starting_points = 0 < argc
+    && !looks_like_expression (argv[0], true);
 
   FILE *stream = NULL;
-  char const* files0_filename_quoted = NULL;
+  char const *files0_filename_quoted = NULL;
 
   struct argv_iterator *ai;
   if (options.files0_from)
@@ -562,9 +569,10 @@ process_all_startpoints (int argc, char *argv[])
        * on the command line.  */
       if (argv_starting_points)
         {
-          error (0, 0, _("extra operand %s"), safely_quote_err_filename (0, argv[0]));
+          error (0, 0, _("extra operand %s"),
+                 safely_quote_err_filename (0, argv[0]));
           error (EXIT_FAILURE, 0,
-                   _("file operands cannot be combined with -files0-from"));
+                 _("file operands cannot be combined with -files0-from"));
         }
 
       if (0 == strcmp (options.files0_from, "-"))
@@ -575,14 +583,17 @@ process_all_startpoints (int argc, char *argv[])
           if (options.ok_prompt_stdin)
             {
               error (EXIT_FAILURE, 0,
-                     _("when -ok or -okdir is in use, the option -files0-from cannot also read from standard input"));
+                     _
+                     ("when -ok or -okdir is in use, the option -files0-from cannot also read from standard input"));
             }
-          files0_filename_quoted = safely_quote_err_filename (0, _("(standard input)"));
+          files0_filename_quoted =
+            safely_quote_err_filename (0, _("(standard input)"));
           stream = stdin;
         }
       else
         {
-          files0_filename_quoted = safely_quote_err_filename (0, options.files0_from);
+          files0_filename_quoted =
+            safely_quote_err_filename (0, options.files0_from);
           stream = fopen (options.files0_from, "r");
           if (stream == NULL)
             {
@@ -603,15 +614,16 @@ process_all_startpoints (int argc, char *argv[])
                */
               struct stat sb1, sb2;
               if (fstat (fd, &sb1) == 0 && fstat (STDIN_FILENO, &sb2) == 0
-                    && SAME_INODE (sb1, sb2))
+                  && SAME_INODE (sb1, sb2))
                 {
                   error (EXIT_FAILURE, 0,
-                         _("when -ok or -okdir is in use, the option -files0-from cannot also read from standard input, but the file (%s) used for -files0-from appears to refer to the same file as the standard input"),
+                         _
+                         ("when -ok or -okdir is in use, the option -files0-from cannot also read from standard input, but the file (%s) used for -files0-from appears to refer to the same file as the standard input"),
                          files0_filename_quoted);
                 }
             }
           set_cloexec_flag (fd, true);
-       }
+        }
       ai = argv_iter_init_stream (stream);
     }
   else
@@ -647,7 +659,7 @@ process_all_startpoints (int argc, char *argv[])
             {
             case AI_ERR_EOF:
               goto argv_iter_done;
-            case AI_ERR_READ:  /* may only happen with -files0-from  */
+            case AI_ERR_READ:   /* may only happen with -files0-from  */
               error (0, errno, _("%s: read error"), files0_filename_quoted);
               state.exit_status = EXIT_FAILURE;
               ok = false;
@@ -687,14 +699,14 @@ process_all_startpoints (int argc, char *argv[])
       if (!options.files0_from && looks_like_expression (file_name, true))
         break;
 
-      state.starting_path_length = strlen (file_name); /* TODO: is this redundant? */
+      state.starting_path_length = strlen (file_name);  /* TODO: is this redundant? */
       if (!find (file_name))
         {
           ok = false;
           goto argv_iter_done;
         }
     }
- argv_iter_done:
+argv_iter_done:
 
   argv_iter_free (ai);
 
@@ -710,7 +722,7 @@ process_all_startpoints (int argc, char *argv[])
 int
 main (int argc, char **argv)
 {
-  int end_of_leading_options = 0; /* First arg after any -H/-L etc. */
+  int end_of_leading_options = 0;       /* First arg after any -H/-L etc. */
   struct predicate *eval_tree;
 
   if (argv[0])
@@ -761,7 +773,8 @@ main (int argc, char **argv)
 
 
   if (options.debug_options & DebugTime)
-    fprintf (stderr, "cur_day_start = %s", ctime (&options.cur_day_start.tv_sec));
+    fprintf (stderr, "cur_day_start = %s",
+             ctime (&options.cur_day_start.tv_sec));
 
 
   /* We are now processing the part of the "find" command line
@@ -793,8 +806,8 @@ main (int argc, char **argv)
    * be safe to call cleanup() since we might complete an execdir in
    * the wrong directory for example.
    */
-  if (process_all_startpoints (argc-end_of_leading_options,
-                               argv+end_of_leading_options))
+  if (process_all_startpoints (argc - end_of_leading_options,
+                               argv + end_of_leading_options))
     {
       /* If "-exec ... {} +" has been used, there may be some
        * partially-full command lines which have been built,

@@ -60,18 +60,18 @@ decide_size (size_t current, size_t wanted)
 
 
 void *
-extendbuf (void* existing, size_t wanted, size_t *allocated)
+extendbuf (void *existing, size_t wanted, size_t *allocated)
 {
   int saved_errno;
   size_t newsize;
-  void *result; /* leave uninitialized to allow static code checkers to identify bugs */
+  void *result;                 /* leave uninitialized to allow static code checkers to identify bugs */
 
   saved_errno = errno;
 
   assert (wanted > 0u);
   newsize = decide_size (*allocated, wanted);
 
-  if ( (*allocated) == 0 )
+  if ((*allocated) == 0)
     {
       /* Sanity check: If there is no existing allocation size, there
        * must be no existing allocated buffer.
@@ -83,7 +83,7 @@ extendbuf (void* existing, size_t wanted, size_t *allocated)
     }
   else
     {
-      if (newsize != (*allocated) )
+      if (newsize != (*allocated))
         {
           (*allocated) = newsize;
           result = realloc (existing, newsize);
@@ -102,7 +102,7 @@ extendbuf (void* existing, size_t wanted, size_t *allocated)
     {
       /* malloc () or realloc () may have changed errno, but in the
          success case we want to preserve the previous value.
-      */
+       */
       errno = saved_errno;
     }
   return result;
@@ -110,7 +110,7 @@ extendbuf (void* existing, size_t wanted, size_t *allocated)
 
 
 void *
-xextendbuf (void* existing, size_t wanted, size_t *allocated)
+xextendbuf (void *existing, size_t wanted, size_t *allocated)
 {
   void *p = extendbuf (existing, wanted, allocated);
   if (NULL == p)

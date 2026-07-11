@@ -79,7 +79,8 @@ get_proc_max_fd (void)
             {
               if (errno)
                 {
-                  error (0, errno, "%s", quotearg_n_style (0, locale_quoting_style, path));
+                  error (0, errno, "%s",
+                         quotearg_n_style (0, locale_quoting_style, path));
                   good = 0;
                 }
               break;
@@ -138,9 +139,10 @@ get_max_fd (void)
 
 static int
 visit_open_fds (int fd_min, int fd_max,
-                int (*callback)(int, void*), void *cb_context)
+                int (*callback) (int, void *), void *cb_context)
 {
-  enum { MAX_POLL = 64 };
+  enum
+  { MAX_POLL = 64 };
   struct pollfd pf[MAX_POLL];
   int rv = 0;
 
@@ -151,9 +153,9 @@ visit_open_fds (int fd_min, int fd_max,
       if (limit > MAX_POLL)
         limit = MAX_POLL;
 
-      for (i=0; i<limit; i++)
+      for (i = 0; i < limit; i++)
         {
-          pf[i].events = POLLIN|POLLOUT;
+          pf[i].events = POLLIN | POLLOUT;
           pf[i].revents = 0;
           pf[i].fd = fd_min + i;
         }
@@ -165,7 +167,7 @@ visit_open_fds (int fd_min, int fd_max,
       else
         {
           int j;
-          for (j=0; j<limit; j++)
+          for (j = 0; j < limit; j++)
             {
               if (pf[j].revents != POLLNVAL)
                 {
@@ -206,9 +208,9 @@ remember_fd_if_non_cloexec (int fd, void *context)
     }
   else
     {
-      struct remember_fd_context * const p = context;
+      struct remember_fd_context *const p = context;
       void *newbuf = extendbuf (p->buf,
-                                sizeof (p->buf[0])*(p->used+1),
+                                sizeof (p->buf[0]) * (p->used + 1),
                                 &(p->allocated));
       if (newbuf)
         {
@@ -285,7 +287,7 @@ find_first_leak_callback (int fd, void *context)
 
 
 static int
-find_first_leaked_fd (const int* prev_non_cloexec_fds, size_t n)
+find_first_leaked_fd (const int *prev_non_cloexec_fds, size_t n)
 {
   struct fd_leak_context context;
   int max_fd = get_max_fd ();
@@ -307,7 +309,7 @@ static bool
 o_cloexec_works (void)
 {
   bool result = false;
-  int fd = open ("/", O_RDONLY|O_CLOEXEC);
+  int fd = open ("/", O_RDONLY | O_CLOEXEC);
   if (fd >= 0)
     {
       result = fd_is_cloexec (fd);
@@ -349,7 +351,7 @@ open_cloexec (const char *path, int flags, ...)
       cloexec_works = o_cloexec_works ();
       cloexec_status_known = true;
     }
-  fd = open (path, flags|O_CLOEXEC, mode);
+  fd = open (path, flags | O_CLOEXEC, mode);
   if ((fd >= 0) && !(O_CLOEXEC && cloexec_works))
     {
       set_cloexec_flag (fd, true);
@@ -381,7 +383,8 @@ void
 complain_about_leaky_fds (void)
 {
   int no_leaks = 1;
-  const int leaking_fd = find_first_leaked_fd (non_cloexec_fds, num_cloexec_fds);
+  const int leaking_fd =
+    find_first_leaked_fd (non_cloexec_fds, num_cloexec_fds);
 
   if (leaking_fd >= 0)
     {
@@ -389,8 +392,7 @@ complain_about_leaky_fds (void)
       error (0, 0,
              _("File descriptor %d will leak; please report this as a bug, "
                "remembering to include a detailed description of the simplest "
-               "way to reproduce this problem."),
-             leaking_fd);
+               "way to reproduce this problem."), leaking_fd);
     }
   assert (no_leaks);
 }

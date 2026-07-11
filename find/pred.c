@@ -32,7 +32,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-#include <unistd.h> /* for unlinkat() */
+#include <unistd.h>             /* for unlinkat() */
 
 /* gnulib headers. */
 #include "areadlink.h"
@@ -59,7 +59,8 @@
 # define CLOSEDIR(d) closedir (d)
 #endif
 
-static bool match_lname (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr, bool ignore_case);
+static bool match_lname (const char *pathname, struct stat *stat_buf,
+                         struct predicate *pred_ptr, bool ignore_case);
 
 /* Predicate processing routines.
 
@@ -78,7 +79,8 @@ static bool match_lname (const char *pathname, struct stat *stat_buf, struct pre
  * COMP_EQ: after the specified time but by not more than WINDOW seconds.
  */
 static bool
-pred_timewindow (struct timespec ts, struct predicate const *pred_ptr, int window)
+pred_timewindow (struct timespec ts, struct predicate const *pred_ptr,
+                 int window)
 {
   switch (pred_ptr->args.reftime.kind)
     {
@@ -105,7 +107,7 @@ pred_timewindow (struct timespec ts, struct predicate const *pred_ptr, int windo
          */
         struct timespec delta = timespec_sub (ts, pred_ptr->args.reftime.ts);
         return (timespec_cmp (delta, make_timespec (0, 0)) > 0
-                  && timespec_cmp (delta, make_timespec (window, 0)) <= 0);
+                && timespec_cmp (delta, make_timespec (window, 0)) <= 0);
       }
     }
   assert (0);
@@ -114,14 +116,16 @@ pred_timewindow (struct timespec ts, struct predicate const *pred_ptr, int windo
 
 
 bool
-pred_amin (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_amin (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   (void) &pathname;
-  return pred_timewindow (get_stat_atime(stat_buf), pred_ptr, 60);
+  return pred_timewindow (get_stat_atime (stat_buf), pred_ptr, 60);
 }
 
 bool
-pred_and (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_and (const char *pathname, struct stat *stat_buf,
+          struct predicate *pred_ptr)
 {
   if (pred_ptr->pred_left == NULL
       || apply_predicate (pathname, stat_buf, pred_ptr->pred_left))
@@ -133,22 +137,26 @@ pred_and (const char *pathname, struct stat *stat_buf, struct predicate *pred_pt
 }
 
 bool
-pred_anewer (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_anewer (const char *pathname, struct stat *stat_buf,
+             struct predicate *pred_ptr)
 {
   (void) &pathname;
   assert (COMP_GT == pred_ptr->args.reftime.kind);
-  return timespec_cmp (get_stat_atime(stat_buf), pred_ptr->args.reftime.ts) > 0;
+  return timespec_cmp (get_stat_atime (stat_buf),
+                       pred_ptr->args.reftime.ts) > 0;
 }
 
 bool
-pred_atime (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_atime (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) &pathname;
-  return pred_timewindow (get_stat_atime(stat_buf), pred_ptr, DAYSECS);
+  return pred_timewindow (get_stat_atime (stat_buf), pred_ptr, DAYSECS);
 }
 
 bool
-pred_closeparen (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_closeparen (const char *pathname, struct stat *stat_buf,
+                 struct predicate *pred_ptr)
 {
   (void) &pathname;
   (void) &stat_buf;
@@ -158,36 +166,41 @@ pred_closeparen (const char *pathname, struct stat *stat_buf, struct predicate *
 }
 
 bool
-pred_cmin (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_cmin (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   (void) pathname;
-  return pred_timewindow (get_stat_ctime(stat_buf), pred_ptr, 60);
+  return pred_timewindow (get_stat_ctime (stat_buf), pred_ptr, 60);
 }
 
 bool
-pred_cnewer (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_cnewer (const char *pathname, struct stat *stat_buf,
+             struct predicate *pred_ptr)
 {
   (void) pathname;
 
   assert (COMP_GT == pred_ptr->args.reftime.kind);
-  return timespec_cmp (get_stat_ctime(stat_buf), pred_ptr->args.reftime.ts) > 0;
+  return timespec_cmp (get_stat_ctime (stat_buf),
+                       pred_ptr->args.reftime.ts) > 0;
 }
 
 bool
-pred_comma (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_comma (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   if (pred_ptr->pred_left != NULL)
     {
-      apply_predicate (pathname, stat_buf,pred_ptr->pred_left);
+      apply_predicate (pathname, stat_buf, pred_ptr->pred_left);
     }
   return apply_predicate (pathname, stat_buf, pred_ptr->pred_right);
 }
 
 bool
-pred_ctime (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_ctime (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) &pathname;
-  return pred_timewindow (get_stat_ctime(stat_buf), pred_ptr, DAYSECS);
+  return pred_timewindow (get_stat_ctime (stat_buf), pred_ptr, DAYSECS);
 }
 
 static bool
@@ -198,14 +211,15 @@ perform_delete (int flags)
 
 
 bool
-pred_delete (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_delete (const char *pathname, struct stat *stat_buf,
+             struct predicate *pred_ptr)
 {
   (void) pred_ptr;
   (void) stat_buf;
   if (strcmp (state.rel_pathname, "."))
     {
-      int flags=0;
-      if (state.have_stat && S_ISDIR(stat_buf->st_mode))
+      int flags = 0;
+      if (state.have_stat && S_ISDIR (stat_buf->st_mode))
         flags |= AT_REMOVEDIR;
       if (perform_delete (flags))
         {
@@ -274,7 +288,8 @@ compare_num (enum comparison_type kind, uintmax_t l_val, uintmax_t val)
 }
 
 bool
-pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_empty (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) pathname;
   (void) pred_ptr;
@@ -291,7 +306,8 @@ pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 #if defined O_LARGEFILE
                         | O_LARGEFILE
 #endif
-                        | O_CLOEXEC | O_DIRECTORY | O_NOCTTY | O_NONBLOCK)) < 0)
+                        | O_CLOEXEC | O_DIRECTORY | O_NOCTTY | O_NONBLOCK)) <
+          0)
         {
           error (0, errno, "%s", safely_quote_err_filename (0, pathname));
           state.exit_status = EXIT_FAILURE;
@@ -342,20 +358,23 @@ pred_empty (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 
 
 bool
-pred_exec (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_exec (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   return impl_pred_exec (pathname, stat_buf, pred_ptr);
 }
 
 bool
-pred_execdir (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_execdir (const char *pathname, struct stat *stat_buf,
+              struct predicate *pred_ptr)
 {
-   (void) &pathname;
-   return impl_pred_exec (state.rel_pathname, stat_buf, pred_ptr);
+  (void) &pathname;
+  return impl_pred_exec (state.rel_pathname, stat_buf, pred_ptr);
 }
 
 bool
-pred_false (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_false (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) &pathname;
   (void) &stat_buf;
@@ -366,9 +385,10 @@ pred_false (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 }
 
 bool
-pred_fls (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_fls (const char *pathname, struct stat *stat_buf,
+          struct predicate *pred_ptr)
 {
-  FILE * stream = pred_ptr->args.printf_vec.stream;
+  FILE *stream = pred_ptr->args.printf_vec.stream;
   list_file (pathname, state.cwd_dir_fd, state.rel_pathname, stat_buf,
              options.start_time.tv_sec,
              options.output_block_size,
@@ -377,23 +397,23 @@ pred_fls (const char *pathname, struct stat *stat_buf, struct predicate *pred_pt
 }
 
 bool
-pred_fprint (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_fprint (const char *pathname, struct stat *stat_buf,
+             struct predicate *pred_ptr)
 {
   (void) &pathname;
   (void) &stat_buf;
 
   print_quoted (pred_ptr->args.printf_vec.stream,
                 pred_ptr->args.printf_vec.quote_opts,
-                pred_ptr->args.printf_vec.dest_is_tty,
-                "%s\n",
-                pathname);
+                pred_ptr->args.printf_vec.dest_is_tty, "%s\n", pathname);
   return true;
 }
 
 bool
-pred_fprint0 (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_fprint0 (const char *pathname, struct stat *stat_buf,
+              struct predicate *pred_ptr)
 {
-  FILE * fp = pred_ptr->args.printf_vec.stream;
+  FILE *fp = pred_ptr->args.printf_vec.stream;
 
   (void) &stat_buf;
 
@@ -405,7 +425,8 @@ pred_fprint0 (const char *pathname, struct stat *stat_buf, struct predicate *pre
 
 
 bool
-pred_fstype (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_fstype (const char *pathname, struct stat *stat_buf,
+             struct predicate *pred_ptr)
 {
   (void) pathname;
 
@@ -416,17 +437,18 @@ pred_fstype (const char *pathname, struct stat *stat_buf, struct predicate *pred
 }
 
 bool
-pred_gid (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_gid (const char *pathname, struct stat *stat_buf,
+          struct predicate *pred_ptr)
 {
   (void) pathname;
 
   return compare_num (pred_ptr->args.numinfo.kind,
-                      pred_ptr->args.numinfo.l_val,
-                      stat_buf->st_gid);
+                      pred_ptr->args.numinfo.l_val, stat_buf->st_gid);
 }
 
 bool
-pred_group (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_group (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) pathname;
 
@@ -437,7 +459,8 @@ pred_group (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 }
 
 bool
-pred_ilname (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_ilname (const char *pathname, struct stat *stat_buf,
+             struct predicate *pred_ptr)
 {
   return match_lname (pathname, stat_buf, pred_ptr, true);
 }
@@ -468,24 +491,26 @@ pred_name_common (const char *pathname, const char *str, int flags)
 }
 
 bool
-pred_iname (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_iname (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) stat_buf;
   return pred_name_common (pathname, pred_ptr->args.str, FNM_CASEFOLD);
 }
 
 bool
-pred_inum (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_inum (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   (void) pathname;
 
   return compare_num (pred_ptr->args.numinfo.kind,
-                      pred_ptr->args.numinfo.l_val,
-                      stat_buf->st_ino);
+                      pred_ptr->args.numinfo.l_val, stat_buf->st_ino);
 }
 
 bool
-pred_ipath (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_ipath (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) stat_buf;
 
@@ -495,23 +520,25 @@ pred_ipath (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 }
 
 bool
-pred_links (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_links (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) pathname;
 
   return compare_num (pred_ptr->args.numinfo.kind,
-                      pred_ptr->args.numinfo.l_val,
-                      stat_buf->st_nlink);
+                      pred_ptr->args.numinfo.l_val, stat_buf->st_nlink);
 }
 
 bool
-pred_lname (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_lname (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   return match_lname (pathname, stat_buf, pred_ptr, false);
 }
 
 static bool
-match_lname (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr, bool ignore_case)
+match_lname (const char *pathname, struct stat *stat_buf,
+             struct predicate *pred_ptr, bool ignore_case)
 {
   bool ret = false;
 #ifdef S_ISLNK
@@ -536,49 +563,57 @@ match_lname (const char *pathname, struct stat *stat_buf, struct predicate *pred
 }
 
 bool
-pred_ls (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_ls (const char *pathname, struct stat *stat_buf,
+         struct predicate *pred_ptr)
 {
   return pred_fls (pathname, stat_buf, pred_ptr);
 }
 
 bool
-pred_mmin (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_mmin (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   (void) &pathname;
-  return pred_timewindow (get_stat_mtime(stat_buf), pred_ptr, 60);
+  return pred_timewindow (get_stat_mtime (stat_buf), pred_ptr, 60);
 }
 
 bool
-pred_mtime (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_mtime (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) pathname;
-  return pred_timewindow (get_stat_mtime(stat_buf), pred_ptr, DAYSECS);
+  return pred_timewindow (get_stat_mtime (stat_buf), pred_ptr, DAYSECS);
 }
 
 bool
-pred_name (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_name (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   (void) stat_buf;
   return pred_name_common (pathname, pred_ptr->args.str, 0);
 }
 
 bool
-pred_negate (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_negate (const char *pathname, struct stat *stat_buf,
+             struct predicate *pred_ptr)
 {
   return !apply_predicate (pathname, stat_buf, pred_ptr->pred_right);
 }
 
 bool
-pred_newer (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_newer (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) pathname;
 
   assert (COMP_GT == pred_ptr->args.reftime.kind);
-  return timespec_cmp (get_stat_mtime(stat_buf), pred_ptr->args.reftime.ts) > 0;
+  return timespec_cmp (get_stat_mtime (stat_buf),
+                       pred_ptr->args.reftime.ts) > 0;
 }
 
 bool
-pred_newerXY (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_newerXY (const char *pathname, struct stat *stat_buf,
+              struct predicate *pred_ptr)
 {
   struct timespec ts;
   bool collected = false;
@@ -624,7 +659,8 @@ pred_newerXY (const char *pathname, struct stat *stat_buf, struct predicate *pre
 }
 
 bool
-pred_nogroup (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_nogroup (const char *pathname, struct stat *stat_buf,
+              struct predicate *pred_ptr)
 {
   (void) pathname;
   (void) pred_ptr;
@@ -632,7 +668,8 @@ pred_nogroup (const char *pathname, struct stat *stat_buf, struct predicate *pre
 }
 
 bool
-pred_nouser (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_nouser (const char *pathname, struct stat *stat_buf,
+             struct predicate *pred_ptr)
 {
   (void) pathname;
   (void) pred_ptr;
@@ -648,7 +685,7 @@ is_ok (const char *program, const char *arg)
      the last non-blank character of this prompt be '?'.
      The exact format is not specified.
      This standard does not have requirements for locales other than POSIX
-  */
+   */
   /* XXX: printing UNTRUSTED data here. */
   if (fprintf (stderr, _("< %s ... %s > ? "), program, arg) < 0)
     {
@@ -659,17 +696,17 @@ is_ok (const char *program, const char *arg)
 }
 
 bool
-predicate_uses_exec(const struct predicate* p)
+predicate_uses_exec (const struct predicate *p)
 {
-  return pred_is(p, pred_exec)
-    || pred_is(p, pred_execdir)
-    || pred_is(p, pred_ok)
-    || pred_is(p, pred_okdir);
+  return pred_is (p, pred_exec)
+    || pred_is (p, pred_execdir)
+    || pred_is (p, pred_ok) || pred_is (p, pred_okdir);
 }
 
 
 bool
-pred_ok (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_ok (const char *pathname, struct stat *stat_buf,
+         struct predicate *pred_ptr)
 {
   if (is_ok (pred_ptr->args.exec_vec.replace_vec[0], pathname))
     return impl_pred_exec (pathname, stat_buf, pred_ptr);
@@ -678,7 +715,8 @@ pred_ok (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr
 }
 
 bool
-pred_okdir (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_okdir (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   if (is_ok (pred_ptr->args.exec_vec.replace_vec[0], pathname))
     return impl_pred_exec (state.rel_pathname, stat_buf, pred_ptr);
@@ -687,7 +725,8 @@ pred_okdir (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 }
 
 bool
-pred_openparen (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_openparen (const char *pathname, struct stat *stat_buf,
+                struct predicate *pred_ptr)
 {
   (void) pathname;
   (void) stat_buf;
@@ -696,7 +735,8 @@ pred_openparen (const char *pathname, struct stat *stat_buf, struct predicate *p
 }
 
 bool
-pred_or (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_or (const char *pathname, struct stat *stat_buf,
+         struct predicate *pred_ptr)
 {
   if (pred_ptr->pred_left == NULL
       || !apply_predicate (pathname, stat_buf, pred_ptr->pred_left))
@@ -708,7 +748,8 @@ pred_or (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr
 }
 
 bool
-pred_path (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_path (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   (void) stat_buf;
   if (fnmatch (pred_ptr->args.str, pathname, 0) == 0)
@@ -717,7 +758,8 @@ pred_path (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
 }
 
 bool
-pred_perm (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_perm (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   mode_t mode = stat_buf->st_mode;
   mode_t perm_val = pred_ptr->args.perm.val[S_ISDIR (mode) != 0];
@@ -757,7 +799,8 @@ pred_perm (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
 
 
 bool
-pred_executable (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_executable (const char *pathname, struct stat *stat_buf,
+                 struct predicate *pred_ptr)
 {
   (void) pathname;
   (void) stat_buf;
@@ -768,7 +811,8 @@ pred_executable (const char *pathname, struct stat *stat_buf, struct predicate *
 }
 
 bool
-pred_readable (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_readable (const char *pathname, struct stat *stat_buf,
+               struct predicate *pred_ptr)
 {
   (void) pathname;
   (void) stat_buf;
@@ -779,7 +823,8 @@ pred_readable (const char *pathname, struct stat *stat_buf, struct predicate *pr
 }
 
 bool
-pred_writable (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_writable (const char *pathname, struct stat *stat_buf,
+               struct predicate *pred_ptr)
 {
   (void) pathname;
   (void) stat_buf;
@@ -790,36 +835,38 @@ pred_writable (const char *pathname, struct stat *stat_buf, struct predicate *pr
 }
 
 bool
-pred_print (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_print (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) stat_buf;
   (void) pred_ptr;
 
   print_quoted (pred_ptr->args.printf_vec.stream,
                 pred_ptr->args.printf_vec.quote_opts,
-                pred_ptr->args.printf_vec.dest_is_tty,
-                "%s\n", pathname);
+                pred_ptr->args.printf_vec.dest_is_tty, "%s\n", pathname);
   return true;
 }
 
 bool
-pred_print0 (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_print0 (const char *pathname, struct stat *stat_buf,
+             struct predicate *pred_ptr)
 {
-  return pred_fprint0(pathname, stat_buf, pred_ptr);
+  return pred_fprint0 (pathname, stat_buf, pred_ptr);
 }
 
 bool
-pred_prune (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_prune (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   (void) pathname;
   (void) pred_ptr;
 
-  if (options.do_dir_first == true) { /* no effect with -depth */
-    assert (state.have_stat);
-    if (stat_buf != NULL &&
-        S_ISDIR(stat_buf->st_mode))
-      state.stop_at_current_level = true;
-  }
+  if (options.do_dir_first == true)
+    {                           /* no effect with -depth */
+      assert (state.have_stat);
+      if (stat_buf != NULL && S_ISDIR (stat_buf->st_mode))
+        state.stop_at_current_level = true;
+    }
 
   /* findutils used to return options.do_dir_first here, so that -prune
    * returns true only if -depth is not in effect.   But POSIX requires
@@ -829,7 +876,8 @@ pred_prune (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 }
 
 bool
-pred_quit (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_quit (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   (void) pathname;
   (void) stat_buf;
@@ -847,10 +895,11 @@ pred_quit (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
 }
 
 bool
-pred_regex (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_regex (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   int len = strlen (pathname);
-(void) stat_buf;
+  (void) stat_buf;
   if (re_match (pred_ptr->args.regex, pathname, len, 0,
                 (struct re_registers *) NULL) == len)
     return (true);
@@ -858,7 +907,8 @@ pred_regex (const char *pathname, struct stat *stat_buf, struct predicate *pred_
 }
 
 bool
-pred_size (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_size (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   uintmax_t f_val;
 
@@ -867,12 +917,12 @@ pred_size (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
            + (stat_buf->st_size % pred_ptr->args.size.blocksize != 0));
 
   return compare_num (pred_ptr->args.size.kind,
-                      pred_ptr->args.size.size,
-                      f_val);
+                      pred_ptr->args.size.size, f_val);
 }
 
 bool
-pred_samefile (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_samefile (const char *pathname, struct stat *stat_buf,
+               struct predicate *pred_ptr)
 {
   /* Potential optimisation: because of the loop protection, we always
    * know the device of the current directory, hence the device number
@@ -913,7 +963,8 @@ pred_samefile (const char *pathname, struct stat *stat_buf, struct predicate *pr
 }
 
 bool
-pred_true (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_true (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   (void) pathname;
   (void) stat_buf;
@@ -922,7 +973,8 @@ pred_true (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
 }
 
 bool
-pred_type (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_type (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   mode_t mode;
   enum file_type type = FTYPE_COUNT;
@@ -940,33 +992,33 @@ pred_type (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
   (void) pathname;
 
   if (state.have_stat)
-     mode = stat_buf->st_mode;
+    mode = stat_buf->st_mode;
   else
-     mode = state.type;
+    mode = state.type;
 
 #ifndef S_IFMT
   /* POSIX system; check `mode' the slow way.
    * Search in the order of probability (f,d,l,b,c,s,p,D).
    */
   if (S_ISREG (mode))
-     type = FTYPE_REG;
+    type = FTYPE_REG;
   else if (S_ISDIR (mode))
-     type = FTYPE_DIR;
+    type = FTYPE_DIR;
 # ifdef S_IFLNK
   else if (S_ISLNK (mode))
-     type = FTYPE_LNK;
+    type = FTYPE_LNK;
 # endif
   else if (S_ISBLK (mode))
-     type = FTYPE_BLK;
+    type = FTYPE_BLK;
   else if (S_ISCHR (mode))
-     type = FTYPE_CHR;
+    type = FTYPE_CHR;
 # ifdef S_IFSOCK
   else if (S_ISSOCK (mode))
-     type = FTYPE_SOCK;
+    type = FTYPE_SOCK;
 # endif
 # ifdef S_IFIFO
   else if (S_ISFIFO (mode))
-     type = FTYPE_FIFO;
+    type = FTYPE_FIFO;
 # endif
 # ifdef S_IFDOOR
   else if (S_ISDOOR (mode))
@@ -1018,17 +1070,18 @@ pred_type (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
 }
 
 bool
-pred_uid (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_uid (const char *pathname, struct stat *stat_buf,
+          struct predicate *pred_ptr)
 {
   (void) pathname;
   return compare_num (pred_ptr->args.numinfo.kind,
-                      pred_ptr->args.numinfo.l_val,
-                      stat_buf->st_uid);
+                      pred_ptr->args.numinfo.l_val, stat_buf->st_uid);
 }
 
 /* File was last accessed less than, more than or exactly n days after its status was last changed. */
 bool
-pred_used (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_used (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   struct timespec delta, at, ct;
 
@@ -1041,18 +1094,19 @@ pred_used (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
   if (timespec_cmp (at, ct) < 0)
     return false;
 
-  delta.tv_sec  = ct.tv_sec  - at.tv_sec;
+  delta.tv_sec = ct.tv_sec - at.tv_sec;
   delta.tv_nsec = ct.tv_nsec - at.tv_nsec;
   if (delta.tv_nsec < 0)
     {
       delta.tv_nsec += 1000000000;
-      delta.tv_sec  -=          1;
+      delta.tv_sec -= 1;
     }
   return pred_timewindow (delta, pred_ptr, DAYSECS);
 }
 
 bool
-pred_user (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_user (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
 {
   (void) pathname;
   if (pred_ptr->args.uid == stat_buf->st_uid)
@@ -1062,7 +1116,7 @@ pred_user (const char *pathname, struct stat *stat_buf, struct predicate *pred_p
 }
 
 static bool
-err_signals_broken_link(int errno_value)
+err_signals_broken_link (int errno_value)
 {
   switch (errno_value)
     {
@@ -1077,16 +1131,17 @@ err_signals_broken_link(int errno_value)
 
 
 bool
-pred_xtype (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+pred_xtype (const char *pathname, struct stat *stat_buf,
+            struct predicate *pred_ptr)
 {
   struct stat sbuf;             /* local copy, not stat_buf because we're using a different stat method */
-  int (*ystat) (const char*, struct stat *p);
+  int (*ystat) (const char *, struct stat * p);
 
 
   /* If we would normally stat the link itself, stat the target instead.
    * If we would normally follow the link, stat the link itself instead.
    */
-  const bool ystat_follows_links = !following_links();
+  const bool ystat_follows_links = !following_links ();
   if (ystat_follows_links)
     ystat = optionl_stat;
   else
@@ -1186,7 +1241,7 @@ print_parenthesised (FILE *fp, struct predicate *node)
           /* We print "<nothing> or  X" as just "X"
            * We print "<nothing> and X" as just "X"
            */
-          print_parenthesised(fp, node->pred_right);
+          print_parenthesised (fp, node->pred_right);
         }
       else
         {
@@ -1217,10 +1272,12 @@ print_optlist (FILE *fp, const struct predicate *p)
       fprintf (fp, " [est success rate %.4g] ", p->est_success_rate);
       if (options.debug_options & DebugSuccessRates)
         {
-          fprintf (fp, "[real success rate %lu/%lu", p->perf.successes, p->perf.visits);
+          fprintf (fp, "[real success rate %lu/%lu", p->perf.successes,
+                   p->perf.visits);
           if (p->perf.visits)
             {
-              double real_rate = (double)p->perf.successes / (double)p->perf.visits;
+              double real_rate =
+                (double) p->perf.successes / (double) p->perf.visits;
               fprintf (fp, "=%.4g] ", real_rate);
             }
           else
@@ -1232,7 +1289,8 @@ print_optlist (FILE *fp, const struct predicate *p)
     }
 }
 
-void show_success_rates (const struct predicate *p)
+void
+show_success_rates (const struct predicate *p)
 {
   if (options.debug_options & DebugSuccessRates)
     {
@@ -1262,7 +1320,7 @@ pred_sanity_check (const struct predicate *predicates)
 {
   const struct predicate *p;
 
-  for (p=predicates; p != NULL; p=p->pred_next)
+  for (p = predicates; p != NULL; p = p->pred_next)
     {
       /* All predicates must do something. */
       assert (p->pred_func != NULL);
@@ -1298,8 +1356,8 @@ pred_sanity_check (const struct predicate *predicates)
           break;
 
         case ARG_ACTION:
-          assert (p->side_effects); /* actions have side effects. */
-          if (!pred_is (p, pred_prune) && !pred_is(p, pred_quit))
+          assert (p->side_effects);     /* actions have side effects. */
+          if (!pred_is (p, pred_prune) && !pred_is (p, pred_quit))
             {
               /* actions other than -prune and -quit should
                * inhibit the default -print
@@ -1308,9 +1366,9 @@ pred_sanity_check (const struct predicate *predicates)
             }
           break;
 
-        /* We happen to know that the only user of ARG_SPECIAL_PARSE
-         * is a test, so handle it like ARG_TEST.
-         */
+          /* We happen to know that the only user of ARG_SPECIAL_PARSE
+           * is a test, so handle it like ARG_TEST.
+           */
         case ARG_SPECIAL_PARSE:
         case ARG_TEST:
         case ARG_PUNCTUATION:

@@ -32,10 +32,7 @@
 #  error "<config.h> should be #included before defs.h, and indeed before any other header"
 Please stop compiling the program now
 # endif
-
-
 # include <sys/types.h>
-
 /* XXX: some of these includes probably don't belong in a common header file */
 # include <sys/stat.h>
 # include <stdio.h>             /* for FILE* */
@@ -46,28 +43,22 @@ Please stop compiling the program now
 # include <limits.h>            /* for CHAR_BIT */
 # include <stdbool.h>           /* for bool */
 # include <stdint.h>            /* for uintmax_t */
-# include <sys/stat.h> /* S_ISUID etc. */
+# include <sys/stat.h>          /* S_ISUID etc. */
 # include <selinux/selinux.h>
-
-
-
 # ifndef CHAR_BIT
 #  define CHAR_BIT 8
 # endif
-
 # include <inttypes.h>
-
 # include "regex.h"
 # include "timespec.h"
 # include "buildcmd.h"
 # include "quotearg.h"
 # include "sharefile.h"
 # include "gcc-function-attributes.h"
-
 int optionl_stat (const char *name, struct stat *p);
 int optionp_stat (const char *name, struct stat *p);
 int optionh_stat (const char *name, struct stat *p);
-int debug_stat   (const char *file, struct stat *bufp);
+int debug_stat (const char *file, struct stat *bufp);
 
 void set_stat_placeholders (struct stat *p);
 int get_statinfo (const char *pathname, const char *name, struct stat *p);
@@ -84,7 +75,8 @@ struct predicate;
 struct options;
 
 /* Pointer to a predicate function. */
-typedef bool (*PRED_FUNC)(const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr);
+typedef bool (*PRED_FUNC) (const char *pathname, struct stat * stat_buf,
+                           struct predicate * pred_ptr);
 
 /* The number of seconds in a day. */
 # define DAYSECS            86400
@@ -128,7 +120,7 @@ enum predicate_precedence
 struct long_val
 {
   enum comparison_type kind;
-  bool negative;         /* Defined only when representing time_t.  */
+  bool negative;                /* Defined only when representing time_t.  */
   uintmax_t l_val;
 };
 
@@ -144,7 +136,7 @@ struct samefile_file_id
 {
   ino_t ino;
   dev_t dev;
-  int   fd;
+  int fd;
 };
 
 struct size_val
@@ -156,36 +148,36 @@ struct size_val
 
 /* Supported file types for the -type/-xtype options.  */
 enum file_type
-  {
-    FTYPE_BLK,
-    FTYPE_CHR,
-    FTYPE_DIR,
-    FTYPE_REG,
+{
+  FTYPE_BLK,
+  FTYPE_CHR,
+  FTYPE_DIR,
+  FTYPE_REG,
 # ifdef S_IFLNK
-    FTYPE_LNK,
+  FTYPE_LNK,
 # endif
 # ifdef S_IFIFO
-    FTYPE_FIFO,
+  FTYPE_FIFO,
 # endif
 # ifdef S_IFSOCK
-    FTYPE_SOCK,
+  FTYPE_SOCK,
 # endif
 # ifdef S_IFDOOR
-    FTYPE_DOOR,
+  FTYPE_DOOR,
 # endif
-    FTYPE_COUNT
-  };
+  FTYPE_COUNT
+};
 
 enum xval
-  {
-    XVAL_ATIME, XVAL_BIRTHTIME, XVAL_CTIME, XVAL_MTIME, XVAL_TIME
-  };
+{
+  XVAL_ATIME, XVAL_BIRTHTIME, XVAL_CTIME, XVAL_MTIME, XVAL_TIME
+};
 
 struct time_val
 {
-  enum xval            xval;
+  enum xval xval;
   enum comparison_type kind;
-  struct timespec      ts;
+  struct timespec ts;
 };
 
 
@@ -193,11 +185,11 @@ struct exec_val
 {
   bool multiple;                /* -exec {} \+ denotes multiple argument. */
   struct buildcmd_control ctl;
-  struct buildcmd_state   state;
+  struct buildcmd_state state;
   char **replace_vec;           /* Command arguments (for ";" style) */
   int num_args;
   bool close_stdin;             /* If true, close stdin in the child. */
-  struct saved_cwd *wd_for_exec; /* What directory to perform the exec in. */
+  struct saved_cwd *wd_for_exec;        /* What directory to perform the exec in. */
   int last_child_status;        /* Status of the most recent child. */
 };
 
@@ -208,11 +200,11 @@ struct exec_val
 
 /* Special values for the `kind' field of `struct segment'. */
 enum SegmentKind
-  {
-    KIND_PLAIN=0,               /* Segment containing just plain text. */
-    KIND_STOP=1,                /* \c -- stop printing and flush output. */
-    KIND_FORMAT,                /* Regular format */
-  };
+{
+  KIND_PLAIN = 0,               /* Segment containing just plain text. */
+  KIND_STOP = 1,                /* \c -- stop printing and flush output. */
+  KIND_FORMAT,                  /* Regular format */
+};
 
 struct segment
 {
@@ -305,7 +297,7 @@ struct predicate
   union
   {
     const char *str;            /* fstype [i]lname [i]name [i]path */
-    struct re_pattern_buffer *regex; /* regex */
+    struct re_pattern_buffer *regex;    /* regex */
     struct exec_val exec_vec;   /* exec ok */
     struct long_val numinfo;    /* gid inum links  uid */
     struct size_val size;       /* size */
@@ -315,8 +307,8 @@ struct predicate
     struct perm_val perm;       /* perm */
     struct samefile_file_id samefileid; /* samefile */
     bool types[FTYPE_COUNT];    /* file type(s) */
-    struct format_val printf_vec; /* printf fprintf fprint ls fls print0 fprint0 print */
-    char *scontext; /* security context */
+    struct format_val printf_vec;       /* printf fprintf fprint ls fls print0 fprint0 print */
+    char *scontext;             /* security context */
   } args;
 
   /* The next predicate in the user input sequence,
@@ -332,11 +324,11 @@ struct predicate
 
   struct predicate_performance_info perf;
 
-  const struct parser_table* parser_entry;
+  const struct parser_table *parser_entry;
 };
 
 /* ftsfind.c */
-bool is_fts_cwdfd_enabled(void);
+bool is_fts_cwdfd_enabled (void);
 
 /* find library function declarations.  */
 
@@ -346,59 +338,66 @@ bool is_fts_cwdfd_enabled(void);
  * -P, -L or -P (default) on the command line.
  */
 enum SymlinkOption
-  {
-    SYMLINK_NEVER_DEREF,        /* Option -P */
-    SYMLINK_ALWAYS_DEREF,       /* Option -L */
-    SYMLINK_DEREF_ARGSONLY      /* Option -H */
-  };
+{
+  SYMLINK_NEVER_DEREF,          /* Option -P */
+  SYMLINK_ALWAYS_DEREF,         /* Option -L */
+  SYMLINK_DEREF_ARGSONLY        /* Option -H */
+};
 
 void set_follow_state (enum SymlinkOption opt);
-void cleanup(void);
+void cleanup (void);
 
 /* fstype.c */
 char *filesystem_type (const struct stat *statp, const char *path);
-bool is_used_fs_type(const char *name);
-dev_t * get_mounted_devices (size_t *);
+bool is_used_fs_type (const char *name);
+dev_t *get_mounted_devices (size_t *);
 
 
 
 enum arg_type
-  {
-    ARG_OPTION,                 /* regular options like -maxdepth */
-    ARG_NOOP,                   /* does nothing, returns true, internal use only */
-    ARG_POSITIONAL_OPTION,      /* options whose position is important (-follow) */
-    ARG_TEST,                   /* a like -name */
-    ARG_SPECIAL_PARSE,          /* complex to parse, don't eat the test name before calling parse_xx(). */
-    ARG_PUNCTUATION,            /* like -o or ( */
-    ARG_ACTION                  /* like -print */
-  };
+{
+  ARG_OPTION,                   /* regular options like -maxdepth */
+  ARG_NOOP,                     /* does nothing, returns true, internal use only */
+  ARG_POSITIONAL_OPTION,        /* options whose position is important (-follow) */
+  ARG_TEST,                     /* a like -name */
+  ARG_SPECIAL_PARSE,            /* complex to parse, don't eat the test name before calling parse_xx(). */
+  ARG_PUNCTUATION,              /* like -o or ( */
+  ARG_ACTION                    /* like -print */
+};
 
 
 struct parser_table;
 /* Pointer to a parser function. */
-typedef bool (*PARSE_FUNC)(const struct parser_table *p,
-                           char *argv[], int *arg_ptr);
+typedef bool (*PARSE_FUNC) (const struct parser_table * p,
+                            char *argv[], int *arg_ptr);
 struct parser_table
 {
   enum arg_type type;
   const char *parser_name;
   PARSE_FUNC parser_func;
-  PRED_FUNC    pred_func;
+  PRED_FUNC pred_func;
 };
 
 /* parser.c */
-const struct parser_table* find_parser (const char *search_name);
-bool parse_print (const struct parser_table*, char *argv[], int *arg_ptr);
+const struct parser_table *find_parser (const char *search_name);
+bool parse_print (const struct parser_table *, char *argv[], int *arg_ptr);
 void pred_sanity_check (const struct predicate *predicates);
 void check_option_combinations (const struct predicate *p);
-void parse_begin_user_args (char **args, int argno, const struct predicate *last, const struct predicate *predicates);
-void parse_end_user_args (char **args, int argno, const struct predicate *last, const struct predicate *predicates);
-bool parse_openparen  (const struct parser_table* entry, char *argv[], int *arg_ptr);
-bool parse_closeparen (const struct parser_table* entry, char *argv[], int *arg_ptr);
+void parse_begin_user_args (char **args, int argno,
+                            const struct predicate *last,
+                            const struct predicate *predicates);
+void parse_end_user_args (char **args, int argno,
+                          const struct predicate *last,
+                          const struct predicate *predicates);
+bool parse_openparen (const struct parser_table *entry, char *argv[],
+                      int *arg_ptr);
+bool parse_closeparen (const struct parser_table *entry, char *argv[],
+                       int *arg_ptr);
 
 /* pred.c */
 
-typedef bool PREDICATEFUNCTION(const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr);
+typedef bool PREDICATEFUNCTION (const char *pathname, struct stat *stat_buf,
+                                struct predicate *pred_ptr);
 
 PREDICATEFUNCTION pred_amin;
 PREDICATEFUNCTION pred_and;
@@ -459,224 +458,238 @@ PREDICATEFUNCTION pred_writable;
 PREDICATEFUNCTION pred_xtype;
 PREDICATEFUNCTION pred_context;
 
-bool pred_quit (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr)
+bool
+pred_quit (const char *pathname, struct stat *stat_buf,
+           struct predicate *pred_ptr)
   _GL_ATTRIBUTE_NORETURN;
 
-void print_predicate (FILE *fp, const struct predicate *p);
-void print_tree (FILE*, struct predicate *node, int indent);
-void print_list (FILE*, struct predicate *node);
-void print_optlist (FILE *fp, const struct predicate *node);
-void show_success_rates(const struct predicate *node);
-bool predicate_uses_exec(const struct predicate*);
+     void print_predicate (FILE *fp, const struct predicate *p);
+     void print_tree (FILE *, struct predicate *node, int indent);
+     void print_list (FILE *, struct predicate *node);
+     void print_optlist (FILE *fp, const struct predicate *node);
+     void show_success_rates (const struct predicate *node);
+     bool predicate_uses_exec (const struct predicate *);
 # define pred_is(node, fn) ( ((node)->pred_func) == (fn) )
 
 /* tree.c */
-bool matches_start_point(const char * glob, bool foldcase);
-struct predicate * build_expression_tree (int argc, char *argv[], int end_of_leading_options);
-struct predicate * get_eval_tree (void);
-struct predicate *get_new_pred_noarg (const struct parser_table *entry);
-struct predicate *get_new_pred (const struct parser_table *entry);
-struct predicate *get_new_pred_chk_op (const struct parser_table *entry,
-                                              const char *arg);
-float  calculate_derived_rates (struct predicate *p);
+     bool matches_start_point (const char *glob, bool foldcase);
+     struct predicate *build_expression_tree (int argc, char *argv[],
+                                              int end_of_leading_options);
+     struct predicate *get_eval_tree (void);
+     struct predicate *get_new_pred_noarg (const struct parser_table *entry);
+     struct predicate *get_new_pred (const struct parser_table *entry);
+     struct predicate *get_new_pred_chk_op (const struct parser_table *entry,
+                                            const char *arg);
+     float calculate_derived_rates (struct predicate *p);
 
 /* util.c */
-struct predicate *insert_primary (const struct parser_table *entry, const char *arg);
-struct predicate *insert_primary_noarg (const struct parser_table *entry);
-struct predicate *insert_primary_withpred (const struct parser_table *entry, PRED_FUNC fptr, const char *arg);
-void usage (int status) _GL_ATTRIBUTE_NORETURN;
-extern bool check_nofollow(void);
-void complete_pending_execs(struct predicate *p);
-void complete_pending_execdirs (void);
-const char *safely_quote_err_filename (int n, char const *arg);
-void record_initial_cwd (void);
-bool is_exec_in_local_dir(const PRED_FUNC pred_func);
+     struct predicate *insert_primary (const struct parser_table *entry,
+                                       const char *arg);
+     struct predicate *insert_primary_noarg (const struct parser_table
+                                             *entry);
+     struct predicate *insert_primary_withpred (const struct parser_table
+                                                *entry, PRED_FUNC fptr,
+                                                const char *arg);
+     void usage (int status) _GL_ATTRIBUTE_NORETURN;
+     extern bool check_nofollow (void);
+     void complete_pending_execs (struct predicate *p);
+     void complete_pending_execdirs (void);
+     const char *safely_quote_err_filename (int n, char const *arg);
+     void record_initial_cwd (void);
+     bool is_exec_in_local_dir (const PRED_FUNC pred_func);
 
-void fatal_target_file_error (int errno_value, const char *name) _GL_ATTRIBUTE_NORETURN;
-void fatal_nontarget_file_error (int errno_value, const char *name) _GL_ATTRIBUTE_NORETURN;
-void nonfatal_target_file_error (int errno_value, const char *name);
-void nonfatal_nontarget_file_error (int errno_value, const char *name);
+     void fatal_target_file_error (int errno_value,
+                                   const char *name) _GL_ATTRIBUTE_NORETURN;
+     void fatal_nontarget_file_error (int errno_value,
+                                      const char *name)
+  _GL_ATTRIBUTE_NORETURN;
+     void nonfatal_target_file_error (int errno_value, const char *name);
+     void nonfatal_nontarget_file_error (int errno_value, const char *name);
 
 
-int process_leading_options (int argc, char *argv[]);
-void set_option_defaults (struct options *p);
+     int process_leading_options (int argc, char *argv[]);
+     void set_option_defaults (struct options *p);
 
 # if 0
 #  define apply_predicate(pathname, stat_buf_ptr, node) \
   (*(node)->pred_func)((pathname), (stat_buf_ptr), (node))
 # else
-bool apply_predicate(const char *pathname, struct stat *stat_buf, struct predicate *p);
+     bool apply_predicate (const char *pathname, struct stat *stat_buf,
+                           struct predicate *p);
 # endif
 
 /* util.c. */
-bool following_links (void);
-bool digest_mode (mode_t *mode, const char *pathname, const char *name, struct stat *pstat, bool leaf);
-bool default_prints (struct predicate *pred);
-bool looks_like_expression (const char *arg, bool leading);
+     bool following_links (void);
+     bool digest_mode (mode_t *mode, const char *pathname, const char *name,
+                       struct stat *pstat, bool leaf);
+     bool default_prints (struct predicate *pred);
+     bool looks_like_expression (const char *arg, bool leading);
 
 
-enum DebugOption
-  {
-    DebugNone             = 0,
-    DebugExpressionTree   = 1 << 0,
-    DebugStat             = 1 << 1,
-    DebugSearch           = 1 << 2,
-    DebugTreeOpt          = 1 << 3,
-    DebugHelp             = 1 << 4,
-    DebugExec             = 1 << 5,
-    DebugSuccessRates     = 1 << 6,
-    DebugTime             = 1 << 7,
+     enum DebugOption
+     {
+       DebugNone = 0,
+       DebugExpressionTree = 1 << 0,
+       DebugStat = 1 << 1,
+       DebugSearch = 1 << 2,
+       DebugTreeOpt = 1 << 3,
+       DebugHelp = 1 << 4,
+       DebugExec = 1 << 5,
+       DebugSuccessRates = 1 << 6,
+       DebugTime = 1 << 7,
 
-    DebugAll              = ~DebugNone & ~DebugHelp, /* all but help */
-  };
+       DebugAll = ~DebugNone & ~DebugHelp,      /* all but help */
+     };
 
-struct options
-{
-  /* If true, process directory before contents.  True unless -depth given. */
-  bool do_dir_first;
-  /* If true, -depth was EXPLICITLY set (as opposed to having been turned
-   * on by -delete, for example).
-   */
-   bool explicit_depth;
+     struct options
+     {
+       /* If true, process directory before contents.  True unless -depth given. */
+       bool do_dir_first;
+       /* If true, -depth was EXPLICITLY set (as opposed to having been turned
+        * on by -delete, for example).
+        */
+       bool explicit_depth;
 
-  /* If >=0, don't descend more than this many levels of subdirectories. */
-  int maxdepth;
+       /* If >=0, don't descend more than this many levels of subdirectories. */
+       int maxdepth;
 
-  /* If >=0, don't process files above this level. */
-  int mindepth;
+       /* If >=0, don't process files above this level. */
+       int mindepth;
 
-  /* If true, do not assume that files in directories with nlink == 2
-     are non-directories. */
-  bool no_leaf_check;
+       /* If true, do not assume that files in directories with nlink == 2
+          are non-directories. */
+       bool no_leaf_check;
 
-  /* If true, skip files on other devices. */
-  bool mount;
+       /* If true, skip files on other devices. */
+       bool mount;
 
-  /* If true, don't cross filesystem boundaries. */
-  bool xdev;
+       /* If true, don't cross filesystem boundaries. */
+       bool xdev;
 
-  /* If true, we ignore the problem where we find that a directory entry
-   * no longer exists by the time we get around to processing it.
-   */
-  bool ignore_readdir_race;
+       /* If true, we ignore the problem where we find that a directory entry
+        * no longer exists by the time we get around to processing it.
+        */
+       bool ignore_readdir_race;
 
-  /* If true, pass control characters through.  If false, escape them
-   * or turn them into harmless things.
-   */
-  bool literal_control_chars;
+       /* If true, pass control characters through.  If false, escape them
+        * or turn them into harmless things.
+        */
+       bool literal_control_chars;
 
-  /* If true, we issue warning messages
-   */
-  bool warnings;
+       /* If true, we issue warning messages
+        */
+       bool warnings;
 
-  /* If true, avoid POSIX-incompatible behaviours
-   * (this functionality is currently incomplete
-   * and at the moment affects mainly warning messages).
-   */
-  bool posixly_correct;
+       /* If true, avoid POSIX-incompatible behaviours
+        * (this functionality is currently incomplete
+        * and at the moment affects mainly warning messages).
+        */
+       bool posixly_correct;
 
-  struct timespec      start_time;              /* Time at start of execution.  */
+       struct timespec start_time;      /* Time at start of execution.  */
 
-  /* Either one day before now (the default), or the start of today (if -daystart is given). */
-  struct timespec      cur_day_start;
+       /* Either one day before now (the default), or the start of today (if -daystart is given). */
+       struct timespec cur_day_start;
 
-  /* If true, cur_day_start has been adjusted to the start of the day. */
-  bool full_days;
+       /* If true, cur_day_start has been adjusted to the start of the day. */
+       bool full_days;
 
-  int output_block_size;        /* Output block size.  */
+       int output_block_size;   /* Output block size.  */
 
-  /* bitmask for debug options */
-  unsigned long debug_options;
+       /* bitmask for debug options */
+       unsigned long debug_options;
 
-  enum SymlinkOption symlink_handling;
-
-
-  /* Pointer to the function used to stat files. */
-  int (*xstat) (const char *name, struct stat *statbuf);
+       enum SymlinkOption symlink_handling;
 
 
-  /* Indicate if we can implement safely_chdir() using the O_NOFOLLOW
-   * flag to open(2).
-   */
-  bool open_nofollow_available;
-
-  /* The variety of regular expression that we support.
-   * The default is POSIX Basic Regular Expressions, but this
-   * can be changed with the positional option, -regextype.
-   */
-  int regex_options;
-
-  /* function used to get file context */
-  int (*x_getfilecon) (int, const char *, char **);
-
-  /* Optimisation level.  One is the default.
-   */
-  unsigned short optimisation_level;
+       /* Pointer to the function used to stat files. */
+       int (*xstat) (const char *name, struct stat *statbuf);
 
 
-  /* How should we quote filenames in error messages and so forth?
-   */
-  enum quoting_style err_quoting_style;
+       /* Indicate if we can implement safely_chdir() using the O_NOFOLLOW
+        * flag to open(2).
+        */
+       bool open_nofollow_available;
 
-  /* Read starting points from FILE (instead of argv).  */
-  const char *files0_from;
+       /* The variety of regular expression that we support.
+        * The default is POSIX Basic Regular Expressions, but this
+        * can be changed with the positional option, -regextype.
+        */
+       int regex_options;
 
-  /* True if actions like -ok, -okdir need a user confirmation via stdin.  */
-  bool ok_prompt_stdin;
-};
+       /* function used to get file context */
+       int (*x_getfilecon) (int, const char *, char **);
+
+       /* Optimisation level.  One is the default.
+        */
+       unsigned short optimisation_level;
 
 
-struct state
-{
-  /* Current depth; 0 means current path is a command line arg. */
-  int curdepth;
+       /* How should we quote filenames in error messages and so forth?
+        */
+       enum quoting_style err_quoting_style;
 
-  /* If true, we have called stat on the current path. */
-  bool have_stat;
+       /* Read starting points from FILE (instead of argv).  */
+       const char *files0_from;
 
-  /* If true, we know the type of the current path. */
-  bool have_type;
-  mode_t type;                  /* this is the actual type */
+       /* True if actions like -ok, -okdir need a user confirmation via stdin.  */
+       bool ok_prompt_stdin;
+     };
 
-  /* The file being operated on, relative to the current directory.
-     Used for stat, readlink, remove, and opendir.  */
-  const char *rel_pathname;
 
-  /* The directory fd to which rel_pathname is relative.  This is relevant
-   * when we're navigating the hierarchy with fts() and using FTS_CWDFD.
-   */
-  int cwd_dir_fd;
+     struct state
+     {
+       /* Current depth; 0 means current path is a command line arg. */
+       int curdepth;
 
-  /* Length of starting path. */
-  int starting_path_length;
+       /* If true, we have called stat on the current path. */
+       bool have_stat;
 
-  /* If true, don't descend past current directory.
-     Can be set by -prune, -maxdepth, -mount and -xdev. */
-  bool stop_at_current_level;
+       /* If true, we know the type of the current path. */
+       bool have_type;
+       mode_t type;             /* this is the actual type */
 
-  /* Status value to return to system. */
-  int exit_status;
+       /* The file being operated on, relative to the current directory.
+          Used for stat, readlink, remove, and opendir.  */
+       const char *rel_pathname;
 
-  /* True if there are any execdirs.  This saves us a pair of fchdir()
-   * calls for every directory we leave if it is false.  This is just
-   * an optimisation.  Set to true if you want to be conservative.
-   */
-  bool execdirs_outstanding;
+       /* The directory fd to which rel_pathname is relative.  This is relevant
+        * when we're navigating the hierarchy with fts() and using FTS_CWDFD.
+        */
+       int cwd_dir_fd;
 
-  /* Shared files, opened via the interface in sharefile.h. */
-  sharefile_handle shared_files;
+       /* Length of starting path. */
+       int starting_path_length;
 
-  /* Avoid multiple error messages for the same file. */
-  bool already_issued_stat_error_msg;
-};
+       /* If true, don't descend past current directory.
+          Can be set by -prune, -maxdepth, -mount and -xdev. */
+       bool stop_at_current_level;
+
+       /* Status value to return to system. */
+       int exit_status;
+
+       /* True if there are any execdirs.  This saves us a pair of fchdir()
+        * calls for every directory we leave if it is false.  This is just
+        * an optimisation.  Set to true if you want to be conservative.
+        */
+       bool execdirs_outstanding;
+
+       /* Shared files, opened via the interface in sharefile.h. */
+       sharefile_handle shared_files;
+
+       /* Avoid multiple error messages for the same file. */
+       bool already_issued_stat_error_msg;
+     };
 
 /* exec.c */
-bool impl_pred_exec (const char *pathname, struct stat *stat_buf, struct predicate *pred_ptr);
-int launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv);
+     bool impl_pred_exec (const char *pathname, struct stat *stat_buf,
+                          struct predicate *pred_ptr);
+     int launch (struct buildcmd_control *ctl, void *usercontext, int argc,
+                 char **argv);
 
 /* finddata.c */
-extern struct options options;
-extern struct state state;
-extern struct saved_cwd *initial_wd;
+     extern struct options options;
+     extern struct state state;
+     extern struct saved_cwd *initial_wd;
 
 #endif

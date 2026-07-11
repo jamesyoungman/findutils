@@ -25,15 +25,13 @@
 int
 explain_how_to_report_bugs (FILE *f, const char *program_name)
 {
-  return fprintf (f,_(""
-"Please see also the documentation at %s.\n"
-"You can report (and track progress on fixing) bugs in the \"%s\"\n"
-"program via the %s bug-reporting page at\n"
-"%s or, if\n"
-"you have no web access, by sending email to <%s>.\n"),
+  return fprintf (f, _(""
+                       "Please see also the documentation at %s.\n"
+                       "You can report (and track progress on fixing) bugs in the \"%s\"\n"
+                       "program via the %s bug-reporting page at\n"
+                       "%s or, if\n"
+                       "you have no web access, by sending email to <%s>.\n"),
                   PACKAGE_URL,
                   program_name,
-                  PACKAGE_NAME,
-                  PACKAGE_BUGREPORT_URL,
-                  PACKAGE_BUGREPORT);
+                  PACKAGE_NAME, PACKAGE_BUGREPORT_URL, PACKAGE_BUGREPORT);
 }

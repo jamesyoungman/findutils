@@ -29,7 +29,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <time.h>
-#include <unistd.h> /* for readlink() */
+#include <unistd.h>             /* for readlink() */
 
 /* gnulib headers. */
 #include "areadlink.h"
@@ -51,7 +51,7 @@
 # ifdef MAJOR_IN_SYSMACROS
 #  include <sys/sysmacros.h>
 # else
-#  ifndef major                    /* Might be defined in sys/types.h.  */
+#  ifndef major                 /* Might be defined in sys/types.h.  */
 #   define major(dev)  (((dev) >> 8) & 0xff)
 #   define minor(dev)  ((dev) & 0xff)
 #  endif
@@ -59,7 +59,8 @@
 #endif
 
 
-static bool print_name (register const char *p, FILE *stream, int literal_control_chars);
+static bool print_name (register const char *p, FILE * stream,
+                        int literal_control_chars);
 
 /* We have some minimum field sizes, though we try to widen these fields on systems
  * where we discover examples where the field width we started with is not enough. */
@@ -73,7 +74,8 @@ static int major_device_number_width = 3;
 static int minor_device_number_width = 3;
 static int file_size_width = 8;
 
-static bool print_num(FILE *stream, unsigned long num, int *width)
+static bool
+print_num (FILE *stream, unsigned long num, int *width)
 {
   const int chars_out = fprintf (stream, "%*lu", *width, num);
   if (chars_out >= 0)
@@ -100,9 +102,7 @@ list_file (const char *name,
            const char *relname,
            const struct stat *statp,
            time_t current_time,
-           int output_block_size,
-           int literal_control_chars,
-           FILE *stream)
+           int output_block_size, int literal_control_chars, FILE *stream)
 {
   char modebuf[12];
   struct tm const *when_local;
@@ -122,8 +122,7 @@ list_file (const char *name,
 
   chars_out = fprintf (stream, "%*s", inode_number_width,
                        human_readable ((uintmax_t) statp->st_ino, hbuf,
-                                       human_ceiling,
-                                       1u, 1u));
+                                       human_ceiling, 1u, 1u));
   if (chars_out < 0)
     {
       output_good = false;
@@ -135,16 +134,16 @@ list_file (const char *name,
     }
   if (output_good)
     {
-      if (EOF == putc(' ', stream))
+      if (EOF == putc (' ', stream))
         {
           output_good = false;
           failed_at = 150;
         }
       chars_out = fprintf (stream, "%*s",
                            block_size_width,
-                           human_readable ((uintmax_t) ST_NBLOCKS (*statp), hbuf,
-                                           human_ceiling,
-                                           ST_NBLOCKSIZE, output_block_size));
+                           human_readable ((uintmax_t) ST_NBLOCKS (*statp),
+                                           hbuf, human_ceiling, ST_NBLOCKSIZE,
+                                           output_block_size));
       if (chars_out < 0)
         {
           output_good = false;
@@ -159,7 +158,7 @@ list_file (const char *name,
 
   if (output_good)
     {
-      if (EOF == putc(' ', stream))
+      if (EOF == putc (' ', stream))
         {
           output_good = false;
           failed_at = 250;
@@ -181,8 +180,8 @@ list_file (const char *name,
          has only one space between the link count and the owner name,
          so we removed the trailing space.  Happily this also makes it
          easier to update nlink_width. */
-      chars_out =  fprintf (stream, "%*lu",
-                            nlink_width, (unsigned long) statp->st_nlink);
+      chars_out = fprintf (stream, "%*lu",
+                           nlink_width, (unsigned long) statp->st_nlink);
       if (chars_out < 0)
         {
           output_good = false;
@@ -197,7 +196,7 @@ list_file (const char *name,
 
   if (output_good)
     {
-      if (EOF == putc(' ', stream))
+      if (EOF == putc (' ', stream))
         {
           output_good = false;
           failed_at = 250;
@@ -208,13 +207,15 @@ list_file (const char *name,
           int len = mbswidth (user_name, 0);
           if (len > owner_width)
             owner_width = len;
-          output_good = (fprintf (stream, "%-*s ", owner_width, user_name) >= 0);
+          output_good =
+            (fprintf (stream, "%-*s ", owner_width, user_name) >= 0);
           if (!output_good)
             failed_at = 400;
         }
       else
         {
-          chars_out = fprintf (stream, "%-8lu ", (unsigned long) statp->st_uid);
+          chars_out =
+            fprintf (stream, "%-8lu ", (unsigned long) statp->st_uid);
           if (chars_out > owner_width)
             owner_width = chars_out;
           output_good = (chars_out > 0);
@@ -231,7 +232,8 @@ list_file (const char *name,
           int len = mbswidth (group_name, 0);
           if (len > group_width)
             group_width = len;
-          output_good = (fprintf (stream, "%-*s ", group_width, group_name) >= 0);
+          output_good =
+            (fprintf (stream, "%-*s ", group_width, group_name) >= 0);
           if (!output_good)
             failed_at = 500;
         }
@@ -244,7 +246,7 @@ list_file (const char *name,
           output_good = (chars_out >= 0);
           if (output_good)
             {
-              if (EOF == putc(' ', stream))
+              if (EOF == putc (' ', stream))
                 {
                   output_good = false;
                   failed_at = 525;
@@ -303,9 +305,9 @@ list_file (const char *name,
           const int blocksize = output_block_size < 0 ? output_block_size : 1;
           chars_out = fprintf (stream, "%*s",
                                file_size_width,
-                               human_readable ((uintmax_t) statp->st_size, hbuf,
-                                               human_ceiling,
-                                               1, blocksize));
+                               human_readable ((uintmax_t) statp->st_size,
+                                               hbuf, human_ceiling, 1,
+                                               blocksize));
           if (chars_out < 0)
             {
               output_good = false;
@@ -323,7 +325,7 @@ list_file (const char *name,
 
   if (output_good)
     {
-      if (EOF == putc(' ', stream))
+      if (EOF == putc (' ', stream))
         {
           output_good = false;
           failed_at = 850;
@@ -349,8 +351,7 @@ list_file (const char *name,
           char const *fmt =
             ((current_time - 6 * 30 * 24 * 60 * 60 <= statp->st_mtime
               && statp->st_mtime <= current_time + 60 * 60)
-             ? "%b %e %H:%M"
-             : "%b %e  %Y");
+             ? "%b %e %H:%M" : "%b %e  %Y");
 
           while (!strftime (buf, bufsize, fmt, when_local))
             buf = alloca (bufsize *= 2);
@@ -369,7 +370,7 @@ list_file (const char *name,
 
           if (statp->st_mtime < 0)
             {
-              char const *num = human_readable (- (uintmax_t) statp->st_mtime,
+              char const *num = human_readable (-(uintmax_t) statp->st_mtime,
                                                 hbuf, human_ceiling, 1, 1);
               int sign_width = width - strlen (num);
               if (fprintf (stream, "%*s%s ",
@@ -383,8 +384,7 @@ list_file (const char *name,
             {
               if (fprintf (stream, "%*s ", width,
                            human_readable ((uintmax_t) statp->st_mtime, hbuf,
-                                           human_ceiling,
-                                           1, 1)) < 0)
+                                           human_ceiling, 1, 1)) < 0)
                 {
                   output_good = false;
                   failed_at = 1100;
@@ -416,7 +416,8 @@ list_file (const char *name,
                 }
               if (output_good)
                 {
-                  output_good = print_name (linkname, stream, literal_control_chars);
+                  output_good =
+                    print_name (linkname, stream, literal_control_chars);
                   if (!output_good)
                     {
                       failed_at = 1350;
@@ -449,7 +450,8 @@ list_file (const char *name,
     }
   if (!output_good)
     {
-      error (EXIT_FAILURE, errno, _("Failed to write output (at stage %d)"), failed_at);
+      error (EXIT_FAILURE, errno, _("Failed to write output (at stage %d)"),
+             failed_at);
     }
 }
 
@@ -508,7 +510,7 @@ print_name_with_quoting (register const char *p, FILE *stream)
             {
               if (EOF == putc (c, stream))
                 return false;
-              fprintf_result = 1; /* otherwise it's used uninitialized. */
+              fprintf_result = 1;       /* otherwise it's used uninitialized. */
             }
           else
             {
@@ -521,7 +523,8 @@ print_name_with_quoting (register const char *p, FILE *stream)
   return true;
 }
 
-static bool print_name (register const char *p, FILE *stream, int literal_control_chars)
+static bool
+print_name (register const char *p, FILE *stream, int literal_control_chars)
 {
   if (literal_control_chars)
     return print_name_without_quoting (p, stream);

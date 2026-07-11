@@ -24,6 +24,6 @@ void forget_non_cloexec_fds (void);
 void complain_about_leaky_fds (void);
 bool fd_leak_check_is_enabled (void);
 
-int open_cloexec(const char *path, int flags, ...);
+int open_cloexec (const char *path, int flags, ...);
 
 #endif

@@ -78,7 +78,8 @@
  * This code taken from coreutils' system.h header at
  * Sun Jun  5 21:05:21 2005 UTC.
  */
-static inline unsigned char to_uchar (char ch)
+static inline unsigned char
+to_uchar (char ch)
 {
   return ch;
 }
@@ -92,7 +93,7 @@ unibyte_qmark_chars (char *buf, size_t len)
 
   while (p < plimit)
     {
-      if (! ISPRINT (to_uchar (*p)))
+      if (!ISPRINT (to_uchar (*p)))
         *p = '?';
       p++;
     }
@@ -126,26 +127,98 @@ qmark_chars (char *buf, size_t len)
       while (p < plimit)
         switch (*p)
           {
-          case ' ': case '!': case '"': case '#': case '%':
-          case '&': case '\'': case '(': case ')': case '*':
-          case '+': case ',': case '-': case '.': case '/':
-          case '0': case '1': case '2': case '3': case '4':
-          case '5': case '6': case '7': case '8': case '9':
-          case ':': case ';': case '<': case '=': case '>':
+          case ' ':
+          case '!':
+          case '"':
+          case '#':
+          case '%':
+          case '&':
+          case '\'':
+          case '(':
+          case ')':
+          case '*':
+          case '+':
+          case ',':
+          case '-':
+          case '.':
+          case '/':
+          case '0':
+          case '1':
+          case '2':
+          case '3':
+          case '4':
+          case '5':
+          case '6':
+          case '7':
+          case '8':
+          case '9':
+          case ':':
+          case ';':
+          case '<':
+          case '=':
+          case '>':
           case '?':
-          case 'A': case 'B': case 'C': case 'D': case 'E':
-          case 'F': case 'G': case 'H': case 'I': case 'J':
-          case 'K': case 'L': case 'M': case 'N': case 'O':
-          case 'P': case 'Q': case 'R': case 'S': case 'T':
-          case 'U': case 'V': case 'W': case 'X': case 'Y':
+          case 'A':
+          case 'B':
+          case 'C':
+          case 'D':
+          case 'E':
+          case 'F':
+          case 'G':
+          case 'H':
+          case 'I':
+          case 'J':
+          case 'K':
+          case 'L':
+          case 'M':
+          case 'N':
+          case 'O':
+          case 'P':
+          case 'Q':
+          case 'R':
+          case 'S':
+          case 'T':
+          case 'U':
+          case 'V':
+          case 'W':
+          case 'X':
+          case 'Y':
           case 'Z':
-          case '[': case '\\': case ']': case '^': case '_':
-          case 'a': case 'b': case 'c': case 'd': case 'e':
-          case 'f': case 'g': case 'h': case 'i': case 'j':
-          case 'k': case 'l': case 'm': case 'n': case 'o':
-          case 'p': case 'q': case 'r': case 's': case 't':
-          case 'u': case 'v': case 'w': case 'x': case 'y':
-          case 'z': case '{': case '|': case '}': case '~':
+          case '[':
+          case '\\':
+          case ']':
+          case '^':
+          case '_':
+          case 'a':
+          case 'b':
+          case 'c':
+          case 'd':
+          case 'e':
+          case 'f':
+          case 'g':
+          case 'h':
+          case 'i':
+          case 'j':
+          case 'k':
+          case 'l':
+          case 'm':
+          case 'n':
+          case 'o':
+          case 'p':
+          case 'q':
+          case 'r':
+          case 's':
+          case 't':
+          case 'u':
+          case 'v':
+          case 'w':
+          case 'x':
+          case 'y':
+          case 'z':
+          case '{':
+          case '|':
+          case '}':
+          case '~':
             /* These characters are printable ASCII characters.  */
             *q++ = *p++;
             break;
@@ -205,7 +278,7 @@ qmark_chars (char *buf, size_t len)
                       *q++ = '?';
                     }
                 }
-              while (! mbsinit (&mbstate));
+              while (!mbsinit (&mbstate));
             }
             break;
           }

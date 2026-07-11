@@ -44,8 +44,8 @@ field_length (const char *str, const char *separators)
 
 
 bool
-splitstring(const char *s, const char *separators, bool first,
-            size_t *pos, size_t *len)
+splitstring (const char *s, const char *separators, bool first,
+             size_t *pos, size_t *len)
 {
   if (first)
     {
@@ -56,7 +56,7 @@ splitstring(const char *s, const char *separators, bool first,
     {
       *pos += *len;             /* advance to the next field. */
       if (s[*pos])
-        ++*pos;                 /* skip the separator */
+        ++ * pos;               /* skip the separator */
       else
         return false;           /* we reached the end. */
     }

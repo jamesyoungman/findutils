@@ -28,13 +28,15 @@
 #include "splitstring.h"
 
 static void
-assertEqualFunc(const char *file, int line, const char *label,
-                size_t expected, size_t got)
+assertEqualFunc (const char *file, int line, const char *label,
+                 size_t expected, size_t got)
 {
   if (expected != got)
-    fprintf(stderr, "%s line %d: %s: expected %lu, got %lu\n",
-            file, line, label, (unsigned long)expected, (unsigned long)got);
+    fprintf (stderr, "%s line %d: %s: expected %lu, got %lu\n",
+             file, line, label, (unsigned long) expected,
+             (unsigned long) got);
 }
+
 #define ASSERT_EQUAL(expected,got) \
   do{ \
     assertEqualFunc(__FILE__,__LINE__,"ASSERT_EQUAL",expected,got); \
@@ -57,7 +59,8 @@ test_empty (void)
   assert (!result);
 }
 
-static void test_onefield (void)
+static void
+test_onefield (void)
 {
   size_t len, pos;
   bool result;
@@ -71,7 +74,8 @@ static void test_onefield (void)
   assert (!result);
 }
 
-static void test_not_colon (void)
+static void
+test_not_colon (void)
 {
   size_t len, pos;
   bool result;
@@ -92,7 +96,8 @@ static void test_not_colon (void)
   assert (!result);
 }
 
-static void test_empty_back (void)
+static void
+test_empty_back (void)
 {
   size_t len, pos;
   bool result;
@@ -110,7 +115,8 @@ static void test_empty_back (void)
   assert (!result);
 }
 
-static void test_empty_front (void)
+static void
+test_empty_front (void)
 {
   size_t len, pos;
   bool result;
@@ -128,7 +134,8 @@ static void test_empty_front (void)
   assert (!result);
 }
 
-static void test_twofields (void)
+static void
+test_twofields (void)
 {
   size_t len, pos;
   bool result;
@@ -146,7 +153,8 @@ static void test_twofields (void)
   assert (!result);
 }
 
-static void test_twoseparators (void)
+static void
+test_twoseparators (void)
 {
   size_t len, pos;
   bool result;
@@ -158,7 +166,7 @@ static void test_twoseparators (void)
   ASSERT_EQUAL (1, len);
   result = splitstring (input, ":!", false, &pos, &len);
   assert (result);
-  ASSERT_EQUAL (2,  pos);
+  ASSERT_EQUAL (2, pos);
   ASSERT_EQUAL (2, len);
   result = splitstring (input, ":!", false, &pos, &len);
   assert (result);
@@ -168,7 +176,8 @@ static void test_twoseparators (void)
   assert (!result);
 }
 
-static void test_consecutive_empty (void)
+static void
+test_consecutive_empty (void)
 {
   size_t len, pos;
   bool result;
@@ -194,10 +203,11 @@ static void test_consecutive_empty (void)
   assert (!result);
 }
 
-int main (int argc, char *argv[])
+int
+main (int argc, char *argv[])
 {
-  (void) argc; /* pacify -Werror=unused-parameter */
-  (void) argv; /* pacify -Werror=unused-parameter */
+  (void) argc;                  /* pacify -Werror=unused-parameter */
+  (void) argv;                  /* pacify -Werror=unused-parameter */
 
   test_empty ();
   test_onefield ();

@@ -55,8 +55,7 @@
 #include "system.h"
 
 static char *file_system_type_uncached (const struct stat *statp,
-                                        const char *path,
-                                        bool *fstype_known);
+                                        const char *path, bool *fstype_known);
 
 
 static void
@@ -98,7 +97,7 @@ in_afs (char *path)
 
   if (pioctl (path, VIOC_FILE_CELL_NAME, &vi, 1)
       && (errno == EINVAL || errno == ENOENT))
-        return 0;
+    return 0;
   return 1;
 }
 #endif /* AFS */
@@ -115,14 +114,14 @@ get_file_system_list (bool need_fs_type)
   /* Remember if the list contains the ME_TYPE members.  */
   static bool has_fstype = false;
 
-  if (mount_list && ! has_fstype && need_fs_type)
+  if (mount_list && !has_fstype && need_fs_type)
     {
       free_file_system_list (mount_list);
       mount_list = NULL;
     }
-  if (! mount_list)
+  if (!mount_list)
     {
-      mount_list = read_file_system_list(need_fs_type);
+      mount_list = read_file_system_list (need_fs_type);
       has_fstype = need_fs_type;
     }
   return mount_list;
@@ -154,9 +153,9 @@ filesystem_type (const struct stat *statp, const char *path)
 }
 
 bool
-is_used_fs_type(const char *name)
+is_used_fs_type (const char *name)
 {
-  if (0 == strcmp("afs", name))
+  if (0 == strcmp ("afs", name))
     {
       /* I guess AFS may not appear in /etc/mtab (or equivalent) but still be in use,
          so assume we always need to check for AFS.  */
@@ -164,13 +163,13 @@ is_used_fs_type(const char *name)
     }
   else
     {
-      const struct mount_entry *entries = get_file_system_list(false);
+      const struct mount_entry *entries = get_file_system_list (false);
       if (entries)
         {
           const struct mount_entry *entry;
           for (entry = entries; entry; entry = entry->me_next)
             {
-              if (0 == strcmp(name, entry->me_type))
+              if (0 == strcmp (name, entry->me_type))
                 return true;
             }
         }
@@ -187,10 +186,10 @@ set_fstype_devno (struct mount_entry *p)
 {
   struct stat stbuf;
 
-  if (p->me_dev == (dev_t)-1)
+  if (p->me_dev == (dev_t) - 1)
     {
       set_stat_placeholders (&stbuf);
-      if (0 == (options.xstat)(p->me_mountdir, &stbuf))
+      if (0 == (options.xstat) (p->me_mountdir, &stbuf))
         {
           p->me_dev = stbuf.st_dev;
           return 0;
@@ -235,7 +234,7 @@ file_system_type_uncached (const struct stat *statp, const char *path,
        */
       error (EXIT_FAILURE, 0, _("Cannot read mounted file system list"));
     }
-  for (type=NULL, entry=entries; entry; entry=entry->me_next)
+  for (type = NULL, entry = entries; entry; entry = entry->me_next)
     {
 #ifdef MNTTYPE_IGNORE
       if (!strcmp (entry->me_type, MNTTYPE_IGNORE))
@@ -251,7 +250,7 @@ file_system_type_uncached (const struct stat *statp, const char *path,
                  symlink to /proc/mounts) can have duplicate entries
                  in the filesystem list.  This happens most frequently
                  for /.
-              */
+               */
             }
         }
     }
@@ -287,10 +286,9 @@ get_mounted_devices (size_t *n)
    * but we never need the information, there is no need to fail.
    */
   for (entry = entries = read_file_system_list (false);
-       entry;
-       entry = entry->me_next)
+       entry; entry = entry->me_next)
     {
-      void *p = extendbuf (result, sizeof(dev_t)*(used+1), &alloc_size);
+      void *p = extendbuf (result, sizeof (dev_t) * (used + 1), &alloc_size);
       if (p)
         {
           result = p;

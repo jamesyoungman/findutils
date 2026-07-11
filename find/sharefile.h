@@ -22,10 +22,10 @@
 # include <stdlib.h>
 # include <stdio.h>
 
-typedef void * sharefile_handle;
+typedef void *sharefile_handle;
 
-sharefile_handle sharefile_init(const char *mode);
-FILE *sharefile_fopen(sharefile_handle, const char *filename);
-void sharefile_destroy(sharefile_handle);
+sharefile_handle sharefile_init (const char *mode);
+FILE *sharefile_fopen (sharefile_handle, const char *filename);
+void sharefile_destroy (sharefile_handle);
 
 #endif

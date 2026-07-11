@@ -38,7 +38,7 @@ safe_atoi (const char *s, enum quoting_style style)
 
   errno = 0;
   lval = strtol (s, &end, 10);
-  if ( (LONG_MAX == lval) || (LONG_MIN == lval) )
+  if ((LONG_MAX == lval) || (LONG_MIN == lval))
     {
       /* max/min possible value, or an error. */
       if (errno == ERANGE)
@@ -76,5 +76,5 @@ safe_atoi (const char *s, enum quoting_style style)
       error (EXIT_FAILURE, errno, _("Expected an integer: %s"),
              quotearg_n_style (0, style, s));
     }
-  return (int)lval;
+  return (int) lval;
 }

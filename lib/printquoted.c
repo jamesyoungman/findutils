@@ -36,9 +36,7 @@
 int
 print_quoted (FILE *fp,
               const struct quoting_options *qopts,
-              bool dest_is_tty,
-              const char *format,
-              const char *s)
+              bool dest_is_tty, const char *format, const char *s)
 {
   int rv;
 

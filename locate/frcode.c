@@ -122,8 +122,7 @@ prefix_length (char *s1, char *s2)
   return s1 - start;
 }
 
-static struct option const longopts[] =
-{
+static struct option const longopts[] = {
   {"help", no_argument, NULL, 'h'},
   {"version", no_argument, NULL, 'v'},
   {"null", no_argument, NULL, '0'},
@@ -135,13 +134,13 @@ usage (int status)
 {
   if (status != EXIT_SUCCESS)
     {
-      fprintf (stderr, _("Try '%s --help' for more information.\n"), program_name);
+      fprintf (stderr, _("Try '%s --help' for more information.\n"),
+               program_name);
       exit (status);
     }
 
   fprintf (stdout,
-           _("Usage: %s [-0 | --null] [--version] [--help]\n"),
-           program_name);
+           _("Usage: %s [-0 | --null] [--version] [--help]\n"), program_name);
 
   explain_how_to_report_bugs (stdout, program_name);
   exit (status);
@@ -159,28 +158,25 @@ get_seclevel (char *s)
   errno = 0;
 
   result = strtol (s, &p, 10);
-  if ((0==result) && (p == optarg))
+  if ((0 == result) && (p == optarg))
     {
       error (EXIT_FAILURE, 0,
              _("You need to specify a security level as a decimal integer."));
-      /*NOTREACHED*/
-      return -1;
+       /*NOTREACHED*/ return -1;
     }
-  else if ((LONG_MIN==result || LONG_MAX==result) && errno)
+  else if ((LONG_MIN == result || LONG_MAX == result) && errno)
 
     {
       error (EXIT_FAILURE, 0,
              _("Security level %s is outside the convertible range."), s);
-      /*NOTREACHED*/
-      return -1;
+       /*NOTREACHED*/ return -1;
     }
   else if (*p)
     {
       /* Some suffix exists */
       error (EXIT_FAILURE, 0,
              _("Security level %s has unexpected suffix %s."), s, p);
-      /*NOTREACHED*/
-      return -1;
+       /*NOTREACHED*/ return -1;
     }
   else
     {
@@ -201,7 +197,7 @@ main (int argc, char **argv)
   char *path;                   /* The current input entry.  */
   char *oldpath;                /* The previous input entry.  */
   size_t pathsize, oldpathsize; /* Amounts allocated for them.  */
-  int count, oldcount, diffcount; /* Their prefix lengths & the difference. */
+  int count, oldcount, diffcount;       /* Their prefix lengths & the difference. */
   int line_len;                 /* Length of input line.  */
   int delimiter = '\n';
   int optc;
@@ -218,7 +214,7 @@ main (int argc, char **argv)
       error (EXIT_FAILURE, errno, _("The atexit library function failed"));
     }
 
-  pathsize = oldpathsize = 1026; /* Increased as necessary by getline.  */
+  pathsize = oldpathsize = 1026;        /* Increased as necessary by getline.  */
   path = xmalloc (pathsize);
   oldpath = xmalloc (oldpathsize);
 
@@ -226,7 +222,8 @@ main (int argc, char **argv)
   oldcount = 0;
 
 
-  while ((optc = getopt_long (argc, argv, "hv0S:", longopts, (int *) 0)) != -1)
+  while ((optc =
+          getopt_long (argc, argv, "hv0S:", longopts, (int *) 0)) != -1)
     switch (optc)
       {
       case '0':
@@ -275,7 +272,8 @@ main (int argc, char **argv)
       if (fwrite (LOCATEDB_MAGIC, 1, sizeof (LOCATEDB_MAGIC), stdout)
           != sizeof (LOCATEDB_MAGIC))
         {
-          error (EXIT_FAILURE, errno, _("Failed to write to standard output"));
+          error (EXIT_FAILURE, errno,
+                 _("Failed to write to standard output"));
         }
     }
 
@@ -288,12 +286,12 @@ main (int argc, char **argv)
         }
       else
         {
-          path[line_len - 1] = '\0'; /* FIXME temporary: nuke the delimiter.  */
+          path[line_len - 1] = '\0';    /* FIXME temporary: nuke the delimiter.  */
         }
 
       count = prefix_length (oldpath, path);
       diffcount = count - oldcount;
-      if ( (diffcount > SHRT_MAX) || (diffcount < SHRT_MIN) )
+      if ((diffcount > SHRT_MAX) || (diffcount < SHRT_MIN))
         {
           /* We do this to prevent overflow of the value we
            * write with put_short ()
@@ -327,8 +325,8 @@ main (int argc, char **argv)
             }
         }
 
-      if ( (EOF == fputs (path + count, stdout))
-           || (EOF == putc ('\0', stdout)))
+      if ((EOF == fputs (path + count, stdout))
+          || (EOF == putc ('\0', stdout)))
         {
           outerr ();
         }

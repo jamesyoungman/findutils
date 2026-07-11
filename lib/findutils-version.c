@@ -44,8 +44,7 @@ display_findutils_version (const char *official_name)
    * GNU coding standard.
    */
   fflush (stderr);
-  version_etc (stdout,
-               official_name, PACKAGE_NAME, version_string,
+  version_etc (stdout, official_name, PACKAGE_NAME, version_string,
                /* TRANSLATORS: This is a proper name. */
                _("Eric B. Decker"),
                /* TRANSLATORS: This is a proper name. */
@@ -53,6 +52,5 @@ display_findutils_version (const char *official_name)
                /* TRANSLATORS: This is a proper name. */
                _("Bernhard Voelker"),
                /* TRANSLATORS: This is a proper name. */
-               _("Kevin Dalley"),
-               (const char*) NULL);
+               _("Kevin Dalley"), (const char *) NULL);
 }

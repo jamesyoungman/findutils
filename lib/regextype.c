@@ -40,28 +40,29 @@
 struct tagRegexTypeMap
 {
   const char *name;
-  int  context;
-  int  option_val;
+  int context;
+  int option_val;
 };
 
-static struct tagRegexTypeMap regex_map[] =
-  {
-   { "findutils-default",     CONTEXT_FINDUTILS, RE_SYNTAX_EMACS|RE_DOT_NEWLINE  },
-   { "awk",                   CONTEXT_ALL,       RE_SYNTAX_AWK                   },
-   { "ed",                    CONTEXT_GENERIC,   RE_SYNTAX_ED                    },
-   { "egrep",                 CONTEXT_ALL,       RE_SYNTAX_EGREP                 },
-   { "emacs",                 CONTEXT_ALL,       RE_SYNTAX_EMACS                 },
-   { "gnu-awk",               CONTEXT_ALL,       RE_SYNTAX_GNU_AWK               },
-   { "grep",                  CONTEXT_ALL,       RE_SYNTAX_GREP                  },
-   { "posix-awk",             CONTEXT_ALL,       RE_SYNTAX_POSIX_AWK             },
-   { "posix-basic",           CONTEXT_ALL,       RE_SYNTAX_POSIX_BASIC           },
-   { "posix-egrep",           CONTEXT_ALL,       RE_SYNTAX_POSIX_EGREP           },
-   { "posix-extended",        CONTEXT_ALL,       RE_SYNTAX_POSIX_EXTENDED        },
-   { "posix-minimal-basic",   CONTEXT_GENERIC,   RE_SYNTAX_POSIX_MINIMAL_BASIC   },
-   { "sed",                   CONTEXT_GENERIC,   RE_SYNTAX_SED                   },
-   /*    ,{ "posix-common",   CONTEXT_GENERIC,  _RE_SYNTAX_POSIX_COMMON   } */
-  };
-enum { N_REGEX_MAP_ENTRIES = sizeof (regex_map)/sizeof (regex_map[0]) };
+static struct tagRegexTypeMap regex_map[] = {
+  {"findutils-default", CONTEXT_FINDUTILS, RE_SYNTAX_EMACS | RE_DOT_NEWLINE},
+  {"awk", CONTEXT_ALL, RE_SYNTAX_AWK},
+  {"ed", CONTEXT_GENERIC, RE_SYNTAX_ED},
+  {"egrep", CONTEXT_ALL, RE_SYNTAX_EGREP},
+  {"emacs", CONTEXT_ALL, RE_SYNTAX_EMACS},
+  {"gnu-awk", CONTEXT_ALL, RE_SYNTAX_GNU_AWK},
+  {"grep", CONTEXT_ALL, RE_SYNTAX_GREP},
+  {"posix-awk", CONTEXT_ALL, RE_SYNTAX_POSIX_AWK},
+  {"posix-basic", CONTEXT_ALL, RE_SYNTAX_POSIX_BASIC},
+  {"posix-egrep", CONTEXT_ALL, RE_SYNTAX_POSIX_EGREP},
+  {"posix-extended", CONTEXT_ALL, RE_SYNTAX_POSIX_EXTENDED},
+  {"posix-minimal-basic", CONTEXT_GENERIC, RE_SYNTAX_POSIX_MINIMAL_BASIC},
+  {"sed", CONTEXT_GENERIC, RE_SYNTAX_SED},
+  /*    ,{ "posix-common",   CONTEXT_GENERIC,  _RE_SYNTAX_POSIX_COMMON   } */
+};
+
+enum
+{ N_REGEX_MAP_ENTRIES = sizeof (regex_map) / sizeof (regex_map[0]) };
 
 int
 get_regex_type (const char *s)
@@ -71,7 +72,7 @@ get_regex_type (const char *s)
   char *buf, *p;
 
   msglen = 0u;
-  for (i=0u; i<N_REGEX_MAP_ENTRIES; ++i)
+  for (i = 0u; i < N_REGEX_MAP_ENTRIES; ++i)
     {
       if (0 == strcmp (regex_map[i].name, s))
         return regex_map[i].option_val;
@@ -83,7 +84,7 @@ get_regex_type (const char *s)
    * user indicated they wanted.  Tell them what the options are.
    */
   p = buf = xmalloc (1u + msglen);
-  for (i=0u; i<N_REGEX_MAP_ENTRIES; ++i)
+  for (i = 0u; i < N_REGEX_MAP_ENTRIES; ++i)
     {
       if (i > 0u)
         {
@@ -95,10 +96,8 @@ get_regex_type (const char *s)
 
   error (EXIT_FAILURE, 0,
          _("Unknown regular expression type %s; valid types are %s."),
-         quote (s),
-         buf);
-  /*NOTREACHED*/
-  return -1;
+         quote (s), buf);
+   /*NOTREACHED*/ return -1;
 }
 
 
@@ -120,7 +119,8 @@ get_regex_type_flags (unsigned int ix)
     return -1;
 }
 
-unsigned int get_regex_type_context (unsigned int ix)
+unsigned int
+get_regex_type_context (unsigned int ix)
 {
   if (ix < N_REGEX_MAP_ENTRIES)
     return regex_map[ix].context;
@@ -140,7 +140,7 @@ get_regex_type_synonym (unsigned int ix, unsigned int context)
   /* Terminate the loop before we get to IX, so that we always
      consistently choose the same entry as a synonym (rather than
      stating that x and y are synonyms of each other). */
-  for (i=0u; i<ix; ++i)
+  for (i = 0u; i < ix; ++i)
     {
       if ((regex_map[i].context & context) == 0)
         {

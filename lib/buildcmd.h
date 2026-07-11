@@ -25,10 +25,10 @@
 struct buildcmd_state
 {
   /* Number of valid elements in `cmd_argv', including terminating NULL.  */
-  size_t cmd_argc;                      /* 0 */
+  size_t cmd_argc;              /* 0 */
 
   /* The list of args being built.  */
-  char **cmd_argv; /* NULL */
+  char **cmd_argv;              /* NULL */
 
   /* Number of elements allocated for `cmd_argv'.  */
   size_t cmd_argv_alloc;
@@ -59,7 +59,7 @@ struct buildcmd_state
 struct buildcmd_control
 {
   /* If true, exit if lines_per_exec or args_per_exec is exceeded.  */
-  int exit_if_size_exceeded; /* false */
+  int exit_if_size_exceeded;    /* false */
 
   /* POSIX limits on the argument length. */
   size_t posix_arg_size_max;
@@ -84,31 +84,32 @@ struct buildcmd_control
   size_t rplen;
 
   /* If nonzero, then instead of putting the args from stdin at
-   the end of the command argument list, they are each stuck into the
-   initial args, replacing each occurrence of the `replace_pat' in the
-   initial args.  */
+     the end of the command argument list, they are each stuck into the
+     initial args, replacing each occurrence of the `replace_pat' in the
+     initial args.  */
   const char *replace_pat;
 
   /* Number of initial arguments given on the command line.  */
   size_t initial_argc;          /* 0 */
 
   /* exec callback. */
-  int (*exec_callback)(struct buildcmd_control *, void *usercontext, int argc, char **argv);
+  int (*exec_callback) (struct buildcmd_control *, void *usercontext,
+                        int argc, char **argv);
 
   /* If nonzero, the maximum number of nonblank lines from stdin to use
      per command line.  */
-  unsigned long lines_per_exec;         /* 0 */
+  unsigned long lines_per_exec; /* 0 */
 
   /* The maximum number of arguments to use per command line.  */
   size_t args_per_exec;
 };
 
 enum BC_INIT_STATUS
-  {
-    BC_INIT_OK = 0,
-    BC_INIT_ENV_TOO_BIG,
-    BC_INIT_CANNOT_ACCOMODATE_HEADROOM
-  };
+{
+  BC_INIT_OK = 0,
+  BC_INIT_ENV_TOO_BIG,
+  BC_INIT_CANNOT_ACCOMODATE_HEADROOM
+};
 
 extern size_t bc_size_of_environment (void);
 
@@ -121,24 +122,22 @@ extern void bc_do_insert (struct buildcmd_control *ctl,
                           int initial_args);
 
 extern void bc_do_exec (struct buildcmd_control *ctl,
-                         struct buildcmd_state *state);
+                        struct buildcmd_state *state);
 
 extern void bc_push_arg (struct buildcmd_control *ctl,
                          struct buildcmd_state *state,
-                         const char *arg,    size_t len,
-                         const char *prefix, size_t pfxlen,
-                         int initial_args);
+                         const char *arg, size_t len,
+                         const char *prefix, size_t pfxlen, int initial_args);
 
-extern void  bc_init_state(const struct buildcmd_control *ctl,
-                           struct buildcmd_state *state,
-                           void *usercontext);
-extern enum BC_INIT_STATUS bc_init_controlinfo(struct buildcmd_control *ctl,
-                                               size_t arglen_headroom);
-extern size_t bc_get_arg_max(void);
-extern void bc_use_sensible_arg_max(struct buildcmd_control *ctl);
-extern void bc_clear_args(const struct buildcmd_control *ctl,
-                          struct buildcmd_state *state);
-bool bc_args_exceed_testing_limit(char **argv);
+extern void bc_init_state (const struct buildcmd_control *ctl,
+                           struct buildcmd_state *state, void *usercontext);
+extern enum BC_INIT_STATUS bc_init_controlinfo (struct buildcmd_control *ctl,
+                                                size_t arglen_headroom);
+extern size_t bc_get_arg_max (void);
+extern void bc_use_sensible_arg_max (struct buildcmd_control *ctl);
+extern void bc_clear_args (const struct buildcmd_control *ctl,
+                           struct buildcmd_state *state);
+bool bc_args_exceed_testing_limit (char **argv);
 
 
 #endif

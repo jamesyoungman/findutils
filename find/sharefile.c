@@ -37,9 +37,9 @@
 
 
 enum
-  {
-    DefaultHashTableSize = 11
-  };
+{
+  DefaultHashTableSize = 11
+};
 
 struct sharefile
 {
@@ -61,7 +61,7 @@ struct SharefileEntry
 {
   dev_t device;
   ino_t inode;
-  char *name; /* not the only name for this file; error messages only */
+  char *name;                   /* not the only name for this file; error messages only */
   FILE *fp;
 };
 
@@ -69,7 +69,7 @@ struct SharefileEntry
 static bool
 entry_comparator (const void *av, const void *bv)
 {
-  const struct SharefileEntry *a=av, *b=bv;
+  const struct SharefileEntry *a = av, *b = bv;
   return (a->inode == b->inode) && (a->device == b->device);
 }
 
@@ -108,8 +108,7 @@ sharefile_init (const char *mode)
         {
           p->table = hash_initialize (DefaultHashTableSize, NULL,
                                       entry_hashfunc,
-                                      entry_comparator,
-                                      entry_free);
+                                      entry_comparator, entry_free);
           if (p->table)
             {
               return p;
@@ -179,18 +178,18 @@ sharefile_fopen (sharefile_handle h, const char *filename)
           new_entry->inode = st.st_ino;
 
           existing = hash_lookup (p->table, new_entry);
-          if (existing)     /* We have previously opened that file. */
+          if (existing)         /* We have previously opened that file. */
             {
-              entry_free (new_entry); /* don't need new_entry. */
-              return ((const struct SharefileEntry*)existing)->fp;
+              entry_free (new_entry);   /* don't need new_entry. */
+              return ((const struct SharefileEntry *) existing)->fp;
             }
-          else /* We didn't open it already */
+          else                  /* We didn't open it already */
             {
               if (hash_insert (p->table, new_entry))
                 {
                   return new_entry->fp;
                 }
-              else                      /* failed to insert in hashtable. */
+              else              /* failed to insert in hashtable. */
                 {
                   const int save_errno = errno;
                   entry_free (new_entry);

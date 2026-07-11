@@ -76,7 +76,7 @@ record_exec_dir (struct exec_val *execp)
 
          We deal with this by extracting any directory part and using
          that to adjust what goes into execp->wd_for_exec.
-      */
+       */
       if (strchr (state.rel_pathname, '/'))
         {
           char *dir = mdir_name (state.rel_pathname);
@@ -97,8 +97,7 @@ record_exec_dir (struct exec_val *execp)
 
 bool
 impl_pred_exec (const char *pathname,
-                struct stat *stat_buf,
-                struct predicate *pred_ptr)
+                struct stat *stat_buf, struct predicate *pred_ptr)
 {
   struct exec_val *execp = &pred_ptr->args.exec_vec;
   char *buf = NULL;
@@ -114,15 +113,14 @@ impl_pred_exec (const char *pathname,
       /* For -execdir/-okdir predicates, the parser did not fill in
          the wd_for_exec member of struct exec_val.  So for those
          predicates, we do so now.
-      */
+       */
       if (!record_exec_dir (execp))
         {
           error (EXIT_FAILURE, errno,
                  _("Failed to save working directory in order to "
                    "run a command on %s"),
                  safely_quote_err_filename (0, pathname));
-          /*NOTREACHED*/
-        }
+         /*NOTREACHED*/}
       target = buf = base_name (state.rel_pathname);
       if ('/' == target[0])
         {
@@ -142,7 +140,7 @@ impl_pred_exec (const char *pathname,
          have set wd_for_exec to initial_wd, indicating
          that the exec should take place from find's initial
          working directory.
-      */
+       */
       assert (execp->wd_for_exec == initial_wd);
       target = pathname;
       prefix = NULL;
@@ -157,9 +155,7 @@ impl_pred_exec (const char *pathname,
        */
       bc_push_arg (&execp->ctl,
                    &execp->state,
-                   target, strlen (target)+1,
-                   prefix, pfxlen,
-                   0);
+                   target, strlen (target) + 1, prefix, pfxlen, 0);
 
       /* remember that there are pending execdirs. */
       if (execp->state.todo)
@@ -174,23 +170,21 @@ impl_pred_exec (const char *pathname,
     {
       int i;
 
-      for (i=0; i<execp->num_args; ++i)
+      for (i = 0; i < execp->num_args; ++i)
         {
           bc_do_insert (&execp->ctl,
                         &execp->state,
                         execp->replace_vec[i],
                         strlen (execp->replace_vec[i]),
-                        prefix, pfxlen,
-                        target, strlen (target),
-                        0);
+                        prefix, pfxlen, target, strlen (target), 0);
         }
 
       /* Actually invoke the command. */
       bc_do_exec (&execp->ctl, &execp->state);
-      if (WIFEXITED(execp->last_child_status))
+      if (WIFEXITED (execp->last_child_status))
         {
-          if (0 == WEXITSTATUS(execp->last_child_status))
-            result = true;        /* The child succeeded. */
+          if (0 == WEXITSTATUS (execp->last_child_status))
+            result = true;      /* The child succeeded. */
           else
             result = false;
         }
@@ -245,16 +239,17 @@ prep_child_for_exec (bool close_stdin, const struct saved_cwd *wd)
         {
           if (open (inputfile, O_RDONLY
 #if defined O_LARGEFILE
-                   |O_LARGEFILE
+                    | O_LARGEFILE
 #endif
-                   ) < 0)
+              ) < 0)
             {
               /* This is not entirely fatal, since
                * executing the child with a closed
                * stdin is almost as good as executing it
                * with its stdin attached to /dev/null.
                */
-              error (0, errno, "%s", safely_quote_err_filename (0, inputfile));
+              error (0, errno, "%s",
+                     safely_quote_err_filename (0, inputfile));
               /* do not set ok=false, it is OK to continue anyway. */
             }
         }
@@ -283,7 +278,8 @@ prep_child_for_exec (bool close_stdin, const struct saved_cwd *wd)
 
 
 int
-launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
+launch (struct buildcmd_control *ctl, void *usercontext, int argc,
+        char **argv)
 {
   pid_t child_pid;
   static int first_time = 1;
@@ -297,7 +293,7 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
       int i;
       fprintf (stderr, "DebugExec: launching process (argc=%" PRIuMAX "):",
                (uintmax_t) execp->state.cmd_argc - 1);
-      for (i=0; i<execp->state.cmd_argc -1; ++i)
+      for (i = 0; i < execp->state.cmd_argc - 1; ++i)
         {
           fprintf (stderr, " %s",
                    safely_quote_err_filename (0, execp->state.cmd_argv[i]));
@@ -348,16 +344,16 @@ launch (struct buildcmd_control *ctl, void *usercontext, int argc, char **argv)
       else
         execvp (argv[0], argv);
       /* TODO: use a pipe to pass back the errno value, like xargs does */
-      error (0, errno, "%s",
-             safely_quote_err_filename (0, argv[0]));
+      error (0, errno, "%s", safely_quote_err_filename (0, argv[0]));
       _exit (1);
     }
 
-  while (waitpid (child_pid, &(execp->last_child_status), 0) == (pid_t) -1)
+  while (waitpid (child_pid, &(execp->last_child_status), 0) == (pid_t) - 1)
     {
       if (errno != EINTR)
         {
-          error (0, errno, _("error waiting for the command we executed for %s"),
+          error (0, errno,
+                 _("error waiting for the command we executed for %s"),
                  safely_quote_err_filename (0, argv[0]));
           state.exit_status = EXIT_FAILURE;
           return 0;             /* FAIL */
