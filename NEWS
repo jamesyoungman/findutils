@@ -20,7 +20,7 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   complete predicate, because '+' is only a terminator when it follows
   an argument which is exactly '{}'.  The findutils documentation
   already states this, and now find's behaviour matches the
-  documentation.
+  documentation. [#66365]
 
   'updatedb.sh' now properly handles the variables for the 'find' and 'frcode'
   utilities, and hence avoids command injection.
@@ -81,7 +81,6 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
   Arabic, Brazilian Portuguese, Bulgarian, Chinese (simplified), Croatian,
   Czech, Dutch, Estonian, French, German, Indonesian, Korean, Polish,
   Portuguese, Romanian, Spanish, Swedish, Ukrainian.
-
 
 ** Future Changes
 
