@@ -1116,7 +1116,9 @@ newest @samp{.po} files.
 @code{--enable-compiler-warnings --enable-compiler-warnings-are-errors}.
 @item Test; make sure that all changes you have made have tests, and
 that the tests pass.
-Verify this with @code{env RUN_EXPENSIVE_TESTS=yes make distcheck}.
+Run the usual @code{make check} and @code{make syntax-check}, and also
+run the special privilege-requiring tests with @code{sudo make check-root}.
+Finally verify with @code{env RUN_EXPENSIVE_TESTS=yes make distcheck}.
 @c The RUN_EXPENSIVE_TESTS environment variable is checked in init.cfg.
 @item Bugs; make sure all Savannah bug entries fixed in this release
 are marked as fixed in Savannah.  Optionally close them too to save
