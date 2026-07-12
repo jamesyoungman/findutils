@@ -71,6 +71,7 @@ static int block_size_width = 6;
 static int nlink_width = 3;
 static int owner_width = 8;
 static int group_width = 8;
+static int symbolic_mode_width = 10;
 /* We don't print st_author even if the system has it. */
 static int major_device_number_width = 3;
 static int minor_device_number_width = 3;
@@ -208,11 +209,11 @@ print_file_owner (const struct stat *statp, FILE *stream)
       int len = mbswidth (user_name, 0);
       if (len > owner_width)
         owner_width = len;
-      chars_out = fprintf (stream, "%-*s ", owner_width, user_name);
+      chars_out = fprintf (stream, "%-*s", owner_width, user_name);
     }
   else
     {
-      chars_out = fprintf (stream, "%-8lu ", (unsigned long) statp->st_uid);
+      chars_out = fprintf (stream, "%-8lu", (unsigned long) statp->st_uid);
     }
   return update_width_if_success (chars_out, &owner_width);
 }
@@ -227,7 +228,7 @@ print_file_group (const struct stat *statp, FILE *stream)
       int len = mbswidth (group_name, 0);
       if (len > group_width)
         group_width = len;
-      chars_out = fprintf (stream, "%-*s ", group_width, group_name);
+      chars_out = fprintf (stream, "%-*s", group_width, group_name);
     }
   else
     {
@@ -237,10 +238,22 @@ print_file_group (const struct stat *statp, FILE *stream)
   return update_width_if_success (chars_out, &group_width);
 }
 
+static void
+delete_single_final_space_if_present (char *s)
+{
+  size_t len = strlen (s);
+  if (0 == len)
+    return;
+  if (s[len -1] == ' ')
+    s[len - 1] = 0;
+}
+
+
 static bool
 print_file_mode (const struct stat *statp, FILE *stream)
 {
   char modebuf[12];
+  modebuf[0] = 0;
 #if HAVE_ST_DM_MODE
   /* Cray DMF: look at the file's migrated, not real, status */
   strmode (statp->st_dm_mode, modebuf);
@@ -248,12 +261,17 @@ print_file_mode (const struct stat *statp, FILE *stream)
   strmode (statp->st_mode, modebuf);
 #endif
   /* modebuf normally includes a trailing space the space between the
-     mode and the number of links, as the POSIX "optional alternate
-     access method flag".  Alternatively though the last character may
-     be non-blank.  In that case we need to emit a space to separate
-     the mode and link count.
+   * mode and the number of links, as the POSIX "optional alternate
+   * access method flag".  Alternatively though the last character may
+   * be non-blank.  If it is blank we delete it (POSIX 2024 ls has an
+   * empty string rather than a single blank if there is no alternate
+   * access method).
    */
-  return fputs (modebuf, stream) >= 0;
+  delete_single_final_space_if_present (modebuf);
+  return update_width_if_success (fprintf (stream, "%-*s",
+					   symbolic_mode_width,
+					   modebuf),
+				  &symbolic_mode_width);
 }
 
 static bool
@@ -428,6 +446,9 @@ list_file_internal (const char *name,
   if (!print_block_count (statp, output_block_size, stream))
     return false;
 
+  if (!print_single_space (stream))
+    return false;
+
   if (!print_file_mode (statp, stream))
     return false;
 
@@ -441,6 +462,9 @@ list_file_internal (const char *name,
     return false;
 
   if (!print_file_owner (statp, stream))
+    return false;
+
+  if (!print_single_space (stream))
     return false;
 
   if (!print_file_group (statp, stream))
@@ -469,7 +493,7 @@ list_file_internal (const char *name,
        stream))
     return false;
 
-  if (!print_single_space (stream))
+  if (EOF == putc ('\n', stream))
     return false;
 
   return true;
@@ -562,9 +586,10 @@ print_name_with_quoting (register const char *p, FILE *stream)
         default:
           if (c > 040 && c < 0177)
             {
-              if (!print_single_space (stream))
-                return false;
-              fprintf_result = 1;       /* otherwise it's used uninitialized. */
+	      if (EOF == putc (c, stream))
+                fprintf_result = -1;
+	      else
+		fprintf_result = 1; /* otherwise it's used uninitialized. */
             }
           else
             {

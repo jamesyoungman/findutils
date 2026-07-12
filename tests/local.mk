@@ -120,6 +120,8 @@ sh_tests = \
   tests/find/inode-zero.sh \
   tests/find/many-dir-entries-vs-OOM.sh \
   tests/find/name-lbracket-literal.sh \
+  tests/find/ls-format-file.sh \
+  tests/find/ls-format-symlink.sh \
   tests/find/name-slash.sh \
   tests/find/printf_escapechars.sh \
   tests/find/printf_escape_c.sh \
