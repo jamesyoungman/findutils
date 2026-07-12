@@ -28,3 +28,5 @@
 /gendocs.sh
 /git-version-gen
 /gnu-web-doc-update
+/announce-gen
+/do-release-commit-and-tag

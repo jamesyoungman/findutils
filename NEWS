@@ -2,6 +2,10 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
+** Changes to the release process
+
+We now use the gnulib module readme-release which automates more of
+the steps involved in making a release.
 
 * Noteworthy changes in release 4.11.0 (2026-07-11) [stable]
 

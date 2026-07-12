@@ -1102,6 +1102,13 @@ included in the @file{ChangeLog} and @file{NEWS} entries. See
 @chapter Making Releases
 This section explains how to make a findutils release.
 
+The example commands here and in @file{README-release} use
+@samp{configure} for commands where you should run the
+@file{configure} script.  In all cases, you should use the actual path
+to the @file{configure} script.  Use @code{./configure} when source
+and build directories are the same, or some other absolute or relative
+path (for example @code{../findutils/configure}) when they are not.
+
 In some cases the suggested commands use @code{make -j} for speed.
 However, some systems may not be able to support unbounded
 parallelism.  You can either simply not use @samp{-j} or refer to the
@@ -1110,102 +1117,57 @@ GNU Make documentation for alternatives.
 @set RELEASE X.Y.Z
 @set RELTAG v@value{RELEASE}
 
+
+@section Readiness Checks
+
+Make sure that all the tests pass:
+
+@example
+configure --enable-compiler-warnings \
+  --enable-compiler-warnings-are-errors &&
+make  -j clean &&
+make  -j &&
+make  -j check check-all-manpages
+@end example
+
+Also run the tests which require root privileges:
+
+@example
+sudo make check-root &&
+sudo find tests -user root -exec chown -- "$@{USER@}" @{@} \+
+@end example
+
+
+@section Making the Release
+
 @enumerate
-@item Commit changes; make sure your working directory has no
-uncommitted changes.
-@item Update translation files; re-run @code{bootstrap} to download the
-newest @samp{.po} files.
-@item Make sure compiler warnings would block the release:
+
+@item Make sure that the @samp{SAVANNAH_CVS_USER} environment variable
+is correctly set.  You can skip this step for releases where you don't
+plan to update the documentation on the web site.
+
 @example
-configure --enable-compiler-warnings --enable-compiler-warnings-are-errors
-make  -j
+SAVANNAH_CVS_USER=jay
+export SAVANNAH_CVS_USER
 @end example
-@item Test; make sure that all changes you have made have tests, and
-that the tests pass.
-@c We run syntax-check without -j since otherwise it's inconvenient
-@c to determine which specific check failed.
-@example
-make -j check check-all-manpages
-make syntax-check
-sudo make check-root
-env RUN_EXPENSIVE_TESTS=yes make distcheck
-@end example
-@c The RUN_EXPENSIVE_TESTS environment variable is checked in init.cfg.
-@item Bugs; make sure all Savannah bug entries fixed in this release
-are marked as fixed in Savannah.  Optionally close them too to save
-duplicate work (otherwise, close them after the release is uploaded).
-@item Add new release in Savannah field values; see the
+
+@item Follow the instructions in the README-release file.
+@end enumerate
+
+@section Bug Housekeeping
+
+@enumerate
+@item Add the new release in Savannah's field values; see the
 @url{https://savannah.gnu.org/bugs/admin/field_values.php?group=findutils,@code{Bugs
-> Edit Field Values} menu item}.  Add a field value for the release you
-are about to make so that users can report bugs in it.
-@item Update version; make sure that the NEWS file
-is updated with the new release number (and checked in).
-@c There is no longer any need to update configure.ac, since it no
-@c longer contains version information.
-@item Switch to the main (master) branch;
-if you were not already on this branch, switch to it now and merge the
-changes you plan to include in the release.
-@item Tag the release; findutils releases are tagged like this for
-example: v4.5.5.  You can create a tag with the a command like this:
-@c we use @example here because @value will not work within @code or @samp.
-@example
-git tag -s -m "Findutils release @value{RELEASE}" @value{RELTAG}
-@end example
-@noindent
-@item Build the release tarball; do this with @code{make distcheck}.
-Copy the tarball somewhere safe.
-@item Push; push your master to origin/master, and push the tag too.
-Assuming that the name of your remote is @samp{origin}:
-@example
-git push origin
-git push origin tag @value{RELTAG}
-@end example
-@item Prepare the upload and upload it.
-You can do this with
-@c we use @example here because @value will not work within @code or @samp.
-@example
-build-aux/gnupload --to ftp.gnu.org:findutils findutils-@value{RELEASE}.tar.xz
-@end example
-@noindent
-Use @code{alpha.gnu.org:findutils} for an alpha or beta release.
-@xref{Automated FTP Uploads, ,Automated FTP
-Uploads, maintain, Information for Maintainers of GNU Software},
-for detailed upload instructions.
-@item Check the FTP upload worked; you can look for an email from the
-robot or check the contents of the actual FTP site.
-@item Make a release announcement; include an extract from the NEWS
-file which explains what's changed.  Announcements for test releases
-should just go to @email{bug-findutils@@gnu.org}.  Announcements for
-stable releases should go to @email{info-gnu@@gnu.org} as well.
-@item Submit a Savannah news item for findutils announcing the new
-release.  Use the findutils
-@url{https://savannah.gnu.org/news/submit.php?group=findutils, news
-submission page} to submit the item and then
-@url{https://savannah.gnu.org/news/approve.php?group=findutils,
-approve it}.
-@item Post-release administrativa: add a new dummy release header in NEWS:
+> Edit Field Values} menu item}.  There are two fields to update,
+@samp{Fixed Release} (so that you can indicate that the current release
+fixes a bug) and
+@samp{Release} (so that users can report problems in the current release).
 
-@code{* Major changes in release ?.?.?, YYYY-MM-DD}
-
-and update the @code{old_NEWS_hash} in @file{cfg.mk} with
-@code{make update-NEWS-hash}.
-Commit both changes.
-@c make update-NEWS-hash supports make news-check but we normally
-@c don't do that (and I'm not sure that the current NEWS file would
-@c pass the check anyway).
-@item Close bugs; any bugs recorded on Savannah which were fixed in this
-release should now be marked as closed if there were not already.
-Update the @samp{Fixed Release} field of these bugs appropriately and
-make sure the @samp{Assigned to} field is populated.
-@item Update the version of the online manual at
-@url{https://www.gnu.org/software/findutils/manual/find.html};
-you should be able to do this with the ``web-manual-update'' target.
-For this to work correctly though, you will need to ensure that is set
-to your Savannah user name.   Like this for example:
-
-@example
-env SAVANNAH_CVS_USER=jay make web-manual-update
-@end example
+@item Close bugs; any bugs recorded on Savannah which were fixed
+should now be marked as fixed and also closed.  Update the @samp{Fixed
+Release} field of these bugs appropriately and make sure the
+@samp{Assigned to} field is populated.
 
 @c Bernhard did this by hand last time. though, so this isn't tested
 @c yet.
