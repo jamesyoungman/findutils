@@ -278,10 +278,13 @@ AC_CHECK_MEMBER(struct dirent.d_type,,,[
 jy_AC_ATTRIBUTE_NORETURN
 
 dnl Internationalization macros.
+dnl We use need-ngettext because locate.c uses ngettext.
+AM_GNU_GETTEXT([external], [need-ngettext])
+dnl Require support for inttypes.h macros.
+AM_GNU_GETTEXT_NEED([need-formatstring-macros])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 dnl AM_GNU_GETTEXT_REQUIRE_VERSION makes autopoint pull the latest available
 dnl version instead of the exact specified version.
-AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.19.8])
 AM_GNU_GETTEXT_REQUIRE_VERSION([0.19.8])
 
 dnl regextype.c and regexprops.c are designed to be usable outside findutils,
