@@ -17,6 +17,9 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnits
 # no-dependencies
+
+include $(top_srcdir)/build-aux/gnulib_extra_libs.am
+
 AM_CFLAGS = $(WARN_CFLAGS)
 
 noinst_LIBRARIES = libfind.a
@@ -24,7 +27,8 @@ noinst_LIBRARIES = libfind.a
 check_PROGRAMS = regexprops test_splitstring
 check_SCRIPTS = check-regexprops
 regexprops_SOURCES = regexprops.c regextype.c
-regexprops_LDADD = $(LDADD) $(SETLOCALE_NULL_LIB) $(MBRTOWC_LIB)
+
+LDADD = libfind.a ../gl/lib/libgnulib.a $(findutils_gnulib_extra_libs)
 
 TESTS =
 if CROSS_COMPILING
@@ -68,7 +72,6 @@ MAINTAINERCLEANFILES =
 
 
 AM_CPPFLAGS = -I../gl/lib -I$(top_srcdir)/gl/lib
-LDADD = ../gl/lib/libgnulib.a $(LIBINTL)
 
 CLEANFILES = check-regexprops
 

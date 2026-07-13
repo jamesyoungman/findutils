@@ -16,6 +16,9 @@
 ## along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 AUTOMAKE_OPTIONS = std-options
+
+include $(top_srcdir)/build-aux/gnulib_extra_libs.am
+
 AM_CFLAGS = $(WARN_CFLAGS)
 LOCATE_DB = $(localstatedir)/locatedb
 localedir = $(datadir)/locale
@@ -35,7 +38,7 @@ nodist_locate_TEXINFOS = dblocation.texi
 
 AM_CPPFLAGS = -I$(top_srcdir)/lib -I../gl/lib -I$(top_srcdir)/gl/lib -DLOCATE_DB=\"$(LOCATE_DB)\" -DLOCALEDIR=\"$(localedir)\"
 
-LDADD = ../lib/libfind.a ../gl/lib/libgnulib.a $(LIBINTL) $(SETLOCALE_NULL_LIB) $(MBRTOWC_LIB)
+LDADD = ../lib/libfind.a ../gl/lib/libgnulib.a $(findutils_gnulib_extra_libs)
 
 $(PROGRAMS) $(LIBPROGRAMS): ../lib/libfind.a ../gl/lib/libgnulib.a
 

@@ -14,12 +14,17 @@
 ## along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 AUTOMAKE_OPTIONS = std-options
+
+include $(top_srcdir)/build-aux/gnulib_extra_libs.am
+
+
 AM_CFLAGS = $(WARN_CFLAGS)
 localedir = $(datadir)/locale
 bin_PROGRAMS = xargs
 man_MANS = xargs.1
 AM_CPPFLAGS = -I.. -I../gl/lib -I$(top_srcdir)/gl/lib -I$(top_srcdir)/lib -DLOCALEDIR=\"$(localedir)\"
-LDADD = ../lib/libfind.a ../gl/lib/libgnulib.a $(LIBINTL) $(SETLOCALE_NULL_LIB) $(MBRTOWC_LIB)
+
+LDADD = ../lib/libfind.a ../gl/lib/libgnulib.a $(findutils_gnulib_extra_libs)
 EXTRA_DIST = $(man_MANS)
 SUBDIRS = . testsuite
 

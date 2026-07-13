@@ -14,6 +14,9 @@
 ## along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 AUTOMAKE_OPTIONS = std-options
+
+include $(top_srcdir)/build-aux/gnulib_extra_libs.am
+
 AM_CFLAGS = $(WARN_CFLAGS)
 localedir = $(datadir)/locale
 
@@ -28,7 +31,8 @@ man_MANS         = find.1
 
 EXTRA_DIST = defs.h sharefile.h print.h $(man_MANS)
 AM_CPPFLAGS = -I../gl/lib -I$(top_srcdir)/lib -I$(top_srcdir)/gl/lib -DLOCALEDIR=\"$(localedir)\"
-LDADD = libfindtools.a ../lib/libfind.a ../gl/lib/libgnulib.a $(LIBINTL) $(CLOCK_TIME_LIB) $(EUIDACCESS_LIBGEN) $(LIB_SELINUX) $(MODF_LIBM) $(FINDLIBS) $(GETHOSTNAME_LIB) $(EUIDACCESS_LIBGEN) $(SETLOCALE_NULL_LIB) $(MBRTOWC_LIB)
+LDADD = libfindtools.a ../lib/libfind.a ../gl/lib/libgnulib.a $(findutils_gnulib_extra_libs)
+
 # gnulib advises we link against <first> because we use <second>:
 # $(GETHOSTNAME_LIB)            uname
 # $(CLOCK_TIME_LIB)             gettime
