@@ -244,7 +244,7 @@ delete_single_final_space_if_present (char *s)
   size_t len = strlen (s);
   if (0 == len)
     return;
-  if (s[len -1] == ' ')
+  if (s[len - 1] == ' ')
     s[len - 1] = 0;
 }
 
@@ -269,9 +269,8 @@ print_file_mode (const struct stat *statp, FILE *stream)
    */
   delete_single_final_space_if_present (modebuf);
   return update_width_if_success (fprintf (stream, "%-*s",
-					   symbolic_mode_width,
-					   modebuf),
-				  &symbolic_mode_width);
+                                           symbolic_mode_width,
+                                           modebuf), &symbolic_mode_width);
 }
 
 static bool
@@ -586,10 +585,10 @@ print_name_with_quoting (register const char *p, FILE *stream)
         default:
           if (c > 040 && c < 0177)
             {
-	      if (EOF == putc (c, stream))
+              if (EOF == putc (c, stream))
                 fprintf_result = -1;
-	      else
-		fprintf_result = 1; /* otherwise it's used uninitialized. */
+              else
+                fprintf_result = 1;     /* otherwise it's used uninitialized. */
             }
           else
             {
