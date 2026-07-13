@@ -170,9 +170,9 @@ NR == 1 {
     printf("%s: owner %s looks OK\n", ME, st_uid);
   }
   # field 6 is the group owner
-  if (st_gid != uowner) {
+  if (st_gid != gowner) {
     rv=1
-    printf("%s: failed test: expected group owner [%s], got [%s]\n", ME, uowner, st_gid);
+    printf("%s: failed test: expected group owner [%s], got [%s]\n", ME, gowner, st_gid);
   } else {
     printf("%s: group owner %s looks OK\n", ME, st_gid);
   }
