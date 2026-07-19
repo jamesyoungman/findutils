@@ -63,10 +63,52 @@ decimal_absval_add_one (char *buf)
   return result;
 }
 
+
+static void
+check_add_one (const char *input, const char *expected)
+{
+  char buf[100];
+  buf[0] = ' ';
+  strcpy (&buf[1], input);
+  const char *result = decimal_absval_add_one (buf);
+  if (0 != strcmp (result, expected))
+    {
+      fprintf (stderr,
+               "check_add_one: wrong output for [%s]; expected [%s], got [%s]\n",
+               input, expected, result);
+      exit (EXIT_FAILURE);
+    }
+}
+
+static void
+self_test (void)
+{
+  check_add_one ("0", "1");
+  check_add_one ("1", "2");
+  check_add_one ("9", "10");
+  check_add_one ("10", "11");
+  check_add_one ("94", "95");
+  check_add_one ("199", "200");
+  check_add_one ("999", "1000");
+  check_add_one ("499999999999999999999999999999999",
+                 "500000000000000000000000000000000");
+
+  check_add_one ("-1", "-2");
+  check_add_one ("-9", "-10");
+  check_add_one ("-10", "-11");
+  check_add_one ("-94", "-95");
+  check_add_one ("-199", "-200");
+  check_add_one ("-999", "-1000");
+  check_add_one ("-499999999999999999999999999999999",
+                 "-500000000000000000000000000000000");
+}
+
 int
 main (int argc, char **argv)
 {
   char limit[100];
+
+  self_test ();
 
 #define print_int(TYPE)                                      \
   sprintf (limit + 1, "%" "ju", (uintmax_t) TYPE##_MAX);     \
