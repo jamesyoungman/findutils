@@ -228,47 +228,52 @@ static bool parse_quit (const struct parser_table *, char *argv[],
 static bool parse_context (const struct parser_table *, char *argv[],
                            int *arg_ptr);
 
+/* *INDENT-OFF* */
 static bool
 parse_help (const struct parser_table *entry, char **argv, int *arg_ptr)
   _GL_ATTRIBUTE_NORETURN;
-     static bool parse_version (const struct parser_table *, char *argv[],
-                                int *arg_ptr) _GL_ATTRIBUTE_NORETURN;
+/* *INDENT-ON* */
+
+/* *INDENT-OFF* */
+static bool
+parse_version (const struct parser_table *, char *argv[], int *arg_ptr)
+  _GL_ATTRIBUTE_NORETURN;
+/* *INDENT-ON* */
 
 
-     static bool insert_type (char **argv, int *arg_ptr,
-                              const struct parser_table *entry,
-                              PRED_FUNC which_pred);
-     static bool insert_regex (char *argv[], int *arg_ptr,
-                               const struct parser_table *entry,
-                               int regex_options);
-     static bool insert_exec_ok (const char *action,
-                                 const struct parser_table *entry,
-                                 char *argv[], int *arg_ptr);
-     static bool get_comp_type (const char **str,
-                                enum comparison_type *comp_type);
-     static bool get_relative_timestamp (const char *str,
-                                         struct time_val *tval,
-                                         struct timespec origin,
-                                         double sec_per_unit,
-                                         const char *overflowmessage);
-     static bool get_num (const char *str,
-                          uintmax_t *num, enum comparison_type *comp_type);
-     static struct predicate *insert_num (char *argv[], int *arg_ptr,
-                                          const struct parser_table *entry);
-     static void open_output_file (const char *path, struct format_val *p);
-     static void open_stdout (struct format_val *p);
-     static bool stream_is_tty (FILE *fp);
-     static bool parse_noop (const struct parser_table *entry,
-                             char **argv, int *arg_ptr);
+static bool insert_type (char **argv, int *arg_ptr,
+                         const struct parser_table *entry,
+                         PRED_FUNC which_pred);
+static bool insert_regex (char *argv[], int *arg_ptr,
+                          const struct parser_table *entry,
+                          int regex_options);
+static bool insert_exec_ok (const char *action,
+                            const struct parser_table *entry,
+                            char *argv[], int *arg_ptr);
+static bool get_comp_type (const char **str, enum comparison_type *comp_type);
+static bool get_relative_timestamp (const char *str,
+                                    struct time_val *tval,
+                                    struct timespec origin,
+                                    double sec_per_unit,
+                                    const char *overflowmessage);
+static bool get_num (const char *str,
+                     uintmax_t * num, enum comparison_type *comp_type);
+static struct predicate *insert_num (char *argv[], int *arg_ptr,
+                                     const struct parser_table *entry);
+static void open_output_file (const char *path, struct format_val *p);
+static void open_stdout (struct format_val *p);
+static bool stream_is_tty (FILE * fp);
+static bool parse_noop (const struct parser_table *entry,
+                        char **argv, int *arg_ptr);
 
 /* Predicates we cannot handle in the usual way.  If you add an entry
  * to this table, double-check the switch statement in
  * pred_sanity_check() to make sure that the new case is being
  * correctly handled.
  */
-     static struct parser_table const parse_entry_newerXY = {
-       ARG_SPECIAL_PARSE, "newerXY", parse_newerXY, pred_newerXY        /* BSD  */
-     };
+static struct parser_table const parse_entry_newerXY = {
+  ARG_SPECIAL_PARSE, "newerXY", parse_newerXY, pred_newerXY     /* BSD  */
+};
 
 /* GNU find predicates that are not mentioned in POSIX are marked `GNU'.
    If they are in some Unix versions of find, they are marked `Unix'. */

@@ -223,12 +223,14 @@ static void wait_for_proc_all (void);
 static void increment_proc_max (int);
 static void decrement_proc_max (int);
 static long parse_num (char *str, int option, long min, long max, int fatal);
-static void
-usage (int status)
-  _GL_ATTRIBUTE_NORETURN;
 
 
-     static char get_char_oct_or_hex_escape (const char *s)
+/* *INDENT-OFF* */
+static void usage (int status) _GL_ATTRIBUTE_NORETURN;
+/* *INDENT-ON* */
+
+static char
+get_char_oct_or_hex_escape (const char *s)
 {
   const char *p;
   int base = 8;

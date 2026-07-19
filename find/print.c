@@ -54,21 +54,22 @@
 #undef MAX
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
+/* *INDENT-OFF* */
 static void
 checked_fprintf (struct format_val *dest, const char *fmt, ...)
 _GL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3);
+/* *INDENT-ON* */
 
 
 /* Create a new fprintf segment in *SEGMENT, with type KIND,
    from the text in FORMAT, which has length LEN.
    Return the address of the `next' pointer of the new segment. */
-     struct segment **make_segment (struct segment **segment,
-                                    char *format,
-                                    int len,
-                                    int kind,
-                                    char format_char,
-                                    char aux_format_char,
-                                    struct predicate *pred)
+struct segment **
+make_segment (struct segment **segment,
+              char *format,
+              int len,
+              int kind,
+              char format_char, char aux_format_char, struct predicate *pred)
 {
   enum EvaluationCost mycost = NeedsNothing;
   char *fmt;
