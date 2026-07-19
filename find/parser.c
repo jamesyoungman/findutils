@@ -694,7 +694,6 @@ found_parser (const char *original_arg, const struct parser_table *entry)
 /* Return a pointer to the parser function to invoke for predicate
    SEARCH_NAME.
    Return NULL if SEARCH_NAME is not a valid predicate name. */
-
 const struct parser_table *
 find_parser (const char *search_name)
 {
@@ -830,8 +829,6 @@ collect_arg_stat_info (char **argv, int *arg_ptr, struct stat *p,
    updated to point beyond the last element consumed.
 
    The predicate structure is updated with the new information. */
-
-
 static bool
 parse_and (const struct parser_table *entry, char **argv, int *arg_ptr)
 {

@@ -904,7 +904,6 @@ main (int argc, char **argv)
    as they do in the shell.
    Return -1 if eof (either physical or logical) is reached,
    otherwise the length of the last string read (including the null).  */
-
 static int
 read_line (void)
 {
@@ -1148,7 +1147,6 @@ read_string (void)
    If ASK is nonzero, prompt the user for a response, and
    if the user responds affirmatively, return true;
    otherwise, return false.  */
-
 static bool
 print_args (bool ask)
 {
@@ -1481,7 +1479,6 @@ xargs_do_exec (struct buildcmd_control *ctl, void *usercontext, int argc,
 }
 
 /* Execute the command if possible.  */
-
 static void
 exec_if_possible (void)
 {
@@ -1494,7 +1491,6 @@ exec_if_possible (void)
 
 /* Add the process with id PID to the list of processes that have
    been executed.  */
-
 static unsigned int
 add_proc (pid_t pid)
 {
@@ -1528,7 +1524,6 @@ add_proc (pid_t pid)
    otherwise, wait for one child process to finish, or for another signal
    that tells us that we can run more child processes.
    Remove the processes that finish from the list of executing processes.  */
-
 static void
 wait_for_proc (bool all, unsigned int minreap)
 {
@@ -1663,7 +1658,6 @@ wait_for_proc (bool all, unsigned int minreap)
 }
 
 /* Wait for all child processes to finish.  */
-
 static void
 wait_for_proc_all (void)
 {
@@ -1731,7 +1725,6 @@ decrement_proc_max (int ignore)
    If the value does not fall within the boundaries MIN and MAX,
    Print an error message mentioning OPTION.  If FATAL is true,
    we also exit. */
-
 static long
 parse_num (char *str, int option, long int min, long int max, int fatal)
 {

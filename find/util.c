@@ -86,7 +86,6 @@ static struct debug_option_assoc debugassoc[] = {
    get_new_pred_chk_op, which is used to ensure that the prior node is
    either not there at all (we are the very first node) or is an
    operator. */
-
 struct predicate *
 insert_primary_withpred (const struct parser_table *entry,
                          PRED_FUNC pred_func, const char *arg)
@@ -1143,7 +1142,6 @@ nonfatal_target_file_error (int errno_value, const char *name)
  *
  * Report an error on a target file (i.e. a file we are searching).
  * Such errors are only reported once per searched file.
- *
  */
 void
 fatal_target_file_error (int errno_value, const char *name)

@@ -104,7 +104,6 @@ matches_start_point (const char *glob, bool foldcase)
    PREV_PREC, the expression just nabbed is part of a following
    expression, which really is the expression that should be handed to
    our caller, so get_expr recurses. */
-
 static struct predicate *
 get_expr (struct predicate **input,
           short int prev_prec, const struct predicate *prev_pred)
@@ -245,7 +244,6 @@ get_expr (struct predicate **input,
    HEAD points to the predicate element that was obtained
    by the call to get_expr.
    PREV_PREC is the precedence of the previous predicate element. */
-
 static struct predicate *
 scan_rest (struct predicate **input,
            struct predicate *head, short int prev_prec)
@@ -695,7 +693,6 @@ do_arm_swaps (struct predicate *p)
      EVAL_TREEP points to the root pointer of the predicate tree
      to be rearranged.  opt_expr may return a new root pointer there.
      Return true if the tree contains side effects, false if not. */
-
 static bool
 opt_expr (struct predicate **eval_treep)
 {
@@ -1235,7 +1232,6 @@ calculate_derived_rates (struct predicate *p)
 /* opt_expr() rearranges predicates such that each left subtree is
  * rooted at a logical predicate (e.g. '-a' or '-o').
  * check_normalization() asserts that this property still holds.
- *
  */
 static void
 check_normalization (struct predicate *p, bool at_root)
@@ -1496,7 +1492,6 @@ get_new_pred_noarg (const struct parser_table *entry)
    Set `last_pred' to point to the new last predicate in the list.
 
    Set all cells in the new structure to the default values. */
-
 struct predicate *
 get_new_pred (const struct parser_table *entry)
 {
@@ -1533,7 +1528,6 @@ get_new_pred (const struct parser_table *entry)
 /* Return a pointer to a new predicate, with operator check.
    Like get_new_pred, but it checks to make sure that the previous
    predicate is an operator.  If it isn't, the AND operator is inserted. */
-
 struct predicate *
 get_new_pred_chk_op (const struct parser_table *entry, const char *arg)
 {
@@ -1672,7 +1666,6 @@ prec_name (short prec)
 
 /* Walk the expression tree NODE to stdout.
    INDENT is the number of levels to indent the left margin. */
-
 void
 print_tree (FILE *fp, struct predicate *node, int indent)
 {
