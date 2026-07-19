@@ -58,9 +58,6 @@
 #include "system.h"
 
 
-#undef  STAT_MOUNTPOINTS
-
-
 /* FTS_TIGHT_CYCLE_CHECK tries to work around Savannah bug #17877
  * (but actually using it doesn't fix the bug).
  */
@@ -77,7 +74,6 @@ find (char *arg)
      static bool process_all_startpoints (int argc,
                                           char *argv[])
   __attribute_warn_unused_result__;
-
 
 
      static void left_dir (void)
@@ -138,11 +134,6 @@ inside_dir (int dir_fd)
     }
 }
 
-
-
-#ifdef STAT_MOUNTPOINTS
-static void init_mounted_dev_list (void);
-#endif
 
 #define HANDLECASE(N) case N: return #N;
 
@@ -781,24 +772,6 @@ main (int argc, char **argv)
    * after the -H/-L options (if any).
    */
   eval_tree = build_expression_tree (argc, argv, end_of_leading_options);
-
-  /* safely_chdir() needs to check that it has ended up in the right place.
-   * To avoid bailing out when something gets automounted, it checks if
-   * the target directory appears to have had a directory mounted on it as
-   * we chdir()ed.  The problem with this is that in order to notice that
-   * a file system was mounted, we would need to lstat() all the mount points.
-   * That strategy loses if our machine is a client of a dead NFS server.
-   *
-   * Hence if safely_chdir() and wd_sanity_check() can manage without needing
-   * to know the mounted device list, we do that.
-   */
-  if (!options.open_nofollow_available)
-    {
-#ifdef STAT_MOUNTPOINTS
-      init_mounted_dev_list ();
-#endif
-    }
-
 
   /* process_all_startpoints processes the starting points named on
    * the command line.  A false return value from it means that we

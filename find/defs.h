@@ -510,13 +510,8 @@ pred_quit (const char *pathname, struct stat *stat_buf,
      int process_leading_options (int argc, char *argv[]);
      void set_option_defaults (struct options *p);
 
-# if 0
-#  define apply_predicate(pathname, stat_buf_ptr, node) \
-  (*(node)->pred_func)((pathname), (stat_buf_ptr), (node))
-# else
      bool apply_predicate (const char *pathname, struct stat *stat_buf,
                            struct predicate *p);
-# endif
 
 /* util.c. */
      bool following_links (void);
