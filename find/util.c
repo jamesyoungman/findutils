@@ -1064,9 +1064,6 @@ set_option_defaults (struct options *p)
 }
 
 
-/* apply_predicate
- *
- */
 bool
 apply_predicate (const char *pathname, struct stat *stat_buf,
                  struct predicate *p)
@@ -1091,26 +1088,18 @@ apply_predicate (const char *pathname, struct stat *stat_buf,
 }
 
 
-/* is_exec_in_local_dir
- *
- */
 bool
 is_exec_in_local_dir (const PRED_FUNC pred_func)
 {
   return pred_execdir == pred_func || pred_okdir == pred_func;
 }
 
-/* safely_quote_err_filename
- *
- */
 const char *
 safely_quote_err_filename (int n, char const *arg)
 {
   return quotearg_n_style (n, options.err_quoting_style, arg);
 }
 
-/* report_file_err
- */
 static void
 report_file_err (int exitval, int errno_value,
                  bool is_target_file, const char *name)
@@ -1130,8 +1119,6 @@ report_file_err (int exitval, int errno_value,
     }
 }
 
-/* nonfatal_target_file_error
- */
 void
 nonfatal_target_file_error (int errno_value, const char *name)
 {
@@ -1150,18 +1137,12 @@ fatal_target_file_error (int errno_value, const char *name)
    /*NOTREACHED*/ abort ();
 }
 
-/* nonfatal_nontarget_file_error
- *
- */
 void
 nonfatal_nontarget_file_error (int errno_value, const char *name)
 {
   report_file_err (0, errno_value, false, name);
 }
 
-/* fatal_nontarget_file_error
- *
- */
 void
 fatal_nontarget_file_error (int errno_value, const char *name)
 {
