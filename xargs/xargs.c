@@ -571,7 +571,9 @@ main (int argc, char **argv)
           break;
 
         case 'L':              /* POSIX */
-          bc_ctl.lines_per_exec = parse_num (optarg, 'L', 1L, -1L, 1);
+          bc_ctl.lines_per_exec =
+            parse_num (optarg, /* option= */ 'L', /*min= */ 1L, /*max= */ -1L,
+                       /*fatal= */ 1);
           /* -L excludes -i -n.  */
           if (bc_ctl.args_per_exec != 0)
             {
@@ -587,7 +589,8 @@ main (int argc, char **argv)
 
         case 'l':              /* deprecated */
           if (optarg)
-            bc_ctl.lines_per_exec = parse_num (optarg, 'l', 1L, -1L, 1);
+            bc_ctl.lines_per_exec = parse_num (optarg, /*option= */ 'l', /*min= */ 1L,  /*max= */
+                                               -1L, /*fatal= */ 1);
           else
             bc_ctl.lines_per_exec = 1;
           /* -l excludes -i -n.  */
@@ -604,7 +607,9 @@ main (int argc, char **argv)
           break;
 
         case 'n':
-          bc_ctl.args_per_exec = parse_num (optarg, 'n', 1L, -1L, 1);
+          bc_ctl.args_per_exec =
+            parse_num (optarg, /*option= */ 'n', /*min= */ 1L, /*max= */ -1L,
+                       /*fatal= */ 1);
           /* -n excludes -i -l.  */
           if (bc_ctl.lines_per_exec != 0)
             {
@@ -634,8 +639,11 @@ main (int argc, char **argv)
           {
             size_t arg_size;
             act_on_init_result ();
-            arg_size = parse_num (optarg, 's', 1L,
-                                  bc_ctl.posix_arg_size_max, 0);
+            arg_size = parse_num (optarg,
+                                  /*option= */ 's',
+                                  /*min= */ 1L,
+                                  /*max= */ bc_ctl.posix_arg_size_max,
+                                  /*fatal= */ 0);
             if (arg_size > bc_ctl.posix_arg_size_max)
               {
                 error (0, 0,
@@ -675,7 +683,8 @@ main (int argc, char **argv)
 
         case 'P':
           /* Allow only up to MAX_PROC_MAX child processes. */
-          proc_max = parse_num (optarg, 'P', 0L, MAX_PROC_MAX, 1);
+          proc_max = parse_num (optarg, /*option= */ 'P', /*min= */ 0L, /*max= */
+                                MAX_PROC_MAX, /*fatal= */ 1);
 #if defined SIGUSR1 && defined SIGUSR2
           catch_usr_signals = true;
 #else
