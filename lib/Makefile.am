@@ -24,7 +24,7 @@ AM_CFLAGS = $(WARN_CFLAGS)
 
 noinst_LIBRARIES = libfind.a
 
-check_PROGRAMS = regexprops test_splitstring
+check_PROGRAMS = regexprops test_splitstring test-add-one
 check_SCRIPTS = check-regexprops
 regexprops_SOURCES = regexprops.c regextype.c
 
@@ -35,10 +35,12 @@ if CROSS_COMPILING
 # The regexprops program needs to be a native executable, so we
 # can't build it with a cross-compiler.
 else
-TESTS += check-regexprops test_splitstring
+TESTS += check-regexprops test_splitstring test-add-one
 endif
 
 libfind_a_SOURCES = \
+	add-one.c \
+	add-one.h \
 	buildcmd.c \
 	buildcmd.h \
 	dircallback.c \
@@ -89,3 +91,4 @@ check-regexprops: check-regexprops.sh
 	chmod +x check-regexprops
 
 test_splitstring_SOURCES = test_splitstring.c splitstring.c
+test_add_one_SOURCES = test-add-one.c
