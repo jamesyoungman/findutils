@@ -17,8 +17,8 @@
 
 built_programs = find xargs frcode locate updatedb
 
-AM_CPPFLAGS = -I$(top_srcdir)/gl/lib
-LDADD = $(top_builddir)/gl/lib/libgnulib.a
+AM_CPPFLAGS = -I$(top_srcdir)/gl/lib -I$(top_srcdir)/lib
+LDADD = $(top_builddir)/lib/libfind.a $(top_builddir)/gl/lib/libgnulib.a
 
 # Indirections required so that we'll still be able to know the
 # complete list of our tests even if the user overrides TESTS
@@ -91,6 +91,7 @@ all_root_tests = \
 
 check_PROGRAMS = $(binary_tests)
 binary_tests = \
+        tests/xargs/test-option-range \
 	tests/xargs/test-sigusr
 
 ALL_RECURSIVE_TARGETS += check-root

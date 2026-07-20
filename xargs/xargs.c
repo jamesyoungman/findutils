@@ -222,7 +222,12 @@ static void wait_for_proc (bool all, unsigned int minreap);
 static void wait_for_proc_all (void);
 static void increment_proc_max (int);
 static void decrement_proc_max (int);
-static long parse_num (char *str, int option, long min, long max, int fatal);
+
+static bool parse_signed_num (char *str, int option, intmax_t min,
+                              intmax_t max, bool silent, intmax_t * out);
+static bool parse_unsigned_num (char *str, int option, uintmax_t min,
+                                uintmax_t max, bool silent, uintmax_t * out);
+
 
 
 /* *INDENT-OFF* */
@@ -398,6 +403,13 @@ warn_mutually_exclusive (const char *option, const char *offending)
                  "ignoring previous %s value"), offending, option, offending);
 }
 
+static void
+show_option_arg_bounds (char opt, uintmax_t min, uintmax_t max)
+{
+  fprintf (stderr,
+           _("Values for the argument of the -%c option must be between %"
+             PRIuMAX " and %" PRIuMAX " inclusive.\n"), opt, min, max);
+}
 
 int
 main (int argc, char **argv)
@@ -571,28 +583,52 @@ main (int argc, char **argv)
           break;
 
         case 'L':              /* POSIX */
-          bc_ctl.lines_per_exec =
-            parse_num (optarg, /* option= */ 'L', /*min= */ 1L, /*max= */ -1L,
-                       /*fatal= */ 1);
-          /* -L excludes -i -n.  */
-          if (bc_ctl.args_per_exec != 0)
-            {
-              warn_mutually_exclusive ("-L", "--max-args");
-              bc_ctl.args_per_exec = 0;
-            }
-          if (bc_ctl.replace_pat != NULL)
-            {
-              warn_mutually_exclusive ("-L", "--replace");
-              bc_ctl.replace_pat = NULL;
-            }
+          {
+            uintmax_t val = 0;
+            if (!parse_unsigned_num (optarg,
+                                     /* option= */ 'L',
+                                     /* min= */ 1,
+                                     /* max= */ BC_LINES_PER_EXEC_MAX,
+                                     /* silent= */ false,
+                                     &val))
+              {
+                usage (EXIT_FAILURE);
+              }
+            bc_ctl.lines_per_exec = val;
+
+            /* -L excludes -i -n.  */
+            if (bc_ctl.args_per_exec != 0)
+              {
+                warn_mutually_exclusive ("-L", "--max-args");
+                bc_ctl.args_per_exec = 0;
+              }
+            if (bc_ctl.replace_pat != NULL)
+              {
+                warn_mutually_exclusive ("-L", "--replace");
+                bc_ctl.replace_pat = NULL;
+              }
+          }
           break;
 
         case 'l':              /* deprecated */
           if (optarg)
-            bc_ctl.lines_per_exec = parse_num (optarg, /*option= */ 'l', /*min= */ 1L,  /*max= */
-                                               -1L, /*fatal= */ 1);
+            {
+              uintmax_t val = 0;
+              if (!parse_unsigned_num (optarg,
+                                       /* option= */ 'l',
+                                       /* min= */ 1,
+                                       /* max= */ BC_LINES_PER_EXEC_MAX,
+                                       /* silent= */ false,
+                                       &val))
+                {
+                  usage (EXIT_FAILURE);
+                }
+              bc_ctl.lines_per_exec = val;
+            }
           else
-            bc_ctl.lines_per_exec = 1;
+            {
+              bc_ctl.lines_per_exec = 1;
+            }
           /* -l excludes -i -n.  */
           if (bc_ctl.args_per_exec != 0)
             {
@@ -607,28 +643,40 @@ main (int argc, char **argv)
           break;
 
         case 'n':
-          bc_ctl.args_per_exec =
-            parse_num (optarg, /*option= */ 'n', /*min= */ 1L, /*max= */ -1L,
-                       /*fatal= */ 1);
-          /* -n excludes -i -l.  */
-          if (bc_ctl.lines_per_exec != 0)
-            {
-              warn_mutually_exclusive ("--max-args/-n", "--max-lines");
-              bc_ctl.lines_per_exec = 0;
-            }
-          if (bc_ctl.replace_pat != NULL)
-            {
-              if (bc_ctl.args_per_exec == 1)
-                {
-                  /* ignore -n1 in '-i -n1' - https://sv.gnu.org/patch/?1500 */
-                  bc_ctl.args_per_exec = 0;
-                }
-              else
-                {
-                  warn_mutually_exclusive ("--max-args/-n", "--replace");
-                  bc_ctl.replace_pat = NULL;
-                }
-            }
+          {
+            uintmax_t val;
+            if (!parse_unsigned_num (optarg,
+                                     /* option= */ 'n',
+                                     /* min= */ 1,
+                                     /* max= */ BC_ARGS_PER_EXEC_MAX,
+                                     /* silent= */ false,
+                                     &val))
+              {
+                usage (EXIT_FAILURE);
+              }
+            bc_ctl.args_per_exec = val;
+
+
+            /* -n excludes -i -l.  */
+            if (bc_ctl.lines_per_exec != 0)
+              {
+                warn_mutually_exclusive ("--max-args/-n", "--max-lines");
+                bc_ctl.lines_per_exec = 0;
+              }
+            if (bc_ctl.replace_pat != NULL)
+              {
+                if (bc_ctl.args_per_exec == 1)
+                  {
+                    /* ignore -n1 in '-i -n1' - https://sv.gnu.org/patch/?1500 */
+                    bc_ctl.args_per_exec = 0;
+                  }
+                else
+                  {
+                    warn_mutually_exclusive ("--max-args/-n", "--replace");
+                    bc_ctl.replace_pat = NULL;
+                  }
+              }
+          }
           break;
 
           /* The POSIX standard specifies that it is not an error
@@ -637,22 +685,51 @@ main (int argc, char **argv)
            */
         case 's':
           {
-            size_t arg_size;
+            uintmax_t val = 2;
+            bool positive_overflow = false;
             act_on_init_result ();
-            arg_size = parse_num (optarg,
-                                  /*option= */ 's',
-                                  /*min= */ 1L,
-                                  /*max= */ bc_ctl.posix_arg_size_max,
-                                  /*fatal= */ 0);
-            if (arg_size > bc_ctl.posix_arg_size_max)
+            /* Convert the number but don't clamp it because clamping
+             * this value is supposed to be silent.  We set
+             * silent=true below in order to get error messages about
+             * un-convertable values since we still need those.
+             */
+            if (!parse_unsigned_num (optarg,
+                                     /* option= */ 's',
+                                     /* min= */ 0,
+                                     /* max= */ UINTMAX_MAX,
+                                     /* silent= */ true,
+                                     &val))
               {
-                error (0, 0,
-                       _("warning: value %ld for -s option is too large, "
-                         "using %ld instead"),
-                       (long) arg_size, (long) bc_ctl.posix_arg_size_max);
-                arg_size = bc_ctl.posix_arg_size_max;
+                if (val == UINTMAX_MAX)
+                  {
+                    positive_overflow = true;
+                  }
+                else
+                  {
+                    /* Option argument wasn't a number or it was a
+                     * negative number.
+                     */
+                    fprintf (stderr,
+                             _
+                             ("%s: option argument %s for the -s option should be a non-negative decimal number\n"),
+                             program_name, optarg);
+                    usage (EXIT_FAILURE);
+                  }
               }
-            bc_ctl.arg_max = arg_size;
+            if (positive_overflow || (val > bc_ctl.posix_arg_size_max))
+              {
+                /* If the -s argument can be parsed as a number but is
+                 * outside the supported range, POSIX requires that we
+                 * reduce it to the maximum allowable value.  This
+                 * probably also means that we cannot issue a
+                 * diagnostic.
+                 */
+                bc_ctl.arg_max = bc_ctl.posix_arg_size_max;
+              }
+            else
+              {
+                bc_ctl.arg_max = val;
+              }
           }
           break;
 
@@ -682,9 +759,30 @@ main (int argc, char **argv)
           break;
 
         case 'P':
-          /* Allow only up to MAX_PROC_MAX child processes. */
-          proc_max = parse_num (optarg, /*option= */ 'P', /*min= */ 0L, /*max= */
-                                MAX_PROC_MAX, /*fatal= */ 1);
+          {
+            uintmax_t val = 2;
+            /* Allow only up to MAX_PROC_MAX child processes. */
+            if (!parse_unsigned_num (optarg,
+                                     /* option= */ 'P',
+                                     /* min= */ 0L,
+                                     /* max= */ MAX_PROC_MAX,
+                                     /* silent= */ false,
+                                     &val))
+              {
+                /* The number is invalid or was clamped to the range
+                 * [0, MAX_PROC_MAX].  Clamping to MAX_PROC_MAX is
+                 * harmless; other failures indicate that the user's
+                 * instruction can't be followed (the argument was not
+                 * a valid number or it was a negative number).
+                 */
+                if (val != MAX_PROC_MAX)
+                  {
+                    usage (EXIT_FAILURE);
+                  }
+              }
+            proc_max = val;
+          }
+
 #if defined SIGUSR1 && defined SIGUSR2
           catch_usr_signals = true;
 #else
@@ -822,6 +920,14 @@ main (int argc, char **argv)
       fprintf (stderr,
                _("Maximum parallelism (--max-procs must be no greater): %"
                  PRIuMAX "\n"), (uintmax_t) MAX_PROC_MAX);
+      show_option_arg_bounds ('L', 1, BC_LINES_PER_EXEC_MAX);
+      show_option_arg_bounds ('l', 1, BC_LINES_PER_EXEC_MAX);
+      show_option_arg_bounds ('n', 1, BC_ARGS_PER_EXEC_MAX);
+      fprintf (stderr,
+               _("Option arguments for the -s option should be positive.  "
+                 "If they are over %" PRIuMAX
+                 ", they are silently reduced.\n"),
+               bc_ctl.posix_arg_size_max);
 
       if (isatty (STDIN_FILENO))
         {
@@ -1729,44 +1835,220 @@ decrement_proc_max (int ignore)
 }
 
 
-/* Return the value of the number represented in STR.
-   OPTION is the command line option to which STR is the argument.
-   If the value does not fall within the boundaries MIN and MAX,
-   Print an error message mentioning OPTION.  If FATAL is true,
-   we also exit. */
-static long
-parse_num (char *str, int option, long int min, long int max, int fatal)
+/* Return the value of the number represented in STR.  OPTION is the
+   command line option to which STR is the argument.  MIN and MAX
+   specify the valid range.  SILENT controls the printing of error
+   messages.
+
+   On success: *OUT is set to the converted value, and true is
+   returned.
+
+   Failure cases:
+
+   1. Input is not a number or is followed by non-digits: *OUT is
+   unchanged. False is returned.
+
+   2. Input is out of range: *OUT is set to the corresponding extreme
+   of the valid range [MIN, MAX]. False is returned.
+
+   In failure cases, an error message is printed unless SILENT is
+   true.  No error message is printed in the success case.
+*/
+static bool
+parse_signed_num (char *str,
+                  int option,
+                  intmax_t min, intmax_t max, bool silent, intmax_t *out)
 {
   char *eptr;
-  long val;
+  intmax_t val;
 
-  val = strtol (str, &eptr, 10);
+  errno = 0;
+  val = strtoimax (str, &eptr, 10);
   if (eptr == str || *eptr)
     {
-      fprintf (stderr, _("%s: invalid number \"%s\" for -%c option\n"),
-               program_name, str, option);
-      usage (EXIT_FAILURE);
-      exit (EXIT_FAILURE);
+      if (!silent)
+        {
+          fprintf (stderr, _("%s: invalid number \"%s\" for -%c option\n"),
+                   program_name, str, option);
+        }
+      return false;
     }
-  else if (val < min)
-    {
-      fprintf (stderr, _("%s: value %s for -%c option should be >= %ld\n"),
-               program_name, str, option, min);
-      if (fatal)
-        usage (EXIT_FAILURE);
 
-      val = min;
-    }
-  else if (max >= 0 && val > max)
+  if (val == INTMAX_MAX && errno)
     {
-      fprintf (stderr, _("%s: value %s for -%c option should be <= %ld\n"),
-               program_name, str, option, max);
-      if (fatal)
-        usage (EXIT_FAILURE);
-
-      val = max;
+      if (!silent)
+        {
+          fprintf (stderr,
+                   _
+                   ("%s: value %s for -%c option could not be converted (values above %"
+                    PRIiMAX " are not supported)\n"), program_name, str,
+                   option, INTMAX_MAX);
+        }
+      *out = max < INTMAX_MAX ? max : INTMAX_MAX;
+      return false;
     }
-  return val;
+
+  if (val == INTMAX_MIN && errno)
+    {
+      if (!silent)
+        {
+          fprintf (stderr,
+                   _
+                   ("%s: value %s for -%c option could not be converted (values below %"
+                    PRIiMAX " are not supported)\n"), program_name, str,
+                   option, INTMAX_MIN);
+        }
+      *out = min > INTMAX_MIN ? min : INTMAX_MIN;
+      return false;
+    }
+
+  if (val < min)
+    {
+      if (!silent)
+        {
+          fprintf (stderr,
+                   _("%s: value %s for -%c option should be >= %ld\n"),
+                   program_name, str, option, min);
+        }
+      *out = min;
+      return false;
+    }
+
+  if (max >= 0 && val > max)
+    {
+      if (!silent)
+        {
+          fprintf (stderr,
+                   _("%s: value %s for -%c option should be <= %ld\n"),
+                   program_name, str, option, max);
+        }
+      *out = max;
+      return false;
+    }
+
+  *out = val;
+  return true;
+}
+
+/* Return the value of the number represented in STR.  OPTION is the
+   command line option to which STR is the argument.  MIN and MAX
+   specify the valid range.  SILENT controls the printing of error
+   messages.
+
+   On success: *OUT is set to the converted value, and true is
+   returned.
+
+   Failure cases:
+
+   1. Input is not a number or is followed by non-digits: *OUT is
+   unchanged. False is returned.
+
+   2. Input is out of range: *OUT is set to the corresponding extreme
+   of the valid range [MIN, MAX]. False is returned.
+
+   In failure cases, an error message is printed unless SILENT is
+   true.  No error message is printed in the success case.
+*/
+static bool
+parse_unsigned_num (char *str, int option, uintmax_t min, uintmax_t max,
+                    bool silent, uintmax_t *out)
+{
+  /* We initialise ival to determine whether a converted value got
+   * clamped in the call to parse_signed_num.
+   */
+  intmax_t ival = 2;
+  /* Attempt a signed conversion so that we can tell if the number
+   * specified was negative.
+   */
+  if (!parse_signed_num (str, option,
+                         /* min= */ 0,
+                         /* max= */ INTMAX_MAX,
+                         /* silent= */ true,
+                         &ival))
+    {
+      /* Since parse_signed_num() failed, we know that the string
+       * value is either not a valid number, it is less than zero, or
+       * it is greater than INTMAX_MAX.
+       *
+       * In the n > INTMAX_MAX case, val==INTMAX_MAX; we will handle
+       * this case below after attempting an unsigned conversion.
+       *
+       * In the not-valid-number case, ival will not have been
+       * modified (i.e. will still be 2).
+       */
+      if (ival == 0)
+        {
+          /* Input is a valid but negative number.  strtoumax() cannot
+           * detect this case (it converts them as positive numbers).
+           */
+          *out = 0;
+          if (!silent)
+            {
+              /* The limit we mention here is MIN rather than 0,
+               * because MIN is the actual lower limit. */
+              fprintf (stderr,
+                       _("%s: value %s for -%c option should be >= %" PRIuMAX
+                         "\n"), program_name, str, option, min);
+            }
+          return false;
+        }
+    }
+
+  char *eptr;
+  uintmax_t val;
+
+  errno = 0;
+  val = strtoumax (str, &eptr, 10);
+  if (eptr == str || *eptr)
+    {
+      if (!silent)
+        {
+          fprintf (stderr, _("%s: invalid number \"%s\" for -%c option\n"),
+                   program_name, str, option);
+        }
+      return false;
+    }
+
+  if (val == UINTMAX_MAX && errno)
+    {
+      if (!silent)
+        {
+          fprintf (stderr,
+                   _
+                   ("%s: value %s for -%c option could not be converted (values above %"
+                    PRIuMAX " are not supported)\n"), program_name, str,
+                   option, UINTMAX_MAX);
+        }
+      *out = max < UINTMAX_MAX ? max : UINTMAX_MAX;
+      return false;
+    }
+
+  if (val < min)
+    {
+      if (!silent)
+        {
+          fprintf (stderr,
+                   _("%s: value %s for -%c option should be >= %" PRIuMAX
+                     "\n"), program_name, str, option, min);
+        }
+      *out = min;
+      return false;
+    }
+
+  if (val > max)
+    {
+      if (!silent)
+        {
+          fprintf (stderr,
+                   _("%s: value %s for -%c option should be <= %" PRIuMAX
+                     "\n"), program_name, str, option, max);
+        }
+      *out = max;
+      return false;
+    }
+
+  *out = val;
+  return true;
 }
 
 static void

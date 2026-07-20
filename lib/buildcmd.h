@@ -21,6 +21,7 @@
 # define INC_BUILDCMD_H 1
 
 # include <stdbool.h>
+# include <limits.h>
 
 struct buildcmd_state
 {
@@ -103,6 +104,9 @@ struct buildcmd_control
   /* The maximum number of arguments to use per command line.  */
   size_t args_per_exec;
 };
+
+# define BC_LINES_PER_EXEC_MAX ULONG_MAX
+# define BC_ARGS_PER_EXEC_MAX  SIZE_MAX
 
 enum BC_INIT_STATUS
 {

@@ -606,6 +606,15 @@ This may not be true of other implementations, so you should use
 .B \-E \[dq]\[dq]
 to be certain.
 .TP
+.B \-I
+Supported.
+.TP
+.B \-L
+Supported.
+The valid range for the argument exceeds the range required by POSIX
+(1\[en]2147483647).  To see the actual range of supported values, use
+\-\-show-limits.
+.TP
 .B \-e
 Removed from POSIX in IEEE Std 1003.1, 2004.
 GNU
@@ -630,6 +639,12 @@ still supports this but you should use
 .B \-L
 instead.
 .TP
+.B \-n
+Supported.
+The valid range for the argument exceeds the range required by POSIX
+(1\[en]2147483647).  To see the actual range of supported values, use
+\-\-show-limits.
+.TP
 .B \-o
 An extension to the POSIX standard for better
 compatibility with BSD.  Not in POSIX.
@@ -642,20 +657,40 @@ Added to POSIX in IEEE Std 1003.1, 2004.
 A GNU extension since before 1994.
 Added to POSIX in IEEE Std 1003.1, 2024.
 .TP
+.B \-s
+Supported.
+.
+To see the actual range of supported values, use
+\-\-show-limits.   See also EXEC SYSTEM CALL AND COMMAND LINE LENGTH
+LIMITS below.
+.TP
 .B \-0
 A GNU extension since before 1994.
 Added to POSIX in IEEE Std 1003.1, 2024.
 .
-.SS EXEC SYSTEM CALL LIMITS
+.SS EXEC SYSTEM CALL AND COMMAND LINE LENGTH LIMITS
 .P
 The POSIX standard allows implementations to have a limit on the size
 of arguments to the
 .B exec
+functions.  This limit could be as low as 4096 bytes including the
+size of the environment. For scripts to be portable, they must not
+rely on a value larger than 4096.  However, I know of no
+implementation whose actual limit is that small.
+.P
+The \-s option controls the maximum command-line length used by
+.BR xargs ,
+though this is independent of any limit on
+.B exec
 functions.
-This limit could be as low as 4096 bytes including the size of the
-environment.
-For scripts to be portable, they must not rely on a larger value.
-However, I know of no implementation whose actual limit is that small.
+The maximum supported value for the argument of
+.B \-s
+exceeds the POSIX requirement, which is that it should be at least as
+great as
+.BR "$(getconf LINE_MAX)" .
+.B LINE_MAX
+must be at least 2048.
+.
 The
 .B \-\-show\-limits
 option can be used to discover the actual limits in force on the

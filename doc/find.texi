@@ -2809,12 +2809,21 @@ input line to be logically continued on the next input line, for the
 purpose of counting the lines.  Implies @samp{-x}.  The preferred name
 for this option is @samp{-L} as this is specified by POSIX.
 
+The valid range for the @var{max-lines} argument exceeds the range
+required by POSIX (1--2147483647).  To see the actual range of
+supported values, use @samp{--show-limits}.
+
+
 @item --max-args=@var{max-args}
 @itemx -n @var{max-args}
 Use at most @var{max-args} arguments per command line.  Fewer than
 @var{max-args} arguments will be used if the size (see the @samp{-s}
 option) is exceeded, unless the @samp{-x} option is given, in which
 case @code{xargs} will exit.
+
+The valid range for the @var{max-args} argument exceeds the range
+required by POSIX (1--2147483647).  To see the actual range of
+supported values, use @samp{--show-limits}.
 
 @item --max-chars=@var{max-chars}
 @itemx -s @var{max-chars}

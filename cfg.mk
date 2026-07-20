@@ -72,7 +72,7 @@ exclude_file_name_regexp--sc_trailing_blank = \
 exclude_file_name_regexp--sc_prohibit_empty_lines_at_EOF = \
 	^(.*/testsuite/.*\.(xo|xi|xe))|COPYING|doc/regexprops\.texi|m4/order-(bad|good)\.bin$$
 exclude_file_name_regexp--sc_bindtextdomain = \
-	^lib/(regexprops|test_splitstring)\.c$$
+	^lib/(regexprops|test_splitstring|test-add-one)
 exclude_file_name_regexp--sc_prohibit_always_true_header_tests = \
 	^(build-aux/src-sniff\.py)|ChangeLog$$
 exclude_file_name_regexp--sc_prohibit_test_minus_ao = \
@@ -90,11 +90,11 @@ exclude_file_name_regexp--sc_texinfo_acronym = doc/perm\.texi
 
 # List syntax-check exemptions.
 exclude_file_name_regexp--sc_bindtextdomain = \
-  ^(locate/frcode|lib/regexprops|lib/test_splitstring|find/getlimits|tests/xargs/test-sigusr)\.c$$
+  ^(locate/frcode|lib/regexprops|lib/test-add-one|lib/test_splitstring|find/getlimits|tests/.*/test.*)\.c$$
 
 # sc_unmarked_diagnostics: exempt internal programs.
 exclude_file_name_regexp--sc_unmarked_diagnostics = \
-  ^(tests/xargs/test-sigusr)\.c$$
+  ^(tests/[a-z_0-9/-]*)\.c$$
 
 # Things that 'codespell' mistakenly flags as typos.
 codespell_ignore_words_list = afile,bu,debbugs,filll,fo,hel,ois,siz,ublic,TE,
