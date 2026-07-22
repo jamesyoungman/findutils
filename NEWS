@@ -2,6 +2,25 @@ GNU findutils NEWS - User visible changes.      -*- outline -*- (allout)
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
+** Bug Fixes
+
+  Xargs now issues an error when the argument to -L, -l or -n is
+  outside the supported range (i.e. greater than 18446744073709551615
+  on 64-bit systems). Previously, it silently used the largest
+  supported value.  The --show-limits option now shows the valid
+  range for the arguments to these options.
+
+** Documentation Changes
+
+  Bernhard Voelker is credited as an author of the Texinfo manual.
+
+  The STANDARDS CONFORMANCE section of the xargs manual page (in
+  addition to the Info documentation) now explicitly states that the
+  POSIX options -I, -L, -n and -s are supported and compliant. The
+  OPTIONS section of the manual page already documented these options,
+  of course. The STANDARDS CONFORMANCE section now also describes the
+  effect of the -s option.
+
 ** Changes to the release process
 
 We now use the gnulib module readme-release which automates more of
